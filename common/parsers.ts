@@ -76,7 +76,7 @@ export const interpolateLevelPair = (
     after: timeDiffs.after / timeDiffs.total,
   };
   const interp = before.level * weights.before + after.level * weights.after;
-  return Math.round(interp);
+  return Math.round(interp * 10) / 10;
 };
 
 type InterpolateBmUnitLevelPairsParams = {
