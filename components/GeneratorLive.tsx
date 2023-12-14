@@ -27,7 +27,7 @@ export const GeneratorLive = () => {
       data={data}
       estimatedItemSize={1000}
       renderItem={({ item }) => (
-        <at.listItems.GeneratorLive name={item.id} level={item.level} />
+        <at.listItems.GeneratorLive name={item.details.name} level={item.level} />
       )}
     />
   );

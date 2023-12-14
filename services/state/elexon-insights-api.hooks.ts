@@ -62,19 +62,19 @@ export const useGenerationLiveQuery = () => {
 
     log.debug(`useGenerationLiveQuery: interpolating bmUnitLevelPairs `);
 
-    const data = p.sortDescendingBmUnitValues(
-      p.interpolateBmUnitLevelPairs({
-        bmUnitLevelPairs: combined,
-        time: nowTime.toISOString(),
-        omitZero: true,
-      })
-    );
+    const units =  p.interpolateBmUnitLevelPairs({
+      bmUnitLevelPairs: combined,
+      time: nowTime.toISOString(),
+      omitZero: true,
+    })
+
+    const unitGroups = p.groupByUnitGroup(units)
 
     return {
       updated: pns.data && nowTime,
       isLoading: pns.isLoading,
       refetch: pns.refetch,
-      data,
+      data: unitGroups.sort((a, b) => b.level - a.level),
     };
   } catch (e) {
     log.debug(`useGenerationLiveQuery: caught error: ${e}`);

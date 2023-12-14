@@ -78,3 +78,36 @@ export type ElexonInsightsAcceptancesParsed = ElexonInsightsAcceptancesParsedNoL
 }
 
 export type ElexonInsightsAcceptancesResponseParsed = Record<BmUnitId, ElexonInsightsAcceptancesParsed[]>
+
+export type FuelType = 'gas' | 'coal' | 'nuclear' | 'wind' | 'hydro' | 'biomass' | 'solar' | 'oil' | 'other'
+
+
+export type UnitGroupUnit = {
+    bmUnit: string;
+    name?: string;
+}
+
+export type UnitGroupDetails = {
+    name: string; // Pembroke
+    coords: {
+        lat: number;
+        lng: number;
+    }
+    fuelType: FuelType
+}
+
+export type UnitGroup = {
+    details: UnitGroupDetails;
+    units: UnitGroupUnit[]
+}
+
+export type UnitGroupUnitLevel = {
+    unit: UnitGroupUnit;
+    level: number;
+}
+
+export type UnitGroupLevel = {
+    details: UnitGroupDetails;
+    units: UnitGroupUnitLevel[]
+    level: number;
+}
