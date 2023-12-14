@@ -57,6 +57,7 @@ export const useGenerationLiveQuery = () => {
   });
   const pns = usePnAllQuery(getSettlementPeriod(nowTime.toISOString()));
   return {
+    updated: nowTime,
     isLoading: pns.isLoading,
     data:
       pns.data &&

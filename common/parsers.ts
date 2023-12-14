@@ -65,7 +65,8 @@ export const interpolateLevelPair = (time: string, levelPairs: t.LevelPair[]): n
         before: timeDiffs.before / timeDiffs.total,
         after: timeDiffs.after / timeDiffs.total
     }
-    return before.level * weights.before + after.level * weights.after
+    const interp = before.level * weights.before + after.level * weights.after
+    return Math.round(interp)
 }
 
 type InterpolateBmUnitLevelPairsParams = {

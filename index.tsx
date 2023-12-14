@@ -3,10 +3,10 @@ import { registerRootComponent } from "expo";
 import { ExpoRoot } from "expo-router";
 import { Provider } from "react-redux";
 import { store } from "./services/state";
-// import { Platform } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import {ThemeProvider} from '@rneui/themed';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -37,11 +37,11 @@ export const App = () => {
     return null;
   }
   return (
-    // <ThemeProvider>
+    <ThemeProvider>
       <Provider store={store}>
           <ExpoRoot context={ctx} />
       </Provider>
-    // </ThemeProvider>
+    </ThemeProvider>
   );
 };
 

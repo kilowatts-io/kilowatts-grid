@@ -1,33 +1,26 @@
 import React from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { getSettlementPeriod } from "../common/utils";
 import { useGenerationLiveQuery } from "../services/state/elexon-insights-api";
-import { FlatList } from "react-native-gesture-handler";
+import {FlashList}  from "@shopify/flash-list";
+import { useNavigation } from "expo-router";
+import * as at from '../atoms'
 
 export const GeneratorLive = () => {
-  const nowTime = new Date().toISOString();
-  const { settlementDate, settlementPeriod } = getSettlementPeriod(nowTime);
-  const { data, isLoading } = useGenerationLiveQuery();
-  // const {
-  //   data,
-  //   isLoading
-  // } = usePnAllQuery({
-  //   settlementDate,
-  //   settlementPeriod
-  // })
+  const nav = useNavigation()
+  const { data, isLoading, updated } = useGenerationLiveQuery();
+  React.useEffect(() => {
+    nav.setOptions({
+      title: `Major Generators Live Output: ${updated.toLocaleTimeString()}`
+    })
+  }, [data])
   if (isLoading || !data) {
     return <ActivityIndicator />;
   }
   return (
-    <FlatList
+    <FlashList
       data={data}
-      renderItem={({ item }) => {
-        return (
-          <Text style={{ color: "white" }}>
-            {item.id} {item.level}
-          </Text>
-        );
-      }}
+      estimatedItemSize={1000}
+      renderItem={({ item }) => (<at.listItems.GeneratorLive name={item.id} level={item.level} />)}
     />
   );
 };
