@@ -153,7 +153,6 @@ type CombinePnsAndAccsParams = {
 export const combinePnsAndAccs = ({pns, accs}: CombinePnsAndAccsParams): t.BmUnitLevelPairs => {
   log.debug(`combinePnsAndAccs`)
   let output: t.BmUnitLevelPairs = {}
-  console.log(accs)
   for (const bmUnit of Object.keys(pns)) {
     log.debug(`combinePnsAndAccs: combining ${bmUnit}`)
     if(!Object.keys(accs).includes(bmUnit)) {
