@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator} from "react-native";
 import { useGenerationLiveQuery } from "../services/state/elexon-insights-api";
 import {FlashList}  from "@shopify/flash-list";
 import { useNavigation } from "expo-router";
