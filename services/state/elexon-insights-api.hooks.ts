@@ -3,13 +3,22 @@ import React from "react";
 import { useAccAllQuery, usePnAllQuery } from "./elexon-insights-api";
 import * as p from "../../common/parsers";
 import log from "../log";
+import { AppState } from "react-native";
 
 export const UPDATE_INTERVAL_LIVE_GENERATION_SECS = 1;
+export const POLLING_INTERVAL_ACCS_SECS = 15;
 
 export const useGenerationLiveQuery = () => {
   const [nowTime, setNowTime] = React.useState(new Date());
+
+  const pns = usePnAllQuery(getSettlementPeriod(nowTime.toISOString()));
+  const accs = useAccAllQuery(getSettlementPeriod(nowTime.toISOString()), {
+    pollingInterval: POLLING_INTERVAL_ACCS_SECS * 1000,
+  });
+
   React.useEffect(() => {
     log.debug(`useGenerationLiveQuery: mounting`);
+
     const interval = setInterval(() => {
       log.debug(`useGenerationLiveQuery: updating nowTime`);
       setNowTime(new Date());
@@ -18,9 +27,24 @@ export const useGenerationLiveQuery = () => {
       log.debug(`useGenerationLiveQuery: dismounting`);
       clearInterval(interval);
     };
-  });
-  const pns = usePnAllQuery(getSettlementPeriod(nowTime.toISOString()));
-  const accs = useAccAllQuery(getSettlementPeriod(nowTime.toISOString()));
+  }, []);
+
+  React.useEffect(() => {
+    const appStateListener = AppState.addEventListener(
+      "change",
+      (nextAppState) => {
+        if (nextAppState === "active") {
+          log.debug(
+            `useGenerationLiveQuery: appStateListener: active -- refetching`
+          );
+          accs.refetch();
+        }
+      }
+    );
+    return () => {
+      appStateListener.remove();
+    };
+  }, []);
 
   if (!pns.data || !accs.data) {
     return {
@@ -30,13 +54,13 @@ export const useGenerationLiveQuery = () => {
   }
 
   try {
-    log.debug(`useGenerationLiveQuery: combining pns and accs`)
+    log.debug(`useGenerationLiveQuery: combining pns and accs`);
     const combined = p.combinePnsAndAccs({
       pns: pns.data,
       accs: accs.data,
     });
 
-    log.debug(`useGenerationLiveQuery: interpolating bmUnitLevelPairs `)
+    log.debug(`useGenerationLiveQuery: interpolating bmUnitLevelPairs `);
 
     const data = p.sortDescendingBmUnitValues(
       p.interpolateBmUnitLevelPairs({
