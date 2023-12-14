@@ -23,4 +23,18 @@ export const queries = {
     );
     return output;
   },
+  accAll: (
+    r: t.ElexonInsightsAcceptancesResponse
+  ): t.ElexonInsightsAcceptancesResponseParsed => {
+    log.debug(`accAll: ${r.data.length} acceptance interval records found.. transformResponse`);
+    const withLevels = p.parseAcceptancesWithLevels(r.data);
+    log.debug(`accAll: ${withLevels.length} individual acceptances found`);
+    let output: t.ElexonInsightsAcceptancesResponseParsed = {};
+    for (const bmUnit of p.getBmUnits(withLevels)) {
+      output[bmUnit] = withLevels
+        .filter((x) => x.bmUnit === bmUnit)
+        .sort((a, b) => a.acceptanceTime.localeCompare(b.acceptanceTime));
+    }
+    return output;
+  },
 };

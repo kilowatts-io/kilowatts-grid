@@ -50,12 +50,17 @@ export type ElexonInsightsAcceptancesDataRecord = {
     levelFrom: number;
     levelTo: number;
     nationalGridBmUnit: string;
+    bmUnit: string;
     acceptanceNumber: number;
     acceptanceTime: string;
     deemedBoFlag: boolean;
     soFlag: boolean;
     storFlag: boolean;
     rrFlag: boolean;
+}
+
+export type ElexonInsightsAcceptancesResponse = {
+    data: ElexonInsightsAcceptancesDataRecord[];
 }
 
 export type ElexonInsightsAcceptancesParsedNoLevels = {
@@ -71,3 +76,5 @@ export type ElexonInsightsAcceptancesParsedNoLevels = {
 export type ElexonInsightsAcceptancesParsed = ElexonInsightsAcceptancesParsedNoLevels & {
     levels: LevelPair[];
 }
+
+export type ElexonInsightsAcceptancesResponseParsed = Record<BmUnitId, ElexonInsightsAcceptancesParsed[]>

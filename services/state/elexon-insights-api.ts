@@ -19,8 +19,18 @@ export const elexonInsightsApi = createApi({
         }`,
       transformResponse: tr.queries.pnAll,
     }),
+    accAll: builder.query<
+    t.ElexonInsightsAcceptancesResponseParsed,
+    t.ElexonInsightsPNAllParams
+  >({
+    query: (p) =>
+      `/balancing/acceptances/all?settlementDate=${p.settlementDate}${
+        p.settlementPeriod ? `&settlementPeriod=${p.settlementPeriod}` : ""
+      }`,
+    transformResponse: tr.queries.accAll,
+  }),
   }),
 });
 
-export const { usePnAllQuery } = elexonInsightsApi;
+export const { usePnAllQuery, useAccAllQuery } = elexonInsightsApi;
 

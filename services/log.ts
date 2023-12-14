@@ -1,7 +1,8 @@
 
 
 export const log = {
-    debug: (msg: string) => console.log(msg)
+    debug: (msg: string) => {},
+    info: (msg: string) => console.log(msg),
 }
 
 export default log

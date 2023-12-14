@@ -120,7 +120,7 @@ export const getAcceptancesNoLevels = (
   let output: Record<string, t.ElexonInsightsAcceptancesParsedNoLevels> = {};
   for (const a of x) {
     output[a.acceptanceNumber] = {
-      bmUnit: a.nationalGridBmUnit,
+      bmUnit: a.bmUnit,
       acceptanceNumber: a.acceptanceNumber,
       acceptanceTime: a.acceptanceTime,
       deemedBoFlag: a.deemedBoFlag,
@@ -132,7 +132,7 @@ export const getAcceptancesNoLevels = (
   return Object.values(output);
 };
 
-export const parseAcceptances = (
+export const parseAcceptancesWithLevels = (
   x: t.ElexonInsightsAcceptancesDataRecord[]
 ): t.ElexonInsightsAcceptancesParsed[] =>
   getAcceptancesNoLevels(x).map((a) => {
@@ -143,3 +143,36 @@ export const parseAcceptances = (
       ),
     };
   });
+
+
+type CombinePnsAndAccsParams = {
+  pns: t.ElexonInsightsPnResponseParsed;
+  accs: t.ElexonInsightsAcceptancesResponseParsed;
+}
+
+export const combinePnsAndAccs = ({pns, accs}: CombinePnsAndAccsParams): t.BmUnitLevelPairs => {
+  log.debug(`combinePnsAndAccs`)
+  let output: t.BmUnitLevelPairs = {}
+  console.log(accs)
+  for (const bmUnit of Object.keys(pns)) {
+    log.debug(`combinePnsAndAccs: combining ${bmUnit}`)
+    if(!Object.keys(accs).includes(bmUnit)) {
+      // log.debug(`combinePnsAndAccs: no acceptances found for ${bmUnit}`)
+      output[bmUnit] = pns[bmUnit]
+    } else {
+      log.debug(`combinePnsAndAccs: acceptances found for ${bmUnit}`)
+      let schedule: t.LevelPair[] = pns[bmUnit]
+      for (const acc of accs[bmUnit]) {
+        log.info(`combinePnsAndAccs: ${bmUnit} combining acceptance ${acc.acceptanceNumber}`)
+        schedule = [
+          ...schedule.filter(x => x.time < acc.levels[0].time),
+          ...acc.levels,
+          ...schedule.filter(x => x.time > acc.levels[acc.levels.length - 1].time)
+        ]
+      }
+      log.debug(`updating schedule for ${bmUnit} from ${pns[bmUnit].length} to ${schedule.length} levels`)
+      output[bmUnit] = schedule
+    }
+  }
+  return output
+}
