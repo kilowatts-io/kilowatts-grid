@@ -57,3 +57,17 @@ export type ElexonInsightsAcceptancesDataRecord = {
     storFlag: boolean;
     rrFlag: boolean;
 }
+
+export type ElexonInsightsAcceptancesParsedNoLevels = {
+    bmUnit: string;
+    acceptanceNumber: number;
+    acceptanceTime: string;
+    deemedBoFlag: boolean;
+    soFlag: boolean;
+    storFlag: boolean;
+    rrFlag: boolean;
+}
+
+export type ElexonInsightsAcceptancesParsed = ElexonInsightsAcceptancesParsedNoLevels & {
+    levels: LevelPair[];
+}
