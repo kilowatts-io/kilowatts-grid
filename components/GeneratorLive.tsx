@@ -1,30 +1,26 @@
 import React from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { useGenerationLiveQuery } from "../services/state/elexon-insights-api";
-import { FlatList } from "react-native-gesture-handler";
+import {FlashList}  from "@shopify/flash-list";
 import { useNavigation } from "expo-router";
+import * as at from '../atoms'
 
 export const GeneratorLive = () => {
   const nav = useNavigation()
   const { data, isLoading, updated } = useGenerationLiveQuery();
   React.useEffect(() => {
     nav.setOptions({
-      title: `Live Output: ${updated.toLocaleTimeString()}`
+      title: `Major Generators Live Output: ${updated.toLocaleTimeString()}`
     })
   }, [data])
   if (isLoading || !data) {
     return <ActivityIndicator />;
   }
   return (
-    <FlatList
+    <FlashList
       data={data}
-      renderItem={({ item }) => {
-        return (
-          <Text style={{ color: "white" }}>
-            {item.id} {item.level}MW
-          </Text>
-        );
-      }}
+      estimatedItemSize={1000}
+      renderItem={({ item }) => (<at.listItems.GeneratorLive name={item.id} level={item.level} />)}
     />
   );
 };
