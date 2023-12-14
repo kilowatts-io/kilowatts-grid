@@ -1,6 +1,7 @@
 import * as t from "./types";
 import log from "../services/log";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { unitGroups } from "../assets/data/units";
 
 export const getBmUnits = (records: { bmUnit: string }[]): string[] => {
   let set = new Set<string>();
@@ -171,6 +172,51 @@ export const combinePnsAndAccs = ({pns, accs}: CombinePnsAndAccsParams): t.BmUni
       }
       log.debug(`updating schedule for ${bmUnit} from ${pns[bmUnit].length} to ${schedule.length} levels`)
       output[bmUnit] = schedule
+    }
+  }
+  return output
+}
+
+// export type UnitGroup
+
+export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
+  log.debug(`getUnitGroups`)
+  let output: t.UnitGroupLevel[] = []
+  let bmUnits: string[] = []
+  for (const ug of unitGroups) {
+    let units: t.UnitGroupUnitLevel[] = []
+    for (const unit of ug.units) {
+      units.push({
+        unit,
+        level: x[unit.bmUnit] || 0
+      })
+      bmUnits.push(unit.bmUnit)
+    }
+    output.push({
+      details: ug.details,
+      units,
+      level: units.reduce((a, b) => a + b.level, 0)
+    })
+  }
+  for (const unit of Object.keys(x)) {
+    if(!bmUnits.includes(unit)) {
+      output.push({
+        details: {
+          name: unit,
+          coords: {
+            lat: 0,
+            lng: 0
+          },
+          fuelType: 'other'
+        },
+        units: [{
+          unit: {
+            bmUnit: unit
+          },
+          level: x[unit]
+        }],
+        level: x[unit]
+      })
     }
   }
   return output
