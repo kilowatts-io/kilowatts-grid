@@ -1,6 +1,11 @@
 # kilowatts open source, live balancing market app
 This first-of-its kind, open source React Native app (for web and ios/android) provides live, second-by-second information on the output of different generators on the UK grid. 
 
+# Production Targets
+Website: [![Netlify Status](https://api.netlify.com/api/v1/badges/afd64ebf-87f9-4810-bbd3-989aed2e4e06/deploy-status)](https://app.netlify.com/sites/kilowatts/deploys)
+iOS: TBC
+Android: TBC
+
 # Help wanted
 
 We need help improving our list of generators displayed in the app. In particular, we need:
