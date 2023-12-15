@@ -21,9 +21,9 @@ We need help improving our list of generators displayed in the app. In particula
 Screenshots:
 
 <div class="image-container" style="display: flex;">
-    <img src="./assets/screenshots/ios/categories.png" alt="Image 1" style="width: 45%;">
+    <img src="./assets/screenshots/ios/categories.png" alt="Image 1" style="width: 100px;">
     <div style='width: 10%'></div>
-    <img src="./assets/screenshots/ios/list.png" alt="Image 2" style="width: 45%;">
+    <img src="./assets/screenshots/ios/list.png" alt="Image 2" style="width: 100px;">
 </div>
 
 Appstore release: TBC
@@ -36,9 +36,9 @@ Appstore release: TBC
 Screenshots:
 
 <div class="image-container" style="display: flex;">
-    <img src="./assets/screenshots/web/categories.png" alt="Image 1" style="width: 45%;">
+    <img src="./assets/screenshots/web/categories.png" alt="Image 1" style="width: 100px;;">
     <div style='width: 10%'></div>
-    <img src="./assets/screenshots/web/list.png" alt="Image 2" style="width: 45%;">
+    <img src="./assets/screenshots/web/list.png" alt="Image 2" style="width: 100px;">
 </div>
 
 Deployment Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/afd64ebf-87f9-4810-bbd3-989aed2e4e06/deploy-status)](https://app.netlify.com/sites/kilowatts/deploys)
@@ -49,9 +49,9 @@ Deployment Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/afd6
 Screenshots:
 
 <div class="image-container" style="display: flex;">
-    <img src="./assets/screenshots/android/categories.png" alt="Image 1" style="width: 45%;">
+    <img src="./assets/screenshots/android/categories.png" alt="Image 1" style="width: 100px;">
     <div style='width: 10%'></div>
-    <img src="./assets/screenshots/android/list.png" alt="Image 2" style="width: 45%;">
+    <img src="./assets/screenshots/android/list.png" alt="Image 2" style="width: 100px;">
 </div>
 
 Playstore release: TBC
