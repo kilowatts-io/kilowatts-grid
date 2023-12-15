@@ -2,11 +2,13 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { elexonInsightsApi } from "./elexon-insights-api";
 import { favouritesSlice } from "./favourites";
+import { termsSlice } from "./terms";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const rootReducer = combineReducers({
     elexonInsightsApi: elexonInsightsApi.reducer,
     favouritesSlice: favouritesSlice.reducer,
+    termsSlice: termsSlice.reducer,
 });
 
 export const store = configureStore({

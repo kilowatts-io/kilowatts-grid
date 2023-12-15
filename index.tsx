@@ -6,19 +6,19 @@ import { store } from "./services/state";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {ThemeProvider} from '@rneui/themed';
-
+import { ThemeProvider } from "@rneui/themed";
+import { WithLicense } from "./components/WithLicense";
 
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 2000);
 
 export const App = () => {
-//   React.useEffect(() => {
-//     if (__DEV__ && Platform.OS !== "web") {
-//       const rt = require("./services/reactotron").initReactotron;
-//       rt();
-//     }
-//   }, []);
+  //   React.useEffect(() => {
+  //     if (__DEV__ && Platform.OS !== "web") {
+  //       const rt = require("./services/reactotron").initReactotron;
+  //       rt();
+  //     }
+  //   }, []);
 
   const [loaded, error] = useFonts({
     SpaceMono: require("./assets/fonts/SpaceMono-Regular.ttf"),
@@ -39,7 +39,9 @@ export const App = () => {
   return (
     <ThemeProvider>
       <Provider store={store}>
+        <WithLicense>
           <ExpoRoot context={ctx} />
+        </WithLicense>
       </Provider>
     </ThemeProvider>
   );
