@@ -1,7 +1,7 @@
 import * as t from "./types";
 import log from "../services/log";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { unitGroups } from "../assets/data/units";
+import { interconnectors } from "../assets/data/interconnectors";
 
 /*
 get bm units runs through a list of records. 
@@ -10,13 +10,14 @@ if filterUnits is true, it only returns units that start with T_ or E_. This rem
 */
 export const getBmUnits = (
   records: { bmUnit: string }[],
-  filterUnits: boolean = true
+  filterUnits: boolean = false
 ): string[] => {
   let set = new Set<string>();
   for (const r of records) {
     if (filterUnits) {
       if (r.bmUnit) {
         const { bmUnit } = r;
+        console.log(bmUnit);
         // this preserves transmission units, embedded units and interconnectors
         if (
           (bmUnit && bmUnit.startsWith("T_")) ||
@@ -214,6 +215,8 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
   log.debug(`getUnitGroups`);
   let output: t.UnitGroupLevel[] = [];
   let bmUnits: string[] = [];
+
+  log.debug(`getUnitGroups: domestic units`);
   for (const ug of unitGroups) {
     let units: t.UnitGroupUnitLevel[] = [];
     for (const unit of ug.units) {
@@ -229,28 +232,111 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
       level: units.reduce((a, b) => a + b.level, 0),
     });
   }
+
+  log.debug(`getUnitGroups: interconnectors`);
+  for (const int of interconnectors) {
+    let units: t.UnitGroupUnitLevel[] = [];
+    for (const unit of int.units) {
+      const level = x[unit.bmUnit] || 0;
+      units.push({
+        unit,
+        level,
+      });
+      bmUnits.push(unit.bmUnit);
+    }
+    output.push({
+      details: int.details,
+      units,
+      level: units.reduce((a, b) => a + b.level, 0),
+    });
+  }
+
+  log.debug(`getUnitGroups: other unknown units`);
   for (const unit of Object.keys(x)) {
     if (!bmUnits.includes(unit)) {
-      output.push({
-        details: {
-          name: unit,
-          coords: {
-            lat: 0,
-            lng: 0,
-          },
-          fuelType: "other",
-        },
-        units: [
-          {
-            unit: {
-              bmUnit: unit,
+      const isDomestic = unit.startsWith("T_") || unit.startsWith("E_");
+
+      if (isDomestic) {
+        output.push({
+          details: {
+            name: unit,
+            coords: {
+              lat: 0,
+              lng: 0,
             },
-            level: x[unit],
+            fuelType: "unknown",
           },
-        ],
-        level: x[unit],
-      });
+          units: [
+            {
+              unit: {
+                bmUnit: unit,
+              },
+              level: x[unit],
+            },
+          ],
+          level: x[unit],
+        });
+      }
+
+      const isInterconnector = unit.startsWith("I_");
+
+      if (isInterconnector) {
+        output.push({
+          details: {
+            name: unit,
+            coords: {
+              lat: 0,
+              lng: 0,
+            },
+            fuelType: "interconnector",
+          },
+          units: [
+            {
+              unit: {
+                bmUnit: unit,
+              },
+              level: x[unit],
+            },
+          ],
+          level: x[unit],
+        });
+      }
     }
   }
   return output;
 };
+
+/*
+Group by fuel type
+
+Group the output of groupByUnitGroup by fuel type
+*/
+export const groupByFuelTypeAndInterconnectors = (x: t.UnitGroupLevel[]): t.FuelTypeLevel[] => {
+  log.debug(`groupByFuelType`);
+  let output: t.FuelTypeLevel[] = [];
+  let fuelTypesAndInterconnectors: t.FuelType[] = [];
+  log.debug(`groupByFuelType: getting fuel types for domestic generators`);
+  for (const ug of x) {
+    if (!fuelTypesAndInterconnectors.includes(ug.details.fuelType)) {
+      fuelTypesAndInterconnectors.push(ug.details.fuelType);
+    }
+  }
+
+  for (const ft of fuelTypesAndInterconnectors) {
+    output.push({
+      name: ft,
+      unitGroupLevels: x.filter((y) => y.details.fuelType === ft),
+      level: x
+        .filter((y) => y.details.fuelType === ft)
+        .reduce((a, b) => a + b.level, 0),
+    });
+  }
+
+  return output.sort(
+    (
+      a,
+      b // sort by level descending
+    ) => b.level - a.level
+  );
+};
+

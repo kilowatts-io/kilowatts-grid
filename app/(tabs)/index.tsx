@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { GeneratorLive } from '../../components/GeneratorLive';
+import { FuelTypeLive } from "../../components/FuelTypeLive";
 
 export default function TabOneScreen() {
-  return       <GeneratorLive/>
+  return       <FuelTypeLive/>
 }
