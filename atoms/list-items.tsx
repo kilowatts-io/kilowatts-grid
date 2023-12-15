@@ -6,13 +6,16 @@ import { FuelType } from '../common/types';
 import { FuelTypeIcon } from './icons';
 
 type GeneratorLiveProps = {
+    index: number;
     fuelType: FuelType;
     name: string;
     level: number;
 }
 
-export const GeneratorLive:React.FC<GeneratorLiveProps> = ({fuelType, name, level}) => <ListItem>
-   <ListItem.Content style={styles.liveContainer}>
+export const GeneratorLive:React.FC<GeneratorLiveProps> = ({index, fuelType, name, level}) => <ListItem>
+   <ListItem.Content style={styles.liveContainer}
+    testID={`generator-live-${index}`}
+   >
         <ListItem.Title>
             <FuelTypeIcon fuelType={fuelType} size={20}/>
             <View style={styles.hSpacer}/>

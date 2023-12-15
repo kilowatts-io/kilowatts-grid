@@ -1,0 +1,15 @@
+appId: com.benjaminwatts.kilowatts
+---
+- launchApp:
+    stopApp: true
+- tapOn: "I agree"
+- tapOn:
+    id: 'categories-tab-icon'
+- tapOn:
+    id: "list-tab-icon"
+- scrollUntilVisible:
+    element:
+        id: "generator-live-50"
+    direction: DOWN
+    timeout: 50000
+    speed: 20

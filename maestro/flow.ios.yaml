@@ -1,0 +1,13 @@
+appId: com.benjaminwatts.kilowatts
+---
+- launchApp:
+    stopApp: true
+- tapOn: "I agree"
+- tapOn: ", tab, 1 of 2"
+- tapOn: ", tab, 2 of 2"
+- scrollUntilVisible:
+    element:
+        id: "generator-live-100"
+    direction: DOWN
+    timeout: 50000
+    speed: 20

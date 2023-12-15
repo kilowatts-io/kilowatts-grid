@@ -28,8 +28,9 @@ export const UnitGroupLive = () => {
       ListFooterComponent={IncompleteUnknownCategories}
       data={data}
       estimatedItemSize={1000}
-      renderItem={({ item }) => (
+      renderItem={({ item, index }) => (
         <at.listItems.GeneratorLive 
+        index={index}
           fuelType={item.details.fuelType}
         name={item.details.name} level={item.level} />
       )}

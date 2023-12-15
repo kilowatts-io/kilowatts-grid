@@ -27,7 +27,9 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
       </Text>
       <Dialog.Actions>
        
-        <Dialog.Button title="I agree" onPress={onAccept} />
+        <Dialog.Button title="I agree" onPress={onAccept} 
+          testID="consent-dialog-accept-button"
+        />
         <Dialog.Button
           title="View Elexon License"
           onPress={() => {

@@ -7,6 +7,7 @@ import Colors from '../../constants/Colors';
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
+  testID: string;
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
@@ -26,7 +27,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Category',
-          tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon testID='categories-tab-icon' name="pie-chart" color={color} />,
         }}
       />
       <Tabs.Screen
@@ -34,7 +35,7 @@ export default function TabLayout() {
         options={{
           title: 'Breakdown',
           tabBarLabel: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon testID='list-tab-icon' name="list" color={color} />,
           // headerRight: () => (
           //   <Link href="/modal" asChild>
           //     <Pressable>
