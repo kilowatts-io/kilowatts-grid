@@ -3,9 +3,32 @@ import log from "../services/log";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { unitGroups } from "../assets/data/units";
 
-export const getBmUnits = (records: { bmUnit: string }[]): string[] => {
+/*
+get bm units runs through a list of records. 
+
+if filterUnits is true, it only returns units that start with T_ or E_. This removes demand units and other units that are not generators or sources of power
+*/
+export const getBmUnits = (
+  records: { bmUnit: string }[],
+  filterUnits: boolean = true
+): string[] => {
   let set = new Set<string>();
-  records.forEach((r) => set.add(r.bmUnit));
+  for (const r of records) {
+    if (filterUnits) {
+      if (r.bmUnit) {
+        const { bmUnit } = r;
+        // this preserves transmission units, embedded units and interconnectors
+        if (
+          (bmUnit && bmUnit.startsWith("T_")) ||
+          bmUnit.startsWith("E_" || bmUnit.startsWith("I_"))
+        ) {
+          set.add(r.bmUnit);
+        }
+      }
+    } else {
+      set.add(r.bmUnit);
+    }
+  }
   const output = Array.from(set);
   log.debug(
     `getBmUnits: ${output.length} units found from ${records.length} records`
@@ -145,79 +168,89 @@ export const parseAcceptancesWithLevels = (
     };
   });
 
-
 type CombinePnsAndAccsParams = {
   pns: t.ElexonInsightsPnResponseParsed;
   accs: t.ElexonInsightsAcceptancesResponseParsed;
-}
+};
 
-export const combinePnsAndAccs = ({pns, accs}: CombinePnsAndAccsParams): t.BmUnitLevelPairs => {
-  log.debug(`combinePnsAndAccs`)
-  let output: t.BmUnitLevelPairs = {}
+export const combinePnsAndAccs = ({
+  pns,
+  accs,
+}: CombinePnsAndAccsParams): t.BmUnitLevelPairs => {
+  log.debug(`combinePnsAndAccs`);
+  let output: t.BmUnitLevelPairs = {};
   for (const bmUnit of Object.keys(pns)) {
-    log.debug(`combinePnsAndAccs: combining ${bmUnit}`)
-    if(!Object.keys(accs).includes(bmUnit)) {
+    log.debug(`combinePnsAndAccs: combining ${bmUnit}`);
+    if (!Object.keys(accs).includes(bmUnit)) {
       // log.debug(`combinePnsAndAccs: no acceptances found for ${bmUnit}`)
-      output[bmUnit] = pns[bmUnit]
+      output[bmUnit] = pns[bmUnit];
     } else {
-      log.debug(`combinePnsAndAccs: acceptances found for ${bmUnit}`)
-      let schedule: t.LevelPair[] = pns[bmUnit]
+      log.debug(`combinePnsAndAccs: acceptances found for ${bmUnit}`);
+      let schedule: t.LevelPair[] = pns[bmUnit];
       for (const acc of accs[bmUnit]) {
-        log.info(`combinePnsAndAccs: ${bmUnit} combining acceptance ${acc.acceptanceNumber}`)
+        log.info(
+          `combinePnsAndAccs: ${bmUnit} combining acceptance ${acc.acceptanceNumber}`
+        );
         schedule = [
-          ...schedule.filter(x => x.time < acc.levels[0].time),
+          ...schedule.filter((x) => x.time < acc.levels[0].time),
           ...acc.levels,
-          ...schedule.filter(x => x.time > acc.levels[acc.levels.length - 1].time)
-        ]
+          ...schedule.filter(
+            (x) => x.time > acc.levels[acc.levels.length - 1].time
+          ),
+        ];
       }
-      log.debug(`updating schedule for ${bmUnit} from ${pns[bmUnit].length} to ${schedule.length} levels`)
-      output[bmUnit] = schedule
+      log.debug(
+        `updating schedule for ${bmUnit} from ${pns[bmUnit].length} to ${schedule.length} levels`
+      );
+      output[bmUnit] = schedule;
     }
   }
-  return output
-}
+  return output;
+};
 
 // export type UnitGroup
 
 export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
-  log.debug(`getUnitGroups`)
-  let output: t.UnitGroupLevel[] = []
-  let bmUnits: string[] = []
+  log.debug(`getUnitGroups`);
+  let output: t.UnitGroupLevel[] = [];
+  let bmUnits: string[] = [];
   for (const ug of unitGroups) {
-    let units: t.UnitGroupUnitLevel[] = []
+    let units: t.UnitGroupUnitLevel[] = [];
     for (const unit of ug.units) {
       units.push({
         unit,
-        level: x[unit.bmUnit] || 0
-      })
-      bmUnits.push(unit.bmUnit)
+        level: x[unit.bmUnit] || 0,
+      });
+      bmUnits.push(unit.bmUnit);
     }
     output.push({
       details: ug.details,
       units,
-      level: units.reduce((a, b) => a + b.level, 0)
-    })
+      level: units.reduce((a, b) => a + b.level, 0),
+    });
   }
   for (const unit of Object.keys(x)) {
-    if(!bmUnits.includes(unit)) {
+    if (!bmUnits.includes(unit)) {
       output.push({
         details: {
           name: unit,
           coords: {
             lat: 0,
-            lng: 0
+            lng: 0,
           },
-          fuelType: 'other'
+          fuelType: "other",
         },
-        units: [{
-          unit: {
-            bmUnit: unit
+        units: [
+          {
+            unit: {
+              bmUnit: unit,
+            },
+            level: x[unit],
           },
-          level: x[unit]
-        }],
-        level: x[unit]
-      })
+        ],
+        level: x[unit],
+      });
     }
   }
-  return output
-}
+  return output;
+};
