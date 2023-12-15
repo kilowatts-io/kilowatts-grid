@@ -31,6 +31,8 @@ export const FuelTypeIcon: React.FC<FuelTypeIconProps> = ({fuelType, size}) => {
             return <FontAwesome5 name="solar-panel"  {...props}/>;
         case 'interconnector':
             return <FontAwesome5 name="globe-europe"  {...props}/>;
+        case 'battery':
+            return <FontAwesome5 name="battery-full"  {...props}/>;
         default:
             return <FontAwesome5 name="question"  {...props}/>;
     }

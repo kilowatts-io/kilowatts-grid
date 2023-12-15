@@ -79,7 +79,7 @@ export type ElexonInsightsAcceptancesParsed = ElexonInsightsAcceptancesParsedNoL
 
 export type ElexonInsightsAcceptancesResponseParsed = Record<BmUnitId, ElexonInsightsAcceptancesParsed[]>
 
-export type FuelType = 'gas' | 'coal' | 'nuclear' | 'wind' | 'hydro' | 'biomass' | 'solar' | 'oil' | 'interconnector' | 'unknown'
+export type FuelType = 'gas' | 'coal' | 'nuclear' | 'wind' | 'hydro' | 'biomass' | 'solar' | 'oil' | 'interconnector' | 'unknown' | 'battery'
 
 export type UnitGroupUnit = {
     bmUnit: string;
