@@ -21,8 +21,7 @@ export const getBmUnits = (
         // this preserves transmission units, embedded units and interconnectors
         if (
           (bmUnit && bmUnit.startsWith("T_")) ||
-          bmUnit.startsWith("E_" || bmUnit.startsWith("I_"))
-        ) {
+          bmUnit.startsWith("E_" || bmUnit.startsWith("I_") || bmUnit.startsWith("2_"))) {
           set.add(r.bmUnit);
         }
       }
