@@ -20,13 +20,21 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarLabel: ''
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          // title: 'Loading...',
+          title: 'Category',
+          tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="unit-group"
+        options={{
+          title: 'Breakdown',
           tabBarLabel: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
           // headerRight: () => (
           //   <Link href="/modal" asChild>
           //     <Pressable>
@@ -43,13 +51,7 @@ export default function TabLayout() {
           // ),
         }}
       />
-      {/* <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      /> */}
+
     </Tabs>
   );
 }

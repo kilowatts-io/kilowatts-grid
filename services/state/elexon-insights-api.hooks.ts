@@ -8,7 +8,7 @@ import { AppState } from "react-native";
 export const UPDATE_INTERVAL_LIVE_GENERATION_SECS = 1;
 export const POLLING_INTERVAL_ACCS_SECS = 15;
 
-export const useGenerationLiveQuery = () => {
+export const useUnitGroupLiveQuery = () => {
   const [nowTime, setNowTime] = React.useState(new Date());
 
   const pns = usePnAllQuery(getSettlementPeriod(nowTime.toISOString()));
@@ -84,3 +84,18 @@ export const useGenerationLiveQuery = () => {
     };
   }
 };
+
+export const useFuelTypeLiveQuery = () => {
+  log.debug(`useFuelTypeLiveQuery: mounting`);
+  const unitGroups = useUnitGroupLiveQuery();
+  if(!unitGroups.data) {
+    log.debug(`useFuelTypeLiveQuery: no data`);
+    return unitGroups
+  } else {
+    log.debug(`useFuelTypeLiveQuery: transforming to group by fuel type`);
+    return {
+      ...unitGroups,
+      data: p.groupByFuelTypeAndInterconnectors(unitGroups.data)
+    }
+  }
+}

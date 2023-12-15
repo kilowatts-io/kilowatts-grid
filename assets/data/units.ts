@@ -215,13 +215,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-
   {
     details: {
       name: "Seagreen",
       coords: {
-        lat: 56.6355, 
-        lng:-1.9266
+        lat: 56.6355,
+        lng: -1.9266,
       },
       fuelType: "wind",
     },
@@ -244,8 +243,6 @@ export const unitGroups: UnitGroup[] = [
       {
         bmUnit: "T_SGRWO-6",
       },
-            
-
     ],
   },
 
@@ -253,8 +250,8 @@ export const unitGroups: UnitGroup[] = [
     details: {
       name: "Triton Knoll",
       coords: {
-        lat: 53.2123, 
-        lng: 0.8616
+        lat: 53.2123,
+        lng: 0.8616,
       },
       fuelType: "wind",
     },
@@ -264,8 +261,7 @@ export const unitGroups: UnitGroup[] = [
       },
       {
         bmUnit: "T_TKNWW-1",
-      }, 
-
+      },
     ],
   },
 
@@ -273,8 +269,8 @@ export const unitGroups: UnitGroup[] = [
     details: {
       name: "Fawley North",
       coords: {
-        lat: 50.8180, 
-        lng: -1.3290
+        lat: 50.818,
+        lng: -1.329,
       },
       fuelType: "gas",
     },
@@ -289,8 +285,8 @@ export const unitGroups: UnitGroup[] = [
     details: {
       name: "Walney",
       coords: {
-        lat: 54.0394, 
-        lng: 3.5158
+        lat: 54.0394,
+        lng: 3.5158,
       },
       fuelType: "wind",
     },
@@ -332,8 +328,8 @@ export const unitGroups: UnitGroup[] = [
     details: {
       name: "Connah's Quay",
       coords: {
-        lat: 53.2317, 
-        lng:-3.08149
+        lat: 53.2317,
+        lng: -3.08149,
       },
       fuelType: "gas",
     },
@@ -352,7 +348,7 @@ export const unitGroups: UnitGroup[] = [
       name: "Ratcliffe",
       coords: {
         lat: 52.866945,
-        lng:-1.256635
+        lng: -1.256635,
       },
       fuelType: "coal",
     },
