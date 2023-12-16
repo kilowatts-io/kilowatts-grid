@@ -17,9 +17,6 @@ export const UnitGroupLive = () => {
         : "Loading...",
     });
   }, [updated]);
-  if (isLoading || !data) {
-    return <ActivityIndicator />;
-  }
   return (
     <FlashList
       refreshControl={

@@ -1,7 +1,9 @@
+import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import Colors from '../../constants/Colors';
+import { ConsentDialog } from '../../atoms/dialogs';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -15,13 +17,27 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+  const [modalVisible, setModalVisible] = React.useState(false);
   const colorScheme = useColorScheme();
 
   return (
+    <>
+   <ConsentDialog isVisible={modalVisible} onAccept={() => setModalVisible(false)} />
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        tabBarLabel: ''
+        tabBarLabel: '',
+        headerRight: () => (
+          <FontAwesome
+            name="info-circle"
+            size={25}
+            color={Colors[colorScheme ?? 'light'].text}
+            style={{ marginRight: 15 }}
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          />
+        ),
       }}>
       <Tabs.Screen
         name="index"
@@ -54,5 +70,6 @@ export default function TabLayout() {
       />
 
     </Tabs>
+    </>
   );
 }
