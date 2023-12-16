@@ -2,6 +2,7 @@ import React from "react";
 import { Dialog, Text } from "@rneui/themed";
 import log from "../services/log";
 import { Linking } from "react-native";
+import { useRouter } from "expo-router";
 
 type ConsentDialogProps = {
   isVisible: boolean;
@@ -12,6 +13,7 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
   onAccept,
   isVisible,
 }) => {
+  const router = useRouter();
   return (
     <Dialog
       isVisible={isVisible}
@@ -26,8 +28,9 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
         {new Date().getFullYear()}.
       </Text>
       <Dialog.Actions>
-       
-        <Dialog.Button title="I agree" onPress={onAccept} 
+        <Dialog.Button
+          title="I agree"
+          onPress={onAccept}
           testID="consent-dialog-accept-button"
         />
         <Dialog.Button
@@ -36,6 +39,12 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
             Linking.openURL(
               "https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/"
             );
+          }}
+        />
+        <Dialog.Button
+          title="View App Privacy Policy"
+          onPress={() => {
+            router.push('/privacy')
           }}
         />
       </Dialog.Actions>
