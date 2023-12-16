@@ -4,9 +4,11 @@ import { useAccAllQuery, usePnAllQuery } from "./elexon-insights-api";
 import * as p from "../../common/parsers";
 import log from "../log";
 import { AppState } from "react-native";
+import NetInfo from "@react-native-community/netinfo";
 
 export const UPDATE_INTERVAL_LIVE_GENERATION_SECS = 1;
 export const POLLING_INTERVAL_ACCS_SECS = 15;
+export const MAX_RETRIES = 99999999
 
 export const useUnitGroupLiveQuery = () => {
   const [nowTime, setNowTime] = React.useState(new Date());
@@ -15,6 +17,11 @@ export const useUnitGroupLiveQuery = () => {
   const accs = useAccAllQuery(getSettlementPeriod(nowTime.toISOString()), {
     pollingInterval: POLLING_INTERVAL_ACCS_SECS * 1000,
   });
+
+  const refetch = () => {
+    pns.refetch();
+    accs.refetch();
+  }
 
   React.useEffect(() => {
     log.debug(`useGenerationLiveQuery: mounting`);
@@ -29,6 +36,7 @@ export const useUnitGroupLiveQuery = () => {
     };
   }, []);
 
+  // retry on app resume
   React.useEffect(() => {
     const appStateListener = AppState.addEventListener(
       "change",
@@ -37,7 +45,7 @@ export const useUnitGroupLiveQuery = () => {
           log.debug(
             `useGenerationLiveQuery: appStateListener: active -- refetching`
           );
-          accs.refetch();
+          refetch();
         }
       }
     );
@@ -45,11 +53,24 @@ export const useUnitGroupLiveQuery = () => {
       appStateListener.remove();
     };
   }, []);
+  // retry if intermet restored
+
+  React.useEffect(() => {
+    const netInfoListener = NetInfo.addEventListener((state) => {
+      if (state.isConnected) {
+        log.debug(`useGenerationLiveQuery: netInfoListener: connected`);
+        refetch();
+      }
+    });
+    return () => {
+      netInfoListener();
+    };
+  })
 
   if (!pns.data || !accs.data) {
     return {
       isLoading: pns.isLoading || accs.isLoading,
-      refetch: pns.refetch,
+      refetch,
     };
   }
 
@@ -73,14 +94,14 @@ export const useUnitGroupLiveQuery = () => {
     return {
       updated: pns.data && nowTime,
       isLoading: pns.isLoading,
-      refetch: pns.refetch,
+      refetch,
       data: unitGroups.sort((a, b) => b.level - a.level),
     };
   } catch (e) {
     log.debug(`useGenerationLiveQuery: caught error: ${e}`);
     return {
       isLoading: pns.isLoading,
-      refetch: pns.refetch,
+      refetch,
     };
   }
 };
