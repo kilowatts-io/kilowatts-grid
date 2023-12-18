@@ -84,13 +84,11 @@ export const useUnitGroupLiveQuery = () => {
 
     log.debug(`useGenerationLiveQuery: interpolating bmUnitLevelPairs `);
 
-    const units =  p.interpolateBmUnitLevelPairs({
+    const unitGroups = p.groupByUnitGroup(p.interpolateBmUnitLevelPairs({
       bmUnitLevelPairs: combined,
       time: nowTime.toISOString(),
       omitZero: true,
-    })
-
-    const unitGroups = p.groupByUnitGroup(units)
+    }))
 
     return {
       updated: pns.data && nowTime,
@@ -121,3 +119,4 @@ export const useFuelTypeLiveQuery = () => {
     }
   }
 }
+
