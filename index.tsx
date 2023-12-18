@@ -9,7 +9,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@rneui/themed";
 import { WithLicense } from "./components/WithLicense";
 import * as Updates from "expo-updates";
-import { AppState, AppStateStatus } from "react-native";
+import { Alert, AppState, AppStateStatus } from "react-native";
 import log from "./services/log";
 
 SplashScreen.preventAutoHideAsync();
@@ -26,7 +26,12 @@ async function onFetchUpdateAsync() {
       log.debug("Downloading Expo update...");
       await Updates.fetchUpdateAsync();
       log.debug("Reloading app...");
-      await Updates.reloadAsync();
+      Alert.alert("App updated", "The app will now reload.", [
+        {
+          text: "OK",
+          onPress: () => Updates.reloadAsync(),
+        },
+      ]);
     } else {
       log.debug("No Expo update available.");
     }
