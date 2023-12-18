@@ -43,3 +43,5 @@ expo-env.d.ts
 .netlify
 outputs/prod.ipa
 credentials.json
+
+*.ipa
