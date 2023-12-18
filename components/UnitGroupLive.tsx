@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useUnitGroupLiveQuery } from "../services/state/elexon-insights-api.hooks";
+import { useUnitGroupsLiveQuery } from "../services/state/elexon-insights-api.hooks";
 import { FlashList } from "@shopify/flash-list";
 import { useNavigation } from "expo-router";
 import * as at from "../atoms";
@@ -30,7 +30,7 @@ type UnitGroupLiveWithSearchProps = {
 };
 
 export const UnitGroupLiveWithSearch: React.FC<UnitGroupLiveWithSearchProps> = ({ search }) => {
-  const { data, isLoading, updated, refetch } = useUnitGroupLiveQuery();
+  const { data, isLoading, updated, refetch } = useUnitGroupsLiveQuery();
   const filteredData = useMemo(() => {
     if (!data) return data;
     if (search === "") return data;

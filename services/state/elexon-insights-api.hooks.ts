@@ -10,7 +10,7 @@ export const UPDATE_INTERVAL_LIVE_GENERATION_SECS = 1;
 export const POLLING_INTERVAL_ACCS_SECS = 15;
 export const MAX_RETRIES = 99999999
 
-export const useUnitGroupLiveQuery = () => {
+export const useUnitGroupsLiveQuery = () => {
   const [nowTime, setNowTime] = React.useState(new Date());
 
   const pns = usePnAllQuery(getSettlementPeriod(nowTime.toISOString()));
@@ -107,7 +107,7 @@ export const useUnitGroupLiveQuery = () => {
 
 export const useFuelTypeLiveQuery = () => {
   log.debug(`useFuelTypeLiveQuery: mounting`);
-  const unitGroups = useUnitGroupLiveQuery();
+  const unitGroups = useUnitGroupsLiveQuery();
   if(!unitGroups.data) {
     log.debug(`useFuelTypeLiveQuery: no data`);
     return unitGroups
