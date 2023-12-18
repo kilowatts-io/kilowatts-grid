@@ -42,6 +42,7 @@ export const FuelTypeLive:React.FC<FuelTypeLiveProps> = ({name, level}) => <List
     </ListItem.Content>
 </ListItem>
 
+
 const styles = StyleSheet.create({
     liveContainer: {
         display: 'flex',
