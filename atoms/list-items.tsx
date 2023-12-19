@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ListItem } from "@rneui/themed";
 import formatters from "../common/formatters";
-import { FuelType, UnitGroupUnit } from "../common/types";
+import { FuelType, LevelPair, UnitGroupUnit } from "../common/types";
 import { FuelTypeIcon } from "./icons";
+import { londonTime } from "../common/utils";
 
 type GeneratorLiveProps = {
   index: number;
@@ -74,6 +75,22 @@ export const UnitLive: React.FC<UnitLiveProps> = ({
     </ListItem.Content>
   </ListItem>
 );
+
+type UnitLevelProps = LevelPair;
+
+export const UnitLevelListItem: React.FC<UnitLevelProps> = ({ level, time }) => {
+  return (
+    <ListItem>
+      <ListItem.Content style={styles.liveContainer}>
+        <ListItem.Title>
+          <View style={styles.hSpacer} />
+          <>{londonTime(new Date(Date.parse(time)))}</>
+        </ListItem.Title>
+        <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
+      </ListItem.Content>
+    </ListItem>
+  );
+};
 
 const styles = StyleSheet.create({
   liveContainer: {

@@ -115,13 +115,13 @@ export const useUnitGroupLiveQuery = (ug: UnitGroup) => {
   const bmUnits = ug.units.map((u) => u.bmUnit);
   const query = useBmUnitsLiveQuery({ bmUnits });
   if (!query.pns.data || !query.accs.data) {
-    log.info(`useUnitGroupLiveQuery: no data`);
+    log.debug(`useUnitGroupLiveQuery: no data`);
     return {
       data: null,
       isLoading: true,
     };
   } else {
-    log.info(`useUnitGroupLiveQuery: has data`);
+    log.debug(`useUnitGroupLiveQuery: has data`);
     return {
       now: query.now,
       isLoading: false,
@@ -155,8 +155,7 @@ export const useUnitGroupHistoryQuery = (ug: UnitGroup) => {
     bmUnits,
   };
 
-  log.info(`useUnitGroupHistoryQuery: establishing queries with params ${JSON.stringify(params)}`);
-
+  log.debug(`useUnitGroupHistoryQuery: establishing queries with params ${JSON.stringify(params)}`);
 
   const queries = {
     pn: usePnRangeQuery(params),

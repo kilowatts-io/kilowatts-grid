@@ -30,6 +30,8 @@ const UnitGroupTabs: React.FC<UnitGroupTabsProps> = () => {
             options={{
               title: unitGroup.details.name,
               headerRight: () => <InfoModal />,
+            
+              
             }}
           />
           <UnitGroupContext.Provider value={unitGroup}>
@@ -47,12 +49,12 @@ const UnitGroupTabs: React.FC<UnitGroupTabsProps> = () => {
                 }}
               />
               <Tabs.Screen
-                name="history"
+                name="schedule"
                 options={{
                   tabBarIcon: ({ color }) => (
                     <TabBarIcon
                       testID="unit-group-units-tab-icon"
-                      name="history"
+                      name="calendar-today"
                       color={color}
                     />
                   ),

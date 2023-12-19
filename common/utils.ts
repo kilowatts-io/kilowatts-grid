@@ -1,7 +1,7 @@
 import * as t from "./types";
 import log from "../services/log";
 
-const londonTime = (date: Date) =>
+export const londonTime = (date: Date) =>
   date.toLocaleString("en-GB", { timeZone: "Europe/London" });
 
 export const getSettlementPeriod = (

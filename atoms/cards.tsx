@@ -78,10 +78,25 @@ type UnitListHeaderProps = {
 export const UnitListHeader:React.FC<UnitListHeaderProps> = ({now}) => {
   return (
     <Card containerStyle={styles.listHeaderCard}>
-      {now ? <Text>Individual Units: {now.toLocaleTimeString()}</Text> : <Text>Loading Individual Units</Text>}
+      {now ? <Text>Live Individual Unit output at: {now.toLocaleTimeString()}</Text> : <Text>Loading Individual Units</Text>}
     </Card>
   );
 }
+
+type UnitGroupHistoryListHeaderComponentProps = {
+  bmUnit: string;
+  average: number;
+}
+export const UnitGroupHistoryListHeaderComponent:React.FC<UnitGroupHistoryListHeaderComponentProps> = ({bmUnit, average}) => {
+  return (
+    <Card containerStyle={styles.listHeaderCard}>
+      <Card.Title>{bmUnit}</Card.Title>
+      <Card.Divider />
+      <Text>Upcoming Schedule</Text>
+    </Card>
+  );
+}
+
 
 const styles = StyleSheet.create({
   spacer: { height: 10 },

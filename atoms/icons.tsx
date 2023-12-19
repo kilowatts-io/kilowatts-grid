@@ -3,8 +3,6 @@ import {
   Ionicons,
   Feather,
   FontAwesome5,
-  FontAwesome,
-  MaterialIcons,
 } from "@expo/vector-icons";
 
 import { Icon, IconProps } from "@rneui/themed";

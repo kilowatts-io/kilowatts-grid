@@ -420,7 +420,7 @@ export const filterBefore = (l: t.BmUnitLevelPairs, cutoff: Date) => {
   );
   let output: t.BmUnitLevelPairs = {};
   for (const bmUnit of Object.keys(l)) {
-    output[bmUnit] = l[bmUnit].filter((x) => new Date(x.time) < cutoff);
+    output[bmUnit] = l[bmUnit].filter((x) => new Date(x.time) > cutoff);
   }
   return output;
 };
@@ -530,14 +530,15 @@ export const transformUnitHistoryQuery = ({
 }: TransformUnitHistoryQueryParams) => {
 
   log.debug(`useUnitGroupHistoryQuery: joining pns and accs`);
+  // debugger
   const combined = combinePnsAndAccs({pns, accs});
-
-  console.log(combined)
+  // const combined = pns
 
   log.debug(
     `useUnitGroupHistoryQuery: removing any values before ${truncateBefore}`
   );
   const filtered = filterBefore(combined, truncateBefore);
+  // const filtered = combined
 
   log.debug(`useUnitGroupHistoryQuery: joining with ug.units`);
   const unitData = units.map((u) => {
@@ -545,7 +546,7 @@ export const transformUnitHistoryQuery = ({
     return {
       details: u,
       data: {
-        levels: bmUnitData,
+        levels: bmUnitData.sort((a, b) => b.time.localeCompare(a.time)),
         average: averageLevel(bmUnitData),
       },
     };
