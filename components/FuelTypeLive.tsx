@@ -9,14 +9,14 @@ import { IncompleteUnknownCategories } from "../atoms/cards";
 
 export const FuelTypeLive = () => {
   const nav = useNavigation();
-  const { data, isLoading, updated, refetch } = useFuelTypeLiveQuery();
+  const { data, isLoading, now, refetch } = useFuelTypeLiveQuery();
   React.useEffect(() => {
     nav.setOptions({
-      title: updated
-        ? `National Grid at: ${updated.toLocaleTimeString()}`
+      title: now
+        ? `National Grid at: ${now.toLocaleTimeString()}`
         : "Loading...",
     });
-  }, [updated]);
+  }, [now]);
   return (
     <FlashList
       ListFooterComponent={IncompleteUnknownCategories}

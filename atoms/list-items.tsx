@@ -1,56 +1,109 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native'
-import {ListItem} from '@rneui/themed';
-import formatters from '../common/formatters';
-import { FuelType } from '../common/types';
-import { FuelTypeIcon } from './icons';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { ListItem } from "@rneui/themed";
+import formatters from "../common/formatters";
+import { FuelType, LevelPair, UnitGroupUnit } from "../common/types";
+import { FuelTypeIcon } from "./icons";
+import { londonTime } from "../common/utils";
 
 type GeneratorLiveProps = {
-    index: number;
-    fuelType: FuelType;
-    name: string;
-    level: number;
-}
+  index: number;
+  fuelType: FuelType;
+  name: string;
+  level: number;
+  onPress?: () => void;
+};
 
-export const GeneratorLive:React.FC<GeneratorLiveProps> = ({index, fuelType, name, level}) => <ListItem>
-   <ListItem.Content style={styles.liveContainer}
-    testID={`generator-live-${index}`}
-   >
-        <ListItem.Title>
-            <FuelTypeIcon fuelType={fuelType} size={20}/>
-            <View style={styles.hSpacer}/>
-            <>{name}</>
-        </ListItem.Title>
-        <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
+export const GeneratorLive: React.FC<GeneratorLiveProps> = ({
+  index,
+  fuelType,
+  name,
+  level,
+  onPress,
+}) => (
+  <ListItem style={styles.listItemWrapper} onPress={onPress}>
+    <ListItem.Content
+      style={styles.liveContainer}
+      testID={`generator-live-${index}`}
+    >
+      <ListItem.Title>
+        <FuelTypeIcon fuelType={fuelType} size={20} />
+        <View style={styles.hSpacer} />
+        <>{name}</>
+      </ListItem.Title>
+      <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
     </ListItem.Content>
-</ListItem>
+  </ListItem>
+);
 
 type FuelTypeLiveProps = {
-    name: FuelType;
-    level: number;
-}
+  name: FuelType;
+  level: number;
+};
 
-export const FuelTypeLive:React.FC<FuelTypeLiveProps> = ({name, level}) => <ListItem>
-   <ListItem.Content style={styles.liveContainer}>
+export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level }) => (
+  <ListItem>
+    <ListItem.Content style={styles.liveContainer}>
+      <ListItem.Title>
+        <FuelTypeIcon fuelType={name} size={20} />
+        <View style={styles.hSpacer} />
+        <>{formatters.fuelType(name)}</>
+      </ListItem.Title>
+      <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
+    </ListItem.Content>
+  </ListItem>
+);
+
+type UnitLiveProps = {
+  index: number;
+  details: UnitGroupUnit;
+  level: number;
+};
+
+export const UnitLive: React.FC<UnitLiveProps> = ({
+  details,
+  level,
+  index,
+}) => (
+  <ListItem key={index}>
+    <ListItem.Content style={styles.liveContainer}>
+      <ListItem.Title>
+        <View style={styles.hSpacer} />
+        <>{details.bmUnit}</>
+      </ListItem.Title>
+      <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
+    </ListItem.Content>
+  </ListItem>
+);
+
+type UnitLevelProps = LevelPair;
+
+export const UnitLevelListItem: React.FC<UnitLevelProps> = ({ level, time }) => {
+  return (
+    <ListItem>
+      <ListItem.Content style={styles.liveContainer}>
         <ListItem.Title>
-
-        <FuelTypeIcon fuelType={name} size={20}/>
-            <View style={styles.hSpacer}/>
-            <>{formatters.fuelType(name)}</>
+          <View style={styles.hSpacer} />
+          <>{londonTime(new Date(Date.parse(time)))}</>
         </ListItem.Title>
         <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
-    </ListItem.Content>
-</ListItem>
+      </ListItem.Content>
+    </ListItem>
+  );
+};
 
 const styles = StyleSheet.create({
-    liveContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        justifyContent: 'space-between'
-    },
-    hSpacer: {
-        width: 10
-    }
-})
+  liveContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    justifyContent: "space-between",
+  },
+  hSpacer: {
+    width: 10,
+  },
+  listItemWrapper: {
+    width: "100%",
+  },
+});

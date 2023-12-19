@@ -7,17 +7,19 @@ import { useRouter } from "expo-router";
 type ConsentDialogProps = {
   isVisible: boolean;
   onAccept: () => void;
+  onBackdropPress?: () => void;
 };
 
 export const ConsentDialog: React.FC<ConsentDialogProps> = ({
   onAccept,
   isVisible,
+  onBackdropPress,
 }) => {
   const router = useRouter();
   return (
     <Dialog
       isVisible={isVisible}
-      onBackdropPress={() => log.debug("onBackdropPress")}
+      onBackdropPress={onBackdropPress}
     >
       <Dialog.Title title="kilowatts.io" />
       <Text>

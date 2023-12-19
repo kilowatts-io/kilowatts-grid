@@ -1,36 +1,37 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { UnitGroup } from "../common/types";
 import { useUnitGroupLiveQuery } from "../services/state/elexon-insights-api.hooks";
+import log from "../services/log";
 import { FlashList } from "@shopify/flash-list";
-import { useNavigation } from "expo-router";
-import * as at from "../atoms";
 import { RefreshControl } from "react-native-gesture-handler";
-import { IncompleteUnknownCategories } from "../atoms/cards";
+import { UnitLive } from "../atoms/list-items";
+import { UnitListHeader } from "../atoms/cards";
+import { UnitGroupMap } from "../atoms/maps";
 
-export const UnitGroupLive = () => {
-  const nav = useNavigation();
-  const { data, isLoading, updated, refetch } = useUnitGroupLiveQuery();
-  React.useEffect(() => {
-    nav.setOptions({
-      title: updated
-        ? `Major Generators Live Output: ${updated.toLocaleTimeString()}`
-        : "Loading...",
-    });
-  }, [updated]);
+// import { UnitGroupStack } from "./UnitGroupStack";
+
+type UnitGroupLiveProps = {
+  ug: UnitGroup;
+};
+export const UnitGroupLive: React.FC<UnitGroupLiveProps> = ({ ug }) => {
+  log.debug(`UnitGroupLive ${ug.details.name}`);
+  const query = useUnitGroupLiveQuery(ug);
+
   return (
-    <FlashList
-      refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-      }
-      ListFooterComponent={IncompleteUnknownCategories}
-      data={data}
-      estimatedItemSize={1000}
-      renderItem={({ item, index }) => (
-        <at.listItems.GeneratorLive 
-        index={index}
-          fuelType={item.details.fuelType}
-        name={item.details.name} level={item.level} />
-      )}
-    />
+    <>
+      <FlashList
+        estimatedItemSize={50}
+        refreshControl={
+          <RefreshControl refreshing={query.isLoading} onRefresh={() => {}} />
+        }
+        ListHeaderComponent={() => <UnitListHeader now={query.now} />}
+        data={query.data}
+        renderItem={({ item, index }) => <UnitLive index={index} {...item} />}
+        ListFooterComponent={
+          <UnitGroupMap ug={ug} />
+        }
+      />
+      
+    </>
   );
 };

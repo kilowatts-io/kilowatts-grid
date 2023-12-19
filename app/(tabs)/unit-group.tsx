@@ -1,5 +1,7 @@
-import { UnitGroupLive } from '../../components/UnitGroupLive';
+import { UnitGroupsLive } from '../../components/UnitGroupsLive';
+import log from '../../services/log';
 
-export default function TabOneScreen() {
-  return       <UnitGroupLive/>
+export default function UnitGroupLiveScreen() {
+  log.debug('UnitGroupLiveScreen');
+  return <UnitGroupsLive/>
 }

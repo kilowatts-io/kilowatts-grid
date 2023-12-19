@@ -23,10 +23,13 @@ export const queries = {
     );
     return output;
   },
+  pnRange: (
+    data: t.ElexonInsightsPnResponseRange
+  ) => queries.pnAll({data}),
   accAll: (
     r: t.ElexonInsightsAcceptancesResponse
   ): t.ElexonInsightsAcceptancesResponseParsed => {
-    log.info(`accAll: ${r.data.length} acceptance interval records found.. transformResponse`);
+    log.debug(`accAll: ${r.data.length} acceptance interval records found.. transformResponse`);
     const withLevels = p.parseAcceptancesWithLevels(r.data);
     log.debug(`accAll: ${withLevels.length} individual acceptances found`);
     let output: t.ElexonInsightsAcceptancesResponseParsed = {};
@@ -37,4 +40,7 @@ export const queries = {
     }
     return output;
   },
+  accRange: (
+    data: t.ElexonInsightsAcceptancesRangeResponse
+  ) => queries.accAll({data}),
 };
