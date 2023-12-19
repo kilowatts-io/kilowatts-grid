@@ -3479,7 +3479,7 @@ export const unitGroups: UnitGroup[] = [
       name: "Severn Power",
       coords: {
         lat: 51.74,
-        lng: 3.07,
+        lng: -3.07,
       },
       fuelType: "gas",
     },
