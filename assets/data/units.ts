@@ -32,8 +32,8 @@ export const unitGroups: UnitGroup[] = [
       code: 'TORN',
       name: "Torness",
       coords: {
-        lat: 59.9679,
-        lng: -2.4086,
+        lat: 55.96929194350165, 
+        lng: -2.4061520827496983
       },
       fuelType: "nuclear",
     },
@@ -322,7 +322,6 @@ export const unitGroups: UnitGroup[] = [
       {
         bmUnit: "T_WLNYO-4",
       },
-
       {
         bmUnit: "T_WLNYW-1",
       },
