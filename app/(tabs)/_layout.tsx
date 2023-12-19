@@ -4,6 +4,7 @@ import { TabBarIcon } from "../../atoms/icons";
 import { TabsWithInfoIcon } from "../../components/TabsWithInfoIcon";
 import log from "../../services/log";
 
+
 export default function RootTabLayout() {
   log.debug("RootTabLayout");
   return (
