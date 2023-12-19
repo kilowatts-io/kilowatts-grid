@@ -1,8 +1,9 @@
-import { UnitGroup } from "../../common/types";
+import { UnitGroup, UnitGroupsDict } from "../../common/types";
 
 export const unitGroups: UnitGroup[] = [
   {
     details: {
+      code: "HEYM",
       name: "Heysham",
       coords: {
         lat: 54.0295,
@@ -28,6 +29,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'TORN',
       name: "Torness",
       coords: {
         lat: 59.9679,
@@ -47,6 +49,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'SIZB',
       name: "Sizewell B",
       coords: {
         lat: 52.2123,
@@ -66,6 +69,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'HRTL',
       name: "Hartlepool",
       coords: {
         lat: 54.6341,
@@ -85,6 +89,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'PEMB',
       name: "Pembroke",
       coords: {
         lat: 51.68436,
@@ -113,6 +118,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'CARR',
       name: "Carrington",
       coords: {
         lat: 53.43772,
@@ -132,6 +138,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'LBAR',
       name: "Little Barford",
       coords: {
         lat: 52.20533,
@@ -148,6 +155,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'SPLN',
       name: "Spalding",
       coords: {
         lat: 52.80721,
@@ -167,6 +175,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'MOWEO',
       name: "Moray East",
       coords: {
         lat: 58.188,
@@ -189,6 +198,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'HOW',
       name: "Hornsea ",
       coords: {
         lat: 53.6815,
@@ -220,6 +230,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'SGRWO',
       name: "Seagreen",
       coords: {
         lat: 56.6355,
@@ -251,6 +262,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'TKN',
       name: "Triton Knoll",
       coords: {
         lat: 53.2123,
@@ -270,6 +282,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'FAWN',
       name: "Fawley North",
       coords: {
         lat: 50.818,
@@ -286,6 +299,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WLNYO",
       name: "Walney",
       coords: {
         lat: 54.0394,
@@ -317,6 +331,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CDCL",
       name: "Cottam",
       coords: {
         lat: 53.304757,
@@ -333,6 +348,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'CNQPS',
       name: "Connah's Quay",
       coords: {
         lat: 53.2317,
@@ -358,6 +374,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'RATS',
       name: "Ratcliffe",
       coords: {
         lat: 52.866945,
@@ -389,6 +406,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "ROCK",
       name: "Rocksavage",
       coords: {
         lat: 53.31522,
@@ -405,6 +423,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "EECL",
       name: "Enfield",
       coords: {
         lat: 51.66248,
@@ -421,6 +440,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SHOS",
       name: "Shoreham",
       coords: {
         lat: 50.82992,
@@ -437,6 +457,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SEAB",
       name: "Seabank",
       coords: {
         lat: 51.5392,
@@ -456,6 +477,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GRAI",
       name: "Grain",
       coords: {
         lat: 51.44298,
@@ -478,6 +500,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'GYAR',
       name: "Great Yarmouth",
       coords: {
         lat: 52.58395,
@@ -494,6 +517,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SCCL",
       name: "Saltend",
       coords: {
         lat: 53.73543,
@@ -516,6 +540,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'MRWD',
       name: "Marchwood",
       coords: {
         lat: 50.89798,
@@ -532,6 +557,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code : 'HUMR',
       name: "Immingham",
       coords: {
         lat: 53.63779,
@@ -548,6 +574,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code : 'LAGA',
       name: "Langage",
       coords: {
         lat: 50.3872,
@@ -564,6 +591,7 @@ export const unitGroups: UnitGroup[] = [
   // E_DIDC01G E_DIDC02G E_DIDC03G E_DIDC04G
   {
     details: {
+      code: 'DIDC',
       name: "Didcot",
       coords: {
         lat: 51.6246,
@@ -594,6 +622,7 @@ export const unitGroups: UnitGroup[] = [
   },
   {
     details: {
+      code: "DRAX",
       name: "Drax",
       coords: {
         lat: 53.737196,
@@ -619,6 +648,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'DAMC',
       name: "Damhead Creek",
       coords: {
         lat: 51.42492,
@@ -638,6 +668,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'STAY',
       name: "Staythorpe",
       coords: {
         lat: 53.07368,
@@ -663,6 +694,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SHBA",
       name: "South Humber Bank",
       coords: {
         lat: 53.60078,
@@ -682,6 +714,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code : 'WBURB',
       name: "West Burton",
       coords: {
         lat: 53.36223,
@@ -725,6 +758,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'RCBK',
       name: "Race Bank",
       coords: {
         lat: 53.136,
@@ -744,6 +778,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "KEAD",
       name: "Keadby",
       coords: {
         lat: 53.59444,
@@ -766,6 +801,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'WHILW',
       name: "Whitelee",
       coords: {
         lat: 55.6812,
@@ -785,6 +821,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "EAAO",
       name: "East Anglia",
       coords: {
         lat: 52.137,
@@ -804,6 +841,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "ERRO",
       name: "Errochty",
       coords: {
         lat: 56.7091,
@@ -830,6 +868,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       name: "West of Duddon Sands",
+      code: 'WDNSO',
       coords: {
         lat: 53.9851,
         lng: -3.462,
@@ -848,6 +887,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WTMSO",
       name: "Westmost Rough",
       coords: {
         lat: 53.81,
@@ -864,6 +904,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "LYNE",
       name: "Lynemouth",
       coords: {
         lat: 55.204167,
@@ -887,6 +928,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'SHRSW',
       name: "Sheringham Shoal",
       coords: {
         lat: 53.81,
@@ -906,6 +948,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GYMR",
       name: "Gwynt y Mor",
       coords: {
         lat: 53.454,
@@ -931,6 +974,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DINO",
       name: "Dinorwig",
       coords: {
         lat: 53.1206,
@@ -962,6 +1006,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FFES",
       name: "Ffestiniog",
       coords: {
         lat: 52.9808,
@@ -987,6 +1032,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FASN",
       name: "Fasnakyle",
       coords: {
         lat: 57.32586,
@@ -1012,6 +1058,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "ANRB",
       name: "Aberdeen",
       coords: {
         lat: 57.2225,
@@ -1030,6 +1077,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "ABRTW",
       name: "Auchrobert",
       coords: {
         lat: 55.624,
@@ -1046,6 +1094,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "ACHL",
       name: "Achlachan",
       coords: {
         lat: 58.4489,
@@ -1062,6 +1111,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "ACHR",
       name: "A`Chruach",
       coords: {
         lat: 56.1528,
@@ -1080,6 +1130,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "AFTO",
       name: "Afton",
       coords: {
         lat: 55.3116,
@@ -1098,6 +1149,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "AIRS",
       name: "Airies",
       coords: {
         lat: 54.8021,
@@ -1116,6 +1168,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code :"AKGL",
       name: "Aikengall",
       coords: {
         lat: 55.9172,
@@ -1137,6 +1190,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      coe : "ANSU",
       name: "An Suidhe",
       coords: {
         lat: 56.2187,
@@ -1155,6 +1209,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'ARCHW',
       name: "Arecleoch",
       coords: {
         lat: 55.0688,
@@ -1173,6 +1228,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "ASHWW",
       name: "Andershaw",
       coords: {
         lat: 55.5093,
@@ -1191,6 +1247,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BABAW",
       name: "Baillie",
       coords: {
         lat: 58.5679,
@@ -1209,6 +1266,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BAGE",
       name: "Baglan Bay",
       coords: {
         lat: 51.61551,
@@ -1230,6 +1288,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BDCHW",
       name: "Bad A Cheo",
       coords: {
         lat: 58.4205,
@@ -1248,6 +1307,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BEATO",
       name: "Beatrice",
       coords: {
         lat: 58.0882,
@@ -1275,6 +1335,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BEINW",
       name: "Beinneun",
       coords: {
         lat: 57.0956,
@@ -1293,6 +1354,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BHLAW",
       name: "Bhlaraidh",
       coords: {
         lat: 57.2191,
@@ -1311,6 +1373,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BLKWW",
       name: "Blackcraig",
       coords: {
         lat: 55.1199,
@@ -1329,6 +1392,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BLLA",
       name: "Blacklaw",
       coords: {
         lat: 55.766944,
@@ -1350,6 +1414,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BNWK",
       name: "Burn of Whilk",
       coords: {
         lat: 58.3568,
@@ -1368,6 +1433,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BOWL",
       name: "Barrow",
       coords: {
         lat: 53.9915,
@@ -1386,6 +1452,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BRBO",
       name: "Burbo",
       coords: {
         lat: 53.4882,
@@ -1407,6 +1474,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BRDU",
       name: "Braes O'Doune",
       coords: {
         lat: 56.2698,
@@ -1425,6 +1493,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BRGG",
       name: "Brigg",
       coords: {
         lat: 53.5423,
@@ -1443,6 +1512,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BRYB",
       name: "Berry Burn",
       coords: {
         lat: 57.4466,
@@ -1461,6 +1531,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BTUIW",
       name: "Beinn an Turic",
       coords: {
         lat: 55.5732,
@@ -1482,6 +1553,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CAIR",
       name: "Cairn Uish Wind",
       coords: {
         lat: 57.5373,
@@ -1503,6 +1575,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "BEU",
       name: "Beauly",
       coords: {
         lat: 57.47309,
@@ -1521,6 +1594,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'CLU',
       name: "Clunie",
       coords: {
         lat: 56.71688724042855,
@@ -1539,6 +1613,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'CON',
       name: "Conon",
       coords: {
         lat: 57.5746352506808,
@@ -1557,6 +1632,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'GAR',
       name: "Garry",
       coords: {
         lat: 57.070466800000005,
@@ -1574,6 +1650,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'KIL',
       name: "Killin",
       coords: {
         lat: 56.481,
@@ -1592,6 +1669,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: 'MOR',
       name: "Moriston",
       coords: {
         lat: 57.1761093185331,
@@ -1610,6 +1688,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CGTHW",
       name: "Corriegarth",
       coords: {
         lat: 57.186684969545475,
@@ -1628,6 +1707,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CLAC",
       name: "Clachan wind farm",
       coords: {
         lat: 56.27744438034275,
@@ -1646,6 +1726,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "T_CLDCW",
       name: "Clyde",
       coords: {
         lat: 55.44612344718645,
@@ -1670,6 +1751,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CLDRW",
       name: "Clashindarroch",
       coords: {
         lat: 57.3665,
@@ -1688,6 +1770,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CLFLW",
       name: "Clachan flats",
       coords: {
         lat: 56.2881,
@@ -1706,6 +1789,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CAM",
       name: "Camster",
       coords: {
         lat: 58.4087,
@@ -1724,6 +1808,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CNCLW",
       name: "Coire Na Cloiche WF",
       coords: {
         lat: 57.7696,
@@ -1742,6 +1827,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CORB",
       name: "Corby",
       coords: {
         lat: 52.51044,
@@ -1760,6 +1846,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "COSO",
       name: "Coryton",
       coords: {
         lat: 51.51185,
@@ -1778,6 +1865,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "COUWW",
       name: "Cour",
       coords: {
         lat: 55.569361,
@@ -1796,6 +1884,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "COWE",
       name: "Cowes",
       coords: {
         lat: 50.74711,
@@ -1817,6 +1906,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CRDEW",
       name: "Crossdykes",
       coords: {
         lat: 55.1762,
@@ -1844,6 +1934,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CRGHW",
       name: "Carraig Gheal Wind Farm",
       coords: {
         lat: 56.339,
@@ -1862,6 +1953,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CRMLW",
       name: "Corrimoillie W/F",
       coords: {
         lat: 57.667667,
@@ -1880,6 +1972,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CRUA",
       name: "Cruachan",
       coords: {
         lat: 56.4192,
@@ -1907,6 +2000,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "CRYRW",
       name: "Crystal Rig",
       coords: {
         lat: 55.883,
@@ -1928,6 +2022,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DALSW",
       name: "Dalswinton",
       coords: {
         lat: 55.1841,
@@ -1946,6 +2041,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DDGNO",
       name: "Dudgeon",
       coords: {
         lat: 53.1175,
@@ -1973,6 +2069,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DEEP",
       name: "Deeside",
       coords: {
         lat: 53.233333,
@@ -1991,6 +2088,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+       code: "DUNB",
       name: "Dunbar",
       coords: {
         lat: 55.99467893827063,
@@ -2009,6 +2107,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DNLWW",
       name: "Dunlaw",
       coords: {
         lat: 55.805583,
@@ -2027,6 +2126,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DOREW",
       name: "Dorenell",
       coords: {
         lat: 57.352722,
@@ -2048,6 +2148,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DRSLW",
       name: "Dersalloch",
       coords: {
         lat: 55.31925878073858,
@@ -2066,6 +2167,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "DUNGW",
       name: "Dunmaglass",
       coords: {
         lat: 57.239772263978885,
@@ -2084,6 +2186,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "EDINW",
       name: "Edinbane",
       coords: {
         lat: 57.40959498314662,
@@ -2102,6 +2205,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "EWHLW",
       name: "Ewe Hill Wind Farm",
       coords: {
         lat: 55.115,
@@ -2120,6 +2224,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FARR",
       name: "Farr",
       coords: {
         lat: 57.325264293976204,
@@ -2141,6 +2246,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FALGW",
       name: "Fallago wind Farm",
       coords: {
         lat: 55.82489777951005,
@@ -2159,6 +2265,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FELL",
       name: "Fellside",
       coords: {
         lat: 50.83,
@@ -2177,6 +2284,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FINL",
       name: "Finlarig",
       coords: {
         lat: 56.28,
@@ -2195,6 +2303,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FOYE",
       name: "Foyers",
       coords: {
         lat: 57.24,
@@ -2216,6 +2325,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "FSDLW",
       name: "Freasdail",
       coords: {
         lat: 55.78,
@@ -2234,6 +2344,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GANW",
       name: "Galloper",
       coords: {
         lat: 51.89,
@@ -2261,6 +2372,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GDSTW",
       name: "Gordonstoun",
       coords: {
         lat: 53.27,
@@ -2278,6 +2390,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GLCHW",
       name: "Glenchamber",
       coords: {
         lat: 54.96,
@@ -2296,6 +2409,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GLNDO",
       name: "Glendoe",
       coords: {
         lat: 57.15,
@@ -2314,6 +2428,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GLOFW",
       name: "Glens of Foudland",
       coords: {
         lat: 57.22,
@@ -2332,6 +2447,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GLWSW",
       name: "Galawhistle",
       coords: {
         lat: 55.53,
@@ -2350,6 +2466,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GNAPW",
       name: "Glen App Wind Farm",
       coords: {
         lat: 55.02,
@@ -2368,6 +2485,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GNFSW",
       name: "Gunfleet Sands",
       coords: {
         lat: 51.74,
@@ -2389,6 +2507,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GORDW",
       name: "Gordonbush",
       coords: {
         lat: 58.07153332938159,
@@ -2410,6 +2529,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GRGBW",
       name: "Greater Gabbard",
       coords: {
         lat: 51.86649367222777,
@@ -2434,6 +2554,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GRIFW",
       name: "Griffin",
       coords: {
         lat: 56.53,
@@ -2455,6 +2576,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "GRMO",
       name: "Grangemouth",
       coords: {
         lat: 56.02,
@@ -2472,6 +2594,7 @@ export const unitGroups: UnitGroup[] = [
   //Halsary Wind Farm	T_HALSW-1 58.44652833288308, -3.4208646140957404
   {
     details: {
+      code: "HALSW",
       name: "Halsary Wind Farm",
       coords: {
         lat: 58.44652833288308,
@@ -2489,6 +2612,7 @@ export const unitGroups: UnitGroup[] = [
   //Harburnhead Wind Farm	E_HBHDW-1 55.814764307994125, -3.54231733790513
   {
     details: {
+      code: "HBHDW",
       name: "Harburnhead Wind Farm",
       coords: {
         lat: 55.814764307994125,
@@ -2506,6 +2630,7 @@ export const unitGroups: UnitGroup[] = [
   //Hill of Glaschyle	E_HLGLW-1 -3.62 57.51
   {
     details: {
+      code: "HLGLW",
       name: "Hill of Glaschyle",
       coords: {
         lat: 57.51,
@@ -2522,6 +2647,7 @@ export const unitGroups: UnitGroup[] = [
   //Hill of Towie Wind Farm	E_HLTWW-1 -2.41	57.49
   {
     details: {
+      code: "HLTWW",
       name: "Hill of Towie Wind Farm",
       coords: {
         lat: 57.49,
@@ -2538,6 +2664,7 @@ export const unitGroups: UnitGroup[] = [
   //Humber Gateway Offshore Wind Farm	T_HMGTO-1 T_HMGTO-2 53.65936008605068, 0.29528252560843476
   {
     details: {
+      code: "HMGTO",
       name: "Humber Gateway Offshore Wind Farm",
       coords: {
         lat: 53.65936008605068,
@@ -2557,6 +2684,7 @@ export const unitGroups: UnitGroup[] = [
   //Hare Hill Ext Wind Farm	E_HRHLW-1 55.36726941867161, -4.1089394055798705
   {
     details: {
+      code: "HRHLW",
       name: "Hare Hill Ext Wind Farm",
       coords: {
         lat: 55.36726941867161,
@@ -2574,6 +2702,7 @@ export const unitGroups: UnitGroup[] = [
   //Harestanes Wind Farm	T_HRSTW-1 55.37438774601089, -3.9614870161241624
   {
     details: {
+      code: "HRSTW",
       name: "Harestanes Wind Farm",
       coords: {
         lat: 55.37438774601089,
@@ -2592,6 +2721,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "HYWDW",
       name: "Hywind Wind Farm",
       coords: {
         lat: 57.48,
@@ -2609,6 +2739,7 @@ export const unitGroups: UnitGroup[] = [
   //Indian Queens	T_INDQ-1 50.39636444053638, -4.898096864753528
   {
     details: {
+      code: "INDQ",
       name: "Indian Queens",
       coords: {
         lat: 50.39636444053638,
@@ -2627,6 +2758,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "JGPR",
       name: "JG Pears Power Limited",
       coords: {
         lat: 51.74,
@@ -2645,6 +2777,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "KILBW",
       name: "Kilbraur Wind Farm",
       coords: {
         lat: 58.04,
@@ -2662,6 +2795,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "KILLPG",
       name: "Killingholme (PG)",
       coords: {
         lat: 53.27,
@@ -2686,6 +2820,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "KINCW",
       name: "Kincardine Offshore Wind Farm",
       coords: {
         lat: 56.98,
@@ -2703,6 +2838,7 @@ export const unitGroups: UnitGroup[] = [
   //Kilgallioch Wind Farm	T_KLGLW-1 55.049912278136496, -4.764493574079205
   {
     details: {
+      code: "KLGLW",
       name: "Kilgallioch Wind Farm",
       coords: {
         lat: 55.049912278136496,
@@ -2720,6 +2856,7 @@ export const unitGroups: UnitGroup[] = [
   //Kings Lynn	E_KLYN-A-1 52.72750854417357, 0.38092497060502656
   {
     details: {
+      code: "KLYN",
       name: "Kings Lynn",
       coords: {
         lat: 52.72750854417357,
@@ -2736,6 +2873,7 @@ export const unitGroups: UnitGroup[] = [
   //Kype Muir Wind Farm	T_KPMRW-1 55.62896285665657, -4.061570179294071
   {
     details: {
+      code: "KPMRW",
       name: "Kype Muir Wind Farm",
       coords: {
         lat: 55.62896285665657,
@@ -2753,6 +2891,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "KTHLW",
       name: "Keith Hill Wind Farm",
       coords: {
         lat: 55.82,
@@ -2770,6 +2909,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "LARYW",
       name: "London Array Wind Farm",
       coords: {
         lat: 51.65,
@@ -2796,6 +2936,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "LCLTW",
       name: "Lochluichart",
       coords: {
         lat: 57.74,
@@ -2814,6 +2955,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "LNCSW",
       name: "Lincs Wind Farm",
       coords: {
         lat: 53.27,
@@ -2833,6 +2975,7 @@ export const unitGroups: UnitGroup[] = [
   // Markinch Biomass	E_MARK-1 56.200423605026515, -3.1567815618346255
   {
     details: {
+      code: "MARK",
       name: "Markinch Biomass",
       coords: {
         lat: 56.200423605026515,
@@ -2850,6 +2993,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MIDH",
       name: "Mid Hill Wind Farm",
       coords: {
         lat: 56.96,
@@ -2868,6 +3012,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MEDP",
       name: "Medway",
       coords: {
         lat: 51.38,
@@ -2885,6 +3030,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MIDMW",
       name: "Middle Muir W/F",
       coords: {
         lat: 55.514378415866375,
@@ -2902,6 +3048,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MILWW",
       name: "Millennium Windfarm",
       coords: {
         lat: 57.12374520636007,
@@ -2919,6 +3066,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MINSW",
       name: "Minsca",
       coords: {
         lat: 55.04,
@@ -2937,6 +3085,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MKHLW",
       name: "Mark Hill Wind Farm",
       coords: {
         lat: 55.16,
@@ -2954,6 +3103,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MOYEW",
       name: "Moy Wind Farm",
       coords: {
         lat: 57.39,
@@ -2971,6 +3121,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "MYGPW",
       name: "Minnygap",
       coords: {
         lat: 55.25,
@@ -2988,6 +3139,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "NANT",
       name: "Nant",
       coords: {
         lat: 53.27,
@@ -3006,6 +3158,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "OMNDW",
       name: "Ormonde Eng Ltd",
       coords: {
         lat: 53.27,
@@ -3023,6 +3176,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "PHABL",
       name: "Pauls' Hill Aberlour",
       coords: {
         lat: 57.45,
@@ -3040,6 +3194,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "PEHE",
       name: "Peterhead",
       coords: {
         lat: 57.53,
@@ -3058,6 +3213,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "PETEM1",
       name: "Peterborough",
       coords: {
         lat: 52.58,
@@ -3075,6 +3231,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "PGBIW",
       name: "Pogbie",
       coords: {
         lat: 53.27,
@@ -3092,6 +3249,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "PNYCW",
       name: "Pen y Cymoedd",
       coords: {
         lat: 53.27,
@@ -3110,6 +3268,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "REDGT",
       name: "Redditch Power Station",
       coords: {
         lat: 52.3,
@@ -3127,6 +3286,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "RMPNO",
       name: "Rampion Offshore Wind",
       coords: {
         lat: 50.67,
@@ -3147,6 +3307,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "RREW",
       name: "Robin Rigg East",
       coords: {
         lat: 54.75,
@@ -3168,6 +3329,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "RSHLW",
       name: "Rosehall Wind Farm",
       coords: {
         lat: 53.27,
@@ -3185,6 +3347,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "RYHPS",
       name: "Rye House Power Station",
       coords: {
         lat: 53.27,
@@ -3202,6 +3365,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SANQW",
       name: "Sanquhar W/F",
       coords: {
         lat: 53.27,
@@ -3220,6 +3384,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SLOY",
       name: "Sloy",
       coords: {
         lat: 56.2,
@@ -3247,6 +3412,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "STLGW",
       name: "Stronelairg",
       coords: {
         lat: 57.1,
@@ -3271,6 +3437,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "STRNW",
       name: "Stathy North",
       coords: {
         lat: 53.27,
@@ -3289,6 +3456,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SUTB",
       name: "Sutton Bridge",
       coords: {
         lat: 52.62,
@@ -3307,6 +3475,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SVRP",
       name: "Severn Power",
       coords: {
         lat: 51.74,
@@ -3328,6 +3497,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "TAYL",
       name: "Taylors Lane",
       coords: {
         lat: 51.55,
@@ -3349,6 +3519,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "TDBNW",
       name: "Toddleburn Wind Farm",
       coords: {
         lat: 53.27,
@@ -3366,6 +3537,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "THNTO",
       name: "Thanet Offshore Wind",
       coords: {
         lat: 51.39,
@@ -3387,6 +3559,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "TLYMW",
       name: "Tullymurdoch W/F",
       coords: {
         lat: 56.67,
@@ -3405,6 +3578,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "TRLGW",
       name: "Tralorg",
       coords: {
         lat: 53.27,
@@ -3422,6 +3596,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "TSREP",
       name: "MGT Teesside",
       coords: {
         lat: 53.27,
@@ -3439,6 +3614,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "TULWW",
       name: "Tullo, Laurencekirk",
       coords: {
         lat: 53.27,
@@ -3459,6 +3635,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "TWENT",
       name: "Twent",
       coords: {
         lat: 55.32,
@@ -3477,6 +3654,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WDRGW",
       name: "T_WDRGW-1",
       coords: {
         lat: 53.27,
@@ -3495,6 +3673,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WHIHW",
       name: "Whiteside Hill",
       coords: {
         lat: 53.27,
@@ -3516,6 +3695,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WILCT",
       name: "Wilton",
       coords: {
         lat: 53.27,
@@ -3534,6 +3714,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WINN",
       name: "Winnington",
       coords: {
         lat: 53.27,
@@ -3552,6 +3733,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WISTW",
       name: "Windy Standard II",
       coords: {
         lat: 55.27,
@@ -3570,6 +3752,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "WTGRW",
       name: "Wethergar",
       coords: {
         lat: 53.27,
@@ -3588,6 +3771,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "SOKYW",
       name: "South Kyle",
       coords: {
         lat: 53.27,
@@ -3606,6 +3790,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "KENNW",
       name: "Kennoxhead",
       coords: {
         lat: 55.49831806503957,
@@ -3624,6 +3809,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
+      code: "PINF",
       name: "Pinfold",
       coords: {
         lat: 53.26596802790049, 
@@ -3675,3 +3861,9 @@ export const unitGroups: UnitGroup[] = [
 
   // T__KYELT003
 ];
+
+// convert to a dictionary with code as key
+export const unitGroupsDict: UnitGroupsDict = {};
+for (const ug of unitGroups) {
+  unitGroupsDict[ug.details.code] = ug;
+}

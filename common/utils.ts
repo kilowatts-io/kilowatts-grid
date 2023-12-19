@@ -15,3 +15,13 @@ export const getSettlementPeriod = (dateString?: string):t.ElexonSettlementPerio
         settlementPeriod
     }
 }
+
+/*
+getTodayYesterdaySettlementDates
+Get both today's and yesterday's settlement dates to query over the last 24 hours
+*/
+export const getTodayYesterdaySettlementDates = ():t.ElexonSettlementDateParams[] => {
+    const today = getSettlementPeriod()
+    const yesterday = getSettlementPeriod(new Date(Date.now() - 86400000).toISOString())
+    return [today, yesterday]
+}

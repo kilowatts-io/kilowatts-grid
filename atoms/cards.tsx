@@ -1,8 +1,9 @@
 import React from "react";
 import { Button, Card, Text } from "@rneui/themed";
-import { GITHUB_REPO_LINK, GITHUB_UNIT_FILE_LINK } from "../common/links";
+import { GITHUB_REPO_LINK } from "../common/links";
 import { Linking, StyleSheet, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import log from "../services/log";
 
 export const IncompleteUnknownCategories = () => {
   return (
@@ -35,6 +36,21 @@ export const IncompleteUnknownCategories = () => {
         onPress={() => Linking.openURL(GITHUB_REPO_LINK)}
         icon={<FontAwesome name="github" size={24} color="white" />}
       />
+    </Card>
+  );
+};
+
+export const UnknownUnitGroupCode = () => {
+  log.debug(`UnknownUnitGroupCode`)
+  return (
+    <Card>
+      <Card.Title>
+        <Text>Error</Text>
+      </Card.Title>
+      <Card.Divider />
+      <Text>
+        Cannot find details for this generator. Please check the URL and try again.
+      </Text>
     </Card>
   );
 };

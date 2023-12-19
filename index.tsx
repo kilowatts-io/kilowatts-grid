@@ -9,8 +9,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@rneui/themed";
 import { WithLicense } from "./components/WithLicense";
 import * as Updates from "expo-updates";
-import { Alert, AppState, AppStateStatus } from "react-native";
+import { Alert, AppState, AppStateStatus, useColorScheme } from "react-native";
 import log from "./services/log";
+import theme from "./services/theme";
 
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 2000);
@@ -42,6 +43,8 @@ async function onFetchUpdateAsync() {
 }
 
 export const App = () => {
+  const colorScheme = useColorScheme();
+
   //   React.useEffect(() => {
   //     if (__DEV__ && Platform.OS !== "web") {
   //       const rt = require("./services/reactotron").initReactotron;
@@ -86,7 +89,7 @@ export const App = () => {
     return null;
   }
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <Provider store={store}>
         <WithLicense>
           <ExpoRoot context={ctx} />

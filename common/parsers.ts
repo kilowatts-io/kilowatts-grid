@@ -339,3 +339,94 @@ export const groupByFuelTypeAndInterconnectors = (x: t.UnitGroupLevel[]): t.Fuel
   );
 };
 
+
+/*
+joinBmUnitLevelPairs
+For use when combining data from adjoinining settlement dates
+before should represent a prior settlement date
+after should represent a later settlement date
+This function will join the two together
+
+*/
+export const joinBmUnitLevelPairs = (
+  before: t.BmUnitLevelPairs,
+  after: t.BmUnitLevelPairs
+) => {
+  let output: t.BmUnitLevelPairs = {};
+  log.debug(`joinBmUnitLevelPairs: looking at before ${Object.keys(before).length} and after ${Object.keys(after).length}`)
+  for (const bmUnit of Object.keys(before)) {
+    output[bmUnit] = before[bmUnit]
+  }
+  for (const bmUnit of Object.keys(after)) {
+    if (output[bmUnit]) {
+      output[bmUnit] = [...output[bmUnit], ...after[bmUnit]]
+    } else {
+      output[bmUnit] = after[bmUnit]
+    }
+  }
+  return output
+}
+
+/*
+joinAccs
+For use when combining data from adjoinining settlement dates
+before should represent a prior settlement date
+after should represent a later settlement date
+This function will join the two together
+
+*/
+export const joinAccs = (
+  before: t.ElexonInsightsAcceptancesResponseParsed,
+  after: t.ElexonInsightsAcceptancesResponseParsed
+) => {
+  let output: t.ElexonInsightsAcceptancesResponseParsed = {};
+  log.debug(`joinAccs: looking at before ${Object.keys(before).length} and after ${Object.keys(after).length}`)
+  for (const bmUnit of Object.keys(before)) {
+    output[bmUnit] = before[bmUnit]
+  }
+  for (const bmUnit of Object.keys(after)) {
+    if (output[bmUnit]) {
+      output[bmUnit] = [...output[bmUnit], ...after[bmUnit]]
+    } else {
+      output[bmUnit] = after[bmUnit]
+    }
+  }
+  return output
+}
+
+/*
+filterBefore
+For use when potentially having to remove data that is before the cut off of what should be rendered (e.g. 24 hours ago)
+: param l: a BmUnitLevelPairs object
+: param cutoff: a Date object
+*/
+export const filterBefore = (l: t.BmUnitLevelPairs, cutoff: Date) => {
+  log.debug(`filterBefore: filtering ${l.length} settlement dates before ${cutoff.toISOString()}`)
+  let output: t.BmUnitLevelPairs = {}
+  for (const bmUnit of Object.keys(l)) {
+    output[bmUnit] = l[bmUnit].filter(x => new Date(x.time) < cutoff)
+  }
+  return output
+}
+
+/*
+averageLevel
+For use when calculating the average level of a BmUnitLevelPairs object
+Iterate through each level pair, and add the level to a running total
+Interpolate to take account of the fact that the level pairs are not necessarily at regular intervals
+output the average level in MW
+*/
+export const averageLevel = (pair: t.LevelPair[]): number => {
+  let totalMwh = 0
+  let totalSeconds = 0
+  // iterate through the 2nd to the last level pair
+  for (let i = 1; i < pair.length; i++) {
+    const timeDiff = new Date(pair[i].time).getTime() - new Date(pair[i - 1].time).getTime()
+    totalSeconds += timeDiff
+    const averageLevel = (pair[i].level + pair[i - 1].level) / 2
+    const volumeMwh = averageLevel * timeDiff / 3600000
+    totalMwh += volumeMwh
+  }
+  const averageMw = totalMwh / (totalSeconds / 3600000)
+  return Math.round(averageMw * 10) / 10
+}

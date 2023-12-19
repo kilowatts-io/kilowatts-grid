@@ -26,7 +26,11 @@ export type ElexonInsightsPNDataRecord = {
     bmUnit: string;
 }
 
-export type ElexonInsightsPNAllParams = ElexonSettlementDateOrPeriodParams 
+type OptionalBmUnitParams = {
+    bmUnits?: string[];
+}
+
+export type ElexonInsightsPNParams = ElexonSettlementDateOrPeriodParams & OptionalBmUnitParams
 
 export type ElexonInsightsPnResponseRaw = {
     data: ElexonInsightsPNDataRecord[];
@@ -58,6 +62,8 @@ export type ElexonInsightsAcceptancesDataRecord = {
     storFlag: boolean;
     rrFlag: boolean;
 }
+
+export type ElexonInsightsAcceptancesParams = ElexonInsightsPNParams
 
 export type ElexonInsightsAcceptancesResponse = {
     data: ElexonInsightsAcceptancesDataRecord[];
@@ -119,3 +125,4 @@ export type FuelTypeLevel = {
     unitGroupLevels: UnitGroupLevel[]
 }
 
+export type UnitGroupsDict = Record<string, UnitGroup>
