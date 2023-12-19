@@ -27,7 +27,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.benjaminwatts.kilowatts"
+      "package": "com.benjaminwatts.kilowatts",
+      "versionCode": 2
     },
     "web": {
       "bundler": "metro",
