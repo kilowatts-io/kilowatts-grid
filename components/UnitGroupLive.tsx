@@ -6,6 +6,7 @@ import { FlashList } from "@shopify/flash-list";
 import { RefreshControl } from "react-native-gesture-handler";
 import { UnitLive } from "../atoms/list-items";
 import { UnitListHeader } from "../atoms/cards";
+import { UnitGroupMap } from "../atoms/maps";
 
 // import { UnitGroupStack } from "./UnitGroupStack";
 
@@ -17,22 +18,20 @@ export const UnitGroupLive: React.FC<UnitGroupLiveProps> = ({ ug }) => {
   const query = useUnitGroupLiveQuery(ug);
 
   return (
-    <FlashList
-    estimatedItemSize={50}
-      refreshControl={
-        <RefreshControl
-          refreshing={query.isLoading}
-          onRefresh={() => {}}
-          />
-      }
-      ListHeaderComponent={() => <UnitListHeader now={query.now}/>}
-      data={query.data}
-      renderItem={({ item, index }) => (
-        <UnitLive
-        index={index}
-          {...item}
-        />
-      )}
-    />
+    <>
+      <FlashList
+        estimatedItemSize={50}
+        refreshControl={
+          <RefreshControl refreshing={query.isLoading} onRefresh={() => {}} />
+        }
+        ListHeaderComponent={() => <UnitListHeader now={query.now} />}
+        data={query.data}
+        renderItem={({ item, index }) => <UnitLive index={index} {...item} />}
+        ListFooterComponent={
+          <UnitGroupMap ug={ug} />
+        }
+      />
+      
+    </>
   );
 };

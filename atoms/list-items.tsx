@@ -20,10 +20,9 @@ export const GeneratorLive: React.FC<GeneratorLiveProps> = ({
   level,
   onPress,
 }) => (
-  <ListItem style={styles.listItemWrapper}>
+  <ListItem style={styles.listItemWrapper} onPress={onPress}>
     <ListItem.Content
       style={styles.liveContainer}
-      onPress={onPress}
       testID={`generator-live-${index}`}
     >
       <ListItem.Title>
@@ -54,14 +53,17 @@ export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level }) => (
   </ListItem>
 );
 
-
 type UnitLiveProps = {
   index: number;
   details: UnitGroupUnit;
   level: number;
 };
 
-export const UnitLive: React.FC<UnitLiveProps> = ({details, level, index }) => (
+export const UnitLive: React.FC<UnitLiveProps> = ({
+  details,
+  level,
+  index,
+}) => (
   <ListItem key={index}>
     <ListItem.Content style={styles.liveContainer}>
       <ListItem.Title>
@@ -72,7 +74,6 @@ export const UnitLive: React.FC<UnitLiveProps> = ({details, level, index }) => (
     </ListItem.Content>
   </ListItem>
 );
-
 
 const styles = StyleSheet.create({
   liveContainer: {
@@ -87,5 +88,5 @@ const styles = StyleSheet.create({
   },
   listItemWrapper: {
     width: "100%",
-  }
+  },
 });
