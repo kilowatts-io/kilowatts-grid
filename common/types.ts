@@ -2,17 +2,21 @@
 
 // Elexon Insights API 
 
-export type ElexonSettlementDateParams = {
-    settlementDate: string;
-    settlementPeriod: number;
-}
+
+// reusable params
 
 export type ElexonSettlementPeriodParams = {
     settlementDate: string;
     settlementPeriod: number;
 }
 
-export type ElexonSettlementDateOrPeriodParams = ElexonSettlementDateParams | ElexonSettlementPeriodParams
+export type ElexonRangeParams = {
+    from: string; // a Date iso string in format YYYY-MM-DD
+    to: string; // a Date iso string in format YYYY-MM-DD
+    settlementPeriodFrom?: number;
+    settlementPeriodTo?: number;
+}
+
 
 export type ElexonInsightsPNDataRecord = {
     dataset: 'PN';
@@ -30,11 +34,16 @@ type OptionalBmUnitParams = {
     bmUnits?: string[];
 }
 
-export type ElexonInsightsPNParams = ElexonSettlementDateOrPeriodParams & OptionalBmUnitParams
+export type ElexonInsightsPnSpParams = ElexonSettlementPeriodParams & OptionalBmUnitParams
+
+export type ElexonInsightsPnRangeParams = ElexonRangeParams & OptionalBmUnitParams
+
 
 export type ElexonInsightsPnResponseRaw = {
     data: ElexonInsightsPNDataRecord[];
 }
+
+export type ElexonInsightsPnResponseRange = ElexonInsightsPNDataRecord[];
 
 export type BmUnitId = string
 export type DateString = string
@@ -63,11 +72,14 @@ export type ElexonInsightsAcceptancesDataRecord = {
     rrFlag: boolean;
 }
 
-export type ElexonInsightsAcceptancesParams = ElexonInsightsPNParams
+export type ElexonInsightsAcceptancesSpParams = ElexonInsightsPnSpParams
+export type ElexonInsightsAcceptancesRangeParams = ElexonRangeParams & OptionalBmUnitParams
 
 export type ElexonInsightsAcceptancesResponse = {
     data: ElexonInsightsAcceptancesDataRecord[];
 }
+
+export type ElexonInsightsAcceptancesRangeResponse = ElexonInsightsAcceptancesDataRecord[];
 
 export type ElexonInsightsAcceptancesParsedNoLevels = {
     bmUnit: string;

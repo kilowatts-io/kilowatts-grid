@@ -23,6 +23,9 @@ export const queries = {
     );
     return output;
   },
+  pnRange: (
+    data: t.ElexonInsightsPnResponseRange
+  ) => queries.pnAll({data}),
   accAll: (
     r: t.ElexonInsightsAcceptancesResponse
   ): t.ElexonInsightsAcceptancesResponseParsed => {
@@ -37,4 +40,7 @@ export const queries = {
     }
     return output;
   },
+  accRange: (
+    data: t.ElexonInsightsAcceptancesRangeResponse
+  ) => queries.accAll({data}),
 };

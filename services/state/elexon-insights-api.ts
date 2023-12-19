@@ -8,14 +8,22 @@ const extraOptions = {
 };
 
 const queryParams = {
-  settlementPeriodToQuery: (p: t.ElexonSettlementDateOrPeriodParams) => {
+  settlementPeriodToQuery: (p: t.ElexonSettlementPeriodParams) => {
     return `?settlementDate=${p.settlementDate}${
       p.settlementPeriod ? `&settlementPeriod=${p.settlementPeriod}` : ""
     }`;
   },
   bmUnitsToQuery: (bmUnits?: string[]) => {
-    if(!bmUnits) return ""
+    if (!bmUnits) return "";
     return bmUnits.map((bmUnit) => `&bmUnit=${bmUnit}`).join("");
+  },
+  rangeToQuery: (p: t.ElexonRangeParams) => {
+    let query = `?from=${p.from}&to=${p.to}`;
+    if (p.settlementPeriodFrom)
+      query += `&settlementPeriodFrom=${p.settlementPeriodFrom}`;
+    if (p.settlementPeriodTo)
+      query += `&settlementPeriodTo=${p.settlementPeriodTo}`;
+    return query;
   },
 };
 
@@ -28,21 +36,52 @@ export const elexonInsightsApi = createApi({
     extraOptions
   ),
   endpoints: (builder) => ({
-    pnAll: builder.query<
+    pnSp: builder.query<
       t.ElexonInsightsPnResponseParsed,
-      t.ElexonInsightsPNParams
+      t.ElexonInsightsPnSpParams
     >({
-      query: (p) => `/datasets/pn${queryParams.settlementPeriodToQuery(p)}${queryParams.bmUnitsToQuery(p.bmUnits)}`,
+      query: (p) =>
+        `/datasets/pn${queryParams.settlementPeriodToQuery(
+          p
+        )}${queryParams.bmUnitsToQuery(p.bmUnits)}`,
       transformResponse: tr.queries.pnAll,
     }),
-    accAll: builder.query<
-      t.ElexonInsightsAcceptancesResponseParsed,
-      t.ElexonInsightsAcceptancesParams
+    pnRange: builder.query<
+      t.ElexonInsightsPnResponseParsed,
+      t.ElexonInsightsPnRangeParams
     >({
-      query: (p) => `/balancing/acceptances/all${queryParams.settlementPeriodToQuery(p)}${queryParams.bmUnitsToQuery(p.bmUnits)}`,
+      query: (p) =>
+        `/datasets/pn/stream${queryParams.rangeToQuery(
+          p
+        )}${queryParams.bmUnitsToQuery(p.bmUnits)}`,
+      transformResponse: tr.queries.pnRange,
+    }),
+    accSp: builder.query<
+      t.ElexonInsightsAcceptancesResponseParsed,
+      t.ElexonInsightsAcceptancesSpParams
+    >({
+      query: (p) =>
+        `/balancing/acceptances/all${queryParams.settlementPeriodToQuery(
+          p
+        )}${queryParams.bmUnitsToQuery(p.bmUnits)}`,
       transformResponse: tr.queries.accAll,
+    }),
+    accRange: builder.query<
+      t.ElexonInsightsAcceptancesResponseParsed,
+      t.ElexonInsightsAcceptancesRangeParams
+    >({
+      query: (p) =>
+        `/datasets/boalf/stream${queryParams.rangeToQuery(
+          p
+        )}${queryParams.bmUnitsToQuery(p.bmUnits)}`,
+      transformResponse: tr.queries.accRange,
     }),
   }),
 });
 
-export const { usePnAllQuery, useAccAllQuery } = elexonInsightsApi;
+export const {
+  usePnSpQuery,
+  useAccSpQuery,
+  usePnRangeQuery,
+  useAccRangeQuery,
+} = elexonInsightsApi;

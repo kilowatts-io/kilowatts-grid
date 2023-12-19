@@ -1,116 +1,96 @@
-import { getSettlementPeriod, getTodayYesterdaySettlementDates } from "../../common/utils";
-import React from "react";
-import { useAccAllQuery, usePnAllQuery } from "./elexon-insights-api";
+import {
+  useAccSpQuery,
+  usePnSpQuery,
+  usePnRangeQuery,
+  useAccRangeQuery,
+} from "./elexon-insights-api";
 import * as p from "../../common/parsers";
 import log from "../log";
-import { AppState } from "react-native";
-import NetInfo from "@react-native-community/netinfo";
 import { UnitGroup } from "../../common/types";
+import {
+  useNowSettlementPeriod,
+  useRecentHistoryElexonRange,
+  useRefetchOnAppOrNetworkResume,
+} from "../hooks";
 
 export const UPDATE_INTERVAL_LIVE_GENERATION_SECS = 1;
 export const POLLING_INTERVAL_ACCS_SECS = 15;
 export const MAX_RETRIES = 99999999;
 
-export const useUnitGroupsLiveQuery = () => {
-  const [nowTime, setNowTime] = React.useState(new Date());
-
-  const pns = usePnAllQuery(getSettlementPeriod(nowTime.toISOString()));
-  const accs = useAccAllQuery(getSettlementPeriod(nowTime.toISOString()), {
+type UseBmUnitsLiveQueryParams = {
+  bmUnits?: string[];
+};
+const useBmUnitsLiveQuery = ({ bmUnits }: UseBmUnitsLiveQueryParams) => {
+  const { settlementPeriod, now } = useNowSettlementPeriod(
+    UPDATE_INTERVAL_LIVE_GENERATION_SECS
+  );
+  const queryParams = {
+    ...settlementPeriod,
+    bmUnits,
+  };
+  const pns = usePnSpQuery(queryParams);
+  const accs = useAccSpQuery(queryParams, {
     pollingInterval: POLLING_INTERVAL_ACCS_SECS * 1000,
   });
 
-  const refetch = () => {
-    log.debug(`useGenerationLiveQuery: refetching`);
-    pns.refetch();
-    accs.refetch();
+  const baseParams = {
+    refetch: () => {
+      log.debug(`useUnitGroupLiveQuery: refetching`);
+      pns.refetch();
+      accs.refetch();
+    },
+    isLoading: pns.isLoading || accs.isLoading,
+    data: null,
   };
 
-  React.useEffect(() => {
-    log.debug(`useGenerationLiveQuery: mounting`);
+  useRefetchOnAppOrNetworkResume(baseParams);
 
-    const interval = setInterval(() => {
-      log.debug(`useGenerationLiveQuery: updating nowTime`);
-      setNowTime(new Date());
-    }, UPDATE_INTERVAL_LIVE_GENERATION_SECS * 1000);
-    return () => {
-      log.debug(`useGenerationLiveQuery: dismounting`);
-      clearInterval(interval);
-    };
-  }, [setNowTime]);
+  return {
+    baseParams,
+    pns,
+    accs,
+    now,
+  };
+};
 
-  // retry on app resume
-  React.useEffect(() => {
-    const appStateListener = AppState.addEventListener(
-      "change",
-      (nextAppState) => {
-        if (nextAppState === "active") {
-          log.debug(
-            `useGenerationLiveQuery: appStateListener: active -- refetching`
-          );
-          refetch();
-        }
-      }
-    );
-    return () => {
-      appStateListener.remove();
-    };
-  }, []);
-  // retry if intermet restored
-
-  React.useEffect(() => {
-    const netInfoListener = NetInfo.addEventListener((state) => {
-      if (
-        (state.isConnected && !pns.data) ||
-        (!accs.data && !pns.isLoading && !accs.isLoading)
-      ) {
-        log.debug(`useGenerationLiveQuery: netInfoListener: connected`);
-        refetch();
-      }
-    });
-    return () => {
-      netInfoListener();
-    };
+export const useUnitGroupsLiveQuery = () => {
+  const { baseParams, pns, accs, now } = useBmUnitsLiveQuery({
+    bmUnits: undefined,
   });
 
   if (!pns.data || !accs.data) {
+    log.debug(`useUnitGroupLiveQuery: no data`);
     return {
-      isLoading: pns.isLoading || accs.isLoading,
-      refetch,
+      ...baseParams,
+      now: null,
     };
-  }
-
-  try {
-    log.debug(`useGenerationLiveQuery: combining pns and accs`);
-    const combined = p.combinePnsAndAccs({
-      pns: pns.data,
-      accs: accs.data,
-    });
-
-    log.debug(`useGenerationLiveQuery: interpolating bmUnitLevelPairs `);
-
-    const unitGroups = p.groupByUnitGroup(
-      p.interpolateBmUnitLevelPairs({
-        bmUnitLevelPairs: combined,
-        time: nowTime.toISOString(),
-        omitZero: true,
-      })
-    );
-
-    return {
-      updated: pns.data && nowTime,
-      isLoading: pns.isLoading,
-      refetch,
-      data: unitGroups.sort((a, b) => b.level - a.level),
-    };
-  } catch (e) {
-    log.debug(`useGenerationLiveQuery: caught error: ${e}`);
-    return {
-      isLoading: pns.isLoading,
-      refetch,
-    };
+  } else {
+    log.debug(`useUnitGroupLiveQuery: has data - trying to parse and combine`);
+    try {
+      return {
+        ...baseParams,
+        now,
+        data: p.transformUnitGroupsLiveQuery({
+          pns: pns.data,
+          accs: accs.data,
+          now,
+        }),
+      };
+    } catch (e) {
+      log.debug(`useUnitGroupLiveQuery: caught error: ${e}`);
+      return {
+        ...baseParams,
+        isError: true,
+        now: null,
+      };
+    }
   }
 };
 
+/*
+useFuelTypeLiveQuery
+Get the latest data for output in each fuel type category
+*/
 export const useFuelTypeLiveQuery = () => {
   log.debug(`useFuelTypeLiveQuery: mounting`);
   const unitGroups = useUnitGroupsLiveQuery();
@@ -128,121 +108,92 @@ export const useFuelTypeLiveQuery = () => {
 
 /*
 useUnitGroupLiveQuery
-Get the latest data for a single unit group, going back over the last 24 hours
+Get the latest data for a single unit grou
 */
 export const useUnitGroupLiveQuery = (ug: UnitGroup) => {
-  // const [nowTime, setNowTime] = React.useState(new Date())
-  const twentyFourHoursAgo = new Date(Date.now() - 86400000)
+  log.debug(`useUnitGroupLiveQuery: mounting`);
+  const bmUnits = ug.units.map((u) => u.bmUnit);
+  const query = useBmUnitsLiveQuery({ bmUnits });
+  if (!query.pns.data || !query.accs.data) {
+    log.info(`useUnitGroupLiveQuery: no data`);
+    return {
+      data: null,
+      isLoading: true,
+    };
+  } else {
+    log.info(`useUnitGroupLiveQuery: has data`);
+    return {
+      now: query.now,
+      isLoading: false,
+      data: p.transformUnitGroupLiveQuery({
+        pns: query.pns.data,
+        accs: query.accs.data,
+        now: query.now,
+        units: ug.units,
+      }),
+    };
+  }
+};
+
+/*
+useUnitGroupHistoryQuery
+Get the data for a single unit group, going back over the last 24 hours
+*/
+export const useUnitGroupHistoryQuery = (ug: UnitGroup) => {
+  const twentyFourHoursAgo = new Date(Date.now() - 86400000);
 
   const bmUnits = ug.units.map((u) => u.bmUnit);
   log.debug(
-    `useUnitGroupLiveQuery: mounting,, will track ${
+    `useUnitGroupHistoryQuery: mounting,, will track ${
       bmUnits.length
     } bmUnits: ${bmUnits.join(", ")}`
   );
-  const [yesterday, today] = getTodayYesterdaySettlementDates();
 
-  const queries = {
-    pn: {
-      today: usePnAllQuery({...today, bmUnits}),
-      yesterday: usePnAllQuery({...yesterday, bmUnits}),
-    },
-    acc: {
-      today: useAccAllQuery({...today, bmUnits}),
-      yesterday: useAccAllQuery({...yesterday, bmUnits}),
-    },
-  }
 
-  const isLoading = queries.pn.today.isLoading || queries.pn.yesterday.isLoading || queries.acc.today.isLoading || queries.acc.yesterday.isLoading
-
-  const refetch = () => {
-    if(!isLoading) {
-      log.debug(`useGenerationLiveQuery: refetching today queries`);
-      queries.pn.today.refetch()
-      queries.acc.today.refetch()
-    } else {
-      log.debug(`useGenerationLiveQuery: not refetching today queries as already loading`)
-    }
+  const params = {
+    ...useRecentHistoryElexonRange(),
+    bmUnits,
   };
 
-  // retry on app resume
-  React.useEffect(() => {
-    const appStateListener = AppState.addEventListener(
-      "change",
-      (nextAppState) => {
-        if (nextAppState === "active") {
-          log.debug(
-            `useGenerationLiveQuery: appStateListener: active -- refetching`
-          );
-          refetch();
-        }
-      }
-    );
-    return () => {
-      appStateListener.remove();
-    };
-  }, []);
-  // retry if intermet restored
+  log.info(`useUnitGroupHistoryQuery: establishing queries with params ${JSON.stringify(params)}`);
 
-  if (isLoading) {
-    return {
-      isLoading: true,
-      refetch,
-    };
+
+  const queries = {
+    pn: usePnRangeQuery(params),
+    acc: useAccRangeQuery(params),
+  };
+
+  const baseParams = {
+    isLoading: queries.pn.isLoading || queries.acc.isLoading,
+    refetch: () => {
+      log.debug(`useUnitGroupHistoryQuery: refetching`);
+      queries.pn.refetch();
+      queries.acc.refetch();
+    },
+    data: null,
+  };
+
+  useRefetchOnAppOrNetworkResume(baseParams);
+
+  if (baseParams.isLoading || !queries.pn.data || !queries.acc.data) {
+    return baseParams;
   }
 
   try {
-    log.debug(`useGenerationLiveQuery: combining pns and accs`);
-    if(!queries.pn.today.data || !queries.pn.yesterday.data || !queries.acc.today.data || !queries.acc.yesterday.data) {
-      throw new Error(`useGenerationLiveQuery: missing data`)
-    }
-    log.debug(`useGenerationLiveQuery: joining pns and accs`);
-    const joined = {
-      pns: p.joinBmUnitLevelPairs(queries.pn.today.data, queries.pn.yesterday.data),
-      accs: p.joinAccs(queries.acc.today.data, queries.acc.yesterday.data)
-    }
-    log.debug(`useGenerationLiveQuery: combining pns and accs`);
-    const combined = p.combinePnsAndAccs(joined);
-
-    log.debug(`useGenerationLiveQuery: removing any values before ${twentyFourHoursAgo}`);
-    const filtered = p.filterBefore(combined, twentyFourHoursAgo)
-
-    log.debug(`useGenerationLiveQuery: joining with ug.units`);
-    const unitData = ug.units.map((u) => {
-      const bmUnitData = filtered[u.bmUnit]
-      return {
-        ...u,
-        name: u.name || u.bmUnit,
-        data: {
-          levels: bmUnitData,
-          average: p.averageLevel(bmUnitData)
-        }
-      }
-    })
-
-    log.debug(`useGenerationLiveQuery: sort by average level `);
-    unitData.sort((a, b) => {
-      if(a.data.average && b.data.average) {
-        return b.data.average - a.data.average
-      } else if(a.data.average) {
-        return -1
-      } else if(b.data.average) {
-        return 1
-      } else {
-        return 0
-      }
-    })
-    
     return {
-      isLoading: false,
-      refetch,
-      data: unitData
+      ...baseParams,
+      data: p.transformUnitHistoryQuery({
+        pns: queries.pn.data,
+        accs: queries.acc.data,
+        truncateBefore: twentyFourHoursAgo,
+        units: ug.units,
+      }),
     };
   } catch (e) {
-    log.debug(`useGenerationLiveQuery: caught error: ${e}`);
+    log.debug(`useUnitGroupHistoryQuery: caught error: ${e}`);
     return {
-      isLoading: false,
-      refetch,
+      ...baseParams,
+      isError: true,
     };
   }
 };

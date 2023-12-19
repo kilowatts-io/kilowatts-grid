@@ -21,7 +21,10 @@ export const getBmUnits = (
         // this preserves transmission units, embedded units and interconnectors
         if (
           (bmUnit && bmUnit.startsWith("T_")) ||
-          bmUnit.startsWith("E_" || bmUnit.startsWith("I_") || bmUnit.startsWith("2_"))) {
+          bmUnit.startsWith(
+            "E_" || bmUnit.startsWith("I_") || bmUnit.startsWith("2_")
+          )
+        ) {
           set.add(r.bmUnit);
         }
       }
@@ -310,7 +313,9 @@ Group by fuel type
 
 Group the output of groupByUnitGroup by fuel type
 */
-export const groupByFuelTypeAndInterconnectors = (x: t.UnitGroupLevel[]): t.FuelTypeLevel[] => {
+export const groupByFuelTypeAndInterconnectors = (
+  x: t.UnitGroupLevel[]
+): t.FuelTypeLevel[] => {
   log.debug(`groupByFuelType`);
   let output: t.FuelTypeLevel[] = [];
   let fuelTypesAndInterconnectors: t.FuelType[] = [];
@@ -339,7 +344,6 @@ export const groupByFuelTypeAndInterconnectors = (x: t.UnitGroupLevel[]): t.Fuel
   );
 };
 
-
 /*
 joinBmUnitLevelPairs
 For use when combining data from adjoinining settlement dates
@@ -353,19 +357,23 @@ export const joinBmUnitLevelPairs = (
   after: t.BmUnitLevelPairs
 ) => {
   let output: t.BmUnitLevelPairs = {};
-  log.debug(`joinBmUnitLevelPairs: looking at before ${Object.keys(before).length} and after ${Object.keys(after).length}`)
+  log.debug(
+    `joinBmUnitLevelPairs: looking at before ${
+      Object.keys(before).length
+    } and after ${Object.keys(after).length}`
+  );
   for (const bmUnit of Object.keys(before)) {
-    output[bmUnit] = before[bmUnit]
+    output[bmUnit] = before[bmUnit];
   }
   for (const bmUnit of Object.keys(after)) {
     if (output[bmUnit]) {
-      output[bmUnit] = [...output[bmUnit], ...after[bmUnit]]
+      output[bmUnit] = [...output[bmUnit], ...after[bmUnit]];
     } else {
-      output[bmUnit] = after[bmUnit]
+      output[bmUnit] = after[bmUnit];
     }
   }
-  return output
-}
+  return output;
+};
 
 /*
 joinAccs
@@ -380,19 +388,23 @@ export const joinAccs = (
   after: t.ElexonInsightsAcceptancesResponseParsed
 ) => {
   let output: t.ElexonInsightsAcceptancesResponseParsed = {};
-  log.debug(`joinAccs: looking at before ${Object.keys(before).length} and after ${Object.keys(after).length}`)
+  log.debug(
+    `joinAccs: looking at before ${Object.keys(before).length} and after ${
+      Object.keys(after).length
+    }`
+  );
   for (const bmUnit of Object.keys(before)) {
-    output[bmUnit] = before[bmUnit]
+    output[bmUnit] = before[bmUnit];
   }
   for (const bmUnit of Object.keys(after)) {
     if (output[bmUnit]) {
-      output[bmUnit] = [...output[bmUnit], ...after[bmUnit]]
+      output[bmUnit] = [...output[bmUnit], ...after[bmUnit]];
     } else {
-      output[bmUnit] = after[bmUnit]
+      output[bmUnit] = after[bmUnit];
     }
   }
-  return output
-}
+  return output;
+};
 
 /*
 filterBefore
@@ -401,13 +413,17 @@ For use when potentially having to remove data that is before the cut off of wha
 : param cutoff: a Date object
 */
 export const filterBefore = (l: t.BmUnitLevelPairs, cutoff: Date) => {
-  log.debug(`filterBefore: filtering ${l.length} settlement dates before ${cutoff.toISOString()}`)
-  let output: t.BmUnitLevelPairs = {}
+  log.debug(
+    `filterBefore: filtering ${
+      l.length
+    } settlement dates before ${cutoff.toISOString()}`
+  );
+  let output: t.BmUnitLevelPairs = {};
   for (const bmUnit of Object.keys(l)) {
-    output[bmUnit] = l[bmUnit].filter(x => new Date(x.time) < cutoff)
+    output[bmUnit] = l[bmUnit].filter((x) => new Date(x.time) < cutoff);
   }
-  return output
-}
+  return output;
+};
 
 /*
 averageLevel
@@ -417,16 +433,136 @@ Interpolate to take account of the fact that the level pairs are not necessarily
 output the average level in MW
 */
 export const averageLevel = (pair: t.LevelPair[]): number => {
-  let totalMwh = 0
-  let totalSeconds = 0
+  let totalMwh = 0;
+  let totalSeconds = 0;
   // iterate through the 2nd to the last level pair
   for (let i = 1; i < pair.length; i++) {
-    const timeDiff = new Date(pair[i].time).getTime() - new Date(pair[i - 1].time).getTime()
-    totalSeconds += timeDiff
-    const averageLevel = (pair[i].level + pair[i - 1].level) / 2
-    const volumeMwh = averageLevel * timeDiff / 3600000
-    totalMwh += volumeMwh
+    const timeDiff =
+      new Date(pair[i].time).getTime() - new Date(pair[i - 1].time).getTime();
+    totalSeconds += timeDiff;
+    const averageLevel = (pair[i].level + pair[i - 1].level) / 2;
+    const volumeMwh = (averageLevel * timeDiff) / 3600000;
+    totalMwh += volumeMwh;
   }
-  const averageMw = totalMwh / (totalSeconds / 3600000)
-  return Math.round(averageMw * 10) / 10
-}
+  const averageMw = totalMwh / (totalSeconds / 3600000);
+  return Math.round(averageMw * 10) / 10;
+};
+
+type TransformUnitGroupsLiveQueryParams = {
+  now: Date;
+  pns: t.BmUnitLevelPairs;
+  accs: t.ElexonInsightsAcceptancesResponseParsed;
+};
+export const transformUnitGroupsLiveQuery = ({
+  pns,
+  accs,
+  now,
+}: TransformUnitGroupsLiveQueryParams): t.UnitGroupLevel[] => {
+  log.debug(`transformUnitGroupsLiveQuery: combining pns and accs`);
+  const combined = combinePnsAndAccs({
+    pns,
+    accs,
+  });
+  log.debug(`transformUnitGroupsLiveQuery: interpolating bmUnitLevelPairs `);
+  const unitGroups = groupByUnitGroup(
+    interpolateBmUnitLevelPairs({
+      bmUnitLevelPairs: combined,
+      time: now.toISOString(),
+      omitZero: true,
+    })
+  );
+  return unitGroups.sort((a, b) => b.level - a.level);
+};
+
+type UnitGroupLiveQueryData = {
+  level: number;
+  details: t.UnitGroupUnit;
+}[];
+
+type TransformUnitGroupLiveQueryParams = {
+  now: Date;
+  pns: t.BmUnitLevelPairs;
+  accs: t.ElexonInsightsAcceptancesResponseParsed;
+  units: t.UnitGroupUnit[];
+};
+export const transformUnitGroupLiveQuery = ({
+  pns,
+  accs,
+  now,
+  units,
+}: TransformUnitGroupLiveQueryParams): UnitGroupLiveQueryData => {
+  log.debug(`transformUnitGroupLiveQuery: combining pns and accs`);
+  const combined = combinePnsAndAccs({
+    pns,
+    accs,
+  });
+  log.debug(`transformUnitGroupLiveQuery: interpolating bmUnitLevelPairs `);
+  const interp = interpolateBmUnitLevelPairs({
+    bmUnitLevelPairs: combined,
+    time: now.toISOString(),
+    omitZero: true,
+  });
+  log.debug(`transformUnitGroupLiveQuery: combine with ug.units `);
+  const withUnits = units.map((u) => {
+    const level = interp[u.bmUnit] || 0;
+    return {
+      details: u,
+      level,
+    };
+  });
+  log.debug(`transformUnitGroupLiveQuery: sorting by level descending `);
+  withUnits.sort((a, b) => b.level - a.level);
+  return withUnits;
+};
+
+type TransformUnitHistoryQueryParams = {
+  pns: t.BmUnitLevelPairs
+  accs: t.ElexonInsightsAcceptancesResponseParsed
+  truncateBefore: Date
+  units: t.UnitGroupUnit[]
+};
+
+export const transformUnitHistoryQuery = ({
+  pns, 
+  accs,
+  truncateBefore,
+  units
+}: TransformUnitHistoryQueryParams) => {
+
+  log.debug(`useUnitGroupHistoryQuery: joining pns and accs`);
+  const combined = combinePnsAndAccs({pns, accs});
+
+  console.log(combined)
+
+  log.debug(
+    `useUnitGroupHistoryQuery: removing any values before ${truncateBefore}`
+  );
+  const filtered = filterBefore(combined, truncateBefore);
+
+  log.debug(`useUnitGroupHistoryQuery: joining with ug.units`);
+  const unitData = units.map((u) => {
+    const bmUnitData = filtered[u.bmUnit];
+    return {
+      details: u,
+      data: {
+        levels: bmUnitData,
+        average: averageLevel(bmUnitData),
+      },
+    };
+  });
+
+  log.debug(`useUnitGroupHistoryQuery: sort by average level `);
+  unitData.sort((a, b) => {
+    if (a.data.average && b.data.average) {
+      return b.data.average - a.data.average;
+    } else if (a.data.average) {
+      return -1;
+    } else if (b.data.average) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  return unitData
+};

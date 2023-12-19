@@ -34,7 +34,8 @@ type UnitGroupLiveWithSearchProps = {
 };
 
 export const UnitGroupLiveWithSearch: React.FC<UnitGroupLiveWithSearchProps> = ({ search }) => {
-  const { data, isLoading, updated, refetch } = useUnitGroupsLiveQuery();
+  const query = useUnitGroupsLiveQuery();
+  const {data, now, isLoading, refetch} = query
   const filteredData = useMemo(() => {
     if (!data) return data;
     if (search === "") return data;
@@ -48,11 +49,11 @@ export const UnitGroupLiveWithSearch: React.FC<UnitGroupLiveWithSearchProps> = (
 
   useEffect(() => {
     nav.setOptions({
-      title: updated
-        ? `Major Generators Live Output: ${updated.toLocaleTimeString()}`
+      title: now
+        ? `Major Generators Live Output: ${now.toLocaleTimeString()}`
         : "Loading...",
     });
-  }, [updated]);
+  }, [query.now]);
 
   return (
     <FlashList
@@ -72,11 +73,11 @@ export const UnitGroupLiveWithSearch: React.FC<UnitGroupLiveWithSearchProps> = (
             level={item.level}
           />
         );
-        return code ? (
+        const hasLink = code && fuelType !== "interconnector";
+        return (hasLink) ? (
           <Link
             style={styles.linkWrapper}
-            disabled={fuelType === "interconnector"}
-            href={code && urls.unitGroup(code)}
+            href={urls.unitGroup(code)}
           >
             {listItem}
           </Link>

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ListItem } from "@rneui/themed";
 import formatters from "../common/formatters";
-import { FuelType } from "../common/types";
+import { FuelType, UnitGroupUnit } from "../common/types";
 import { FuelTypeIcon } from "./icons";
 
 type GeneratorLiveProps = {
@@ -53,6 +53,26 @@ export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level }) => (
     </ListItem.Content>
   </ListItem>
 );
+
+
+type UnitLiveProps = {
+  index: number;
+  details: UnitGroupUnit;
+  level: number;
+};
+
+export const UnitLive: React.FC<UnitLiveProps> = ({details, level, index }) => (
+  <ListItem key={index}>
+    <ListItem.Content style={styles.liveContainer}>
+      <ListItem.Title>
+        <View style={styles.hSpacer} />
+        <>{details.bmUnit}</>
+      </ListItem.Title>
+      <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
+    </ListItem.Content>
+  </ListItem>
+);
+
 
 const styles = StyleSheet.create({
   liveContainer: {

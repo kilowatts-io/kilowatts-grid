@@ -55,6 +55,38 @@ export const UnknownUnitGroupCode = () => {
   );
 };
 
+
+export const MissingScreen = () => {
+  log.debug(`MissingScreen`)
+  return (
+    <Card>
+      <Card.Title>
+        <Text>Error</Text>
+      </Card.Title>
+      <Card.Divider />
+      <Text>
+        This screen does not exist. 
+      </Text>
+  
+    </Card>
+  );
+};
+
+type UnitListHeaderProps = {
+  now?: Date;
+}
+export const UnitListHeader:React.FC<UnitListHeaderProps> = ({now}) => {
+  return (
+    <Card containerStyle={styles.listHeaderCard}>
+      {now ? <Text>Individual Units: {now.toLocaleTimeString()}</Text> : <Text>Loading Individual Units</Text>}
+    </Card>
+  );
+}
+
 const styles = StyleSheet.create({
   spacer: { height: 10 },
+  listHeaderCard: {
+    margin: 0,
+    // padding: 0,
+  }
 });
