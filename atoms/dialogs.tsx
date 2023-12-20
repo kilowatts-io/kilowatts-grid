@@ -16,7 +16,7 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
   isVisible,
   onBackdropPress,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <Dialog
       testID="consent-dialog"
@@ -41,12 +41,15 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
           title="View Elexon License"
           onPress={() => Linking.openURL(urls.elexonLicense)}
         />
-        <Dialog.Button
-          title="View App Privacy Policy"
-          onPress={() => {
-            router.push(urls.privacy);
-          }}
-        />
+        {onBackdropPress && (
+          <Dialog.Button
+            title="View App Privacy Policy"
+            onPress={() => {
+              onBackdropPress();
+              router.push(urls.privacy);
+            }}
+          />
+        )}
       </Dialog.Actions>
     </Dialog>
   );

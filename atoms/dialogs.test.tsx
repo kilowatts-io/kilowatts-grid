@@ -15,7 +15,7 @@ jest.mock("react-native/Libraries/Linking/Linking", () => ({
 //modk useRouter
 jest.mock("expo-router", () => ({
   useRouter: () => ({
-    push: mockLinkingOpenURL
+    push: mockLinkingOpenURL,
   }),
 }));
 
@@ -31,7 +31,7 @@ describe("atoms/dialogs/ConsentDialog/invisible", () => {
   });
 });
 
-describe("atoms/dialogs/ConsentDialog/visible", () => {
+describe("atoms/dialogs/ConsentDialog/preaccepance", () => {
   beforeEach(() => {
     mockOnAccept.mockClear();
     mockOnBackdropPress.mockClear();
@@ -52,7 +52,6 @@ describe("atoms/dialogs/ConsentDialog/visible", () => {
       "Contains BMRS data © Elexon Limited copyright and database right 2021."
     );
     screen.getByText("View Elexon License");
-    screen.getByText("View App Privacy Policy");
   });
 
   test('onAccept is called when "I agree" is pressed', () => {
@@ -66,17 +65,37 @@ describe("atoms/dialogs/ConsentDialog/visible", () => {
     const btn = screen.getByText("View Elexon License");
     fireEvent.press(btn);
     expect(mockLinkingOpenURL).toHaveBeenCalledTimes(1);
-    expect(mockLinkingOpenURL).toHaveBeenCalledWith(
-      urls.elexonLicense,
+    expect(mockLinkingOpenURL).toHaveBeenCalledWith(urls.elexonLicense);
+  });
+
+  test("View App Privacy Policy is not visible yet", () => {
+    try {
+      screen.getByText("View App Privacy Policy");
+      throw new Error("View App Privacy Policy should not be visible yet");
+    } catch (e: any) {
+     
+    }
+  });
+});
+
+describe("atoms/dialogs/ConsentDialog/postacceptance", () => {
+  beforeEach(() => {
+    mockOnAccept.mockClear();
+    mockOnBackdropPress.mockClear();
+    mockLinkingOpenURL.mockClear();
+    render(
+      <d.ConsentDialog
+        isVisible={true}
+        onAccept={mockOnAccept}
+        onBackdropPress={mockOnBackdropPress}
+      />
     );
   });
 
-  test("press on View App Privacy Policy triggers Linking.openURL call to urls.privacy", () => {
+  test("press on View App Privacy Policy triggers router.replace call to urls.privacy", () => {
     const btn = screen.getByText("View App Privacy Policy");
     fireEvent.press(btn);
     expect(mockLinkingOpenURL).toHaveBeenCalledTimes(1);
-    expect(mockLinkingOpenURL).toHaveBeenCalledWith(
-      urls.privacy,
-    );
+    expect(mockLinkingOpenURL).toHaveBeenCalledWith(urls.privacy);
   });
 });
