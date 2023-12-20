@@ -10,10 +10,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@rneui/themed";
 import { WithLicense } from "./components/WithLicense";
 import * as Updates from "expo-updates";
-import { Alert, AppState, AppStateStatus, useColorScheme } from "react-native";
+import { Alert, AppState, AppStateStatus } from "react-native";
 import log from "./services/log";
 import theme from "./services/theme";
-import { ReactHelmet } from "./components/ReactHelmet";
 
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 2000);
@@ -86,15 +85,11 @@ export const App = () => {
   const ctx = require.context("./app");
 
   if (!loaded) {
-    if (Platform.OS === "web") {
-      return <ReactHelmet />;
-    } else {
-      return null;
-    }
+    return null;
+  
   }
   return (
     <>
-      {Platform.OS === "web" && <ReactHelmet />}
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <WithLicense>
