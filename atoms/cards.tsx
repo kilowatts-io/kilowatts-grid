@@ -137,6 +137,48 @@ export const UnitGroupScheduleHeader: React.FC<
   );
 };
 
+/*
+EmptyScheduleCard
+
+*/
+export const EmptyScheduleCard: React.FC = () => {
+  return (
+    <Card containerStyle={styles.listHeaderCard}>
+      <Card.Title>No Scheduled Output</Card.Title>
+      <Card.Divider />
+      <Text>None of the units are expected to generate/consume of the coming hours</Text>
+      <View style={styles.spacer} />
+      <Text>They may be under maintenance.</Text>
+    </Card>
+  );
+};
+
+/*
+ApiError
+*/
+type ApiErrorProps = {
+  refetch: () => void;
+}
+export const ApiErrorCard: React.FC<ApiErrorProps> = ({ refetch }) => {
+  return (
+    <Card>
+      <Card.Title>
+        <Text>API Error</Text>
+      </Card.Title>
+      <View style={styles.spacer} />
+
+      <Text>
+        There was an error fetching/interpreting data from the Elexon API. Please try again later.
+      </Text>
+
+      <View style={styles.spacer} />
+
+
+      <Button onPress={refetch}>Try again</Button>
+    </Card>
+  )
+}
+
 const styles = StyleSheet.create({
   spacer: { height: 10 },
   listHeaderCard: {

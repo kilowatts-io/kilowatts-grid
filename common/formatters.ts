@@ -2,17 +2,15 @@ import { FuelType } from "./types";
 
 export const formatters = {
   mw: (x: number) => {
-    if (x > 10000) {
-      const gw = Math.round(x / 1000).toLocaleString();
-      return `${gw} GW`;
-    }
 
-    if(x < 1) {
+    if(x === 0) {return '0 MW';}
+
+    if(x < 1 && x > -1) {
         const kw = Math.round(x * 1000).toLocaleString();
         return `${kw} kW`;
     }
 
-    const value = Math.round(x * 10) / 10;
+    const value = Math.round(x * 100) / 100;
 
     return `${value.toLocaleString()} MW`;
   },

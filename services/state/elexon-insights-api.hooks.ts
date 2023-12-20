@@ -9,6 +9,7 @@ import log from "../log";
 import { UnitGroup } from "../../common/types";
 import {
   useNowSettlementPeriod,
+  useNowTime,
   useRecentHistoryElexonRange,
   useRefetchOnAppOrNetworkResume,
 } from "../hooks";
@@ -20,7 +21,7 @@ export const MAX_RETRIES = 99999999;
 type UseBmUnitsLiveQueryParams = {
   bmUnits?: string[];
 };
-const useBmUnitsLiveQuery = ({ bmUnits }: UseBmUnitsLiveQueryParams) => {
+export const useBmUnitsLiveQuery = ({ bmUnits }: UseBmUnitsLiveQueryParams) => {
   const { settlementPeriod, now } = useNowSettlementPeriod(
     UPDATE_INTERVAL_LIVE_GENERATION_SECS
   );
@@ -34,6 +35,7 @@ const useBmUnitsLiveQuery = ({ bmUnits }: UseBmUnitsLiveQueryParams) => {
   });
 
   const baseParams = {
+    now,
     refetch: () => {
       log.debug(`useUnitGroupLiveQuery: refetching`);
       pns.refetch();
@@ -41,49 +43,50 @@ const useBmUnitsLiveQuery = ({ bmUnits }: UseBmUnitsLiveQueryParams) => {
     },
     isLoading: pns.isLoading || accs.isLoading,
     data: null,
+    isError: false,
   };
 
   useRefetchOnAppOrNetworkResume(baseParams);
 
-  return {
-    baseParams,
-    pns,
-    accs,
-    now,
-  };
+  if (baseParams.isLoading || !pns.data || !accs.data) {
+    return baseParams;
+  } else {
+    return {
+      ...baseParams,
+      data: {
+        pns: pns.data,
+        accs: accs.data,
+      },
+      now,
+    };
+  }
 };
 
 export const useUnitGroupsLiveQuery = () => {
-  const { baseParams, pns, accs, now } = useBmUnitsLiveQuery({
+  const query = useBmUnitsLiveQuery({
     bmUnits: undefined,
   });
 
-  if (!pns.data || !accs.data) {
-    log.debug(`useUnitGroupLiveQuery: no data`);
+  if (!query.data) {
+    return query;
+  }
+
+  try {
     return {
-      ...baseParams,
-      now: null,
+      ...query,
+      data: p.transformUnitGroupsLiveQuery({
+        ...query.data,
+        now: query.now,
+      }),
+      isError: false,
     };
-  } else {
-    log.debug(`useUnitGroupLiveQuery: has data - trying to parse and combine`);
-    try {
-      return {
-        ...baseParams,
-        now,
-        data: p.transformUnitGroupsLiveQuery({
-          pns: pns.data,
-          accs: accs.data,
-          now,
-        }),
-      };
-    } catch (e) {
-      log.debug(`useUnitGroupLiveQuery: caught error: ${e}`);
-      return {
-        ...baseParams,
-        isError: true,
-        now: null,
-      };
-    }
+  } catch (e: any) {
+    log.error(e)
+    return {
+      ...query,
+      data: null,
+      isError: true,
+    };
   }
 };
 
@@ -93,16 +96,24 @@ Get the latest data for output in each fuel type category
 */
 export const useFuelTypeLiveQuery = () => {
   log.debug(`useFuelTypeLiveQuery: mounting`);
-  const unitGroups = useUnitGroupsLiveQuery();
-  if (!unitGroups.data) {
+  const query = useUnitGroupsLiveQuery();
+  if (!query.data) {
     log.debug(`useFuelTypeLiveQuery: no data`);
-    return unitGroups;
+    return query;
   } else {
     log.debug(`useFuelTypeLiveQuery: transforming to group by fuel type`);
-    return {
-      ...unitGroups,
-      data: p.groupByFuelTypeAndInterconnectors(unitGroups.data),
-    };
+    try {
+      return {
+        ...query,
+        data: p.groupByFuelTypeAndInterconnectors(query.data),
+      };
+    } catch (e) {
+      return {
+        ...query,
+        data: null,
+        isError: true,
+      };
+    }
   }
 };
 
@@ -114,23 +125,25 @@ export const useUnitGroupLiveQuery = (ug: UnitGroup) => {
   log.debug(`useUnitGroupLiveQuery: mounting`);
   const bmUnits = ug.units.map((u) => u.bmUnit);
   const query = useBmUnitsLiveQuery({ bmUnits });
-  if (!query.pns.data || !query.accs.data) {
-    log.debug(`useUnitGroupLiveQuery: no data`);
+
+  if (!query.data) {
+    return query;
+  }
+
+  try {
     return {
-      data: null,
-      isLoading: true,
-    };
-  } else {
-    log.debug(`useUnitGroupLiveQuery: has data`);
-    return {
-      now: query.now,
-      isLoading: false,
+      ...query,
       data: p.transformUnitGroupLiveQuery({
-        pns: query.pns.data,
-        accs: query.accs.data,
+        ...query.data,
         now: query.now,
         units: ug.units,
       }),
+    };
+  } catch (e) {
+    return {
+      ...query,
+      data: null,
+      isError: true,
     };
   }
 };
@@ -154,7 +167,11 @@ export const useUnitGroupHistoryQuery = (ug: UnitGroup) => {
     bmUnits,
   };
 
-  log.debug(`useUnitGroupHistoryQuery: establishing queries with params ${JSON.stringify(params)}`);
+  log.debug(
+    `useUnitGroupHistoryQuery: establishing queries with params ${JSON.stringify(
+      params
+    )}`
+  );
 
   const queries = {
     pn: usePnRangeQuery(params),
@@ -169,6 +186,7 @@ export const useUnitGroupHistoryQuery = (ug: UnitGroup) => {
       queries.acc.refetch();
     },
     data: null,
+    isError: false,
   };
 
   useRefetchOnAppOrNetworkResume(baseParams);
@@ -187,15 +205,15 @@ export const useUnitGroupHistoryQuery = (ug: UnitGroup) => {
         units: ug.units,
       }),
     };
-  } catch (e) {
-    log.debug(`useUnitGroupHistoryQuery: caught error: ${e}`);
+  } catch (e: any) {
+    log.error(e);
     return {
       ...baseParams,
+      data: null,
       isError: true,
     };
   }
 };
-
 
 /*
 useUnitGroupScheduleQuery
@@ -204,15 +222,25 @@ takes the output from transformUnitHistoryQuery
 2. it always returns the last value, but will omit any repeating values
 */
 export const useUnitGroupScheduleQuery = (ug: UnitGroup) => {
+  const now = useNowTime(60);
   const query = useUnitGroupHistoryQuery(ug);
   if (!query.data) {
     return query;
   } else {
-    const {data} = query;
-
-    return {
-      ...query,
-      data
-    };
+    {
+     try {
+      return {
+        ...query,
+        data: p.filterUnitGroupScheduleQuery(now, query.data),
+      };
+     } catch (e: any) {
+      log.error(e)
+      return {
+        ...query,
+        data: null,
+        isError: true,
+      };
+     }
+    }
   }
-}
+};

@@ -138,7 +138,7 @@ export const interpolateLevelPair = (
   const interpolatedLevel =
     before.level * weightBefore + after.level * weightAfter;
 
-  return Math.round(interpolatedLevel * 10) / 10;
+  return Math.round(interpolatedLevel * 100) / 100;
 };
 
 type InterpolateBmUnitLevelPairsParams = {
@@ -377,6 +377,10 @@ export const groupByFuelTypeAndInterconnectors = (
   let fuelTypesAndInterconnectors: t.FuelType[] = [];
   log.debug(`groupByFuelType: getting fuel types for domestic generators`);
   for (const ug of x) {
+    // ignore unknowns
+    if (ug.details.fuelType === "unknown") {
+      continue;
+    }
     if (!fuelTypesAndInterconnectors.includes(ug.details.fuelType)) {
       fuelTypesAndInterconnectors.push(ug.details.fuelType);
     }
@@ -578,47 +582,76 @@ type TransformUnitHistoryQueryParams = {
   units: t.UnitGroupUnit[];
 };
 
+type TransformUnitHistoryDataOutput = {
+  details: t.UnitGroupUnit;
+  data: {
+    levels: t.LevelPair[];
+    average: number;
+  };
+};
+
 export const transformUnitHistoryQuery = ({
   pns,
   accs,
   truncateBefore,
   units,
-}: TransformUnitHistoryQueryParams) => {
+}: TransformUnitHistoryQueryParams): TransformUnitHistoryDataOutput[] => {
   log.debug(`useUnitGroupHistoryQuery: joining pns and accs`);
-  // debugger
   const combined = combinePnsAndAccs({ pns, accs });
-  // const combined = pns
-
   log.debug(
     `useUnitGroupHistoryQuery: removing any values before ${truncateBefore}`
   );
   const filtered = filterBefore(combined, truncateBefore);
-  // const filtered = combined
-
   log.debug(`useUnitGroupHistoryQuery: joining with ug.units`);
   const unitData = units.map((u) => {
     const bmUnitData = filtered[u.bmUnit];
     return {
       details: u,
       data: {
-        levels: bmUnitData.sort((a, b) => b.time.localeCompare(a.time)),
+        levels: bmUnitData.sort((a, b) => a.time.localeCompare(b.time)),
         average: averageLevel(bmUnitData),
       },
     };
   });
-
-  log.debug(`useUnitGroupHistoryQuery: sort by average level `);
-  unitData.sort((a, b) => {
-    if (a.data.average && b.data.average) {
-      return b.data.average - a.data.average;
-    } else if (a.data.average) {
-      return -1;
-    } else if (b.data.average) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
-
+  unitData.sort((a, b) => b.data.average - a.data.average);
   return unitData;
+};
+
+/*
+filterUnitGroupScheduleQuery
+filter the levels to only include the record immediately before, plus all subsequent records
+*/
+
+export const filterUnitGroupScheduleQuery = (
+  now: Date,
+  x: TransformUnitHistoryDataOutput[]
+) => {
+  log.debug(
+    `filterUnitGroupScheduleQuery: filtering to only include the record immediately before, plus all subsequent records`
+  );
+  const output: TransformUnitHistoryDataOutput[] = [];
+  for (const unit of x) {
+    const index = unit.data.levels.findIndex((x) => new Date(x.time) > now);
+    if (index === -1 || index === 0) {
+      log.info(
+        `filterUnitGroupScheduleQuery: no levels found for ${unit.details.bmUnit}`
+      );
+    } else {
+      const priorAndSubsequent = unit.data.levels.slice(index - 1);
+      const allZero = priorAndSubsequent.every((x) => x.level === 0);
+      if (!allZero) {
+        output.push({
+          ...unit,
+          data: {
+            ...unit.data,
+            levels: priorAndSubsequent,
+            average: averageLevel(priorAndSubsequent),
+          },
+        });
+      }
+    }
+  }
+  log.debug(`sort by average`);
+  output.sort((a, b) => b.data.average - a.data.average);
+  return output;
 };
