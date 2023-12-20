@@ -5,6 +5,7 @@ import { Linking, StyleSheet, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import log from "../services/log";
 import { urls } from "../services/nav";
+import { londonTime } from "../common/utils";
 
 /*
 IncompleteUnknownCategories
@@ -97,12 +98,15 @@ type UnitListHeaderProps = {
   now?: Date;
 };
 export const UnitListHeader: React.FC<UnitListHeaderProps> = ({ now }) => {
+  const props = { testID: "unit-list-header-text" };
   return (
     <Card containerStyle={styles.listHeaderCard}>
       {now ? (
-        <Text>Live Individual Unit output at: {now.toLocaleTimeString()}</Text>
+        <Text {...props} testID="unit-list-header-text">
+          Live individual unit output at {londonTime(now)}
+        </Text>
       ) : (
-        <Text>Loading Individual Units</Text>
+        <Text {...props}>Loading data for individual units</Text>
       )}
     </Card>
   );
