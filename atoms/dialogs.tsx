@@ -1,8 +1,8 @@
 import React from "react";
 import { Dialog, Text } from "@rneui/themed";
-import log from "../services/log";
 import { Linking } from "react-native";
-import { useRouter } from "expo-router";
+import { urls } from "../services/nav";
+import { getCurrentYear } from "../common/utils";
 
 type ConsentDialogProps = {
   isVisible: boolean;
@@ -15,9 +15,9 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
   isVisible,
   onBackdropPress,
 }) => {
-  const router = useRouter();
   return (
     <Dialog
+      testID="consent-dialog"
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
     >
@@ -27,7 +27,7 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
       </Text>
       <Text>
         Contains BMRS data © Elexon Limited copyright and database right{" "}
-        {new Date().getFullYear()}.
+        {getCurrentYear()}.
       </Text>
       <Dialog.Actions>
         <Dialog.Button
@@ -37,16 +37,12 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
         />
         <Dialog.Button
           title="View Elexon License"
-          onPress={() => {
-            Linking.openURL(
-              "https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/"
-            );
-          }}
+          onPress={() => Linking.openURL(urls.elexonLicense)}
         />
         <Dialog.Button
           title="View App Privacy Policy"
           onPress={() => {
-            router.push('/privacy')
+            Linking.openURL(urls.privacy);
           }}
         />
       </Dialog.Actions>

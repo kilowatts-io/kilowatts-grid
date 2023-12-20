@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ListItem } from "@rneui/themed";
 import formatters from "../common/formatters";
-import { FuelType, LevelPair, UnitGroupUnit } from "../common/types";
 import { FuelTypeIcon } from "./icons";
 import { londonTime } from "../common/utils";
+import { FuelType, LevelPair, UnitGroupUnit } from "../common/types";
 
 type GeneratorLiveProps = {
   index: number;
@@ -26,11 +26,11 @@ export const GeneratorLive: React.FC<GeneratorLiveProps> = ({
       style={styles.liveContainer}
       testID={`generator-live-${index}`}
     >
-      <ListItem.Title>
+      <View style={styles.titleSubtitleWrapper}>
         <FuelTypeIcon fuelType={fuelType} size={20} />
-        <View style={styles.hSpacer} />
-        <>{name}</>
-      </ListItem.Title>
+        <ListItem.Title>{name}</ListItem.Title>
+      </View>
+
       <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
     </ListItem.Content>
   </ListItem>
@@ -42,13 +42,14 @@ type FuelTypeLiveProps = {
 };
 
 export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level }) => (
-  <ListItem>
+  <ListItem testID={`fuel-type-live-list-item-${name}`}>
     <ListItem.Content style={styles.liveContainer}>
-      <ListItem.Title>
+      <View style={styles.titleSubtitleWrapper}>
         <FuelTypeIcon fuelType={name} size={20} />
-        <View style={styles.hSpacer} />
-        <>{formatters.fuelType(name)}</>
-      </ListItem.Title>
+
+        <ListItem.Title>{formatters.fuelType(name)}</ListItem.Title>
+      </View>
+
       <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
     </ListItem.Content>
   </ListItem>
@@ -65,12 +66,9 @@ export const UnitLive: React.FC<UnitLiveProps> = ({
   level,
   index,
 }) => (
-  <ListItem key={index}>
+  <ListItem key={index} testID={`unit-type-live-list-item-${index}`}>
     <ListItem.Content style={styles.liveContainer}>
-      <ListItem.Title>
-        <View style={styles.hSpacer} />
-        <>{details.bmUnit}</>
-      </ListItem.Title>
+      <ListItem.Title>{details.bmUnit}</ListItem.Title>
       <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
     </ListItem.Content>
   </ListItem>
@@ -78,13 +76,15 @@ export const UnitLive: React.FC<UnitLiveProps> = ({
 
 type UnitLevelProps = LevelPair;
 
-export const UnitLevelListItem: React.FC<UnitLevelProps> = ({ level, time }) => {
+export const UnitLevelListItem: React.FC<UnitLevelProps> = ({
+  level,
+  time,
+}) => {
   return (
     <ListItem>
       <ListItem.Content style={styles.liveContainer}>
         <ListItem.Title>
-          <View style={styles.hSpacer} />
-          <>{londonTime(new Date(Date.parse(time)))}</>
+          {londonTime(new Date(Date.parse(time)))}
         </ListItem.Title>
         <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
       </ListItem.Content>
@@ -105,5 +105,11 @@ const styles = StyleSheet.create({
   },
   listItemWrapper: {
     width: "100%",
+  },
+  titleSubtitleWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 10,
   },
 });

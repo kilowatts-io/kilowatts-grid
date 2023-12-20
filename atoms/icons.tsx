@@ -1,13 +1,11 @@
+import React from "react";
 import {
   MaterialCommunityIcons,
   Ionicons,
   Feather,
   FontAwesome5,
 } from "@expo/vector-icons";
-
 import { Icon, IconProps } from "@rneui/themed";
-
-import React from "react";
 import { FuelType } from "../common/types";
 import log from "../services/log";
 
@@ -24,7 +22,7 @@ export const FuelTypeIcon: React.FC<FuelTypeIconProps> = ({
   const props = { size };
   switch (fuelType) {
     case "gas":
-      return <Ionicons name="flame" {...props} />;
+      return <Ionicons testID='fuel-type-gas-icon' name="flame" {...props} />;
     case "oil":
       return <MaterialCommunityIcons name="oil" {...props} />;
     case "coal":
@@ -48,26 +46,23 @@ export const FuelTypeIcon: React.FC<FuelTypeIconProps> = ({
   }
 };
 
-export function TabBarIcon(props: {
+export const TabBarIcon = (props: {
   testID: string;
   name: IconProps["name"];
   color: string;
-}) {
+}) => {
   log.debug(`TabBarIcon: ${props.name} ${props.color}`);
-  return (
-    <Icon {...props} size={28} name={props.name} />
-  );
-}
+  return <Icon {...props} size={28} name={props.name} />;
+};
 
 type HeaderInfoIconProps = {
   onPress: () => void;
 };
 
-export const HeaderInfoIcon: React.FC<HeaderInfoIconProps> = ({
-  onPress,
-}) => {
+export const HeaderInfoIcon: React.FC<HeaderInfoIconProps> = ({ onPress }) => {
   return (
     <Icon
+      testID='header-info-icon'
       name="info-outline"
       size={20}
       style={{ marginRight: 15 }}

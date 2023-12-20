@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`services/state/elexon-insights-api.tR/queries.accAll parses successfully 1`] = `
+{
+  "T_DRAXX-1": [
+    {
+      "acceptanceNumber": 1,
+      "acceptanceTime": "2021-08-01T00:00:00Z",
+      "bmUnit": "T_DRAXX-1",
+      "deemedBoFlag": false,
+      "levels": [
+        {
+          "level": 0,
+          "time": "2021-08-01T00:00:00Z",
+        },
+        {
+          "level": 50,
+          "time": "2021-08-01T00:15:00Z",
+        },
+        {
+          "level": 50,
+          "time": "2021-08-01T00:30:00Z",
+        },
+      ],
+      "rrFlag": false,
+      "soFlag": false,
+      "storFlag": false,
+    },
+  ],
+}
+`;

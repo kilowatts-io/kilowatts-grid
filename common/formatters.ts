@@ -1,19 +1,24 @@
-import { FuelType } from "./types"
+import { FuelType } from "./types";
 
 export const formatters = {
-    mw: (x: number) => {
+  mw: (x: number) => {
 
-        // if(x > 10000) {
-        //     return `${Math.round(x/1000)} GW`
-        // }
+    if(x === 0) {return '0 MW';}
 
-        const value = Math.round(x * 10)/10
-
-        return `${value.toLocaleString()} MW`
-    },
-    fuelType: (x: FuelType) => {
-        // capitalise first letter
-        return x.charAt(0).toUpperCase() + x.slice(1)
+    if(x < 1 && x > -1) {
+        const kw = Math.round(x * 1000).toLocaleString();
+        return `${kw} kW`;
     }
-}
-export default formatters
+
+    const value = Math.round(x * 100) / 100;
+
+    return `${value.toLocaleString()} MW`;
+  },
+  fuelType: (x: FuelType) => {
+    // capitalise first letter
+    return x.charAt(0).toUpperCase() + x.slice(1);
+  },
+};
+export default formatters;
+
+

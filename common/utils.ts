@@ -4,6 +4,9 @@ import log from "../services/log";
 export const londonTime = (date: Date) =>
   date.toLocaleString("en-GB", { timeZone: "Europe/London" });
 
+export const londonTimeHHMMSS = (date: Date) =>
+  londonTime(date).split(" ")[1];
+
 export const getSettlementPeriod = (
   dateString?: string
 ): t.ElexonSettlementPeriodParams => {
@@ -30,25 +33,11 @@ export const getSettlementDate = (dateString?: string): string => {
   return settlementDate;
 };
 
+
 /*
-getTodayYesterdaySettlementDates
-Get both today's and yesterday's settlement dates to query over the last 24 hours
-*/
-export const getTodayYesterdaySettlementDates =
-  (): t.ElexonSettlementDateParams[] => {
-    const today = getSettlementDate();
-    const yesterday = getSettlementDate(
-      new Date(Date.now() - 86400000).toISOString()
-    );
-    log.info(
-      `getTodayYesterdaySettlementDates: today: ${today}, yesterday: ${yesterday}`
-    );
-    return [
-      {
-        settlementDate: today,
-      },
-      {
-        settlementDate: yesterday,
-      },
-    ];
-  };
+getCurrentYear
+for rendering copyright noticed
+  */
+export const getCurrentYear = () => {
+  return new Date().getFullYear();
+};

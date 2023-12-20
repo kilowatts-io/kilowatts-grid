@@ -1,5 +1,13 @@
 name: update
-on: push
+on:
+  push:
+    branches:
+      - production
+      - preview
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
 
 jobs:
   update:

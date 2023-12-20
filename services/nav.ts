@@ -2,10 +2,14 @@ import { unitGroupsDict } from "../assets/data/units";
 import { UnitGroup } from "../common/types";
 import log from "../services/log";
 
-type Urls = Record<string, (code: string) => any>;
+type Urls = Record<string, (code: string) => any> | any;
 
 export const urls: Urls = {
+  home: "/",
+  privacy: '/privacy',
   unitGroup: (code: string) => `/unit-group/${code.toLowerCase()}`,
+  elexonLicense: "https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/",
+  githubRepo: 'https://github.com/benjaminWatts/kilowatts'
 };
 
 export const lookups = {

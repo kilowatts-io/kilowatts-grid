@@ -1,4 +1,5 @@
 
+import { object, string, number, date, InferType, array, boolean } from 'yup';
 
 // Elexon Insights API 
 
@@ -18,17 +19,19 @@ export type ElexonRangeParams = {
 }
 
 
-export type ElexonInsightsPNDataRecord = {
-    dataset: 'PN';
-    settlementDate: string;
-    settlementPeriod: number;
-    timeFrom: string;
-    timeTo: string;
-    levelFrom: number;
-    levelTo: number;
-    nationalGridBmUnit: string;
-    bmUnit: string;
-}
+export const elexonInsightsPNDataRecordSchema = object({
+    dataset: string().required().equals(['PN']),
+    settlementDate: string().required(),
+    settlementPeriod: number().required(),
+    timeFrom: string().required(),
+    timeTo: string().required(),
+    levelFrom: number().required(),
+    levelTo: number().required(),
+    nationalGridBmUnit: string().required(),
+    bmUnit: string().nullable()
+})
+
+export type ElexonInsightsPNDataRecord = InferType<typeof elexonInsightsPNDataRecordSchema>
 
 type OptionalBmUnitParams = {
     bmUnits?: string[];
@@ -43,6 +46,10 @@ export type ElexonInsightsPnResponseRaw = {
     data: ElexonInsightsPNDataRecord[];
 }
 
+export const elexonInsightsPnResponseRawSchema = object({
+    data: array(elexonInsightsPNDataRecordSchema).required()
+})
+
 export type ElexonInsightsPnResponseRange = ElexonInsightsPNDataRecord[];
 
 export type BmUnitId = string
@@ -54,30 +61,51 @@ export type BmUnitLevelPairs = Record<BmUnitId, LevelPair[]>
 
 export type ElexonInsightsPnResponseParsed = BmUnitLevelPairs
 
-export type ElexonInsightsAcceptancesDataRecord = {
-    settlementDate: string;
-    setttlementPeriodFrom: number;
-    setttlementPeriodTo: number;
-    timeFrom: string;
-    timeTo: string;
-    levelFrom: number;
-    levelTo: number;
-    nationalGridBmUnit: string;
-    bmUnit: string;
-    acceptanceNumber: number;
-    acceptanceTime: string;
-    deemedBoFlag: boolean;
-    soFlag: boolean;
-    storFlag: boolean;
-    rrFlag: boolean;
-}
+// export type ElexonInsightsAcceptancesDataRecord = {
+//     settlementDate: string;
+//     setttlementPeriodFrom: number;
+//     setttlementPeriodTo: number;
+//     timeFrom: string;
+//     timeTo: string;
+//     levelFrom: number;
+//     levelTo: number;
+//     nationalGridBmUnit: string;
+//     bmUnit: string;
+//     acceptanceNumber: number;
+//     acceptanceTime: string;
+//     deemedBoFlag: boolean;
+//     soFlag: boolean;
+//     storFlag: boolean;
+//     rrFlag: boolean;
+// }
+
+const elexonInsightsAcceptancesDataRecordSchema = object({
+    settlementDate: string().required(),
+    settlementPeriodFrom: number().required(),
+    settlementPeriodTo: number().required(),
+    timeFrom: string().required(),
+    timeTo: string().required(),
+    levelFrom: number().required(),
+    levelTo: number().required(),
+    nationalGridBmUnit: string().required(),
+    bmUnit: string().nullable(),
+    acceptanceNumber: number().required(),
+    acceptanceTime: string().required(),
+    deemedBoFlag: boolean().required(),
+    soFlag: boolean().required(),
+    storFlag: boolean().required(),
+    rrFlag: boolean().required(),
+})
+export type ElexonInsightsAcceptancesDataRecord = InferType<typeof elexonInsightsAcceptancesDataRecordSchema>
 
 export type ElexonInsightsAcceptancesSpParams = ElexonInsightsPnSpParams
 export type ElexonInsightsAcceptancesRangeParams = ElexonRangeParams & OptionalBmUnitParams
 
-export type ElexonInsightsAcceptancesResponse = {
-    data: ElexonInsightsAcceptancesDataRecord[];
-}
+export const elexonInsightsAcceptancesResponseRawSchema = object({
+    data: array(elexonInsightsAcceptancesDataRecordSchema).required()
+})
+
+export type ElexonInsightsAcceptancesResponse = InferType<typeof elexonInsightsAcceptancesResponseRawSchema>
 
 export type ElexonInsightsAcceptancesRangeResponse = ElexonInsightsAcceptancesDataRecord[];
 
@@ -107,7 +135,7 @@ export type UnitGroupUnit = {
 export type UnitGroupDetails = {
     code?: string;
     name: string; // Pembroke
-    coords: {
+    coords?: {
         lat: number;
         lng: number;
     }
@@ -138,3 +166,9 @@ export type FuelTypeLevel = {
 }
 
 export type UnitGroupsDict = Record<string, UnitGroup>
+
+
+export type BmUnitLevelValue = {
+    id: string;
+    level: number;
+}

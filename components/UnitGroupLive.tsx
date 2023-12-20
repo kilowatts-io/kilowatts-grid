@@ -5,7 +5,7 @@ import log from "../services/log";
 import { FlashList } from "@shopify/flash-list";
 import { RefreshControl } from "react-native-gesture-handler";
 import { UnitLive } from "../atoms/list-items";
-import { UnitListHeader } from "../atoms/cards";
+import { ApiErrorCard, UnitListHeader } from "../atoms/cards";
 import { UnitGroupMap } from "../atoms/maps";
 
 // import { UnitGroupStack } from "./UnitGroupStack";
@@ -15,8 +15,8 @@ type UnitGroupLiveProps = {
 };
 export const UnitGroupLive: React.FC<UnitGroupLiveProps> = ({ ug }) => {
   log.debug(`UnitGroupLive ${ug.details.name}`);
-  const query = useUnitGroupLiveQuery(ug);
-
+  const query = useUnitGroupLiveQuery(ug)
+  if(query.isError) return <ApiErrorCard refetch={query.refetch}/>
   return (
     <>
       <FlashList

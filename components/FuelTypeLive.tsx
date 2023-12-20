@@ -1,32 +1,32 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
-import { useFuelTypeLiveQuery } from "../services/state/elexon-insights-api.hooks";
 import { FlashList } from "@shopify/flash-list";
 import { useNavigation } from "expo-router";
-import * as at from "../atoms";
-import { RefreshControl } from "react-native-gesture-handler";
-import { IncompleteUnknownCategories } from "../atoms/cards";
+import { useFuelTypeLiveQuery } from "../services/state/elexon-insights-api.hooks";
+import { ApiErrorCard, IncompleteUnknownCategories } from "../atoms/cards";
+import { FuelTypeLive as ListItem } from "../atoms/list-items";
+import { Refresh } from "../atoms/controls";
+import { londonTimeHHMMSS } from "../common/utils";
 
 export const FuelTypeLive = () => {
   const nav = useNavigation();
-  const { data, isLoading, now, refetch } = useFuelTypeLiveQuery();
+  const query = useFuelTypeLiveQuery();
   React.useEffect(() => {
     nav.setOptions({
-      title: now
-        ? `National Grid at: ${now.toLocaleTimeString()}`
+      title: query.now
+        ? `National Grid at: ${londonTimeHHMMSS(query.now)}`
         : "Loading...",
     });
-  }, [now]);
+  }, [query.now]);
+  if(query.isError) return <ApiErrorCard refetch={query.refetch}/>
   return (
     <FlashList
+      testID='fuel-type-live-list'
       ListFooterComponent={IncompleteUnknownCategories}
-      refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-      }
-      data={data}
+      refreshControl={<Refresh refreshing={query.isLoading} onRefresh={query.refetch} />}
+      data={query.data}
       estimatedItemSize={1000}
       renderItem={({ item }) => (
-        <at.listItems.FuelTypeLive name={item.name} level={item.level} />
+        <ListItem name={item.name} level={item.level} />
       )}
     />
   );

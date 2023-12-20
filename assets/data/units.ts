@@ -1189,7 +1189,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
-      coe : "ANSU",
+      code : "ANSU",
       name: "An Suidhe",
       coords: {
         lat: 56.2187,
@@ -3864,5 +3864,5 @@ export const unitGroups: UnitGroup[] = [
 // convert to a dictionary with code as key
 export const unitGroupsDict: UnitGroupsDict = {};
 for (const ug of unitGroups) {
-  unitGroupsDict[ug.details.code] = ug;
+  if(ug.details.code) unitGroupsDict[ug.details.code] = ug;
 }
