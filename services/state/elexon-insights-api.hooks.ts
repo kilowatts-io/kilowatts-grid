@@ -149,7 +149,6 @@ export const useUnitGroupHistoryQuery = (ug: UnitGroup) => {
     } bmUnits: ${bmUnits.join(", ")}`
   );
 
-
   const params = {
     ...useRecentHistoryElexonRange(),
     bmUnits,
@@ -196,3 +195,24 @@ export const useUnitGroupHistoryQuery = (ug: UnitGroup) => {
     };
   }
 };
+
+
+/*
+useUnitGroupScheduleQuery
+takes the output from transformUnitHistoryQuery
+1. returns the most recent level for each unit plus all those in the future. 
+2. it always returns the last value, but will omit any repeating values
+*/
+export const useUnitGroupScheduleQuery = (ug: UnitGroup) => {
+  const query = useUnitGroupHistoryQuery(ug);
+  if (!query.data) {
+    return query;
+  } else {
+    const {data} = query;
+
+    return {
+      ...query,
+      data
+    };
+  }
+}

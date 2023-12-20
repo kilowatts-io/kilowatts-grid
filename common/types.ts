@@ -1,4 +1,5 @@
 
+import { object, string, number, date, InferType, array } from 'yup';
 
 // Elexon Insights API 
 
@@ -18,17 +19,19 @@ export type ElexonRangeParams = {
 }
 
 
-export type ElexonInsightsPNDataRecord = {
-    dataset: 'PN';
-    settlementDate: string;
-    settlementPeriod: number;
-    timeFrom: string;
-    timeTo: string;
-    levelFrom: number;
-    levelTo: number;
-    nationalGridBmUnit: string;
-    bmUnit: string;
-}
+let elexonInsightsPNDataRecordSchema = object({
+    dataset: string().required().equals(['PN']),
+    settlementDate: string().required(),
+    settlementPeriod: number().required(),
+    timeFrom: string().required(),
+    timeTo: string().required(),
+    levelFrom: number().required(),
+    levelTo: number().required(),
+    nationalGridBmUnit: string().required(),
+    bmUnit: string().required(),
+})
+
+export type ElexonInsightsPNDataRecord = InferType<typeof elexonInsightsPNDataRecordSchema>
 
 type OptionalBmUnitParams = {
     bmUnits?: string[];
@@ -42,6 +45,10 @@ export type ElexonInsightsPnRangeParams = ElexonRangeParams & OptionalBmUnitPara
 export type ElexonInsightsPnResponseRaw = {
     data: ElexonInsightsPNDataRecord[];
 }
+
+export const elexonInsightsPnResponseRawSchema = object({
+    data: array(elexonInsightsPNDataRecordSchema).required()
+})
 
 export type ElexonInsightsPnResponseRange = ElexonInsightsPNDataRecord[];
 

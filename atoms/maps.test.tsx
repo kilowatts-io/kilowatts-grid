@@ -17,6 +17,7 @@ const mockUg: UnitGroup = {
 describe("atoms/maps/UnitGroupMap", () => {
   test("can render", () => {
     render(<m.UnitGroupMap ug={mockUg} />);
-    expect(screen.debug()).toMatchSnapshot();
+    console.log = jest.fn();
+    expect(screen.debug({})).toMatchSnapshot();
   });
 });

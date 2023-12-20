@@ -6,7 +6,11 @@ export const queries = {
   pnAll: (
     r: t.ElexonInsightsPnResponseRaw
   ): t.ElexonInsightsPnResponseParsed => {
-    log.debug(`pnAll: ${r.data.length} records found.. transformResponse`);
+
+    log.debug(`tr/queries/pnAll: validate response using yup schema`);
+    t.elexonInsightsPnResponseRawSchema.validateSync(r, {strict: true});
+
+    log.debug(`tr/queries/pnAll: : ${r.data.length} records found.. transformResponse`);
     if (r.data.length === 0) {
       throw new Error(`pnAll: not available`);
     }
@@ -17,7 +21,7 @@ export const queries = {
       );
     }
     log.debug(
-      `pnAll: transformResponse complete for ${
+      `tr/queries/pnAll: : transformResponse complete for ${
         Object.keys(output).length
       } units`
     );
@@ -29,9 +33,9 @@ export const queries = {
   accAll: (
     r: t.ElexonInsightsAcceptancesResponse
   ): t.ElexonInsightsAcceptancesResponseParsed => {
-    log.debug(`accAll: ${r.data.length} acceptance interval records found.. transformResponse`);
+    log.debug(`tr/queries/accAll: ${r.data.length} acceptance interval records found.. transformResponse`);
     const withLevels = p.parseAcceptancesWithLevels(r.data);
-    log.debug(`accAll: ${withLevels.length} individual acceptances found`);
+    log.debug(`tr/queries/accAll:  ${withLevels.length} individual acceptances found`);
     let output: t.ElexonInsightsAcceptancesResponseParsed = {};
     for (const bmUnit of p.getBmUnits(withLevels)) {
       output[bmUnit] = withLevels

@@ -7,12 +7,12 @@ import { FlashList } from "@shopify/flash-list";
 import { UnitGroupScheduleHeader } from "../atoms/cards";
 import { UnitLevelListItem } from "../atoms/list-items";
 
-type UnitGroupHistoryProps = {
+type UnitGroupScheduleProps = {
   ug: UnitGroup;
 };
 
-export const UnitGroupHistory: React.FC<UnitGroupHistoryProps> = ({ ug }) => {
-  log.info(`UnitGroupHistory ${ug.details}`);
+export const UnitGroupSchedule: React.FC<UnitGroupScheduleProps> = ({ ug }) => {
+  log.info(`UnitGroupSchedule ${ug.details}`);
   const query = useUnitGroupHistoryQuery(ug);
   const now = new Date();
   return (
@@ -36,7 +36,6 @@ export const UnitGroupHistory: React.FC<UnitGroupHistoryProps> = ({ ug }) => {
               ListHeaderComponent={() => (
                 <UnitGroupScheduleHeader
                   bmUnit={ug.details.bmUnit}
-                  average={ug.data.average}
                 />
               )}
               data={inFuture}
