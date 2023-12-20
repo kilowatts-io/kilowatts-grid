@@ -123,6 +123,11 @@ type InterpolateBmUnitLevelPairsParams = {
   omitZero: boolean;
 };
 
+/*
+interpolateBmUnitLevelPairs
+Pass a BmUnitLevelPairs object and a time
+Get interpolated values for each bmUnit at that time
+*/
 export const interpolateBmUnitLevelPairs = ({
   time,
   bmUnitLevelPairs,
@@ -130,12 +135,15 @@ export const interpolateBmUnitLevelPairs = ({
 }: InterpolateBmUnitLevelPairsParams): t.BmUnitValues => {
   log.debug(`interpolateBmUnitLevelPairs: interpolating for ${time}`);
   let output: t.BmUnitValues = {};
+
   for (const bmUnit of Object.keys(bmUnitLevelPairs)) {
     const level = interpolateLevelPair(time, bmUnitLevelPairs[bmUnit]);
-    if (level !== 0 || !omitZero) {
+
+    if (!omitZero || Math.round(level) !== 0) {
       output[bmUnit] = level;
     }
   }
+
   log.debug(
     `interpolateBmUnitLevelPairs: ${
       Object.keys(output).length
@@ -144,6 +152,10 @@ export const interpolateBmUnitLevelPairs = ({
   return output;
 };
 
+/*
+sortDescendingBmUnitValues
+For use when sorting a BmUnitValues object by level descending
+*/
 export const sortDescendingBmUnitValues = (v: t.BmUnitValues) => {
   let bmUnits: { id: string; level: number }[] = [];
   for (const id of Object.keys(v)) {

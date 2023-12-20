@@ -1,4 +1,5 @@
 import * as p from "./parsers";
+import { BmUnitLevelPairs } from "./types";
 
 describe("parsers/shouldIncludeUnit", () => {
   test("should include T_ prefix", () => {
@@ -177,5 +178,85 @@ describe("parsers/interpolateLevelPair", () => {
         "interpolateLevelPair: no before or after found for 2021-01-01T01:15"
       );
     }
+  });
+});
+
+describe("parsers/interpolateBmUnitLevelPairs", () => {
+  test("can perform simple interpolation for a single unit", () => {
+    const bmUnitLevelPairs: BmUnitLevelPairs = {
+      "T_DRAXX-1": [
+        { time: "2021-01-01T00:00", level: 1 },
+        { time: "2021-01-01T00:30", level: 5 },
+      ],
+    };
+
+    const time = "2021-01-01T00:15";
+    const omitZero = true;
+    expect(
+      p.interpolateBmUnitLevelPairs({
+        time,
+        bmUnitLevelPairs,
+        omitZero,
+      })
+    ).toEqual({
+      "T_DRAXX-1": 3,
+    });
+  });
+
+  test("can perform simple interpolation for two simple units", () => {
+    const bmUnitLevelPairs: BmUnitLevelPairs = {
+      "T_DRAXX-1": [
+        { time: "2021-01-01T00:00", level: 1 },
+        { time: "2021-01-01T00:30", level: 5 },
+      ],
+      "T_DRAXX-2": [
+        { time: "2021-01-01T00:00", level: 5 },
+        { time: "2021-01-01T00:30", level: 9 },
+      ],
+    };
+
+    const time = "2021-01-01T00:15";
+    const omitZero = true;
+    expect(
+      p.interpolateBmUnitLevelPairs({
+        time,
+        bmUnitLevelPairs,
+        omitZero,
+      })
+    ).toEqual({
+      "T_DRAXX-1": 3,
+      "T_DRAXX-2": 7,
+    });
+  });
+
+  test("will omit a unit if the output rounds to 0", () => {
+    const bmUnitLevelPairs: BmUnitLevelPairs = {
+      "T_DRAXX-1": [
+        { time: "2021-01-01T00:00", level: 1 },
+        { time: "2021-01-01T00:30", level: 5 },
+      ],
+      "T_DRAXX-2": [
+        { time: "2021-01-01T00:00", level: 5 },
+        { time: "2021-01-01T00:30", level: 9 },
+      ],
+      // new smaller unit to ignore
+      "T_DRAXX-23": [
+        { time: "2021-01-01T00:00", level: 0.1 },
+        { time: "2021-01-01T00:30", level: 0.3 },
+      ],
+    };
+
+    const time = "2021-01-01T00:15";
+    const omitZero = true;
+    expect(
+      p.interpolateBmUnitLevelPairs({
+        time,
+        bmUnitLevelPairs,
+        omitZero,
+      })
+    ).toEqual({
+      "T_DRAXX-1": 3,
+      "T_DRAXX-2": 7,
+    });
   });
 });
