@@ -6,7 +6,9 @@ type Urls = Record<string, (code: string) => any> | any;
 
 export const urls: Urls = {
   home: "/",
+  privacy: '/privacy',
   unitGroup: (code: string) => `/unit-group/${code.toLowerCase()}`,
+  elexonLicense: "https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/"
 };
 
 export const lookups = {

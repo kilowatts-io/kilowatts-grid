@@ -52,3 +52,11 @@ export const getTodayYesterdaySettlementDates =
       },
     ];
   };
+
+/*
+getCurrentYear
+for rendering copyright noticed
+  */
+export const getCurrentYear = () => {
+  return new Date().getFullYear();
+};
