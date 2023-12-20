@@ -89,3 +89,19 @@ describe("atoms/cards/UnitListHeader", () => {
     mockLondonTime.mockRestore();
   });
 });
+
+
+describe("atoms/cards/UnitGroupScheduleHeader", () => {
+
+    test('renders bmUnit code', () => {
+        render(<c.UnitGroupScheduleHeader bmUnit="BMU1" />);
+        screen.getByText("BMU1");
+    })
+
+    test('renders Upcoming Schedule', () => {
+        render(<c.UnitGroupScheduleHeader bmUnit="BMU1" />);
+        screen.getByText("Upcoming Schedule");
+    })
+
+
+})

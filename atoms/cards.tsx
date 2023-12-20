@@ -97,6 +97,11 @@ export const MissingScreen: React.FC = () => {
 type UnitListHeaderProps = {
   now?: Date;
 };
+
+/*
+UnitListHeader
+Render a card with either a loading message or the london time of the latest update
+*/
 export const UnitListHeader: React.FC<UnitListHeaderProps> = ({ now }) => {
   const props = { testID: "unit-list-header-text" };
   return (
@@ -114,11 +119,16 @@ export const UnitListHeader: React.FC<UnitListHeaderProps> = ({ now }) => {
 
 type UnitGroupHistoryListHeaderComponentProps = {
   bmUnit: string;
-  average: number;
+
 };
-export const UnitGroupHistoryListHeaderComponent: React.FC<
+
+/*
+UnitGroupScheduleHeader
+Render a card with the unit group name and the words "Upcoming Schedule"
+*/
+export const UnitGroupScheduleHeader: React.FC<
   UnitGroupHistoryListHeaderComponentProps
-> = ({ bmUnit, average }) => {
+> = ({ bmUnit }) => {
   return (
     <Card containerStyle={styles.listHeaderCard}>
       <Card.Title>{bmUnit}</Card.Title>

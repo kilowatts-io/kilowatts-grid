@@ -4,7 +4,7 @@ import log from "../services/log";
 import { useUnitGroupHistoryQuery } from "../services/state/elexon-insights-api.hooks";
 import { RefreshControl, ScrollView } from "react-native-gesture-handler";
 import { FlashList } from "@shopify/flash-list";
-import { UnitGroupHistoryListHeaderComponent } from "../atoms/cards";
+import { UnitGroupScheduleHeader } from "../atoms/cards";
 import { UnitLevelListItem } from "../atoms/list-items";
 
 type UnitGroupHistoryProps = {
@@ -34,7 +34,7 @@ export const UnitGroupHistory: React.FC<UnitGroupHistoryProps> = ({ ug }) => {
               estimatedItemSize={50}
               key={ug.details.bmUnit}
               ListHeaderComponent={() => (
-                <UnitGroupHistoryListHeaderComponent
+                <UnitGroupScheduleHeader
                   bmUnit={ug.details.bmUnit}
                   average={ug.data.average}
                 />
