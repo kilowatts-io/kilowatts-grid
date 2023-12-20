@@ -20,7 +20,8 @@
       "bundleIdentifier": "com.benjaminwatts.kilowatts",
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "jsEngine": "jsc"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +29,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.benjaminwatts.kilowatts",
-      "versionCode": 2
+      "versionCode": 2,
     },
     "web": {
       "bundler": "metro",
