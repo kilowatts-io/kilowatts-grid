@@ -28,7 +28,7 @@ const UnitGroupTabs: React.FC<UnitGroupTabsProps> = () => {
         <>
           <Stack.Screen
             options={{
-              title: unitGroup.details.name,
+              title: `${unitGroup.details.name}: Unit Breakdown`,
               headerRight: () => <InfoModal />,
             
               

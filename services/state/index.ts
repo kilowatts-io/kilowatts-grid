@@ -7,7 +7,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const rootReducer = combineReducers({
     elexonInsightsApi: elexonInsightsApi.reducer,
-    favouritesSlice: favouritesSlice.reducer,
+    // favouritesSlice: favouritesSlice.reducer, disabled for now
     termsSlice: termsSlice.reducer,
 });
 

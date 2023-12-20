@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UnitGroupHistory } from "../../../components/UnitGroupHistory";
+import { UnitGroupSchedule } from "../../../components/UnitGroupSchedule";
 import { UnitGroupContext } from "../../../services/contexts";
 import log from "../../../services/log";
 
@@ -20,7 +20,7 @@ export const UnitGroupHistoryScreen: React.FC<
     log.debug(
       `UnitGroupHistoryScreen: Found unitGroup ${unitGroup.details.name}`
     );
-    return <UnitGroupHistory ug={unitGroup} />;
+    return <UnitGroupSchedule ug={unitGroup} />;
   }
 };
 

@@ -4,58 +4,68 @@ import { unitGroups } from "../assets/data/units";
 import { interconnectors } from "../assets/data/interconnectors";
 
 /*
+shouldIncludeUnit
+For use when filtering units from a list of records
+Removes demand units and other units that are not major generators
+*/
+export const shouldIncludeUnit = (bmUnit: string) => {
+  return (
+    bmUnit.startsWith("T_") ||
+    bmUnit.startsWith("E_") ||
+    bmUnit.startsWith("I_") ||
+    bmUnit.startsWith("2_")
+  );
+};
+
+/*
 get bm units runs through a list of records. 
 
-if filterUnits is true, it only returns units that start with T_ or E_. This removes demand units and other units that are not generators or sources of power
+if filterUnits is true, it only returns units that start with T_, E_. This removes demand units and other units that are not generators or sources of power
 */
 export const getBmUnits = (
-  records: { bmUnit: string }[],
+  records: { bmUnit?: string | null }[],
   filterUnits: boolean = false
 ): string[] => {
-  let set = new Set<string>();
-  for (const r of records) {
-    if (filterUnits) {
-      if (r.bmUnit) {
-        const { bmUnit } = r;
-        console.log(bmUnit);
-        // this preserves transmission units, embedded units and interconnectors
-        if (
-          (bmUnit && bmUnit.startsWith("T_")) ||
-          bmUnit.startsWith(
-            "E_" || bmUnit.startsWith("I_") || bmUnit.startsWith("2_")
-          )
-        ) {
-          set.add(r.bmUnit);
-        }
-      }
-    } else {
-      set.add(r.bmUnit);
+  const unitSet = new Set<string>();
+
+  for (const record of records) {
+    const { bmUnit } = record;
+
+    if ((bmUnit && !filterUnits) || (bmUnit && shouldIncludeUnit(bmUnit))) {
+      unitSet.add(bmUnit);
     }
   }
-  const output = Array.from(set);
+
+  const output = Array.from(unitSet);
   log.debug(
     `getBmUnits: ${output.length} units found from ${records.length} records`
   );
+  log.debug(`getBmUnits: sort alphabetically`);
+  output.sort((a, b) => a.localeCompare(b));
   return output;
 };
 
-export const levelDictToLevelPairs = (
-  levelDict: t.LevelDict
-): t.LevelPair[] => {
-  let output: t.LevelPair[] = [];
-  for (const time of Object.keys(levelDict)) {
-    output.push({ time, level: levelDict[time] });
-  }
-  return output.sort((a, b) => a.time.localeCompare(b.time));
-};
+/*
+levelDictToLevelPairs
+For use when converting a levelDict to a levelPairs
+Returns an array of levelPairs, sorted by time
+*/
+export const levelDictToLevelPairs = (levelDict: t.LevelDict): t.LevelPair[] =>
+  Object.keys(levelDict)
+    .map((time) => ({ time, level: levelDict[time] }))
+    .sort((a, b) => a.time.localeCompare(b.time));
 
-type IntervalRecord = {
+export type IntervalRecord = {
   timeFrom: string;
   timeTo: string;
   levelFrom: number;
   levelTo: number;
 };
 
+/*
+intervalRecordToLevelDict
+For use when converting an interval record into a levelDict
+*/
 export const intervalRecordToLevelDict = (r: IntervalRecord[]): t.LevelDict => {
   let levelDict: t.LevelDict = {};
   for (const x of r) {
@@ -65,45 +75,70 @@ export const intervalRecordToLevelDict = (r: IntervalRecord[]): t.LevelDict => {
   return levelDict;
 };
 
+/*
+intervalRecordToLevelPairs
+Combines intervalRecordToLevelDict and levelDictToLevelPairs
+*/
 export const intervalRecordToLevelPairs = (
   r: IntervalRecord[]
-): t.LevelPair[] => {
-  const levelDict = intervalRecordToLevelDict(r);
-  return levelDictToLevelPairs(levelDict);
-};
+): t.LevelPair[] => levelDictToLevelPairs(intervalRecordToLevelDict(r));
 
+/*
+interpolateLevelPair
+this is a core piece of logic for the app.
+takes a number of level pairs and a required output interpolation time
+separates the level pairs into before and after
+identifies the last before i.e the immediately preceding level pair 
+identifies the first after i.e. the immediately following level pair
+uses time linear interpolation to calculate the level at the required output interpolation time
+if the required output interpolation time is exactly the same as one of the level pairs, it returns that level pair
+if there is no before or after, it throws an error
+*/
 export const interpolateLevelPair = (
   time: string,
   levelPairs: t.LevelPair[]
 ): number => {
-  const exact = levelPairs.find((x) => x.time === time);
-  if (exact) {
-    log.debug(`interpolateLevelPair: exact match found for ${time}`);
-  }
-  const befores = levelPairs.filter((x) => x.time < time);
-  const afters = levelPairs.filter((x) => x.time > time);
-  if (befores.length === 0 || afters.length === 0) {
-    log.debug(`interpolateLevelPair: no before or after found for ${time}`);
-  }
-  // interpolate on a linear basis
-  const before = befores[befores.length - 1];
-  const after = afters[0];
-  const times = {
-    before: new Date(before.time).getTime(),
-    after: new Date(after.time).getTime(),
-    output: new Date(time).getTime(),
+  const findClosestPair = (targetTime: number) => {
+    let before = null;
+    let after = null;
+
+    for (const pair of levelPairs) {
+      const pairTime = new Date(pair.time).getTime();
+
+      if (pairTime === targetTime) {
+        return { before: pair, after: pair, weightBefore: 1, weightAfter: 0 };
+      } else if (pairTime < targetTime) {
+        before = pair;
+      } else if (pairTime > targetTime) {
+        after = pair;
+        break; // Stop searching after finding the first 'after' pair
+      }
+    }
+
+    if (!before || !after) {
+      throw new Error(
+        `interpolateLevelPair: no before or after found for ${time}`
+      );
+    }
+
+    const timeBefore = new Date(before.time).getTime();
+    const timeAfter = new Date(after.time).getTime();
+    const timeOutput = new Date(time).getTime();
+
+    const weightBefore = (timeOutput - timeBefore) / (timeAfter - timeBefore);
+    const weightAfter = 1 - weightBefore;
+
+    return { before, after, weightBefore, weightAfter };
   };
-  const timeDiffs = {
-    before: times.output - times.before,
-    total: times.after - times.before,
-    after: times.after - times.output,
-  };
-  const weights = {
-    before: timeDiffs.before / timeDiffs.total,
-    after: timeDiffs.after / timeDiffs.total,
-  };
-  const interp = before.level * weights.before + after.level * weights.after;
-  return Math.round(interp * 10) / 10;
+
+  const { before, after, weightBefore, weightAfter } = findClosestPair(
+    new Date(time).getTime()
+  );
+
+  const interpolatedLevel =
+    before.level * weightBefore + after.level * weightAfter;
+
+  return Math.round(interpolatedLevel * 100) / 100;
 };
 
 type InterpolateBmUnitLevelPairsParams = {
@@ -112,6 +147,11 @@ type InterpolateBmUnitLevelPairsParams = {
   omitZero: boolean;
 };
 
+/*
+interpolateBmUnitLevelPairs
+Pass a BmUnitLevelPairs object and a time
+Get interpolated values for each bmUnit at that time
+*/
 export const interpolateBmUnitLevelPairs = ({
   time,
   bmUnitLevelPairs,
@@ -119,12 +159,15 @@ export const interpolateBmUnitLevelPairs = ({
 }: InterpolateBmUnitLevelPairsParams): t.BmUnitValues => {
   log.debug(`interpolateBmUnitLevelPairs: interpolating for ${time}`);
   let output: t.BmUnitValues = {};
+
   for (const bmUnit of Object.keys(bmUnitLevelPairs)) {
     const level = interpolateLevelPair(time, bmUnitLevelPairs[bmUnit]);
-    if (level !== 0 || !omitZero) {
+
+    if (!omitZero || Math.round(level) !== 0) {
       output[bmUnit] = level;
     }
   }
+
   log.debug(
     `interpolateBmUnitLevelPairs: ${
       Object.keys(output).length
@@ -133,7 +176,13 @@ export const interpolateBmUnitLevelPairs = ({
   return output;
 };
 
-export const sortDescendingBmUnitValues = (v: t.BmUnitValues) => {
+/*
+sortDescendingBmUnitValues
+For use when sorting a BmUnitValues object by level descending
+*/
+export const sortDescendingBmUnitValues = (
+  v: t.BmUnitValues
+): t.BmUnitLevelValue[] => {
   let bmUnits: { id: string; level: number }[] = [];
   for (const id of Object.keys(v)) {
     bmUnits.push({ id, level: v[id] });
@@ -146,19 +195,25 @@ export const getAcceptancesNoLevels = (
 ): t.ElexonInsightsAcceptancesParsedNoLevels[] => {
   let output: Record<string, t.ElexonInsightsAcceptancesParsedNoLevels> = {};
   for (const a of x) {
-    output[a.acceptanceNumber] = {
-      bmUnit: a.bmUnit,
-      acceptanceNumber: a.acceptanceNumber,
-      acceptanceTime: a.acceptanceTime,
-      deemedBoFlag: a.deemedBoFlag,
-      soFlag: a.soFlag,
-      storFlag: a.storFlag,
-      rrFlag: a.rrFlag,
-    };
+    if (a.bmUnit) {
+      output[a.acceptanceNumber] = {
+        bmUnit: a.bmUnit,
+        acceptanceNumber: a.acceptanceNumber,
+        acceptanceTime: a.acceptanceTime,
+        deemedBoFlag: a.deemedBoFlag,
+        soFlag: a.soFlag,
+        storFlag: a.storFlag,
+        rrFlag: a.rrFlag,
+      };
+    }
   }
   return Object.values(output);
 };
 
+/*
+parseAcceptancesWithLevels
+combines getAcceptancesNoLevels with intervalRecordToLevelPairs
+*/
 export const parseAcceptancesWithLevels = (
   x: t.ElexonInsightsAcceptancesDataRecord[]
 ): t.ElexonInsightsAcceptancesParsed[] =>
@@ -176,6 +231,14 @@ type CombinePnsAndAccsParams = {
   accs: t.ElexonInsightsAcceptancesResponseParsed;
 };
 
+/*
+combinePnsAndAccs
+For use when combining PNs and ACCs across a number of bmUnits
+1. Loops through each bmUnit in the PN (the ultimate source of truth)
+2. If there are no ACCs for that bmUnit, it just returns the PN
+3. If there are ACCs, it combines the PN and ACCs, running through the acceptances recursively
+It returns a BmUnitLevelPairs object, which is a
+*/
 export const combinePnsAndAccs = ({
   pns,
   accs,
@@ -256,16 +319,13 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
   log.debug(`getUnitGroups: other unknown units`);
   for (const unit of Object.keys(x)) {
     if (!bmUnits.includes(unit)) {
-      const isDomestic = unit.startsWith("T_") || unit.startsWith("E_");
+      const isDomestic =
+        unit.startsWith("T_") || unit.startsWith("E_") || unit.startsWith("2_");
 
       if (isDomestic) {
         output.push({
           details: {
             name: unit,
-            coords: {
-              lat: 0,
-              lng: 0,
-            },
             fuelType: "unknown",
           },
           units: [
@@ -286,10 +346,6 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
         output.push({
           details: {
             name: unit,
-            coords: {
-              lat: 0,
-              lng: 0,
-            },
             fuelType: "interconnector",
           },
           units: [
@@ -321,6 +377,10 @@ export const groupByFuelTypeAndInterconnectors = (
   let fuelTypesAndInterconnectors: t.FuelType[] = [];
   log.debug(`groupByFuelType: getting fuel types for domestic generators`);
   for (const ug of x) {
+    // ignore unknowns
+    if (ug.details.fuelType === "unknown") {
+      continue;
+    }
     if (!fuelTypesAndInterconnectors.includes(ug.details.fuelType)) {
       fuelTypesAndInterconnectors.push(ug.details.fuelType);
     }
@@ -516,54 +576,82 @@ export const transformUnitGroupLiveQuery = ({
 };
 
 type TransformUnitHistoryQueryParams = {
-  pns: t.BmUnitLevelPairs
-  accs: t.ElexonInsightsAcceptancesResponseParsed
-  truncateBefore: Date
-  units: t.UnitGroupUnit[]
+  pns: t.BmUnitLevelPairs;
+  accs: t.ElexonInsightsAcceptancesResponseParsed;
+  truncateBefore: Date;
+  units: t.UnitGroupUnit[];
+};
+
+type TransformUnitHistoryDataOutput = {
+  details: t.UnitGroupUnit;
+  data: {
+    levels: t.LevelPair[];
+    average: number;
+  };
 };
 
 export const transformUnitHistoryQuery = ({
-  pns, 
+  pns,
   accs,
   truncateBefore,
-  units
-}: TransformUnitHistoryQueryParams) => {
-
+  units,
+}: TransformUnitHistoryQueryParams): TransformUnitHistoryDataOutput[] => {
   log.debug(`useUnitGroupHistoryQuery: joining pns and accs`);
-  // debugger
-  const combined = combinePnsAndAccs({pns, accs});
-  // const combined = pns
-
+  const combined = combinePnsAndAccs({ pns, accs });
   log.debug(
     `useUnitGroupHistoryQuery: removing any values before ${truncateBefore}`
   );
   const filtered = filterBefore(combined, truncateBefore);
-  // const filtered = combined
-
   log.debug(`useUnitGroupHistoryQuery: joining with ug.units`);
   const unitData = units.map((u) => {
     const bmUnitData = filtered[u.bmUnit];
     return {
       details: u,
       data: {
-        levels: bmUnitData.sort((a, b) => b.time.localeCompare(a.time)),
+        levels: bmUnitData.sort((a, b) => a.time.localeCompare(b.time)),
         average: averageLevel(bmUnitData),
       },
     };
   });
+  unitData.sort((a, b) => b.data.average - a.data.average);
+  return unitData;
+};
 
-  log.debug(`useUnitGroupHistoryQuery: sort by average level `);
-  unitData.sort((a, b) => {
-    if (a.data.average && b.data.average) {
-      return b.data.average - a.data.average;
-    } else if (a.data.average) {
-      return -1;
-    } else if (b.data.average) {
-      return 1;
+/*
+filterUnitGroupScheduleQuery
+filter the levels to only include the record immediately before, plus all subsequent records
+*/
+
+export const filterUnitGroupScheduleQuery = (
+  now: Date,
+  x: TransformUnitHistoryDataOutput[]
+) => {
+  log.debug(
+    `filterUnitGroupScheduleQuery: filtering to only include the record immediately before, plus all subsequent records`
+  );
+  const output: TransformUnitHistoryDataOutput[] = [];
+  for (const unit of x) {
+    const index = unit.data.levels.findIndex((x) => new Date(x.time) > now);
+    if (index === -1 || index === 0) {
+      log.info(
+        `filterUnitGroupScheduleQuery: no levels found for ${unit.details.bmUnit}`
+      );
     } else {
-      return 0;
+      const priorAndSubsequent = unit.data.levels.slice(index - 1);
+      const allZero = priorAndSubsequent.every((x) => x.level === 0);
+      if (!allZero) {
+        output.push({
+          ...unit,
+          data: {
+            ...unit.data,
+            levels: priorAndSubsequent,
+            average: averageLevel(priorAndSubsequent),
+          },
+        });
+      }
     }
-  });
-
-  return unitData
+  }
+  log.debug(`sort by average`);
+  output.sort((a, b) => b.data.average - a.data.average);
+  return output;
 };

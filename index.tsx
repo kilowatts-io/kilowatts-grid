@@ -2,6 +2,7 @@ import React from "react";
 import { registerRootComponent } from "expo";
 import { ExpoRoot } from "expo-router";
 import { Provider } from "react-redux";
+import { Platform } from "react-native";
 import { store } from "./services/state";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
@@ -9,7 +10,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@rneui/themed";
 import { WithLicense } from "./components/WithLicense";
 import * as Updates from "expo-updates";
-import { Alert, AppState, AppStateStatus, useColorScheme } from "react-native";
+import { Alert, AppState, AppStateStatus } from "react-native";
 import log from "./services/log";
 import theme from "./services/theme";
 
@@ -43,8 +44,6 @@ async function onFetchUpdateAsync() {
 }
 
 export const App = () => {
-  const colorScheme = useColorScheme();
-
   //   React.useEffect(() => {
   //     if (__DEV__ && Platform.OS !== "web") {
   //       const rt = require("./services/reactotron").initReactotron;
@@ -87,15 +86,18 @@ export const App = () => {
 
   if (!loaded) {
     return null;
+  
   }
   return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <WithLicense>
-          <ExpoRoot context={ctx} />
-        </WithLicense>
-      </Provider>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <WithLicense>
+            <ExpoRoot context={ctx} />
+          </WithLicense>
+        </Provider>
+      </ThemeProvider>
+    </>
   );
 };
 

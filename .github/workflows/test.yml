@@ -1,0 +1,25 @@
+name: Jest Tests
+
+on: [push] # Trigger the workflow on every push to the repository
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # You can choose a different OS if needed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # Checkout your code repository
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 21.1.0 # You can specify your desired Node.js version here
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run Jest unit tests
+        run: yarn test
+
+      - name: Run Jest e2e tests
+        run: yarn run e2e
