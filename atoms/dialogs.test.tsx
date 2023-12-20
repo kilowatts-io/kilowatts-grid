@@ -12,6 +12,13 @@ jest.mock("react-native/Libraries/Linking/Linking", () => ({
   openURL: mockLinkingOpenURL,
 }));
 
+//modk useRouter
+jest.mock("expo-router", () => ({
+  useRouter: () => ({
+    push: mockLinkingOpenURL
+  }),
+}));
+
 // mock getCurrentYear
 jest.mock("../common/utils", () => ({
   getCurrentYear: () => 2021,

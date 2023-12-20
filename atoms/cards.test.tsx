@@ -7,6 +7,14 @@ jest.mock("react-native/Libraries/Linking/Linking", () => ({
   openURL: mockLinkingOpenURL,
 }));
 
+//modk useRouter
+jest.mock("expo-router", () => ({
+  useRouter: () => ({
+    push: mockLinkingOpenURL,
+    replace: mockLinkingOpenURL,
+  }),
+}));
+
 let mockLondonTime = jest.fn();
 jest.mock("../common/utils", () => ({
     londonTime: (x: any) => mockLondonTime(x),
