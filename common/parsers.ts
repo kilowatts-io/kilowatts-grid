@@ -3,7 +3,6 @@ import log from "../services/log";
 import { unitGroups } from "../assets/data/units";
 import { interconnectors } from "../assets/data/interconnectors";
 
-
 /*
 shouldIncludeUnit
 For use when filtering units from a list of records
@@ -46,23 +45,27 @@ export const getBmUnits = (
   return output;
 };
 
-export const levelDictToLevelPairs = (
-  levelDict: t.LevelDict
-): t.LevelPair[] => {
-  let output: t.LevelPair[] = [];
-  for (const time of Object.keys(levelDict)) {
-    output.push({ time, level: levelDict[time] });
-  }
-  return output.sort((a, b) => a.time.localeCompare(b.time));
-};
+/*
+levelDictToLevelPairs
+For use when converting a levelDict to a levelPairs
+Returns an array of levelPairs, sorted by time
+*/
+export const levelDictToLevelPairs = (levelDict: t.LevelDict): t.LevelPair[] =>
+  Object.keys(levelDict)
+    .map((time) => ({ time, level: levelDict[time] }))
+    .sort((a, b) => a.time.localeCompare(b.time));
 
-type IntervalRecord = {
+export type IntervalRecord = {
   timeFrom: string;
   timeTo: string;
   levelFrom: number;
   levelTo: number;
 };
 
+/*
+intervalRecordToLevelDict
+For use when converting an interval record into a levelDict
+*/
 export const intervalRecordToLevelDict = (r: IntervalRecord[]): t.LevelDict => {
   let levelDict: t.LevelDict = {};
   for (const x of r) {
@@ -72,45 +75,46 @@ export const intervalRecordToLevelDict = (r: IntervalRecord[]): t.LevelDict => {
   return levelDict;
 };
 
+/*
+intervalRecordToLevelPairs
+Combines intervalRecordToLevelDict and levelDictToLevelPairs
+*/
 export const intervalRecordToLevelPairs = (
   r: IntervalRecord[]
-): t.LevelPair[] => {
-  const levelDict = intervalRecordToLevelDict(r);
-  return levelDictToLevelPairs(levelDict);
-};
+): t.LevelPair[] => levelDictToLevelPairs(intervalRecordToLevelDict(r));
 
 export const interpolateLevelPair = (
   time: string,
   levelPairs: t.LevelPair[]
 ): number => {
   const exact = levelPairs.find((x) => x.time === time);
+
   if (exact) {
     log.debug(`interpolateLevelPair: exact match found for ${time}`);
+    return exact.level;
   }
-  const befores = levelPairs.filter((x) => x.time < time);
-  const afters = levelPairs.filter((x) => x.time > time);
-  if (befores.length === 0 || afters.length === 0) {
+
+  const before = levelPairs.filter((x) => x.time < time).pop();
+  const after = levelPairs.filter((x) => x.time > time)[0];
+
+  if (!before || !after) {
     log.debug(`interpolateLevelPair: no before or after found for ${time}`);
+    throw new Error(
+      `interpolateLevelPair: no before or after found for ${time}`
+    );
   }
-  // interpolate on a linear basis
-  const before = befores[befores.length - 1];
-  const after = afters[0];
-  const times = {
-    before: new Date(before.time).getTime(),
-    after: new Date(after.time).getTime(),
-    output: new Date(time).getTime(),
-  };
-  const timeDiffs = {
-    before: times.output - times.before,
-    total: times.after - times.before,
-    after: times.after - times.output,
-  };
-  const weights = {
-    before: timeDiffs.before / timeDiffs.total,
-    after: timeDiffs.after / timeDiffs.total,
-  };
-  const interp = before.level * weights.before + after.level * weights.after;
-  return Math.round(interp * 10) / 10;
+
+  const timeBefore = new Date(before.time).getTime();
+  const timeAfter = new Date(after.time).getTime();
+  const timeOutput = new Date(time).getTime();
+
+  const weightBefore = (timeOutput - timeBefore) / (timeAfter - timeBefore);
+  const weightAfter = 1 - weightBefore;
+
+  const interpolatedLevel =
+    before.level * weightBefore + after.level * weightAfter;
+
+  return Math.round(interpolatedLevel * 10) / 10;
 };
 
 type InterpolateBmUnitLevelPairsParams = {
