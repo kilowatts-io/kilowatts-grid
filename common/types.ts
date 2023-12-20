@@ -135,7 +135,7 @@ export type UnitGroupUnit = {
 export type UnitGroupDetails = {
     code?: string;
     name: string; // Pembroke
-    coords: {
+    coords?: {
         lat: number;
         lng: number;
     }

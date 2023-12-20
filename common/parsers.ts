@@ -235,7 +235,7 @@ For use when combining PNs and ACCs across a number of bmUnits
 1. Loops through each bmUnit in the PN (the ultimate source of truth)
 2. If there are no ACCs for that bmUnit, it just returns the PN
 3. If there are ACCs, it combines the PN and ACCs, running through the acceptances recursively
-It returns a BmUnitLevelPairs object, which is a schedule of levels for each bmUnit
+It returns a BmUnitLevelPairs object, which is a
 */
 export const combinePnsAndAccs = ({
   pns,
@@ -317,16 +317,12 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
   log.debug(`getUnitGroups: other unknown units`);
   for (const unit of Object.keys(x)) {
     if (!bmUnits.includes(unit)) {
-      const isDomestic = unit.startsWith("T_") || unit.startsWith("E_");
+      const isDomestic = unit.startsWith("T_") || unit.startsWith("E_") || unit.startsWith("2_");
 
       if (isDomestic) {
         output.push({
           details: {
             name: unit,
-            coords: {
-              lat: 0,
-              lng: 0,
-            },
             fuelType: "unknown",
           },
           units: [
@@ -347,10 +343,6 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
         output.push({
           details: {
             name: unit,
-            coords: {
-              lat: 0,
-              lng: 0,
-            },
             fuelType: "interconnector",
           },
           units: [

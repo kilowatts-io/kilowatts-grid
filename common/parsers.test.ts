@@ -602,4 +602,130 @@ describe("parsers/parseAcceptancesWithLevels", () => {
     ];
     expect(p.parseAcceptancesWithLevels(input)).toMatchObject(output);
   });
+
+
+  test("can deal with two acceptances", () => {
+    // deliberately in wrong order
+    const input: ElexonInsightsAcceptancesDataRecord[] = [
+      {
+        settlementDate: "2021-01-01",
+        settlementPeriodFrom: 2,
+        settlementPeriodTo: 3,
+        timeFrom: "2021-01-01T00:15",
+        timeTo: "2021-01-01T00:30",
+        levelFrom: 2,
+        levelTo: 3,
+        nationalGridBmUnit: "T_DRAXX-1",
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 1,
+        acceptanceTime: "2021-01-01T00:00",
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+      {
+        settlementDate: "2021-01-01",
+        settlementPeriodFrom: 1,
+        settlementPeriodTo: 2,
+        timeFrom: "2021-01-01T00:00",
+        timeTo: "2021-01-01T00:15",
+        levelFrom: 1,
+        levelTo: 2,
+        nationalGridBmUnit: "T_DRAXX-1",
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 1,
+        acceptanceTime: "2021-01-01T00:00",
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+
+      {
+        settlementDate: "2021-01-01",
+        settlementPeriodFrom: 2,
+        settlementPeriodTo: 3,
+        timeFrom: "2021-01-01T00:15",
+        timeTo: "2021-01-01T00:30",
+        levelFrom: 2,
+        levelTo: 3,
+        nationalGridBmUnit: "T_DRAXX-1",
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 2,
+        acceptanceTime: "2021-01-01T00:00",
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+      {
+        settlementDate: "2021-01-01",
+        settlementPeriodFrom: 1,
+        settlementPeriodTo: 2,
+        timeFrom: "2021-01-01T00:00",
+        timeTo: "2021-01-01T00:15",
+        levelFrom: 1,
+        levelTo: 2,
+        nationalGridBmUnit: "T_DRAXX-1",
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 2,
+        acceptanceTime: "2021-01-01T00:00",
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+
+    ];
+    const output: ElexonInsightsAcceptancesParsed[] = [
+      {
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 1,
+        acceptanceTime: "2021-01-01T00:00",
+        levels: [
+          {
+            level: 1,
+            time: "2021-01-01T00:00",
+          },
+          {
+            level: 2,
+            time: "2021-01-01T00:15",
+          },
+          {
+            level: 3,
+            time: "2021-01-01T00:30",
+          },
+        ],
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+      {
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 2,
+        acceptanceTime: "2021-01-01T00:00",
+        levels: [
+          {
+            level: 1,
+            time: "2021-01-01T00:00",
+          },
+          {
+            level: 2,
+            time: "2021-01-01T00:15",
+          },
+          {
+            level: 3,
+            time: "2021-01-01T00:30",
+          },
+        ],
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+    ];
+    expect(p.parseAcceptancesWithLevels(input)).toMatchObject(output);
+  });
 });
