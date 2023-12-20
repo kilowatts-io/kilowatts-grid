@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Card, Text } from "@rneui/themed";
-import { GITHUB_REPO_LINK } from "../common/links";
 import { Linking, StyleSheet, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import log from "../services/log";
@@ -41,7 +40,7 @@ export const IncompleteUnknownCategories = () => {
 
       <Button
         testID="github-repo-link"
-        onPress={() => Linking.openURL(GITHUB_REPO_LINK)}
+        onPress={() => Linking.openURL(urls.githubRepo)}
         icon={<FontAwesome name="github" size={24} color="white" />}
       />
     </Card>

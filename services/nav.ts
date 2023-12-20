@@ -8,7 +8,8 @@ export const urls: Urls = {
   home: "/",
   privacy: '/privacy',
   unitGroup: (code: string) => `/unit-group/${code.toLowerCase()}`,
-  elexonLicense: "https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/"
+  elexonLicense: "https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/",
+  githubRepo: 'https://github.com/benjaminWatts/kilowatts'
 };
 
 export const lookups = {

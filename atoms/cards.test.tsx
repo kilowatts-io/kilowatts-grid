@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react-native";
 import * as c from "./cards";
-import { GITHUB_REPO_LINK } from "../common/links";
 import { urls } from "../services/nav";
 
 const mockLinkingOpenURL = jest.fn();
@@ -35,7 +34,7 @@ describe("atoms/cards/IncompleteUnknownCategories", () => {
   test("github link", () => {
     const githubButton = screen.getByTestId("github-repo-link");
     fireEvent.press(githubButton);
-    expect(mockLinkingOpenURL).toBeCalledWith(GITHUB_REPO_LINK);
+    expect(mockLinkingOpenURL).toBeCalledWith(urls.githubRepo);
   });
 });
 
