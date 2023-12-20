@@ -1,5 +1,5 @@
 
-import { object, string, number, date, InferType, array } from 'yup';
+import { object, string, number, date, InferType, array, boolean } from 'yup';
 
 // Elexon Insights API 
 
@@ -19,7 +19,7 @@ export type ElexonRangeParams = {
 }
 
 
-let elexonInsightsPNDataRecordSchema = object({
+export const elexonInsightsPNDataRecordSchema = object({
     dataset: string().required().equals(['PN']),
     settlementDate: string().required(),
     settlementPeriod: number().required(),
@@ -61,30 +61,51 @@ export type BmUnitLevelPairs = Record<BmUnitId, LevelPair[]>
 
 export type ElexonInsightsPnResponseParsed = BmUnitLevelPairs
 
-export type ElexonInsightsAcceptancesDataRecord = {
-    settlementDate: string;
-    setttlementPeriodFrom: number;
-    setttlementPeriodTo: number;
-    timeFrom: string;
-    timeTo: string;
-    levelFrom: number;
-    levelTo: number;
-    nationalGridBmUnit: string;
-    bmUnit: string;
-    acceptanceNumber: number;
-    acceptanceTime: string;
-    deemedBoFlag: boolean;
-    soFlag: boolean;
-    storFlag: boolean;
-    rrFlag: boolean;
-}
+// export type ElexonInsightsAcceptancesDataRecord = {
+//     settlementDate: string;
+//     setttlementPeriodFrom: number;
+//     setttlementPeriodTo: number;
+//     timeFrom: string;
+//     timeTo: string;
+//     levelFrom: number;
+//     levelTo: number;
+//     nationalGridBmUnit: string;
+//     bmUnit: string;
+//     acceptanceNumber: number;
+//     acceptanceTime: string;
+//     deemedBoFlag: boolean;
+//     soFlag: boolean;
+//     storFlag: boolean;
+//     rrFlag: boolean;
+// }
+
+const elexonInsightsAcceptancesDataRecordSchema = object({
+    settlementDate: string().required(),
+    settlementPeriodFrom: number().required(),
+    settlementPeriodTo: number().required(),
+    timeFrom: string().required(),
+    timeTo: string().required(),
+    levelFrom: number().required(),
+    levelTo: number().required(),
+    nationalGridBmUnit: string().required(),
+    bmUnit: string().required(),
+    acceptanceNumber: number().required(),
+    acceptanceTime: string().required(),
+    deemedBoFlag: boolean().required(),
+    soFlag: boolean().required(),
+    storFlag: boolean().required(),
+    rrFlag: boolean().required(),
+})
+export type ElexonInsightsAcceptancesDataRecord = InferType<typeof elexonInsightsAcceptancesDataRecordSchema>
 
 export type ElexonInsightsAcceptancesSpParams = ElexonInsightsPnSpParams
 export type ElexonInsightsAcceptancesRangeParams = ElexonRangeParams & OptionalBmUnitParams
 
-export type ElexonInsightsAcceptancesResponse = {
-    data: ElexonInsightsAcceptancesDataRecord[];
-}
+export const elexonInsightsAcceptancesResponseRawSchema = object({
+    data: array(elexonInsightsAcceptancesDataRecordSchema).required()
+})
+
+export type ElexonInsightsAcceptancesResponse = InferType<typeof elexonInsightsAcceptancesResponseRawSchema>
 
 export type ElexonInsightsAcceptancesRangeResponse = ElexonInsightsAcceptancesDataRecord[];
 

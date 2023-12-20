@@ -1,30 +1,10 @@
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import * as t from "../../common/types";
-import * as p from "../../common/parsers";
 import * as tr from "./elexon-insights-api.tR";
+import { queryParams } from "./elexon-insights-api.queryParams";
 
 const extraOptions = {
   maxRetries: 9999999,
-};
-
-const queryParams = {
-  settlementPeriodToQuery: (p: t.ElexonSettlementPeriodParams) => {
-    return `?settlementDate=${p.settlementDate}${
-      p.settlementPeriod ? `&settlementPeriod=${p.settlementPeriod}` : ""
-    }`;
-  },
-  bmUnitsToQuery: (bmUnits?: string[]) => {
-    if (!bmUnits) return "";
-    return bmUnits.map((bmUnit) => `&bmUnit=${bmUnit}`).join("");
-  },
-  rangeToQuery: (p: t.ElexonRangeParams) => {
-    let query = `?from=${p.from}&to=${p.to}`;
-    if (p.settlementPeriodFrom)
-      query += `&settlementPeriodFrom=${p.settlementPeriodFrom}`;
-    if (p.settlementPeriodTo)
-      query += `&settlementPeriodTo=${p.settlementPeriodTo}`;
-    return query;
-  },
 };
 
 export const elexonInsightsApi = createApi({
