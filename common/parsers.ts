@@ -156,7 +156,7 @@ export const interpolateBmUnitLevelPairs = ({
 sortDescendingBmUnitValues
 For use when sorting a BmUnitValues object by level descending
 */
-export const sortDescendingBmUnitValues = (v: t.BmUnitValues) => {
+export const sortDescendingBmUnitValues = (v: t.BmUnitValues):t.BmUnitLevelValue[] => {
   let bmUnits: { id: string; level: number }[] = [];
   for (const id of Object.keys(v)) {
     bmUnits.push({ id, level: v[id] });

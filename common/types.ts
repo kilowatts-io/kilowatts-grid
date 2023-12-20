@@ -166,3 +166,9 @@ export type FuelTypeLevel = {
 }
 
 export type UnitGroupsDict = Record<string, UnitGroup>
+
+
+export type BmUnitLevelValue = {
+    id: string;
+    level: number;
+}
