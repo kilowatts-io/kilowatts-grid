@@ -62,6 +62,7 @@ type HeaderInfoIconProps = {
 export const HeaderInfoIcon: React.FC<HeaderInfoIconProps> = ({ onPress }) => {
   return (
     <Icon
+      testID='header-info-icon'
       name="info-outline"
       size={20}
       style={{ marginRight: 15 }}
