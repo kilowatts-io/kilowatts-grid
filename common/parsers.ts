@@ -3,39 +3,46 @@ import log from "../services/log";
 import { unitGroups } from "../assets/data/units";
 import { interconnectors } from "../assets/data/interconnectors";
 
+
+/*
+shouldIncludeUnit
+For use when filtering units from a list of records
+Removes demand units and other units that are not major generators
+*/
+export const shouldIncludeUnit = (bmUnit: string) => {
+  return (
+    bmUnit.startsWith("T_") ||
+    bmUnit.startsWith("E_") ||
+    bmUnit.startsWith("I_") ||
+    bmUnit.startsWith("2_")
+  );
+};
+
 /*
 get bm units runs through a list of records. 
 
-if filterUnits is true, it only returns units that start with T_ or E_. This removes demand units and other units that are not generators or sources of power
+if filterUnits is true, it only returns units that start with T_, E_. This removes demand units and other units that are not generators or sources of power
 */
 export const getBmUnits = (
   records: { bmUnit: string }[],
   filterUnits: boolean = false
 ): string[] => {
-  let set = new Set<string>();
-  for (const r of records) {
-    if (filterUnits) {
-      if (r.bmUnit) {
-        const { bmUnit } = r;
-        console.log(bmUnit);
-        // this preserves transmission units, embedded units and interconnectors
-        if (
-          (bmUnit && bmUnit.startsWith("T_")) ||
-          bmUnit.startsWith(
-            "E_" || bmUnit.startsWith("I_") || bmUnit.startsWith("2_")
-          )
-        ) {
-          set.add(r.bmUnit);
-        }
-      }
-    } else {
-      set.add(r.bmUnit);
+  const unitSet = new Set<string>();
+
+  for (const record of records) {
+    const { bmUnit } = record;
+
+    if (!filterUnits || (bmUnit && shouldIncludeUnit(bmUnit))) {
+      unitSet.add(bmUnit);
     }
   }
-  const output = Array.from(set);
+
+  const output = Array.from(unitSet);
   log.debug(
     `getBmUnits: ${output.length} units found from ${records.length} records`
   );
+  log.debug(`getBmUnits: sort alphabetically`);
+  output.sort((a, b) => a.localeCompare(b));
   return output;
 };
 
@@ -516,22 +523,21 @@ export const transformUnitGroupLiveQuery = ({
 };
 
 type TransformUnitHistoryQueryParams = {
-  pns: t.BmUnitLevelPairs
-  accs: t.ElexonInsightsAcceptancesResponseParsed
-  truncateBefore: Date
-  units: t.UnitGroupUnit[]
+  pns: t.BmUnitLevelPairs;
+  accs: t.ElexonInsightsAcceptancesResponseParsed;
+  truncateBefore: Date;
+  units: t.UnitGroupUnit[];
 };
 
 export const transformUnitHistoryQuery = ({
-  pns, 
+  pns,
   accs,
   truncateBefore,
-  units
+  units,
 }: TransformUnitHistoryQueryParams) => {
-
   log.debug(`useUnitGroupHistoryQuery: joining pns and accs`);
   // debugger
-  const combined = combinePnsAndAccs({pns, accs});
+  const combined = combinePnsAndAccs({ pns, accs });
   // const combined = pns
 
   log.debug(
@@ -565,5 +571,5 @@ export const transformUnitHistoryQuery = ({
     }
   });
 
-  return unitData
+  return unitData;
 };
