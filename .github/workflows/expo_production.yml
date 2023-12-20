@@ -1,9 +1,8 @@
-name: update
+name: expo_production
 on:
   push:
     branches:
       - production
-      - preview
   workflow_run:
     workflows: ["test"]
     types:
@@ -41,3 +40,6 @@ jobs:
 
       - name: Publish update
         run: eas update --auto
+
+      - name: Build
+        run: eas build --platform all -e --auto-submit --auto-approve
