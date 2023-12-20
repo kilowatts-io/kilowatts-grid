@@ -15,8 +15,7 @@ type UnitGroupLiveProps = {
 };
 export const UnitGroupLive: React.FC<UnitGroupLiveProps> = ({ ug }) => {
   log.debug(`UnitGroupLive ${ug.details.name}`);
-  const query = useUnitGroupLiveQuery(ug);
-
+  const query = useUnitGroupLiveQuery(ug)
   return (
     <>
       <FlashList

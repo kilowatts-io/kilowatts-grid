@@ -9,6 +9,7 @@ import { SearchUnitGroups } from "../atoms/inputs";
 import log from "../services/log";
 import { StyleSheet } from "react-native";
 import { urls } from "../services/nav";
+import { Refresh } from "../atoms/controls";
 
 export const UnitGroupsLive = () => {
   log.debug(`UnitGroupsLive`);
@@ -38,6 +39,7 @@ export const UnitGroupLiveWithSearch: React.FC<
 > = ({ search }) => {
   const router = useRouter();
   const query = useUnitGroupsLiveQuery();
+
   const { data, now, isLoading, refetch } = query;
   const filteredData = useMemo(() => {
     if (!data) return data;
@@ -61,7 +63,7 @@ export const UnitGroupLiveWithSearch: React.FC<
   return (
     <FlashList
       refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        <Refresh refreshing={isLoading} onRefresh={refetch} />
       }
       ListFooterComponent={IncompleteUnknownCategories}
       data={filteredData}
