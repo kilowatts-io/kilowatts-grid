@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ListItem } from "@rneui/themed";
 import formatters from "../common/formatters";
-import { FuelType, LevelPair, UnitGroupUnit } from "../common/types";
 import { FuelTypeIcon } from "./icons";
 import { londonTime } from "../common/utils";
+import { FuelType, LevelPair, UnitGroupUnit } from "../common/types";
 
 type GeneratorLiveProps = {
   index: number;
@@ -22,14 +22,11 @@ export const GeneratorLive: React.FC<GeneratorLiveProps> = ({
   onPress,
 }) => (
   <ListItem style={styles.listItemWrapper} onPress={onPress}>
-    <ListItem.Content
-      style={styles.liveContainer}
-      testID={`generator-live-${index}`}
-    >
+    <ListItem.Content style={styles.liveContainer} testID={`generator-live-${index}`}>
       <ListItem.Title>
         <FuelTypeIcon fuelType={fuelType} size={20} />
         <View style={styles.hSpacer} />
-        <>{name}</>
+        {name}
       </ListItem.Title>
       <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
     </ListItem.Content>
@@ -47,7 +44,7 @@ export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level }) => (
       <ListItem.Title>
         <FuelTypeIcon fuelType={name} size={20} />
         <View style={styles.hSpacer} />
-        <>{formatters.fuelType(name)}</>
+        {formatters.fuelType(name)}
       </ListItem.Title>
       <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
     </ListItem.Content>
@@ -69,7 +66,7 @@ export const UnitLive: React.FC<UnitLiveProps> = ({
     <ListItem.Content style={styles.liveContainer}>
       <ListItem.Title>
         <View style={styles.hSpacer} />
-        <>{details.bmUnit}</>
+        {details.bmUnit}
       </ListItem.Title>
       <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
     </ListItem.Content>
@@ -84,7 +81,7 @@ export const UnitLevelListItem: React.FC<UnitLevelProps> = ({ level, time }) => 
       <ListItem.Content style={styles.liveContainer}>
         <ListItem.Title>
           <View style={styles.hSpacer} />
-          <>{londonTime(new Date(Date.parse(time)))}</>
+          {londonTime(new Date(Date.parse(time)))}
         </ListItem.Title>
         <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
       </ListItem.Content>
