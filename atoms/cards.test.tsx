@@ -1,14 +1,18 @@
 import { render, screen, fireEvent } from "@testing-library/react-native";
 import * as c from "./cards";
 import { GITHUB_REPO_LINK } from "../common/links";
+import { urls } from "../services/nav";
+
+const mockLinkingOpenURL = jest.fn();
+jest.mock("react-native/Libraries/Linking/Linking", () => ({
+  openURL: mockLinkingOpenURL,
+}));
 
 describe("atoms/cards/IncompleteUnknownCategories", () => {
-  const mockLinkingOpenURL = jest.fn();
-  jest.mock("react-native/Libraries/Linking/Linking", () => ({
-    openURL: mockLinkingOpenURL,
-  }));
+
   beforeEach(() => {
     render(<c.IncompleteUnknownCategories />);
+    mockLinkingOpenURL.mockClear();
   });
 
   test("renders text", () => {
@@ -28,5 +32,39 @@ describe("atoms/cards/IncompleteUnknownCategories", () => {
     const githubButton = screen.getByTestId("github-repo-link");
     fireEvent.press(githubButton);
     expect(mockLinkingOpenURL).toBeCalledWith(GITHUB_REPO_LINK);
+  });
+});
+
+describe("atoms/cards/UnknownUnitGroupCode", () => {
+  beforeEach(() => {
+    render(<c.UnknownUnitGroupCode />);
+  });
+
+  test("renders text", () => {
+    screen.getByText("Error");
+    screen.getByText(
+      "Cannot find details for this generator. Please check the URL and try again."
+    );
+  });
+});
+
+describe("atoms/cards/MissingScreen", () => {
+
+  beforeEach(() => {
+    mockLinkingOpenURL.mockClear();
+    render(<c.MissingScreen />);
+  });
+
+  test("renders expected text", () => {
+    screen.getByText("Error");
+    screen.getByText(
+      "This screen does not exist."
+    );
+  });
+
+  test("can click on home link", () => {
+    const homeButton = screen.getByText("Reset to Home screen");
+    fireEvent.press(homeButton);
+    expect(mockLinkingOpenURL).toBeCalledWith(urls.home);
   });
 });

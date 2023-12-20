@@ -4,7 +4,12 @@ import { GITHUB_REPO_LINK } from "../common/links";
 import { Linking, StyleSheet, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import log from "../services/log";
+import { urls } from "../services/nav";
 
+/*
+IncompleteUnknownCategories
+Render a card with a message asking for help to categorise the unknown balancing mechanism units.
+*/
 export const IncompleteUnknownCategories = () => {
   return (
     <Card>
@@ -22,8 +27,9 @@ export const IncompleteUnknownCategories = () => {
       <View style={styles.spacer} />
 
       <Text>
-        All the Unknown values represents balancing mechanism units
-       we haven't yet categorised. We need open-source contributions to complete this work.
+        All the Unknown values represents balancing mechanism units we haven't
+        yet categorised. We need open-source contributions to complete this
+        work.
       </Text>
 
       <View style={styles.spacer} />
@@ -41,8 +47,12 @@ export const IncompleteUnknownCategories = () => {
   );
 };
 
+/*
+UnknownUnitGroupCode
+Render a card with a message saying we can't find the unit group.
+*/
 export const UnknownUnitGroupCode = () => {
-  log.debug(`UnknownUnitGroupCode`)
+  log.debug(`UnknownUnitGroupCode`);
   return (
     <Card>
       <Card.Title>
@@ -50,45 +60,61 @@ export const UnknownUnitGroupCode = () => {
       </Card.Title>
       <Card.Divider />
       <Text>
-        Cannot find details for this generator. Please check the URL and try again.
+        Cannot find details for this generator. Please check the URL and try
+        again.
       </Text>
     </Card>
   );
 };
 
-
-export const MissingScreen = () => {
-  log.debug(`MissingScreen`)
+/*
+MissingScreen
+Render a card with a message saying the screen doesn't exist.
+*/
+export const MissingScreen: React.FC = () => {
+  log.debug(`MissingScreen`);
   return (
     <Card>
       <Card.Title>
         <Text>Error</Text>
       </Card.Title>
       <Card.Divider />
-      <Text>
-        This screen does not exist. 
-      </Text>
-  
+      <Text>This screen does not exist.</Text>
+      <Card.Divider />
+      <Button
+        testID="reset-home-button"
+        onPress={() => {
+          Linking.openURL(urls.home);
+        }}
+      >
+        Reset to Home screen
+      </Button>
     </Card>
   );
 };
 
 type UnitListHeaderProps = {
   now?: Date;
-}
-export const UnitListHeader:React.FC<UnitListHeaderProps> = ({now}) => {
+};
+export const UnitListHeader: React.FC<UnitListHeaderProps> = ({ now }) => {
   return (
     <Card containerStyle={styles.listHeaderCard}>
-      {now ? <Text>Live Individual Unit output at: {now.toLocaleTimeString()}</Text> : <Text>Loading Individual Units</Text>}
+      {now ? (
+        <Text>Live Individual Unit output at: {now.toLocaleTimeString()}</Text>
+      ) : (
+        <Text>Loading Individual Units</Text>
+      )}
     </Card>
   );
-}
+};
 
 type UnitGroupHistoryListHeaderComponentProps = {
   bmUnit: string;
   average: number;
-}
-export const UnitGroupHistoryListHeaderComponent:React.FC<UnitGroupHistoryListHeaderComponentProps> = ({bmUnit, average}) => {
+};
+export const UnitGroupHistoryListHeaderComponent: React.FC<
+  UnitGroupHistoryListHeaderComponentProps
+> = ({ bmUnit, average }) => {
   return (
     <Card containerStyle={styles.listHeaderCard}>
       <Card.Title>{bmUnit}</Card.Title>
@@ -96,13 +122,12 @@ export const UnitGroupHistoryListHeaderComponent:React.FC<UnitGroupHistoryListHe
       <Text>Upcoming Schedule</Text>
     </Card>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
   spacer: { height: 10 },
   listHeaderCard: {
     margin: 0,
     // padding: 0,
-  }
+  },
 });

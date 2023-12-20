@@ -2,9 +2,10 @@ import { unitGroupsDict } from "../assets/data/units";
 import { UnitGroup } from "../common/types";
 import log from "../services/log";
 
-type Urls = Record<string, (code: string) => any>;
+type Urls = Record<string, (code: string) => any> | any;
 
 export const urls: Urls = {
+  home: "/",
   unitGroup: (code: string) => `/unit-group/${code.toLowerCase()}`,
 };
 
