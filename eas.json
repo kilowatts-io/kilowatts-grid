@@ -11,7 +11,6 @@
       },
       "ios": {
         "buildConfiguration": "Debug",
-        "ascAppId": "6474467753"
       },
       "channel": "development"
     },
@@ -24,7 +23,8 @@
       "android": {
         "buildType": "app-bundle"
       },
-      "channel": "production"
+      "channel": "production",
+      "ascAppId": "6474467753"
     }
   },
   "submit": {

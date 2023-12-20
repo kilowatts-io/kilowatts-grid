@@ -42,4 +42,4 @@ jobs:
         run: eas update --auto
 
       - name: Build
-        run: eas build --platform all -e preview
+        run: eas build --platform all -e preview --non-interactive
