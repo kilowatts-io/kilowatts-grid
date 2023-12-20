@@ -7,7 +7,7 @@ import { FuelTypeLevel } from "../common/types";
 // local mocks
 const mockListItem = jest.fn();
 const mockIncompleteUnknownCategories = jest.fn();
-const mockDate = new Date(Date.parse("2023-01-01T00:45:13"));
+const mockDate = new Date(Date.parse("2023-01-01T00:45:13Z"));
 const mockRefetch = jest.fn();
 
 const mockSetNavOptions = jest.fn();

@@ -4,6 +4,9 @@ import log from "../services/log";
 export const londonTime = (date: Date) =>
   date.toLocaleString("en-GB", { timeZone: "Europe/London" });
 
+export const londonTimeHHMMSS = (date: Date) =>
+  londonTime(date).split(" ")[1];
+
 export const getSettlementPeriod = (
   dateString?: string
 ): t.ElexonSettlementPeriodParams => {

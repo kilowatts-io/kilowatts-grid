@@ -2,10 +2,10 @@ import React from "react";
 import { FlashList } from "@shopify/flash-list";
 import { useNavigation } from "expo-router";
 import { useFuelTypeLiveQuery } from "../services/state/elexon-insights-api.hooks";
-import { RefreshControl } from "react-native-gesture-handler";
 import { ApiErrorCard, IncompleteUnknownCategories } from "../atoms/cards";
 import { FuelTypeLive as ListItem } from "../atoms/list-items";
 import { Refresh } from "../atoms/controls";
+import { londonTimeHHMMSS } from "../common/utils";
 
 export const FuelTypeLive = () => {
   const nav = useNavigation();
@@ -13,7 +13,7 @@ export const FuelTypeLive = () => {
   React.useEffect(() => {
     nav.setOptions({
       title: query.now
-        ? `National Grid at: ${query.now.toLocaleTimeString()}`
+        ? `National Grid at: ${londonTimeHHMMSS(query.now)}`
         : "Loading...",
     });
   }, [query.now]);
