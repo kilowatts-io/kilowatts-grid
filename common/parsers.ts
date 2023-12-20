@@ -23,7 +23,7 @@ get bm units runs through a list of records.
 if filterUnits is true, it only returns units that start with T_, E_. This removes demand units and other units that are not generators or sources of power
 */
 export const getBmUnits = (
-  records: { bmUnit: string }[],
+  records: { bmUnit?: string | null }[],
   filterUnits: boolean = false
 ): string[] => {
   const unitSet = new Set<string>();
@@ -31,7 +31,7 @@ export const getBmUnits = (
   for (const record of records) {
     const { bmUnit } = record;
 
-    if (!filterUnits || (bmUnit && shouldIncludeUnit(bmUnit))) {
+    if ((bmUnit && !filterUnits) || (bmUnit && shouldIncludeUnit(bmUnit))) {
       unitSet.add(bmUnit);
     }
   }
@@ -195,15 +195,17 @@ export const getAcceptancesNoLevels = (
 ): t.ElexonInsightsAcceptancesParsedNoLevels[] => {
   let output: Record<string, t.ElexonInsightsAcceptancesParsedNoLevels> = {};
   for (const a of x) {
-    output[a.acceptanceNumber] = {
-      bmUnit: a.bmUnit,
-      acceptanceNumber: a.acceptanceNumber,
-      acceptanceTime: a.acceptanceTime,
-      deemedBoFlag: a.deemedBoFlag,
-      soFlag: a.soFlag,
-      storFlag: a.storFlag,
-      rrFlag: a.rrFlag,
-    };
+    if (a.bmUnit) {
+      output[a.acceptanceNumber] = {
+        bmUnit: a.bmUnit,
+        acceptanceNumber: a.acceptanceNumber,
+        acceptanceTime: a.acceptanceTime,
+        deemedBoFlag: a.deemedBoFlag,
+        soFlag: a.soFlag,
+        storFlag: a.storFlag,
+        rrFlag: a.rrFlag,
+      };
+    }
   }
   return Object.values(output);
 };
@@ -317,7 +319,8 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
   log.debug(`getUnitGroups: other unknown units`);
   for (const unit of Object.keys(x)) {
     if (!bmUnits.includes(unit)) {
-      const isDomestic = unit.startsWith("T_") || unit.startsWith("E_") || unit.startsWith("2_");
+      const isDomestic =
+        unit.startsWith("T_") || unit.startsWith("E_") || unit.startsWith("2_");
 
       if (isDomestic) {
         output.push({

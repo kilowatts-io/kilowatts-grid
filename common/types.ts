@@ -28,7 +28,7 @@ export const elexonInsightsPNDataRecordSchema = object({
     levelFrom: number().required(),
     levelTo: number().required(),
     nationalGridBmUnit: string().required(),
-    bmUnit: string().required(),
+    bmUnit: string().nullable()
 })
 
 export type ElexonInsightsPNDataRecord = InferType<typeof elexonInsightsPNDataRecordSchema>
@@ -88,7 +88,7 @@ const elexonInsightsAcceptancesDataRecordSchema = object({
     levelFrom: number().required(),
     levelTo: number().required(),
     nationalGridBmUnit: string().required(),
-    bmUnit: string().required(),
+    bmUnit: string().nullable(),
     acceptanceNumber: number().required(),
     acceptanceTime: string().required(),
     deemedBoFlag: boolean().required(),
