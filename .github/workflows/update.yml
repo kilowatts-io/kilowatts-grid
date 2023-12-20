@@ -1,5 +1,9 @@
 name: update
-on: push
+on:
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
 
 jobs:
   update:
