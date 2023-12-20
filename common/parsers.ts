@@ -83,33 +83,57 @@ export const intervalRecordToLevelPairs = (
   r: IntervalRecord[]
 ): t.LevelPair[] => levelDictToLevelPairs(intervalRecordToLevelDict(r));
 
+/*
+interpolateLevelPair
+this is a core piece of logic for the app.
+takes a number of level pairs and a required output interpolation time
+separates the level pairs into before and after
+identifies the last before i.e the immediately preceding level pair 
+identifies the first after i.e. the immediately following level pair
+uses time linear interpolation to calculate the level at the required output interpolation time
+if the required output interpolation time is exactly the same as one of the level pairs, it returns that level pair
+if there is no before or after, it throws an error
+*/
 export const interpolateLevelPair = (
   time: string,
   levelPairs: t.LevelPair[]
 ): number => {
-  const exact = levelPairs.find((x) => x.time === time);
+  const findClosestPair = (targetTime: number) => {
+    let before = null;
+    let after = null;
 
-  if (exact) {
-    log.debug(`interpolateLevelPair: exact match found for ${time}`);
-    return exact.level;
-  }
+    for (const pair of levelPairs) {
+      const pairTime = new Date(pair.time).getTime();
 
-  const before = levelPairs.filter((x) => x.time < time).pop();
-  const after = levelPairs.filter((x) => x.time > time)[0];
+      if (pairTime === targetTime) {
+        return { before: pair, after: pair, weightBefore: 1, weightAfter: 0 };
+      } else if (pairTime < targetTime) {
+        before = pair;
+      } else if (pairTime > targetTime) {
+        after = pair;
+        break; // Stop searching after finding the first 'after' pair
+      }
+    }
 
-  if (!before || !after) {
-    log.debug(`interpolateLevelPair: no before or after found for ${time}`);
-    throw new Error(
-      `interpolateLevelPair: no before or after found for ${time}`
-    );
-  }
+    if (!before || !after) {
+      throw new Error(
+        `interpolateLevelPair: no before or after found for ${time}`
+      );
+    }
 
-  const timeBefore = new Date(before.time).getTime();
-  const timeAfter = new Date(after.time).getTime();
-  const timeOutput = new Date(time).getTime();
+    const timeBefore = new Date(before.time).getTime();
+    const timeAfter = new Date(after.time).getTime();
+    const timeOutput = new Date(time).getTime();
 
-  const weightBefore = (timeOutput - timeBefore) / (timeAfter - timeBefore);
-  const weightAfter = 1 - weightBefore;
+    const weightBefore = (timeOutput - timeBefore) / (timeAfter - timeBefore);
+    const weightAfter = 1 - weightBefore;
+
+    return { before, after, weightBefore, weightAfter };
+  };
+
+  const { before, after, weightBefore, weightAfter } = findClosestPair(
+    new Date(time).getTime()
+  );
 
   const interpolatedLevel =
     before.level * weightBefore + after.level * weightAfter;
@@ -156,7 +180,9 @@ export const interpolateBmUnitLevelPairs = ({
 sortDescendingBmUnitValues
 For use when sorting a BmUnitValues object by level descending
 */
-export const sortDescendingBmUnitValues = (v: t.BmUnitValues):t.BmUnitLevelValue[] => {
+export const sortDescendingBmUnitValues = (
+  v: t.BmUnitValues
+): t.BmUnitLevelValue[] => {
   let bmUnits: { id: string; level: number }[] = [];
   for (const id of Object.keys(v)) {
     bmUnits.push({ id, level: v[id] });
@@ -182,6 +208,10 @@ export const getAcceptancesNoLevels = (
   return Object.values(output);
 };
 
+/*
+parseAcceptancesWithLevels
+combines getAcceptancesNoLevels with intervalRecordToLevelPairs
+*/
 export const parseAcceptancesWithLevels = (
   x: t.ElexonInsightsAcceptancesDataRecord[]
 ): t.ElexonInsightsAcceptancesParsed[] =>
@@ -199,6 +229,14 @@ type CombinePnsAndAccsParams = {
   accs: t.ElexonInsightsAcceptancesResponseParsed;
 };
 
+/*
+combinePnsAndAccs
+For use when combining PNs and ACCs across a number of bmUnits
+1. Loops through each bmUnit in the PN (the ultimate source of truth)
+2. If there are no ACCs for that bmUnit, it just returns the PN
+3. If there are ACCs, it combines the PN and ACCs, running through the acceptances recursively
+It returns a BmUnitLevelPairs object, which is a schedule of levels for each bmUnit
+*/
 export const combinePnsAndAccs = ({
   pns,
   accs,

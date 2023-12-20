@@ -1,5 +1,11 @@
 import * as p from "./parsers";
-import { BmUnitLevelPairs, BmUnitLevelValue, ElexonInsightsAcceptancesDataRecord, ElexonInsightsAcceptancesParsed, ElexonInsightsAcceptancesParsedNoLevels } from "./types";
+import {
+  BmUnitLevelPairs,
+  BmUnitLevelValue,
+  ElexonInsightsAcceptancesDataRecord,
+  ElexonInsightsAcceptancesParsed,
+  ElexonInsightsAcceptancesParsedNoLevels,
+} from "./types";
 
 describe("parsers/shouldIncludeUnit", () => {
   test("should include T_ prefix", () => {
@@ -261,57 +267,53 @@ describe("parsers/interpolateBmUnitLevelPairs", () => {
   });
 });
 
-
 describe("parsers/sortDescendingBmUnitValues", () => {
-
-  test('can sort a simple object', () => {
-    const input = {
-      "T_DRAXX-1": 3,
-      "T_DRAXX-2": 5
-    }
-    const output: BmUnitLevelValue[] = [
-      {
-        id: "T_DRAXX-2",
-        level: 5
-      },
-      {
-        id: "T_DRAXX-1",
-        level: 3
-      }
-    ]
-    expect(p.sortDescendingBmUnitValues(input)).toEqual(output)
-  })
-
-  test('gives an acceptable answer when duplicate values exist', () => {
+  test("can sort a simple object", () => {
     const input = {
       "T_DRAXX-1": 3,
       "T_DRAXX-2": 5,
-      "T_DRAXX-3": 5
-    }
+    };
     const output: BmUnitLevelValue[] = [
       {
         id: "T_DRAXX-2",
-        level: 5
-      },
-      {
-        id: "T_DRAXX-3",
-        level: 5
+        level: 5,
       },
       {
         id: "T_DRAXX-1",
-        level: 3
-      }
-    ]
-    expect(p.sortDescendingBmUnitValues(input)).toEqual(output)
-  })
+        level: 3,
+      },
+    ];
+    expect(p.sortDescendingBmUnitValues(input)).toEqual(output);
+  });
 
-
-})
+  test("gives an acceptable answer when duplicate values exist", () => {
+    const input = {
+      "T_DRAXX-1": 3,
+      "T_DRAXX-2": 5,
+      "T_DRAXX-3": 5,
+    };
+    const output: BmUnitLevelValue[] = [
+      {
+        id: "T_DRAXX-2",
+        level: 5,
+      },
+      {
+        id: "T_DRAXX-3",
+        level: 5,
+      },
+      {
+        id: "T_DRAXX-1",
+        level: 3,
+      },
+    ];
+    expect(p.sortDescendingBmUnitValues(input)).toEqual(output);
+  });
+});
 
 //getAcceptancesNoLevels
 
-describe('parsers/getAcceptancesNoLevels', () => {
-  test('can combine an acceptance of two parts into a sincle record', () => {
+describe("parsers/getAcceptancesNoLevels", () => {
+  test("can combine an acceptance of two parts into a sincle record", () => {
     const input: ElexonInsightsAcceptancesDataRecord[] = [
       {
         settlementDate: "2021-01-01",
@@ -346,8 +348,8 @@ describe('parsers/getAcceptancesNoLevels', () => {
         soFlag: false,
         storFlag: false,
         rrFlag: false,
-      }
-    ]
+      },
+    ];
     const output: ElexonInsightsAcceptancesParsedNoLevels[] = [
       {
         bmUnit: "T_DRAXX-1",
@@ -357,12 +359,12 @@ describe('parsers/getAcceptancesNoLevels', () => {
         soFlag: false,
         storFlag: false,
         rrFlag: false,
-      }
-    ]
-    expect(p.getAcceptancesNoLevels(input)).toMatchObject(output)
-  })
+      },
+    ];
+    expect(p.getAcceptancesNoLevels(input)).toMatchObject(output);
+  });
 
-  test('can combine two acceptances for different units', () => {
+  test("can combine two acceptances for different units", () => {
     const input: ElexonInsightsAcceptancesDataRecord[] = [
       {
         settlementDate: "2021-01-01",
@@ -397,8 +399,8 @@ describe('parsers/getAcceptancesNoLevels', () => {
         soFlag: false,
         storFlag: false,
         rrFlag: false,
-      }
-    ]
+      },
+    ];
     const output: ElexonInsightsAcceptancesParsedNoLevels[] = [
       {
         bmUnit: "T_DRAXX-1",
@@ -417,12 +419,12 @@ describe('parsers/getAcceptancesNoLevels', () => {
         soFlag: false,
         storFlag: false,
         rrFlag: false,
-      }
-    ]
-    expect(p.getAcceptancesNoLevels(input)).toMatchObject(output)
-  })
+      },
+    ];
+    expect(p.getAcceptancesNoLevels(input)).toMatchObject(output);
+  });
 
-  test('can distinguish two overlapping acceptances for the same unit - where the first one is in two parts', () => {
+  test("can distinguish two overlapping acceptances for the same unit - where the first one is in two parts", () => {
     const input: ElexonInsightsAcceptancesDataRecord[] = [
       {
         settlementDate: "2021-01-01",
@@ -474,8 +476,8 @@ describe('parsers/getAcceptancesNoLevels', () => {
         soFlag: false,
         storFlag: false,
         rrFlag: false,
-      }
-    ]
+      },
+    ];
     const output: ElexonInsightsAcceptancesParsedNoLevels[] = [
       {
         bmUnit: "T_DRAXX-1",
@@ -494,15 +496,14 @@ describe('parsers/getAcceptancesNoLevels', () => {
         soFlag: false,
         storFlag: false,
         rrFlag: false,
-      }
-    ]
-    expect(p.getAcceptancesNoLevels(input)).toMatchObject(output)
-  })
-})
+      },
+    ];
+    expect(p.getAcceptancesNoLevels(input)).toMatchObject(output);
+  });
+});
 
-
-describe('parsers/intervalRecordToLevelPairs', () => {
-  test('can scour a list of separate interval records (e.g. from an acceptance) and combine in order from levelTo and levelFrom', () => {
+describe("parsers/intervalRecordToLevelPairs", () => {
+  test("can scour a list of separate interval records (e.g. from an acceptance) and combine in order from levelTo and levelFrom", () => {
     const input = [
       {
         levelFrom: 3,
@@ -514,23 +515,91 @@ describe('parsers/intervalRecordToLevelPairs', () => {
         timeFrom: "2021-01-01T00:15",
         levelFrom: 5,
         timeTo: "2021-01-01T00:30",
-        levelTo: 4
-      }
-    ]
+        levelTo: 4,
+      },
+    ];
     const output = [
       {
         time: "2021-01-01T00:00",
-        level: 3
+        level: 3,
       },
       {
         time: "2021-01-01T00:15",
-        level: 5
+        level: 5,
       },
       {
         time: "2021-01-01T00:30",
-        level: 4
-      }
-    ]
-    expect(p.intervalRecordToLevelPairs(input)).toMatchObject(output)
-  })
-})
+        level: 4,
+      },
+    ];
+    expect(p.intervalRecordToLevelPairs(input)).toMatchObject(output);
+  });
+});
+
+describe("parsers/parseAcceptancesWithLevels", () => {
+  test("can take a list of raw acceptance intervals from elexon and combine by acceptance with sorted levels", () => {
+    // deliberately in wrong order
+    const input: ElexonInsightsAcceptancesDataRecord[] = [
+      {
+        settlementDate: "2021-01-01",
+        settlementPeriodFrom: 2,
+        settlementPeriodTo: 3,
+        timeFrom: "2021-01-01T00:15",
+        timeTo: "2021-01-01T00:30",
+        levelFrom: 2,
+        levelTo: 3,
+        nationalGridBmUnit: "T_DRAXX-1",
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 1,
+        acceptanceTime: "2021-01-01T00:00",
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+      {
+        settlementDate: "2021-01-01",
+        settlementPeriodFrom: 1,
+        settlementPeriodTo: 2,
+        timeFrom: "2021-01-01T00:00",
+        timeTo: "2021-01-01T00:15",
+        levelFrom: 1,
+        levelTo: 2,
+        nationalGridBmUnit: "T_DRAXX-1",
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 1,
+        acceptanceTime: "2021-01-01T00:00",
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+    ];
+    const output: ElexonInsightsAcceptancesParsed[] = [
+      {
+        bmUnit: "T_DRAXX-1",
+        acceptanceNumber: 1,
+        acceptanceTime: "2021-01-01T00:00",
+        levels: [
+          {
+            level: 1,
+            time: "2021-01-01T00:00",
+          },
+          {
+            level: 2,
+            time: "2021-01-01T00:15",
+          },
+          {
+            level: 3,
+            time: "2021-01-01T00:30",
+          },
+        ],
+        deemedBoFlag: false,
+        soFlag: false,
+        storFlag: false,
+        rrFlag: false,
+      },
+    ];
+    expect(p.parseAcceptancesWithLevels(input)).toMatchObject(output);
+  });
+});
