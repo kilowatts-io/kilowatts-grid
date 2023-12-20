@@ -3,6 +3,7 @@ import { Dialog, Text } from "@rneui/themed";
 import { Linking } from "react-native";
 import { urls } from "../services/nav";
 import { getCurrentYear } from "../common/utils";
+import { useRouter } from "expo-router";
 
 type ConsentDialogProps = {
   isVisible: boolean;
@@ -15,6 +16,7 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
   isVisible,
   onBackdropPress,
 }) => {
+  const router = useRouter();
   return (
     <Dialog
       testID="consent-dialog"
@@ -39,12 +41,15 @@ export const ConsentDialog: React.FC<ConsentDialogProps> = ({
           title="View Elexon License"
           onPress={() => Linking.openURL(urls.elexonLicense)}
         />
-        <Dialog.Button
-          title="View App Privacy Policy"
-          onPress={() => {
-            Linking.openURL(urls.privacy);
-          }}
-        />
+        {onBackdropPress && (
+          <Dialog.Button
+            title="View App Privacy Policy"
+            onPress={() => {
+              onBackdropPress();
+              router.push(urls.privacy);
+            }}
+          />
+        )}
       </Dialog.Actions>
     </Dialog>
   );

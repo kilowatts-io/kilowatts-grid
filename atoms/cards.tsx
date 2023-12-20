@@ -5,6 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import log from "../services/log";
 import { urls } from "../services/nav";
 import { londonTime } from "../common/utils";
+import { useRouter } from "expo-router";
 
 /*
 IncompleteUnknownCategories
@@ -73,6 +74,7 @@ Render a card with a message saying the screen doesn't exist.
 */
 export const MissingScreen: React.FC = () => {
   log.debug(`MissingScreen`);
+  const router = useRouter();
   return (
     <Card>
       <Card.Title>
@@ -84,7 +86,7 @@ export const MissingScreen: React.FC = () => {
       <Button
         testID="reset-home-button"
         onPress={() => {
-          Linking.openURL(urls.home);
+          router.replace(urls.home);
         }}
       >
         Reset to Home screen
