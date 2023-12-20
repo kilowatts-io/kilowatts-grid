@@ -1,5 +1,4 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
 import { useFuelTypeLiveQuery } from "../services/state/elexon-insights-api.hooks";
 import { FlashList } from "@shopify/flash-list";
 import { useNavigation } from "expo-router";

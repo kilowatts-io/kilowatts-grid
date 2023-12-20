@@ -33,6 +33,7 @@ export const IncompleteUnknownCategories = () => {
       <View style={styles.spacer} />
 
       <Button
+        testID="github-repo-link"
         onPress={() => Linking.openURL(GITHUB_REPO_LINK)}
         icon={<FontAwesome name="github" size={24} color="white" />}
       />
