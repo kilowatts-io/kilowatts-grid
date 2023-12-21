@@ -618,8 +618,34 @@ export const transformUnitHistoryQuery = ({
 };
 
 /*
+removeRepeatingLevels
+For use when removing repeating levels
+This reduces visual clutter when rendering schedules in the UI
+It will always keep the first and last level pair
+*/
+export const removeRepeatingLevels = (x: t.LevelPair[]): t.LevelPair[] => {
+  let levels: t.LevelPair[] = [];
+
+  for (let i = 0; i < x.length; i++) {
+    const isFirst = i === 0;
+    const isLast = i === x.length - 1;
+
+    if (isFirst || isLast) {
+      levels.push(x[i]);
+    } else {
+      const isSameAsPrevious = x[i].level === x[i - 1].level;
+      if (!isSameAsPrevious) {
+        levels.push(x[i]);
+      }
+    }
+  }
+  return levels
+};
+
+/*
 filterUnitGroupScheduleQuery
 filter the levels to only include the record immediately before, plus all subsequent records
+always keep the last record, however remove any other repeating values
 */
 
 export const filterUnitGroupScheduleQuery = (
@@ -640,12 +666,14 @@ export const filterUnitGroupScheduleQuery = (
       const priorAndSubsequent = unit.data.levels.slice(index - 1);
       const allZero = priorAndSubsequent.every((x) => x.level === 0);
       if (!allZero) {
+        const levels = removeRepeatingLevels(priorAndSubsequent);
+
         output.push({
           ...unit,
           data: {
             ...unit.data,
-            levels: priorAndSubsequent,
-            average: averageLevel(priorAndSubsequent),
+            levels,
+            average: averageLevel(levels),
           },
         });
       }
