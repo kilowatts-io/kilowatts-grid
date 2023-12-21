@@ -23,11 +23,15 @@
       "android": {
         "buildType": "app-bundle"
       },
-      "channel": "production",
-      "ascAppId": "6474467753"
+      "channel": "production"
+      
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "ascAppId": "6474467753"
+      }
+    }
   }
 }
