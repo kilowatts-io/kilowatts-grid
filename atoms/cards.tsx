@@ -132,9 +132,7 @@ export const UnitGroupScheduleHeader: React.FC<
 > = ({ bmUnit }) => {
   return (
     <Card containerStyle={styles.listHeaderCard}>
-      <Card.Title>{bmUnit}</Card.Title>
-      <Card.Divider />
-      <Text>Upcoming Schedule</Text>
+      <Card.Title>Unit {bmUnit} schedule</Card.Title>
     </Card>
   );
 };
