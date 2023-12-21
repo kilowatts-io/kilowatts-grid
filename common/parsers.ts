@@ -29,12 +29,11 @@ export const getBmUnits = (
 
   for (const record of records) {
     const { bmUnit } = record;
-    if(bmUnit) {
-      if(shouldIncludeUnit(bmUnit) || !filterUnits) {
-        unitSet.add(bmUnit)
+    if (bmUnit) {
+      if (shouldIncludeUnit(bmUnit) || !filterUnits) {
+        unitSet.add(bmUnit);
       }
     }
-
   }
 
   const output = Array.from(unitSet);
@@ -292,15 +291,14 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
       });
       bmUnits.push(unit.bmUnit);
     }
-    const level = units.reduce((a, b) => a + b.level, 0)
-    if(level < -1 || level > 1) {
+    const level = units.reduce((a, b) => a + b.level, 0);
+    if (level < -1 || level > 1) {
       output.push({
         details: ug.details,
         units,
         level,
       });
     }
-   
   }
 
   log.debug(`getUnitGroups: interconnectors`);
@@ -383,7 +381,10 @@ export const groupByFuelTypeAndInterconnectors = (
   log.debug(`groupByFuelType: getting fuel types for domestic generators`);
   for (const ug of x) {
     // ignore unknowns
-    if (ug.details.fuelType === "unknown" || ug.details.fuelType === "battery") {
+    if (
+      ug.details.fuelType === "unknown" ||
+      ug.details.fuelType === "battery"
+    ) {
       continue;
     }
     if (!fuelTypesAndInterconnectors.includes(ug.details.fuelType)) {
@@ -651,7 +652,7 @@ export const removeRepeatingLevels = (x: t.LevelPair[]): t.LevelPair[] => {
       }
     }
   }
-  return levels
+  return levels;
 };
 
 /*
@@ -694,4 +695,42 @@ export const filterUnitGroupScheduleQuery = (
   log.debug(`sort by average`);
   output.sort((a, b) => b.data.average - a.data.average);
   return output;
+};
+
+/*
+interpolateCurrentEmbeddedWindAndSolar
+For use when interpolating current embedded wind and solar
+
+*/
+
+export const interpolateCurrentEmbeddedWindAndSolar = (
+  time: string,
+  x: t.NgEsoEmbeddedWindAndSolarForecastParsedResponse
+) => {
+  log.debug(
+    `interpolateWindAndSolar: interpolating for ${time}.. generate level pairs for wind and solar, add 15 minutes to each value to interpolate correctly to mid point of settlment period`
+  );
+
+  const add15Minutes = (time: string) => {
+    const d = new Date(time);
+    d.setMinutes(d.getMinutes() + 15);
+    return d.toISOString();
+  };
+
+  const levelPairs: Record<string, t.LevelPair[]> = {
+    wind: x.map((y) => ({ time: add15Minutes(y.time), level: y.wind.level })),
+    solar: x.map((y) => ({ time: add15Minutes(y.time), level: y.solar.level })),
+  };
+
+  log.debug(
+    `interpolateWindAndSolar: interpolating for ${time}.. interpolate wind and solar`
+  );
+
+  const interpolateLevel = (type: string) =>
+    interpolateLevelPair(time, levelPairs[type]);
+
+  const wind = interpolateLevel("wind");
+  const solar = interpolateLevel("solar");
+
+  return { wind, solar };
 };

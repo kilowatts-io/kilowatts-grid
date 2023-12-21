@@ -604,7 +604,6 @@ describe("parsers/parseAcceptancesWithLevels", () => {
     expect(p.parseAcceptancesWithLevels(input)).toMatchObject(output);
   });
 
-
   test("can deal with two acceptances", () => {
     // deliberately in wrong order
     const input: ElexonInsightsAcceptancesDataRecord[] = [
@@ -677,7 +676,6 @@ describe("parsers/parseAcceptancesWithLevels", () => {
         storFlag: false,
         rrFlag: false,
       },
-
     ];
     const output: ElexonInsightsAcceptancesParsed[] = [
       {
@@ -731,11 +729,8 @@ describe("parsers/parseAcceptancesWithLevels", () => {
   });
 });
 
-
-describe('parsers/removeRepeatingLevels', () => {
-
-  test('can remove repeating levels', () => {
-
+describe("parsers/removeRepeatingLevels", () => {
+  test("can remove repeating levels", () => {
     const input: LevelPair[] = [
       {
         time: "2021-01-01T00:00",
@@ -756,8 +751,8 @@ describe('parsers/removeRepeatingLevels', () => {
       {
         time: "2021-01-01T01:00",
         level: 5,
-      }
-    ]
+      },
+    ];
     const output: LevelPair[] = [
       {
         time: "2021-01-01T00:00",
@@ -770,14 +765,13 @@ describe('parsers/removeRepeatingLevels', () => {
       {
         time: "2021-01-01T01:00",
         level: 5,
-      }
-    ]
+      },
+    ];
 
-    expect(p.removeRepeatingLevels(input)).toEqual(output)
-  })
+    expect(p.removeRepeatingLevels(input)).toEqual(output);
+  });
 
-  test('will keep the last pair even if it has the same value as previous ones', () => {
-
+  test("will keep the last pair even if it has the same value as previous ones", () => {
     const input: LevelPair[] = [
       {
         time: "2021-01-01T00:00",
@@ -798,8 +792,8 @@ describe('parsers/removeRepeatingLevels', () => {
       {
         time: "2021-01-01T01:00",
         level: 2,
-      }
-    ]
+      },
+    ];
     const output: LevelPair[] = [
       {
         time: "2021-01-01T00:00",
@@ -812,9 +806,88 @@ describe('parsers/removeRepeatingLevels', () => {
       {
         time: "2021-01-01T01:00",
         level: 2,
-      }
-    ]
+      },
+    ];
 
-    expect(p.removeRepeatingLevels(input)).toEqual(output)
-  })
-})
+    expect(p.removeRepeatingLevels(input)).toEqual(output);
+  });
+});
+
+describe("parsers/interpolateCurrentEmbeddedWindAndSolar", () => {
+  test("can interpolate basic solar and wind values", () => {
+    const input = [
+      {
+        time: "2023-12-21T07:30:00.000Z",
+        wind: { level: 5358, capacity: 6488 },
+        solar: { level: 0, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T08:00:00.000Z",
+        wind: { level: 5361, capacity: 6488 },
+        solar: { level: 0, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T08:30:00.000Z",
+        wind: { level: 5382, capacity: 6488 },
+        solar: { level: 0, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T09:00:00.000Z",
+        wind: { level: 5402, capacity: 6488 },
+        solar: { level: 63, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T09:30:00.000Z",
+        wind: { level: 5434, capacity: 6488 },
+        solar: { level: 256, capacity: 15905 },
+      },
+    ];
+    const time = "2023-12-21T09:15:00.000Z";
+    const output = {
+      wind: 5402,
+      solar: 63,
+    };
+    expect(p.interpolateCurrentEmbeddedWindAndSolar(time, input)).toMatchObject(
+      output
+    );
+  });
+
+  test("throws an error if a time is requested outside of the provided range", () => {
+    const input = [
+      {
+        time: "2023-12-21T07:30:00.000Z",
+        wind: { level: 5358, capacity: 6488 },
+        solar: { level: 0, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T08:00:00.000Z",
+        wind: { level: 5361, capacity: 6488 },
+        solar: { level: 0, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T08:30:00.000Z",
+        wind: { level: 5382, capacity: 6488 },
+        solar: { level: 0, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T09:00:00.000Z",
+        wind: { level: 5402, capacity: 6488 },
+        solar: { level: 63, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T09:30:00.000Z",
+        wind: { level: 5434, capacity: 6488 },
+        solar: { level: 256, capacity: 15905 },
+      },
+    ];
+    const time = "2023-12-21T07:15:00.000Z";
+    try {
+      p.interpolateCurrentEmbeddedWindAndSolar(time, input);
+      throw new Error("should not get here");
+    } catch (e: any) {
+      expect(e.message).toBe(
+        "interpolateLevelPair: no before or after found for 2023-12-21T07:15:00.000Z"
+      );
+    }
+  });
+});
