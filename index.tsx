@@ -60,15 +60,17 @@ export const App = () => {
 
   // on resuming from background, check for updates
   React.useEffect(() => {
-    const handleAppStateChange = (state: AppStateStatus) => {
-      if (state === "active" && !__DEV__) {
-        onFetchUpdateAsync();
+    const subscription = AppState.addEventListener(
+      "change",
+      (nextAppState: AppStateStatus) => {
+        if (nextAppState === "active") {
+          if (!__DEV__) {
+            onFetchUpdateAsync();
+          }
+        }
       }
-    };
-    AppState.addEventListener("change", handleAppStateChange);
-    return () => {
-      (AppState as any).removeEventListener("change", handleAppStateChange);
-    };
+    );
+    return () => subscription.remove();
   }, []);
 
   const [loaded, error] = useFonts({
