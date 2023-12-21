@@ -291,11 +291,15 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
       });
       bmUnits.push(unit.bmUnit);
     }
-    output.push({
-      details: ug.details,
-      units,
-      level: units.reduce((a, b) => a + b.level, 0),
-    });
+    const level = units.reduce((a, b) => a + b.level, 0)
+    if(level < -1 || level > 1) {
+      output.push({
+        details: ug.details,
+        units,
+        level,
+      });
+    }
+   
   }
 
   log.debug(`getUnitGroups: interconnectors`);
