@@ -100,15 +100,12 @@ describe("atoms/cards/UnitListHeader", () => {
 
 describe("atoms/cards/UnitGroupScheduleHeader", () => {
 
-    test('renders bmUnit code', () => {
+    test('renders the words Unit BMU1 schedule', () => {
         render(<c.UnitGroupScheduleHeader bmUnit="BMU1" />);
-        screen.getByText("BMU1");
+        screen.getByText("Unit BMU1 schedule");
     })
 
-    test('renders Upcoming Schedule', () => {
-        render(<c.UnitGroupScheduleHeader bmUnit="BMU1" />);
-        screen.getByText("Upcoming Schedule");
-    })
+
 
 
 })
