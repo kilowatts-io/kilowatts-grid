@@ -12,15 +12,14 @@ export const shouldIncludeUnit = (bmUnit: string) => {
   return (
     bmUnit.startsWith("T_") ||
     bmUnit.startsWith("E_") ||
-    bmUnit.startsWith("I_") ||
-    bmUnit.startsWith("2_")
+    bmUnit.startsWith("I_") //||
+    // bmUnit.startsWith("2_") remove supplier codes for now
   );
 };
 
 /*
 get bm units runs through a list of records. 
-
-if filterUnits is true, it only returns units that start with T_, E_. This removes demand units and other units that are not generators or sources of power
+if filterUnits is true, it filters using shouldIncludeUnit.
 */
 export const getBmUnits = (
   records: { bmUnit?: string | null }[],
@@ -30,10 +29,12 @@ export const getBmUnits = (
 
   for (const record of records) {
     const { bmUnit } = record;
-
-    if ((bmUnit && !filterUnits) || (bmUnit && shouldIncludeUnit(bmUnit))) {
-      unitSet.add(bmUnit);
+    if(bmUnit) {
+      if(shouldIncludeUnit(bmUnit) || !filterUnits) {
+        unitSet.add(bmUnit)
+      }
     }
+
   }
 
   const output = Array.from(unitSet);
@@ -518,9 +519,16 @@ export const transformUnitGroupsLiveQuery = ({
   accs,
   now,
 }: TransformUnitGroupsLiveQueryParams): t.UnitGroupLevel[] => {
+  log.debug(`remove bmCodes from pn units that are not wanted`);
+  let filteredPns: t.BmUnitLevelPairs = {};
+  for (const bmUnit of Object.keys(pns)) {
+    if (shouldIncludeUnit(bmUnit)) {
+      filteredPns[bmUnit] = pns[bmUnit];
+    }
+  }
   log.debug(`transformUnitGroupsLiveQuery: combining pns and accs`);
   const combined = combinePnsAndAccs({
-    pns,
+    pns: filteredPns,
     accs,
   });
   log.debug(`transformUnitGroupsLiveQuery: interpolating bmUnitLevelPairs `);
