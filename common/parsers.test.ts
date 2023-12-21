@@ -5,6 +5,7 @@ import {
   ElexonInsightsAcceptancesDataRecord,
   ElexonInsightsAcceptancesParsed,
   ElexonInsightsAcceptancesParsedNoLevels,
+  LevelPair,
 } from "./types";
 
 describe("parsers/shouldIncludeUnit", () => {
@@ -729,3 +730,91 @@ describe("parsers/parseAcceptancesWithLevels", () => {
     expect(p.parseAcceptancesWithLevels(input)).toMatchObject(output);
   });
 });
+
+
+describe('parsers/removeRepeatingLevels', () => {
+
+  test('can remove repeating levels', () => {
+
+    const input: LevelPair[] = [
+      {
+        time: "2021-01-01T00:00",
+        level: 1,
+      },
+      {
+        time: "2021-01-01T00:15",
+        level: 1,
+      },
+      {
+        time: "2021-01-01T00:30",
+        level: 2,
+      },
+      {
+        time: "2021-01-01T00:45",
+        level: 2,
+      },
+      {
+        time: "2021-01-01T01:00",
+        level: 5,
+      }
+    ]
+    const output: LevelPair[] = [
+      {
+        time: "2021-01-01T00:00",
+        level: 1,
+      },
+      {
+        time: "2021-01-01T00:30",
+        level: 2,
+      },
+      {
+        time: "2021-01-01T01:00",
+        level: 5,
+      }
+    ]
+
+    expect(p.removeRepeatingLevels(input)).toEqual(output)
+  })
+
+  test('will keep the last pair even if it has the same value as previous ones', () => {
+
+    const input: LevelPair[] = [
+      {
+        time: "2021-01-01T00:00",
+        level: 1,
+      },
+      {
+        time: "2021-01-01T00:15",
+        level: 1,
+      },
+      {
+        time: "2021-01-01T00:30",
+        level: 2,
+      },
+      {
+        time: "2021-01-01T00:45",
+        level: 2,
+      },
+      {
+        time: "2021-01-01T01:00",
+        level: 2,
+      }
+    ]
+    const output: LevelPair[] = [
+      {
+        time: "2021-01-01T00:00",
+        level: 1,
+      },
+      {
+        time: "2021-01-01T00:30",
+        level: 2,
+      },
+      {
+        time: "2021-01-01T01:00",
+        level: 2,
+      }
+    ]
+
+    expect(p.removeRepeatingLevels(input)).toEqual(output)
+  })
+})
