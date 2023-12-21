@@ -379,7 +379,7 @@ export const groupByFuelTypeAndInterconnectors = (
   log.debug(`groupByFuelType: getting fuel types for domestic generators`);
   for (const ug of x) {
     // ignore unknowns
-    if (ug.details.fuelType === "unknown") {
+    if (ug.details.fuelType === "unknown" || ug.details.fuelType === "battery") {
       continue;
     }
     if (!fuelTypesAndInterconnectors.includes(ug.details.fuelType)) {
