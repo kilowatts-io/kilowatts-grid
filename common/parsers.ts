@@ -98,47 +98,47 @@ export const interpolateLevelPair = (
   time: string,
   levelPairs: t.LevelPair[]
 ): number => {
-  const findClosestPair = (targetTime: number) => {
-    let before = null;
-    let after = null;
+  let befores: t.LevelPair[] = [];
+  let afters: t.LevelPair[] = [];
 
-    for (const pair of levelPairs) {
-      const pairTime = new Date(pair.time).getTime();
+  const rounder = (x: number) => Math.round(x * 100) / 100;
 
-      if (pairTime === targetTime) {
-        return { before: pair, after: pair, weightBefore: 1, weightAfter: 0 };
-      } else if (pairTime < targetTime) {
-        before = pair;
-      } else if (pairTime > targetTime) {
-        after = pair;
-        break; // Stop searching after finding the first 'after' pair
+  for (const levelPair of levelPairs) {
+    const isExactMatch = levelPair.time === time;
+    if (isExactMatch) {
+      return rounder(levelPair.level);
+    } else {
+      const isBefore = levelPair.time < time;
+      if (isBefore) {
+        befores.push(levelPair);
+      } else {
+        afters.push(levelPair);
       }
     }
+  }
 
-    if (!before || !after) {
-      throw new Error(
-        `interpolateLevelPair: no before or after found for ${time}`
-      );
-    }
+  if (befores.length === 0)
+    throw new Error(`interpolateLevelPair: no levels found before ${time}`);
+  if (afters.length === 0)
+    throw new Error(`interpolateLevelPair: no levels found after ${time}`);
 
-    const timeBefore = new Date(before.time).getTime();
-    const timeAfter = new Date(after.time).getTime();
-    const timeOutput = new Date(time).getTime();
+  const previous = befores[befores.length - 1];
+  const subsequent = afters[0];
 
-    const weightBefore = (timeOutput - timeBefore) / (timeAfter - timeBefore);
-    const weightAfter = 1 - weightBefore;
-
-    return { before, after, weightBefore, weightAfter };
-  };
-
-  const { before, after, weightBefore, weightAfter } = findClosestPair(
-    new Date(time).getTime()
-  );
+  // calculate weights
+  const totalSeconds =
+    new Date(subsequent.time).getTime() - new Date(previous.time).getTime();
+  const secondsBefore =
+    new Date(time).getTime() - new Date(previous.time).getTime();
+  const secondsAfter =
+    new Date(subsequent.time).getTime() - new Date(time).getTime();
+  const weightBefore = secondsAfter / totalSeconds;
+  const weightAfter = secondsBefore / totalSeconds;
 
   const interpolatedLevel =
-    before.level * weightBefore + after.level * weightAfter;
+    previous.level * weightBefore + subsequent.level * weightAfter;
 
-  return Math.round(interpolatedLevel * 100) / 100;
+  return rounder(interpolatedLevel);
 };
 
 type InterpolateBmUnitLevelPairsParams = {
@@ -697,6 +697,11 @@ export const filterUnitGroupScheduleQuery = (
   return output;
 };
 
+type InterpolateCurrentEmbeddedWindAndSolarResult = {
+  wind: number;
+  solar: number;
+};
+
 /*
 interpolateCurrentEmbeddedWindAndSolar
 For use when interpolating current embedded wind and solar
@@ -706,20 +711,20 @@ For use when interpolating current embedded wind and solar
 export const interpolateCurrentEmbeddedWindAndSolar = (
   time: string,
   x: t.NgEsoEmbeddedWindAndSolarForecastParsedResponse
-) => {
+): InterpolateCurrentEmbeddedWindAndSolarResult => {
   log.debug(
     `interpolateWindAndSolar: interpolating for ${time}.. generate level pairs for wind and solar, add 15 minutes to each value to interpolate correctly to mid point of settlment period`
   );
 
-  const add15Minutes = (time: string) => {
-    const d = new Date(time);
-    d.setMinutes(d.getMinutes() + 15);
-    return d.toISOString();
-  };
+  // const add15Minutes = (time: string) => {
+  //   const d = new Date(time);
+  //   d.setMinutes(d.getMinutes() + 15);
+  //   return d.toISOString();
+  // };
 
   const levelPairs: Record<string, t.LevelPair[]> = {
-    wind: x.map((y) => ({ time: add15Minutes(y.time), level: y.wind.level })),
-    solar: x.map((y) => ({ time: add15Minutes(y.time), level: y.solar.level })),
+    wind: x.map((y) => ({ time: y.time, level: y.wind.level })),
+    solar: x.map((y) => ({ time: y.time, level: y.solar.level })),
   };
 
   log.debug(
@@ -733,4 +738,63 @@ export const interpolateCurrentEmbeddedWindAndSolar = (
   const solar = interpolateLevel("solar");
 
   return { wind, solar };
+};
+
+/*
+combineUnitsAndEmbedded
+For use when combining units and embedded wind and solar
+1. Creates a new category for solar
+2. Adds embedded wind to the wind category
+*/
+
+export const combineFuelTypesAndEmbedded = (
+  fuelTypes: t.FuelTypeLevel[],
+  embedded: InterpolateCurrentEmbeddedWindAndSolarResult
+) => {
+  log.debug(`combineUnitsAndEmbedded: combining fuel types and embedded`);
+  const output: t.FuelTypeLevel[] = [];
+  const found = {
+    wind: false,
+    solar: false,
+  };
+  for (const ft of fuelTypes) {
+    if (ft.name === "wind") {
+      output.push({
+        ...ft,
+        level: ft.level + embedded.wind,
+      });
+      found.wind = true;
+    } else {
+      if (ft.name === "solar") {
+        output.push({
+          ...ft,
+          level: ft.level + embedded.solar,
+        });
+        found.solar = true;
+      } else {
+        output.push(ft);
+      }
+    }
+  }
+
+  if (!found.wind) {
+    output.push({
+      name: "wind",
+      level: embedded.wind,
+      unitGroupLevels: [],
+    });
+  }
+
+  if (!found.solar) {
+    output.push({
+      name: "solar",
+      level: embedded.solar,
+      unitGroupLevels: [],
+    });
+  }
+
+  // resort
+  output.sort((a, b) => b.level - a.level);
+
+  return output;
 };

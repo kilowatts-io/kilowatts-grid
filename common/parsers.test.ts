@@ -5,6 +5,7 @@ import {
   ElexonInsightsAcceptancesDataRecord,
   ElexonInsightsAcceptancesParsed,
   ElexonInsightsAcceptancesParsedNoLevels,
+  FuelTypeLevel,
   LevelPair,
 } from "./types";
 
@@ -182,7 +183,7 @@ describe("parsers/interpolateLevelPair", () => {
       throw new Error("Should not get here");
     } catch (e: any) {
       expect(e.message).toBe(
-        "interpolateLevelPair: no before or after found for 2021-01-01T01:15"
+        "interpolateLevelPair: no levels found after 2021-01-01T01:15"
       );
     }
   });
@@ -844,8 +845,8 @@ describe("parsers/interpolateCurrentEmbeddedWindAndSolar", () => {
     ];
     const time = "2023-12-21T09:15:00.000Z";
     const output = {
-      wind: 5402,
-      solar: 63,
+      wind: 5418,
+      solar: 159.5,
     };
     expect(p.interpolateCurrentEmbeddedWindAndSolar(time, input)).toMatchObject(
       output
@@ -886,8 +887,106 @@ describe("parsers/interpolateCurrentEmbeddedWindAndSolar", () => {
       throw new Error("should not get here");
     } catch (e: any) {
       expect(e.message).toBe(
-        "interpolateLevelPair: no before or after found for 2023-12-21T07:15:00.000Z"
+        "interpolateLevelPair: no levels found before 2023-12-21T07:15:00.000Z"
       );
     }
   });
+
+  test('interpolation outputs move in expected direction', () => {
+
+    const times = [
+      "2023-12-21T07:30:00.000Z",
+      "2023-12-21T07:31:00.000Z",
+      "2023-12-21T07:45:00.000Z",
+      "2023-12-21T08:00:00.000Z",
+    ]
+
+    const input = [
+      {
+        time: "2023-12-21T07:30:00.000Z",
+        wind: { level: 5358, capacity: 6488 },
+        solar: { level: 0, capacity: 15905 },
+      },
+      {
+        time: "2023-12-21T08:00:00.000Z",
+        wind: { level: 5361, capacity: 6488 },
+        solar: { level: 30, capacity: 15905 },
+      }
+    ]
+    const output = times.map((time) => p.interpolateCurrentEmbeddedWindAndSolar(time, input))
+    const solarLevels = output.map((x) => x.solar)
+    expect(solarLevels).toMatchObject([0, 1, 15, 30])
+  })
 });
+
+
+describe('combineFuelTypesAndEmbedded', () => {
+
+  test('can add solar to the existing list of fuel types', () => {
+    const inputs = {
+      fuelTypes: [],
+      embedded: {
+        wind: 100,
+        solar: 50,
+      }
+    }
+    const output = p.combineFuelTypesAndEmbedded(inputs.fuelTypes, inputs.embedded)
+    const solar = output.find((x) => x.name === 'solar')
+    if(!solar) throw new Error('solar not found')
+    expect(solar.level).toBe(50)
+  })
+
+  test('can add embedded wind to the existing wind value', () => {
+    const inputs = {
+      fuelTypes: [
+        {
+          name: 'wind',
+          level: 50,
+          unitGroupLevels: []
+        }
+      ] as FuelTypeLevel[],
+      embedded: {
+        wind: 100,
+        solar: 0,
+      }
+    }
+    const output = p.combineFuelTypesAndEmbedded(inputs.fuelTypes, inputs.embedded)
+    const wind = output.find((x) => x.name === 'wind')
+    if(!wind) throw new Error('wind not found')
+    expect(wind.level).toBe(150)
+  })
+
+  test('can deal with no transmission wind in existing list', () => {
+    const inputs = {
+      fuelTypes: [] as FuelTypeLevel[],
+      embedded: {
+        wind: 100,
+        solar: 0,
+      }
+    }
+    const output = p.combineFuelTypesAndEmbedded(inputs.fuelTypes, inputs.embedded)
+    const wind = output.find((x) => x.name === 'wind')
+    if(!wind) throw new Error('wind not found')
+    expect(wind.level).toBe(100)
+  })
+
+  test('can deal with a solar unit in the transmission list', () => {
+    const inputs = {
+      fuelTypes: [
+        {
+          name: 'solar',
+          level: 75,
+          unitGroupLevels: []
+        }
+      ] as FuelTypeLevel[],
+      embedded: {
+        wind: 100,
+        solar: 100,
+      }
+    }
+    const output = p.combineFuelTypesAndEmbedded(inputs.fuelTypes, inputs.embedded)
+    const solar = output.find((x) => x.name === 'solar')
+    if(!solar) throw new Error('solar not found')
+    expect(solar.level).toBe(175)
+  })
+})

@@ -16,9 +16,7 @@ export const ngEsoApi = createApi({
   ),
   endpoints: (builder) => ({
     embeddedWindAndSolarForecast: builder.query<
-      t.NgEsoEmbeddedWindAndSolarForecastParsedResponse,
-      {}
-    >({
+      t.NgEsoEmbeddedWindAndSolarForecastParsedResponse, {}>({
       query: () =>
         `action/datastore_search_sql?sql=SELECT * FROM  "db6c038f-98af-4570-ab60-24d71ebd0ae5" `,
       transformResponse: tr.queries.embeddedWindAndSolarForecast,

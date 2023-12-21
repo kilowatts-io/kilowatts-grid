@@ -13,6 +13,7 @@ import {
   useRecentHistoryElexonRange,
   useRefetchOnAppOrNetworkResume,
 } from "../hooks";
+import { useEmbeddedWindAndSolarForecastQuery } from "./ng-eso-api";
 
 export const UPDATE_INTERVAL_LIVE_GENERATION_SECS = 1;
 export const POLLING_INTERVAL_ACCS_SECS = 15;
@@ -96,20 +97,30 @@ Get the latest data for output in each fuel type category
 */
 export const useFuelTypeLiveQuery = () => {
   log.debug(`useFuelTypeLiveQuery: mounting`);
-  const query = useUnitGroupsLiveQuery();
-  if (!query.data) {
+  const queries = {
+    fuelTypes: useUnitGroupsLiveQuery(),
+    embedded: useEmbeddedWindAndSolarForecastQuery({})
+  }
+  if (!queries.fuelTypes.data || !queries.embedded.data) {
     log.debug(`useFuelTypeLiveQuery: no data`);
-    return query;
+    return {
+      ...queries.fuelTypes,
+      data: null
+    }
   } else {
     log.debug(`useFuelTypeLiveQuery: transforming to group by fuel type`);
     try {
+      const fuelTypes = p.groupByFuelTypeAndInterconnectors(queries.fuelTypes.data);
+      const embedded = p.interpolateCurrentEmbeddedWindAndSolar(queries.fuelTypes.now.toISOString(), queries.embedded.data);
+      const data = p.combineFuelTypesAndEmbedded(fuelTypes, embedded);
       return {
-        ...query,
-        data: p.groupByFuelTypeAndInterconnectors(query.data),
+        ...queries.fuelTypes,
+        data,
       };
-    } catch (e) {
+    } catch (e: any) {
+      log.error(e)
       return {
-        ...query,
+        ...queries.fuelTypes,
         data: null,
         isError: true,
       };
