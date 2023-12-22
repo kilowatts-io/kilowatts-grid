@@ -29,12 +29,11 @@ export const getBmUnits = (
 
   for (const record of records) {
     const { bmUnit } = record;
-    if(bmUnit) {
-      if(shouldIncludeUnit(bmUnit) || !filterUnits) {
-        unitSet.add(bmUnit)
+    if (bmUnit) {
+      if (shouldIncludeUnit(bmUnit) || !filterUnits) {
+        unitSet.add(bmUnit);
       }
     }
-
   }
 
   const output = Array.from(unitSet);
@@ -292,15 +291,14 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
       });
       bmUnits.push(unit.bmUnit);
     }
-    const level = units.reduce((a, b) => a + b.level, 0)
-    if(level < -1 || level > 1) {
+    const level = units.reduce((a, b) => a + b.level, 0);
+    if (level < -1 || level > 1) {
       output.push({
         details: ug.details,
         units,
         level,
       });
     }
-   
   }
 
   log.debug(`getUnitGroups: interconnectors`);
@@ -373,17 +371,22 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
 Group by fuel type
 
 Group the output of groupByUnitGroup by fuel type
+includeEmedded will include embedded wind and solar units
+default false as total data on these is sourced separately from NG ESO.
 */
 export const groupByFuelTypeAndInterconnectors = (
-  x: t.UnitGroupLevel[]
+  x: t.UnitGroupLevel[],
+  includeEmbedded: boolean = false
 ): t.FuelTypeLevel[] => {
   log.debug(`groupByFuelType`);
   let output: t.FuelTypeLevel[] = [];
   let fuelTypesAndInterconnectors: t.FuelType[] = [];
   log.debug(`groupByFuelType: getting fuel types for domestic generators`);
   for (const ug of x) {
-    // ignore unknowns
-    if (ug.details.fuelType === "unknown" || ug.details.fuelType === "battery") {
+    if (
+      ug.details.fuelType === "unknown" ||
+      ug.details.fuelType === "battery"
+    ) {
       continue;
     }
     if (!fuelTypesAndInterconnectors.includes(ug.details.fuelType)) {
@@ -392,12 +395,22 @@ export const groupByFuelTypeAndInterconnectors = (
   }
 
   for (const ft of fuelTypesAndInterconnectors) {
+    let level: number = 0;
+    let unitGroupLevels: t.UnitGroupLevel[] = [];
+    for (const ug of x) {
+      if (ug.details.fuelType === ft) {
+        for (const u of ug.units) {
+          if (includeEmbedded || !u.unit.bmUnit.startsWith("E_")) {
+            level += u.level;
+            unitGroupLevels.push(ug);
+          }
+        }
+      }
+    }
     output.push({
       name: ft,
-      unitGroupLevels: x.filter((y) => y.details.fuelType === ft),
-      level: x
-        .filter((y) => y.details.fuelType === ft)
-        .reduce((a, b) => a + b.level, 0),
+      unitGroupLevels,
+      level,
     });
   }
 
@@ -651,7 +664,7 @@ export const removeRepeatingLevels = (x: t.LevelPair[]): t.LevelPair[] => {
       }
     }
   }
-  return levels
+  return levels;
 };
 
 /*
