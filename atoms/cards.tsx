@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Card, Text } from "@rneui/themed";
-import { Linking, StyleSheet, View } from "react-native";
+import { Linking, SafeAreaView, StyleSheet, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import log from "../services/log";
 import { urls } from "../services/nav";
@@ -120,7 +120,6 @@ export const UnitListHeader: React.FC<UnitListHeaderProps> = ({ now }) => {
 
 type UnitGroupHistoryListHeaderComponentProps = {
   bmUnit: string;
-
 };
 
 /*
@@ -146,7 +145,9 @@ export const EmptyScheduleCard: React.FC = () => {
     <Card containerStyle={styles.listHeaderCard}>
       <Card.Title>No Scheduled Output</Card.Title>
       <Card.Divider />
-      <Text>None of the units are expected to generate/consume of the coming hours</Text>
+      <Text>
+        None of the units are expected to generate/consume of the coming hours
+      </Text>
       <View style={styles.spacer} />
       <Text>They may be under maintenance.</Text>
     </Card>
@@ -158,7 +159,7 @@ ApiError
 */
 type ApiErrorProps = {
   refetch: () => void;
-}
+};
 export const ApiErrorCard: React.FC<ApiErrorProps> = ({ refetch }) => {
   return (
     <Card>
@@ -168,16 +169,37 @@ export const ApiErrorCard: React.FC<ApiErrorProps> = ({ refetch }) => {
       <View style={styles.spacer} />
 
       <Text>
-        There was an error fetching/interpreting data from the Elexon API. Please try again later.
+        There was an error fetching/interpreting data from the Elexon API.
+        Please try again later.
       </Text>
 
       <View style={styles.spacer} />
 
-
       <Button onPress={refetch}>Try again</Button>
     </Card>
-  )
-}
+  );
+};
+
+export const NoInternetConnectionCard: React.FC = () => {
+  return (
+    <SafeAreaView>
+      <Card>
+        <Card.Title>
+          <Text>No Internet Connection</Text>
+        </Card.Title>
+        <View style={styles.spacer} />
+
+        <Text>
+          To function, the app needs a live internet connection to get the
+          latest market information.
+        </Text>
+        <Text>Please check your internet connection and try again.</Text>
+
+        <View style={styles.spacer} />
+      </Card>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   spacer: { height: 10 },
