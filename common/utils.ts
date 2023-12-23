@@ -41,3 +41,18 @@ for rendering copyright noticed
 export const getCurrentYear = () => {
   return new Date().getFullYear();
 };
+
+
+
+/*
+ALLOW_LINK_FUELTYPES
+These are fuel types for which it is allowed to filter by
+*/
+export const ALLOW_LINK_FUELTYPES: t.FuelType[] = [
+  "wind",
+  "hydro",
+  "nuclear",
+  "biomass",
+  "gas",
+  "coal",
+];
