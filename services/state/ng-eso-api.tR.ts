@@ -19,7 +19,10 @@ export const queries = {
       const { DATE_GMT, TIME_GMT } = record;
       // truncate 2023-12-21T00:00:00 to 2023-12-21
       const date = new Date(DATE_GMT).toISOString().split("T")[0];
-      const time = new Date(Date.parse(`${date}T${TIME_GMT}Z`)).toISOString();
+      // looking at the api responses it is clear that TIME_GMT is the end of the settlement period
+      const settlementPeriodEnding = new Date(Date.parse(`${date}T${TIME_GMT}Z`))
+      const settlementPeriodStarting = new Date(settlementPeriodEnding.getTime() - 30 * 60 * 1000)
+      const time = settlementPeriodStarting.toISOString()
       output.push({
         time,
         wind: {
