@@ -4,7 +4,7 @@ import { Linking, SafeAreaView, StyleSheet, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import log from "../services/log";
 import { urls } from "../services/nav";
-import { londonTime } from "../common/utils";
+import { londonTime, londonTimeHHMMSS } from "../common/utils";
 import { useRouter } from "expo-router";
 
 /*
@@ -135,10 +135,10 @@ export const UnitListHeader: React.FC<UnitListHeaderProps> = ({ now }) => {
     <Card containerStyle={styles.listHeaderCard}>
       {now ? (
         <Text {...props} testID="unit-list-header-text">
-          Live individual unit output at {londonTime(now)}
+         Live Output: {londonTimeHHMMSS(now)}
         </Text>
       ) : (
-        <Text {...props}>Loading data for individual units</Text>
+        <Text {...props}>Loading individual unit data</Text>
       )}
     </Card>
   );
@@ -157,7 +157,7 @@ export const UnitGroupScheduleHeader: React.FC<
 > = ({ bmUnit }) => {
   return (
     <Card containerStyle={styles.listHeaderCard}>
-      <Card.Title>Unit {bmUnit} schedule</Card.Title>
+      <Text>Unit {bmUnit} schedule</Text>
     </Card>
   );
 };
