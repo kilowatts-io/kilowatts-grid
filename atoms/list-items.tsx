@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { ListItem } from "@rneui/themed";
 import formatters from "../common/formatters";
 import { FuelTypeIcon } from "./icons";
-import { londonTime } from "../common/utils";
+import { londonTime, londonTimeHHMMSS } from "../common/utils";
 import { FuelType, LevelPair, UnitGroupUnit } from "../common/types";
 
 type GeneratorLiveProps = {
@@ -42,7 +42,11 @@ type FuelTypeLiveProps = {
   onPress?: () => void;
 };
 
-export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level, onPress }) => (
+export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({
+  name,
+  level,
+  onPress,
+}) => (
   <ListItem testID={`fuel-type-live-list-item-${name}`} onPress={onPress}>
     <ListItem.Content style={styles.liveContainer}>
       <View style={styles.titleSubtitleWrapper}>
@@ -85,7 +89,7 @@ export const UnitLevelListItem: React.FC<UnitLevelProps> = ({
     <ListItem>
       <ListItem.Content style={styles.liveContainer}>
         <ListItem.Title>
-          {londonTime(new Date(Date.parse(time)))}
+          {londonTimeHHMMSS(new Date(Date.parse(time)))}
         </ListItem.Title>
         <ListItem.Subtitle>{formatters.mw(level)}</ListItem.Subtitle>
       </ListItem.Content>
