@@ -25,7 +25,7 @@ export const UnitGroupsLive: React.FC<UnitGroupsLiveProps> = ({ fuelType }) => {
     nav.setOptions({
       title: fuelType
         ? `${formatters.fuelType(fuelType)} Live Output`
-        : "Major Generators Live Output",
+        : "Live Output",
     });
   }, []);
 
@@ -75,7 +75,7 @@ export const UnitGroupLiveWithSearch: React.FC<
           ? `${formatters.fuelType(fuelType)} Output: ${londonTimeHHMMSS(
               now
             )}`
-          : `Major Generators Output: ${londonTimeHHMMSS(now)}`
+          : `Live Output: ${londonTimeHHMMSS(now)}`
         : "Loading...",
     });
   }, [query.now]);
