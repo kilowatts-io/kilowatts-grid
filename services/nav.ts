@@ -6,9 +6,11 @@ type Urls = Record<string, (code: string) => any> | any;
 
 export const urls: Urls = {
   home: "/",
+  unitGroups: '/unit-group',
   privacy: '/privacy',
   fuelType: (fuelType: FuelType) => `/fuel-type/${String(fuelType).toLowerCase()}`,
   unitGroup: (code: string) => `/unit-group/${code.toLowerCase()}`,
+  unitGroupSchedule: (code: string) => `/unit-group/${code.toLowerCase()}/schedule`,
   elexonLicense: "https://www.elexon.co.uk/data/balancing-mechanism-reporting-agent/copyright-licence-bmrs-data/",
   githubRepo: 'https://github.com/benjaminWatts/kilowatts'
 };
