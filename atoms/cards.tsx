@@ -157,7 +157,7 @@ export const UnitGroupScheduleHeader: React.FC<
 > = ({ bmUnit }) => {
   return (
     <Card containerStyle={styles.listHeaderCard}>
-      <Card.Title>Unit {bmUnit} schedule</Card.Title>
+      <Text>Unit {bmUnit} schedule</Text>
     </Card>
   );
 };
