@@ -78,32 +78,33 @@ describe("ng-eso-api.tR/e", () => {
     };
     const output = [
       {
-        time: '2023-12-21T07:30:00.000Z',
+        time: "2023-12-21T07:00:00.000Z",
         wind: { level: 5358, capacity: 6488 },
-        solar: { level: 0, capacity: 15905 }
+        solar: { level: 0, capacity: 15905 },
       },
       {
-        time: '2023-12-21T08:00:00.000Z',
+        time: "2023-12-21T07:30:00.000Z",
         wind: { level: 5361, capacity: 6488 },
-        solar: { level: 0, capacity: 15905 }
+        solar: { level: 0, capacity: 15905 },
       },
       {
-        time: '2023-12-21T08:30:00.000Z',
+        time: "2023-12-21T08:00:00.000Z",
+
         wind: { level: 5382, capacity: 6488 },
-        solar: { level: 0, capacity: 15905 }
+        solar: { level: 0, capacity: 15905 },
       },
       {
-        time: '2023-12-21T09:00:00.000Z',
+        time: "2023-12-21T08:30:00.000Z",
+
         wind: { level: 5402, capacity: 6488 },
-        solar: { level: 63, capacity: 15905 }
+        solar: { level: 63, capacity: 15905 },
       },
       {
-        time: '2023-12-21T09:30:00.000Z',
+        time: "2023-12-21T09:00:00.000Z",
         wind: { level: 5434, capacity: 6488 },
-        solar: { level: 256, capacity: 15905 }
-      }
-    ]
+        solar: { level: 256, capacity: 15905 },
+      },
+    ];
     expect(tR.queries.embeddedWindAndSolarForecast(input)).toEqual(output);
-    
   });
 });
