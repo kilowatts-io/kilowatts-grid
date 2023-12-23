@@ -367,6 +367,11 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
   return output;
 };
 
+type GroupByFuelTypeAndInterconnectorsParams = {
+  x: t.UnitGroupLevel[];
+  includeEmbedded: boolean;
+}
+
 /*
 Group by fuel type
 
@@ -374,9 +379,9 @@ Group the output of groupByUnitGroup by fuel type
 includeEmedded will include embedded wind and solar units
 default false as total data on these is sourced separately from NG ESO.
 */
-export const groupByFuelTypeAndInterconnectors = (
-  x: t.UnitGroupLevel[],
-  includeEmbedded: boolean = false
+export const groupByFuelTypeAndInterconnectors = ({
+  x, includeEmbedded
+}: GroupByFuelTypeAndInterconnectorsParams
 ): t.FuelTypeLevel[] => {
   log.debug(`groupByFuelType`);
   let output: t.FuelTypeLevel[] = [];
