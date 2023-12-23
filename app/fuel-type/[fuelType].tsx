@@ -4,6 +4,7 @@ import { FuelType } from "../../common/types";
 import { UnitGroupsLive } from "../../components/UnitGroupsLive";
 import { ALLOW_LINK_FUELTYPES } from "../../common/utils";
 import { FuelTypeNotAllowed } from "../../atoms/cards";
+import { SmartAppBanner } from "../../components/SmartAppBanner.web";
 
 export const FuelTypeLiveScreen = () => {
   const { fuelType } = useLocalSearchParams<{ fuelType: FuelType }>();
@@ -12,7 +13,12 @@ export const FuelTypeLiveScreen = () => {
     return <FuelTypeNotAllowed fuelType={fuelType} />;
   }
 
-  return <UnitGroupsLive fuelType={fuelType} />;
+  return (
+    <>
+      <SmartAppBanner url={`/fuel-type/${fuelType}`} />
+      <UnitGroupsLive fuelType={fuelType} />;
+    </>
+  );
 };
 
 export default FuelTypeLiveScreen;
