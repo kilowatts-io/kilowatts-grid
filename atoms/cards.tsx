@@ -154,6 +154,23 @@ export const EmptyScheduleCard: React.FC = () => {
 };
 
 /*
+No Live Units Found
+
+*/
+export const NoLiveUnits: React.FC = () => {
+  return (
+    <Card containerStyle={styles.listHeaderCard}>
+      <Card.Title>No Units Found</Card.Title>
+      <Card.Divider />
+      <Text>There are no units available with live data.</Text>
+      <View style={styles.spacer} />
+      <Text>At the present time, many smaller generators connected to local distribution grids do not publish live information.</Text>
+    </Card>
+  );
+};
+
+
+/*
 ApiError
 */
 type ApiErrorProps = {

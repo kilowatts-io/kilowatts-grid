@@ -4,14 +4,18 @@ import { RefreshControl } from "react-native-gesture-handler";
 import { useUnitGroupsLiveQuery } from "../services/state/elexon-insights-api.hooks";
 import { FlashList } from "@shopify/flash-list";
 import * as at from "../atoms";
-import { IncompleteUnknownCategories } from "../atoms/cards";
+import { IncompleteUnknownCategories, NoLiveUnits } from "../atoms/cards";
 import { SearchUnitGroups } from "../atoms/inputs";
 import log from "../services/log";
 import { StyleSheet } from "react-native";
 import { urls } from "../services/nav";
 import { Refresh } from "../atoms/controls";
+import { FuelType } from "../common/types";
 
-export const UnitGroupsLive = () => {
+type UnitGroupsLiveProps = {
+  fuelType?: FuelType;
+};
+export const UnitGroupsLive: React.FC<UnitGroupsLiveProps> = ({ fuelType }) => {
   log.debug(`UnitGroupsLive`);
   const nav = useNavigation();
   const [search, setSearch] = useState("");
@@ -25,29 +29,38 @@ export const UnitGroupsLive = () => {
   return (
     <>
       <SearchUnitGroups value={search} onChangeText={setSearch} />
-      <UnitGroupLiveWithSearch search={search} />
+      <UnitGroupLiveWithSearch search={search} fuelType={fuelType} />
     </>
   );
 };
 
-type UnitGroupLiveWithSearchProps = {
+type UnitGroupLiveWithSearchProps = UnitGroupsLiveProps & {
   search: string;
 };
 
 export const UnitGroupLiveWithSearch: React.FC<
   UnitGroupLiveWithSearchProps
-> = ({ search }) => {
+> = ({ search, fuelType }) => {
   const router = useRouter();
   const query = useUnitGroupsLiveQuery();
 
   const { data, now, isLoading, refetch } = query;
   const filteredData = useMemo(() => {
     if (!data) return data;
-    if (search === "") return data;
-
-    return data.filter((d) =>
-      d.details.name.toLowerCase().includes(search.toLowerCase())
-    );
+    if (search === "") {
+      if (!fuelType) {
+        return data;
+      } else {
+        return data;
+      }
+    }
+    return data.filter((d) => {
+      const searchMatch = d.details.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const fuelTypeMatch = fuelType ? d.details.fuelType === fuelType : true;
+      return searchMatch && fuelTypeMatch;
+    });
   }, [data, search]);
 
   const nav = useNavigation();
@@ -62,9 +75,8 @@ export const UnitGroupLiveWithSearch: React.FC<
 
   return (
     <FlashList
-      refreshControl={
-        <Refresh refreshing={isLoading} onRefresh={refetch} />
-      }
+      refreshControl={<Refresh refreshing={isLoading} onRefresh={refetch} />}
+      ListEmptyComponent={NoLiveUnits}
       ListFooterComponent={IncompleteUnknownCategories}
       data={filteredData}
       estimatedItemSize={1000}
@@ -78,10 +90,12 @@ export const UnitGroupLiveWithSearch: React.FC<
             name={item.details.name}
             level={item.level}
             onPress={() => {
-              if(code && fuelType !== 'interconnector') {
+              if (code && fuelType !== "interconnector") {
                 router.push(urls.unitGroup(code));
               } else {
-                log.info(`UnitGroupLiveWithSearch: not possible as no code or interconnector`);
+                log.info(
+                  `UnitGroupLiveWithSearch: not possible as no code or interconnector`
+                );
               }
             }}
           />
