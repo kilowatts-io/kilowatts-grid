@@ -43,6 +43,7 @@ export const UnitGroupSchedule: React.FC<UnitGroupScheduleProps> = ({ ug }) => {
                   })}
                 </>
               </View>
+
             );
           })}
         </>
