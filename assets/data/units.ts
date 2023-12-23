@@ -1702,12 +1702,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // Clachan wind farm 56.27744438034275, -4.920869168208424 E_CLAC-1
+  // Clachan 56.27744438034275, -4.920869168208424 E_CLAC-1
 
   {
     details: {
       code: "CLAC",
-      name: "Clachan wind farm",
+      name: "Clachan",
       coords: {
         lat: 56.27744438034275,
         lng: -4.920869168208424,
@@ -1929,12 +1929,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Carraig Gheal Wind Farm T_CRGHW-1 56.339, -5.2945
+  //Carraig Gheal T_CRGHW-1 56.339, -5.2945
 
   {
     details: {
       code: "CRGHW",
-      name: "Carraig Gheal Wind Farm",
+      name: "Carraig Gheal",
       coords: {
         lat: 56.339,
         lng: -5.2945,
@@ -2200,12 +2200,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // ewe hill wind farm T_EWHLW-1 55° 6' 54" -3° 13' 40.8"
+  // ewe hill T_EWHLW-1 55° 6' 54" -3° 13' 40.8"
 
   {
     details: {
       code: "EWHLW",
-      name: "Ewe Hill Wind Farm",
+      name: "Ewe Hill",
       coords: {
         lat: 55.115,
         lng: -3.228,
@@ -2241,12 +2241,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // Fallago wind Farm 55.82489777951005, -2.66409699462629 T_FALGW-1
+  // Fallago 55.82489777951005, -2.66409699462629 T_FALGW-1
 
   {
     details: {
       code: "FALGW",
-      name: "Fallago wind Farm",
+      name: "Fallago",
       coords: {
         lat: 55.82489777951005,
         lng: -2.66409699462629,
@@ -2461,12 +2461,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Glen App Wind Farm T_GNAPW-1 -5.03 55.02
+  //Glen App T_GNAPW-1 -5.03 55.02
 
   {
     details: {
       code: "GNAPW",
-      name: "Glen App Wind Farm",
+      name: "Glen App",
       coords: {
         lat: 55.02,
         lng: -5.03,
@@ -2590,11 +2590,11 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Halsary Wind Farm	T_HALSW-1 58.44652833288308, -3.4208646140957404
+  //Halsary	T_HALSW-1 58.44652833288308, -3.4208646140957404
   {
     details: {
       code: "HALSW",
-      name: "Halsary Wind Farm",
+      name: "Halsary",
       coords: {
         lat: 58.44652833288308,
         lng: -3.4208646140957404,
@@ -2608,11 +2608,11 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Harburnhead Wind Farm	E_HBHDW-1 55.814764307994125, -3.54231733790513
+  //Harburnhead	E_HBHDW-1 55.814764307994125, -3.54231733790513
   {
     details: {
       code: "HBHDW",
-      name: "Harburnhead Wind Farm",
+      name: "Harburnhead",
       coords: {
         lat: 55.814764307994125,
         lng: -3.54231733790513,
@@ -2643,11 +2643,11 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  //Hill of Towie Wind Farm	E_HLTWW-1 -2.41	57.49
+  //Hill of Towie	E_HLTWW-1 -2.41	57.49
   {
     details: {
       code: "HLTWW",
-      name: "Hill of Towie Wind Farm",
+      name: "Hill of Towie",
       coords: {
         lat: 57.49,
         lng: -2.41,
@@ -2660,11 +2660,11 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  //Humber Gateway Offshore Wind Farm	T_HMGTO-1 T_HMGTO-2 53.65936008605068, 0.29528252560843476
+  //Humber Gateway Offshore	T_HMGTO-1 T_HMGTO-2 53.65936008605068, 0.29528252560843476
   {
     details: {
       code: "HMGTO",
-      name: "Humber Gateway Offshore Wind Farm",
+      name: "Humber Gateway Offshore",
       coords: {
         lat: 53.65936008605068,
         lng: 0.29528252560843476,
@@ -2680,11 +2680,11 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  //Hare Hill Ext Wind Farm	E_HRHLW-1 55.36726941867161, -4.1089394055798705
+  //Hare Hill Ext	E_HRHLW-1 55.36726941867161, -4.1089394055798705
   {
     details: {
       code: "HRHLW",
-      name: "Hare Hill Ext Wind Farm",
+      name: "Hare Hill Ext",
       coords: {
         lat: 55.36726941867161,
         lng: -4.1089394055798705,
@@ -2698,11 +2698,11 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Harestanes Wind Farm	T_HRSTW-1 55.37438774601089, -3.9614870161241624
+  //Harestanes	T_HRSTW-1 55.37438774601089, -3.9614870161241624
   {
     details: {
       code: "HRSTW",
-      name: "Harestanes Wind Farm",
+      name: "Harestanes",
       coords: {
         lat: 55.37438774601089,
         lng: -3.9614870161241624,
@@ -2716,12 +2716,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Hywind Wind Farm	E_HYWDW-1 -1.35 57.48
+  //Hywind	E_HYWDW-1 -1.35 57.48
 
   {
     details: {
       code: "HYWDW",
-      name: "Hywind Wind Farm",
+      name: "Hywind",
       coords: {
         lat: 57.48,
         lng: -1.35,
@@ -2772,12 +2772,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Kilbraur Wind Farm	T_KILBW-1 -4.06 58.04
+  //Kilbraur	T_KILBW-1 -4.06 58.04
 
   {
     details: {
       code: "KILBW",
-      name: "Kilbraur Wind Farm",
+      name: "Kilbraur",
       coords: {
         lat: 58.04,
         lng: -4.06,
@@ -2815,12 +2815,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Kincardine Offshore Wind Farm	E_KINCW-1 1.88 56.98
+  //Kincardine Offshore	E_KINCW-1 1.88 56.98
 
   {
     details: {
       code: "KINCW",
-      name: "Kincardine Offshore Wind Farm",
+      name: "Kincardine Offshore",
       coords: {
         lat: 56.98,
         lng: 1.88,
@@ -2834,11 +2834,11 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Kilgallioch Wind Farm	T_KLGLW-1 55.049912278136496, -4.764493574079205
+  //Kilgallioch	T_KLGLW-1 55.049912278136496, -4.764493574079205
   {
     details: {
       code: "KLGLW",
-      name: "Kilgallioch Wind Farm",
+      name: "Kilgallioch",
       coords: {
         lat: 55.049912278136496,
         lng: -4.764493574079205,
@@ -2869,11 +2869,11 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  //Kype Muir Wind Farm	T_KPMRW-1 55.62896285665657, -4.061570179294071
+  //Kype Muir	T_KPMRW-1 55.62896285665657, -4.061570179294071
   {
     details: {
       code: "KPMRW",
-      name: "Kype Muir Wind Farm",
+      name: "Kype Muir",
       coords: {
         lat: 55.62896285665657,
         lng: -4.061570179294071,
@@ -2886,12 +2886,12 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  //Keith Hill Wind Farm	T_KTHLW-1 2.83 55.82
+  //Keith Hill	T_KTHLW-1 2.83 55.82
 
   {
     details: {
       code: "KTHLW",
-      name: "Keith Hill Wind Farm",
+      name: "Keith Hill",
       coords: {
         lat: 55.82,
         lng: 2.83,
@@ -2904,12 +2904,12 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  //London Array Wind Farm	T_LARYW-1, T_LARYW-2, T_LARYW-3, T_LARYW-4 1.36 51.65
+  //London Array	T_LARYW-1, T_LARYW-2, T_LARYW-3, T_LARYW-4 1.36 51.65
 
   {
     details: {
       code: "LARYW",
-      name: "London Array Wind Farm",
+      name: "London Array",
       coords: {
         lat: 51.65,
         lng: 1.36,
@@ -2950,12 +2950,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // Lincs Wind Farm	T_LNCSW-1 T_LNCSW-2 0.53 53.27
+  // Lincs	T_LNCSW-1 T_LNCSW-2 0.53 53.27
 
   {
     details: {
       code: "LNCSW",
-      name: "Lincs Wind Farm",
+      name: "Lincs",
       coords: {
         lat: 53.27,
         lng: 0.53,
@@ -2988,12 +2988,12 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  // Mid Hill Wind Farm	2__PSTAT002 -2.48 56.96
+  // Mid Hill	2__PSTAT002 -2.48 56.96
 
   {
     details: {
       code: "MIDH",
-      name: "Mid Hill Wind Farm",
+      name: "Mid Hill",
       coords: {
         lat: 56.96,
         lng: -2.48,
@@ -3080,12 +3080,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // Mark Hill Wind Farm	T_MKHLW-1 4.82 55.16
+  // Mark Hill	T_MKHLW-1 4.82 55.16
 
   {
     details: {
       code: "MKHLW",
-      name: "Mark Hill Wind Farm",
+      name: "Mark Hill",
       coords: {
         lat: 55.16,
         lng: 4.82,
@@ -3098,12 +3098,12 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  // Moy Wind Farm	E_MOYEW-1 -4.06 57.39
+  // Moy	E_MOYEW-1 -4.06 57.39
 
   {
     details: {
       code: "MOYEW",
-      name: "Moy Wind Farm",
+      name: "Moy",
       coords: {
         lat: 57.39,
         lng: -4.06,
@@ -3226,7 +3226,7 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  // Pogbie Wind Farm	T_PGBIW-1 -2.53 53.27
+  // Pogbie	T_PGBIW-1 -2.53 53.27
 
   {
     details: {
@@ -3244,7 +3244,7 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  // Pen y Cymoedd Wind Farm	T_PNYCW-1 -2.53 53.27
+  // Pen y Cymoedd	T_PNYCW-1 -2.53 53.27
 
   {
     details: {
@@ -3324,12 +3324,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // Rosehall Wind Farm	E_RSHLW-1 -2.53	53.27
+  // Rosehall	E_RSHLW-1 -2.53	53.27
 
   {
     details: {
       code: "RSHLW",
-      name: "Rosehall Wind Farm",
+      name: "Rosehall",
       coords: {
         lat: 53.27,
         lng: -2.53,
@@ -3514,12 +3514,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // Toddleburn Wind Farm	T_TDBNW-1 -2.53 53.27
+  // Toddleburn	T_TDBNW-1 -2.53 53.27
 
   {
     details: {
       code: "TDBNW",
-      name: "Toddleburn Wind Farm",
+      name: "Toddleburn",
       coords: {
         lat: 53.27,
         lng: -2.53,
