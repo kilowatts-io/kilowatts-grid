@@ -866,7 +866,7 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
-      name: "West of Duddon Sands",
+      name: "Duddon Sands",
       code: 'WDNSO',
       coords: {
         lat: 53.9851,
@@ -1948,12 +1948,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  //Corrimoillie W/F	T_CRMLW-1  57° 40' 3.6" -4° 46' 24"
+  //Corrimoillie	T_CRMLW-1  57° 40' 3.6" -4° 46' 24"
 
   {
     details: {
       code: "CRMLW",
-      name: "Corrimoillie W/F",
+      name: "Corrimoillie",
       coords: {
         lat: 57.667667,
         lng: -4.773333,
@@ -2664,7 +2664,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "HMGTO",
-      name: "Humber Gateway Offshore",
+      name: "Humber Gateway",
       coords: {
         lat: 53.65936008605068,
         lng: 0.29528252560843476,
@@ -2684,7 +2684,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "HRHLW",
-      name: "Hare Hill Ext",
+      name: "Hare Hill",
       coords: {
         lat: 55.36726941867161,
         lng: -4.1089394055798705,
@@ -2820,7 +2820,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "KINCW",
-      name: "Kincardine Offshore",
+      name: "Kincardine",
       coords: {
         lat: 56.98,
         lng: 1.88,
@@ -3025,12 +3025,12 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  // Middle Muir W/F	T_MIDMW-1 55.514378415866375, -3.803041190703463
+  // Middle Muir	T_MIDMW-1 55.514378415866375, -3.803041190703463
 
   {
     details: {
       code: "MIDMW",
-      name: "Middle Muir W/F",
+      name: "Middle Muir",
       coords: {
         lat: 55.514378415866375,
         lng: -3.803041190703463,
@@ -3048,7 +3048,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "MILWW",
-      name: "Millennium Windfarm",
+      name: "Millennium",
       coords: {
         lat: 57.12374520636007,
         lng: -4.845656718900648,
@@ -3158,7 +3158,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "OMNDW",
-      name: "Ormonde Eng Ltd",
+      name: "Ormonde",
       coords: {
         lat: 53.27,
         lng: -2.53,
@@ -3286,7 +3286,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "RMPNO",
-      name: "Rampion Offshore Wind",
+      name: "Rampion",
       coords: {
         lat: 50.67,
         lng: 0.27,
@@ -3307,7 +3307,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "RREW",
-      name: "Robin Rigg East",
+      name: "Robin Rigg",
       coords: {
         lat: 54.75,
         lng: -3.72,
@@ -3360,12 +3360,12 @@ export const unitGroups: UnitGroup[] = [
       },
     ],
   },
-  // Sanquhar W/F	T_SANQW-1 -2.53 53.27
+  // Sanquhar	T_SANQW-1 -2.53 53.27
 
   {
     details: {
       code: "SANQW",
-      name: "Sanquhar W/F",
+      name: "Sanquhar",
       coords: {
         lat: 53.27,
         lng: -2.53,
@@ -3537,7 +3537,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "THNTO",
-      name: "Thanet Offshore Wind",
+      name: "Thanet",
       coords: {
         lat: 51.39,
         lng: 1.46,
@@ -3554,12 +3554,12 @@ export const unitGroups: UnitGroup[] = [
     ],
   },
 
-  // Tullymurdoch W/F	E_TLYMW-1 -3.29 56.67
+  // Tullymurdoch	E_TLYMW-1 -3.29 56.67
 
   {
     details: {
       code: "TLYMW",
-      name: "Tullymurdoch W/F",
+      name: "Tullymurdoch",
       coords: {
         lat: 56.67,
         lng: -3.29,
@@ -3614,7 +3614,7 @@ export const unitGroups: UnitGroup[] = [
   {
     details: {
       code: "TULWW",
-      name: "Tullo, Laurencekirk",
+      name: "Tullo",
       coords: {
         lat: 53.27,
         lng: -2.53,
