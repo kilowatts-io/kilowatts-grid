@@ -68,6 +68,32 @@ export const UnknownUnitGroupCode = () => {
   );
 };
 
+type FuelTypeNotAllowedProps = {
+  fuelType: string;
+};
+/*
+FuelTypeNotAllowed
+Render a card with a message saying we can't find the unit group.
+*/
+export const FuelTypeNotAllowed: React.FC<FuelTypeNotAllowedProps> = ({
+  fuelType,
+}) => {
+  log.debug(`FuelTypeNotAllowed`);
+  return (
+    <SafeAreaView>
+      <Card>
+        <Card.Title>
+          <Text>{fuelType} not available</Text>
+        </Card.Title>
+        <Card.Divider />
+        <Text>
+          Cannot view live generation for {fuelType} unitsd. Please check the URL and try
+        </Text>
+      </Card>
+    </SafeAreaView>
+  );
+};
+
 /*
 MissingScreen
 Render a card with a message saying the screen doesn't exist.
@@ -165,11 +191,13 @@ export const NoLiveUnits: React.FC = () => {
       <Card.Divider />
       <Text>There are no units available with live data.</Text>
       <View style={styles.spacer} />
-      <Text>At the present time, many smaller generators connected to local distribution grids do not publish live information.</Text>
+      <Text>
+        At the present time, many smaller generators connected to local
+        distribution grids do not publish live information.
+      </Text>
     </Card>
   );
 };
-
 
 /*
 ApiError

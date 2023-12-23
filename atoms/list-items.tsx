@@ -39,10 +39,11 @@ export const GeneratorLive: React.FC<GeneratorLiveProps> = ({
 type FuelTypeLiveProps = {
   name: FuelType;
   level: number;
+  onPress?: () => void;
 };
 
-export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level }) => (
-  <ListItem testID={`fuel-type-live-list-item-${name}`}>
+export const FuelTypeLive: React.FC<FuelTypeLiveProps> = ({ name, level, onPress }) => (
+  <ListItem testID={`fuel-type-live-list-item-${name}`} onPress={onPress}>
     <ListItem.Content style={styles.liveContainer}>
       <View style={styles.titleSubtitleWrapper}>
         <FuelTypeIcon fuelType={name} size={20} />

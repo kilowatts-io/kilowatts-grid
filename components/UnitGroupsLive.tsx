@@ -11,6 +11,7 @@ import { urls } from "../services/nav";
 import { Refresh } from "../atoms/controls";
 import { FuelType } from "../common/types";
 import formatters from "../common/formatters";
+import { londonTimeHHMMSS } from "../common/utils";
 
 type UnitGroupsLiveProps = {
   fuelType?: FuelType;
@@ -70,7 +71,11 @@ export const UnitGroupLiveWithSearch: React.FC<
   useEffect(() => {
     nav.setOptions({
       title: now
-        ? `Major Generators Live Output: ${now.toLocaleTimeString()}`
+        ? fuelType
+          ? `${formatters.fuelType(fuelType)} Output: ${londonTimeHHMMSS(
+              now
+            )}`
+          : `Major Generators Output: ${londonTimeHHMMSS(now)}`
         : "Loading...",
     });
   }, [query.now]);
