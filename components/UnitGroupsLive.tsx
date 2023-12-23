@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Link, useNavigation, useRouter } from "expo-router";
-import { RefreshControl } from "react-native-gesture-handler";
+import { useNavigation, useRouter } from "expo-router";
 import { useUnitGroupsLiveQuery } from "../services/state/elexon-insights-api.hooks";
 import { FlashList } from "@shopify/flash-list";
 import * as at from "../atoms";
@@ -11,6 +10,7 @@ import { StyleSheet } from "react-native";
 import { urls } from "../services/nav";
 import { Refresh } from "../atoms/controls";
 import { FuelType } from "../common/types";
+import formatters from "../common/formatters";
 
 type UnitGroupsLiveProps = {
   fuelType?: FuelType;
@@ -22,7 +22,9 @@ export const UnitGroupsLive: React.FC<UnitGroupsLiveProps> = ({ fuelType }) => {
 
   useEffect(() => {
     nav.setOptions({
-      title: "Major Generators Live Output",
+      title: fuelType
+        ? `${formatters.fuelType(fuelType)} Live Output`
+        : "Major Generators Live Output",
     });
   }, []);
 
@@ -51,7 +53,7 @@ export const UnitGroupLiveWithSearch: React.FC<
       if (!fuelType) {
         return data;
       } else {
-        return data;
+        return data.filter((d) => d.details.fuelType === fuelType);
       }
     }
     return data.filter((d) => {
