@@ -370,7 +370,7 @@ export const groupByUnitGroup = (x: t.BmUnitValues): t.UnitGroupLevel[] => {
 type GroupByFuelTypeAndInterconnectorsParams = {
   x: t.UnitGroupLevel[];
   includeEmbedded: boolean;
-}
+};
 
 /*
 Group by fuel type
@@ -380,9 +380,9 @@ includeEmedded will include embedded wind and solar units
 default false as total data on these is sourced separately from NG ESO.
 */
 export const groupByFuelTypeAndInterconnectors = ({
-  x, includeEmbedded
-}: GroupByFuelTypeAndInterconnectorsParams
-): t.FuelTypeLevel[] => {
+  x,
+  includeEmbedded,
+}: GroupByFuelTypeAndInterconnectorsParams): t.FuelTypeLevel[] => {
   log.debug(`groupByFuelType`);
   let output: t.FuelTypeLevel[] = [];
   let fuelTypesAndInterconnectors: t.FuelType[] = [];
@@ -635,13 +635,23 @@ export const transformUnitHistoryQuery = ({
   log.debug(`useUnitGroupHistoryQuery: joining with ug.units`);
   const unitData = units.map((u) => {
     const bmUnitData = filtered[u.bmUnit];
-    return {
-      details: u,
-      data: {
-        levels: bmUnitData.sort((a, b) => a.time.localeCompare(b.time)),
-        average: averageLevel(bmUnitData),
-      },
-    };
+    if (!bmUnitData) {
+      return {
+        details: u,
+        data: {
+          levels: [],
+          average: 0,
+        },
+      };
+    } else {
+      return {
+        details: u,
+        data: {
+          levels: bmUnitData.sort((a, b) => a.time.localeCompare(b.time)),
+          average: averageLevel(bmUnitData),
+        },
+      };
+    }
   });
   unitData.sort((a, b) => b.data.average - a.data.average);
   return unitData;
