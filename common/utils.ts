@@ -1,5 +1,7 @@
 import * as t from "./types";
 import log from "../services/log";
+import * as Updates from 'expo-updates';
+
 
 export const londonTime = (date: Date) =>
   date.toLocaleString("en-GB", { timeZone: "Europe/London" });
@@ -57,3 +59,14 @@ export const ALLOW_LINK_FUELTYPES: t.FuelType[] = [
   "coal",
   "interconnector"
 ];
+
+
+/*
+getVersion
+using expo updates library to get the native and js version
+*/
+export const getVersion = () => {
+  return {
+    createdAt: Updates.createdAt
+  }
+}
