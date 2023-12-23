@@ -6,7 +6,7 @@ import { RefreshControl, ScrollView } from "react-native-gesture-handler";
 import { FlashList } from "@shopify/flash-list";
 import { ApiErrorCard, UnitGroupScheduleHeader } from "../atoms/cards";
 import { UnitLevelListItem } from "../atoms/list-items";
-import { FlatList } from "react-native";
+import { View } from "react-native";
 
 type UnitGroupScheduleProps = {
   ug: UnitGroup;
@@ -15,7 +15,7 @@ type UnitGroupScheduleProps = {
 export const UnitGroupSchedule: React.FC<UnitGroupScheduleProps> = ({ ug }) => {
   log.info(`UnitGroupSchedule ${ug.details}`);
   const query = useUnitGroupScheduleQuery(ug);
-  if (query.isError) return <ApiErrorCard refetch={query.refetch} />;
+  if (query.isError) return <ApiErrorCard refetch={query.refetch} />
 
   return (
     <ScrollView
@@ -28,9 +28,9 @@ export const UnitGroupSchedule: React.FC<UnitGroupScheduleProps> = ({ ug }) => {
     >
       {query.data && query.data.length > 0 && (
         <>
-          {query.data.map((unit) => {
+          {query.data.map((unit, i) => {
             return (
-              <>
+              <View key={i}>
                 <UnitGroupScheduleHeader bmUnit={unit.details.bmUnit} />
                 <>
                   {unit.data.levels.map((level) => {
@@ -39,10 +39,11 @@ export const UnitGroupSchedule: React.FC<UnitGroupScheduleProps> = ({ ug }) => {
                         key={`${unit.details.bmUnit}-${level.time}`}
                         {...level}
                       />
-                    );
+                    )
                   })}
                 </>
-              </>
+              </View>
+
             );
           })}
         </>
