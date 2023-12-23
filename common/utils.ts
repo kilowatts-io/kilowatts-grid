@@ -55,4 +55,5 @@ export const ALLOW_LINK_FUELTYPES: t.FuelType[] = [
   "biomass",
   "gas",
   "coal",
+  "interconnector"
 ];
