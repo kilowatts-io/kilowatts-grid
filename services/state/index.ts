@@ -6,6 +6,17 @@ import { favouritesSlice } from "./favourites";
 import { termsSlice } from "./terms";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
+// configureStore.js
+
+import { createStore } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
 const rootReducer = combineReducers({
   elexonInsightsApi: elexonInsightsApi.reducer,
   ngEsoApi: ngEsoApi.reducer,
@@ -13,16 +24,30 @@ const rootReducer = combineReducers({
   termsSlice: termsSlice.reducer,
 });
 
-export const store = configureStore({
-  reducer: rootReducer,
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const persistedStore = configureStore({
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(elexonInsightsApi.middleware)
       .concat(ngEsoApi.middleware),
 });
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+// used for testing
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .concat(elexonInsightsApi.middleware)
+      .concat(ngEsoApi.middleware),
+})
+
+export const persistor = persistStore(persistedStore);
+
+export type AppDispatch = typeof persistedStore.dispatch;
+export type RootState = ReturnType<typeof persistedStore.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
