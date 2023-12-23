@@ -87,7 +87,7 @@ export const FuelTypeNotAllowed: React.FC<FuelTypeNotAllowedProps> = ({
         </Card.Title>
         <Card.Divider />
         <Text>
-          Cannot view live generation for {fuelType} unitsd. Please check the URL and try
+          Cannot view live generation for {fuelType} unitsd. Please check the URL and try again.
         </Text>
       </Card>
     </SafeAreaView>
