@@ -1,8 +1,5 @@
 import React from "react";
 import { registerRootComponent } from "expo";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistedStore, persistor, store } from "./services/state";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -12,6 +9,7 @@ import { Alert, AppState, AppStateStatus, Platform } from "react-native";
 import log from "./services/log";
 import theme from "./services/theme";
 import { InternetConnection } from "./components/InternetConnection";
+import { ReduxProvider } from "./services/state";
 
 SplashScreen.preventAutoHideAsync();
 setTimeout(SplashScreen.hideAsync, 2000);
@@ -43,7 +41,6 @@ async function onFetchUpdateAsync() {
 }
 
 export const App = () => {
-
   //   React.useEffect(() => {
   //     if (__DEV__ && Platform.OS !== "web") {
   //       const rt = require("./services/reactotron").initReactotron;
@@ -88,27 +85,12 @@ export const App = () => {
     return null;
   }
 
-  if (Platform.OS === "web")
-    return (
-      <>
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <InternetConnection/>
-          </Provider>
-        </ThemeProvider>
-      </>
-    );
-
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <Provider store={persistedStore}>
-          <PersistGate loading={null} persistor={persistor}>
-              <InternetConnection/>
-          </PersistGate>
-        </Provider>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <ReduxProvider>
+        <InternetConnection />
+      </ReduxProvider>
+    </ThemeProvider>
   );
 };
 
