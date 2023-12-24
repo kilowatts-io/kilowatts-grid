@@ -6,12 +6,14 @@ import * as at from "../atoms";
 import { CallForContributions, NoLiveUnits } from "../atoms/cards";
 import { SearchUnitGroups } from "../atoms/inputs";
 import log from "../services/log";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { urls } from "../services/nav";
 import { Refresh } from "../atoms/controls";
-import { FuelType } from "../common/types";
+import { FuelType, UnitGroupLevel } from "../common/types";
 import formatters from "../common/formatters";
 import { londonTimeHHMMSS } from "../common/utils";
+import { UnitsGroupMap } from "../atoms/maps";
+import { hide } from "expo-splash-screen";
 
 type UnitGroupsLiveProps = {
   fuelType?: FuelType;
@@ -44,25 +46,25 @@ type UnitGroupLiveWithSearchProps = UnitGroupsLiveProps & {
 export const UnitGroupLiveWithSearch: React.FC<
   UnitGroupLiveWithSearchProps
 > = ({ search, fuelType }) => {
-  const router = useRouter();
   const query = useUnitGroupsLiveQuery();
 
   const { data, now, isLoading, refetch } = query;
   const filteredData = useMemo(() => {
     if (!data) return data;
-  
+
     return data.filter((d) => {
-      const nameMatch = search === "" || d.details.name.toLowerCase().includes(search.toLowerCase());
+      const nameMatch =
+        search === "" ||
+        d.details.name.toLowerCase().includes(search.toLowerCase());
       const fuelTypeMatch = !fuelType || d.details.fuelType === fuelType;
       return nameMatch && fuelTypeMatch;
     });
   }, [data, search, fuelType]);
-  
 
   const nav = useNavigation();
 
   useEffect(() => {
-    if(now) {
+    if (now) {
       nav.setOptions({
         title: `Live Output: ${londonTimeHHMMSS(now)}`,
       });
@@ -70,39 +72,91 @@ export const UnitGroupLiveWithSearch: React.FC<
   }, [query.now]);
 
   return (
-    <FlashList
-      refreshControl={<Refresh refreshing={isLoading} onRefresh={refetch} />}
-      ListEmptyComponent={NoLiveUnits}
-      ListFooterComponent={CallForContributions}
+    <UnitGroupsLiveList
+      hideMap={search !== ""}
+      isLoading={isLoading}
+      refetch={refetch}
       data={filteredData}
-      estimatedItemSize={1000}
-      renderItem={({ item, index }) => {
-        const { fuelType, code } = item.details;
-
-        return (
-          <at.listItems.GeneratorLive
-            index={index}
-            fuelType={fuelType}
-            name={item.details.name}
-            level={item.level}
-            onPress={() => {
-              if (code && fuelType !== "interconnector") {
-                router.push(urls.unitGroup(code));
-              } else {
-                log.info(
-                  `UnitGroupLiveWithSearch: not possible as no code or interconnector`
-                );
-              }
-            }}
-          />
-        );
-      }}
     />
+  );
+};
+
+type UnitGroupsLiveListProps = {
+  hideMap: boolean;
+  isLoading: boolean;
+  refetch?: () => void;
+  data: UnitGroupLevel[] | undefined | null;
+};
+
+const UnitGroupsLiveList: React.FC<UnitGroupsLiveListProps> = ({
+  hideMap,
+  isLoading,
+  refetch,
+  data,
+}) => {
+  const router = useRouter();
+  const [items, setItems] = useState<UnitGroupLevel[]>([]);
+
+  return (
+    <>
+      {!hideMap && (
+        <View style={styles.mapWrapper}>
+          <UnitsGroupMap ugs={items} />
+        </View>
+      )}
+      <View style={!hideMap ? styles.listWrapper : styles.listWrapperNoMap}>
+        <FlashList
+          refreshControl={
+            <Refresh refreshing={isLoading} onRefresh={refetch} />
+          }
+          ListEmptyComponent={NoLiveUnits}
+          ListFooterComponent={CallForContributions}
+          data={data}
+          estimatedItemSize={1000}
+          viewabilityConfig={{
+            itemVisiblePercentThreshold: 100,
+          }}
+          onViewableItemsChanged={(info) => {
+            setItems(info.viewableItems.map((i) => i.item));
+          }}
+          renderItem={({ item, index }) => {
+            const { fuelType, code } = item.details;
+
+            return (
+              <at.listItems.GeneratorLive
+                index={index}
+                fuelType={fuelType}
+                name={item.details.name}
+                level={item.level}
+                onPress={() => {
+                  if (code && fuelType !== "interconnector") {
+                    router.push(urls.unitGroup(code));
+                  } else {
+                    log.info(
+                      `UnitGroupLiveWithSearch: not possible as no code or interconnector`
+                    );
+                  }
+                }}
+              />
+            );
+          }}
+        />
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   linkWrapper: {
     width: "100%",
+  },
+  listWrapper: {
+    height: "50%",
+  },
+  listWrapperNoMap: {
+    height: "100%",
+  },
+  mapWrapper: {
+    height: "50%",
   },
 });
