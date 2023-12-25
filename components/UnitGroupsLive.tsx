@@ -6,7 +6,7 @@ import * as at from "../atoms";
 import { CallForContributions, NoLiveUnits } from "../atoms/cards";
 import { SearchUnitGroups } from "../atoms/inputs";
 import log from "../services/log";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { urls } from "../services/nav";
 import { Refresh } from "../atoms/controls";
 import { FuelType, UnitGroupLevel } from "../common/types";
@@ -73,7 +73,7 @@ export const UnitGroupLiveWithSearch: React.FC<
 
   return (
     <UnitGroupsLiveList
-      hideMap={search !== ""}
+      hideMap={search !== "" || Platform.OS === "web"}
       isLoading={isLoading}
       refetch={refetch}
       data={filteredData}
