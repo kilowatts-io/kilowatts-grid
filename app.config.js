@@ -48,20 +48,6 @@ const expoConfig = {
     },
     plugins: [
       "expo-router",
-      [
-        "expo-build-properties",
-        {
-          android: {
-            gradleVersion: "7.5.1",
-            // compileSdkVersion: 31,
-            // targetSdkVersion: 31,
-            // buildToolsVersion: "31.0.0",
-          },
-          ios: {
-            // deploymentTarget: "13.0",
-          },
-        },
-      ],
     ],
     experiments: {
       typedRoutes: true,
