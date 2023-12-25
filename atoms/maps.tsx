@@ -1,8 +1,8 @@
 import React from "react";
-import MapView, { Marker } from "react-native-maps";
+import MV, { MapViewProps, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { UnitGroup, UnitGroupLevel } from "../common/types";
 import log from "../services/log";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import formatters from "../common/formatters";
 import { FuelTypeIcon } from "./icons";
 import { useRouter } from "expo-router";
@@ -11,6 +11,17 @@ import { urls } from "../services/nav";
 type UnitGroupMapProps = {
   ug: UnitGroup;
 };
+
+const getMapProvider = () => {
+  if (Platform.OS === "android") {
+    return PROVIDER_GOOGLE;
+  }
+  return undefined;
+};
+
+const MapView = (props: MapViewProps) => (
+  <MV provider={getMapProvider()} {...props} />
+);
 
 export const UnitGroupMap: React.FC<UnitGroupMapProps> = ({ ug }) => {
   log.debug(`UnitGroupMap: ${ug.details.name}`);
@@ -44,7 +55,7 @@ type UnitsGroupMapProps = {
 };
 
 export const UnitsGroupMap: React.FC<UnitsGroupMapProps> = ({ ugs }) => {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <MapView
       scrollEnabled={false}
@@ -63,13 +74,12 @@ export const UnitsGroupMap: React.FC<UnitsGroupMapProps> = ({ ugs }) => {
       {ugs
         .filter((ugs) => ugs.details.coords !== undefined)
         .map((ugs) => {
-          const {coords, code, name} = ugs.details;
+          const { coords, code, name } = ugs.details;
           if (!coords || !code || !name) return null;
           return (
             <Marker
-
               onPress={() => {
-                router.push(urls.unitGroup(ugs.details.code))
+                router.push(urls.unitGroup(ugs.details.code));
               }}
               key={ugs.details.code ? ugs.details.code : ugs.details.name}
               coordinate={{
@@ -79,10 +89,7 @@ export const UnitsGroupMap: React.FC<UnitsGroupMapProps> = ({ ugs }) => {
               title={ugs.details.name}
               description={`${formatters.fuelType(ugs.details.fuelType)}`}
             >
-              <FuelTypeIcon
-                fuelType={ugs.details.fuelType}
-                size={20}
-              />
+              <FuelTypeIcon fuelType={ugs.details.fuelType} size={20} />
             </Marker>
           );
         })}
