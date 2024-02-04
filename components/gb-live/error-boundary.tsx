@@ -1,5 +1,4 @@
 import ErrorBoundary from "react-native-error-boundary";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Card, Text, Divider } from "@rneui/themed";
 import { StyleSheet, View } from "react-native";
 
@@ -15,7 +14,7 @@ const FallbackComponent: React.FC<FallbackComponentProps> = ({
   resetError,
 }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Card>
         <Card.Title>Something went wrong</Card.Title>
         <Text>
@@ -27,7 +26,7 @@ const FallbackComponent: React.FC<FallbackComponentProps> = ({
         <Divider />
         <Button onPress={() => resetError()} title="Refresh" />
       </Card>
-    </SafeAreaView>
+    </View>
   );
 };
 

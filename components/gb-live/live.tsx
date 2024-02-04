@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo } from "react";
+import React, { useCallback, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import {
   BottomSheetModal,
@@ -9,10 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGbLive } from "../../state/gb/hooks";
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
 import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptance";
-import { SvgMap } from "./svg-map";
+import SvgMap from "./svg-map/svg-map";
 import { Button, Icon } from "@rneui/themed";
 import { MAP_BACKGROUND_COLOR, MAP_BOTTOM_BUTTON_HEIGHT } from "./constants";
-import { SafeAreaView } from "react-native-safe-area-context";
+// import { SafeAreaView } from "react-native-safe-area-context";
 
 const SNAP_POINTS = ["20%", "30%", "40%", "50%", "75%", "90%"];
 const INITIAL_SNAP_POINT_INDEX = 3;
@@ -39,7 +39,7 @@ export const GbLiveWrapped = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.mapContainer}>
+    <View style={styles.mapContainer}>
       <BottomSheetModalProvider>
         <SvgMap />
         <View style={styles.bottomButton}>
@@ -65,7 +65,7 @@ export const GbLiveWrapped = () => {
           <GbLiveBottomSheetTabs />
         </BottomSheetModal>
       </BottomSheetModalProvider>
-    </SafeAreaView>
+    </View>
   );
 };
 

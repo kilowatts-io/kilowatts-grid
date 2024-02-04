@@ -100,10 +100,12 @@ const SvgMapLoadingView = () => (
   </View>
 );
 
-export const SvgMap = () => {
+const SvgMap = () => {
   const initialLoadComplete = useSelector(selectors.initialLoadComplete);
   return !initialLoadComplete ? <SvgMapLoadingView /> : <SvgMapLoaded />;
 };
+
+export default SvgMap;
 
 const styles = StyleSheet.create({
   mapView: { display: "flex", width: "100%", flex: 1 },
