@@ -1,0 +1,1 @@
+export {GbDispatchableMapIcons} from './dispatchable'
