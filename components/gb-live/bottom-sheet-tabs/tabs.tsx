@@ -9,9 +9,10 @@ import { GbTotalsList } from "./totals-list/totals-list";
 export const GbLiveBottomSheetTabs = () => {
   const selectedGeneratorId = useSelector(selectors.selectedUnitGroupCode);
   const [index, setIndex] = React.useState(selectedGeneratorId ? 1 : 0);
+
   React.useEffect(() => {
     // is a generator selected - ensure that the generator tab is selected
-    if (selectedGeneratorId !== null) setIndex(1);
+    if (selectedGeneratorId !== null && index == 0) setIndex(1);
   }, [selectedGeneratorId]);
 
   return (

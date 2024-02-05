@@ -8,11 +8,11 @@ import { ErrorBoundaryWithRecovery } from "./components/gb-live/error-boundary";
 import { initSentry } from "./utils/sentry";
 
 export default function RootApp() {
-  React.useEffect(() => {
-    if (__DEV__ && Platform.OS !== "web") {
-      require("./utils/reactotron").initReactotron();
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (__DEV__ && Platform.OS !== "web") {
+  //     require("./utils/reactotron").initReactotron();
+  //   }
+  // }, []);
 
   React.useEffect(() => {
     initSentry()

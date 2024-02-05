@@ -23,13 +23,15 @@ export const GbLiveWrapped = () => {
   const isLoaded = useSelector(selectors.initialLoadComplete);
   const selectedGeneratorId = useSelector(selectors.selectedUnitGroupCode);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
   React.useEffect(() => {
-    // on initial load - pop up the bottom menu once data has loaded to an acceptable state
     if (isLoaded) bottomSheetModalRef.current?.present();
   }, [isLoaded]);
+
   React.useEffect(() => {
     if (selectedGeneratorId !== null) bottomSheetModalRef.current?.present();
   }, [selectedGeneratorId]);
+  
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);

@@ -24,12 +24,16 @@ interface GbLiveListItemProps {
   balancingVolume: number;
   balancingDirection: "offer" | "bid" | "none";
   capacityFactor: number;
+  selected: boolean
 }
 
 const Blank = () => <></>;
 
 export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
-  <View style={styles.itemWrapper}>
+  <View style={{
+    ...styles.itemWrapper,
+    ...(p.selected ? styles.selectedItemWrapper : {}),
+  }}>
     <View style={styles.left}>
       <IconView
         type={p.type}
@@ -69,9 +73,11 @@ export const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "flex-start",
     flexDirection: "row",
+    alignItems: "center",
     gap: 10,
     padding: 5,
   },
+  selectedItemWrapper: { backgroundColor: "rgba(0, 0, 0, 0.1)" },
   left: {
     justifyContent: "flex-start",
     flexDirection: "row",

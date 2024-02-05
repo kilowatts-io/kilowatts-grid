@@ -35,6 +35,7 @@ export const GbTotalsList = () => {
           balancingVolume={item.balancingVolume}
           balancingDirection={calculateBalancingDirection(item.balancingVolume)}
           capacityFactor={calculateCapacityFactor(item.level, item.capacity)}
+          selected={false}
         />
       )}
       ListFooterComponent={GbBalancingTotals}

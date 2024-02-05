@@ -19,13 +19,12 @@ export const GbUnitGroupsList: React.FC = () => {
     if (!selectedUnitGroupCode) return 0;
     const index = data.findIndex((g) => g.code === selectedUnitGroupCode);
     if (index === -1) return 0;
+    if(__DEV__) console.log('initialScrollIndex', index, selectedUnitGroupCode, data.length);
     return index;
   }, [selectedUnitGroupCode, data]);
 
   React.useEffect(() => {
-    if(!selectedUnitGroupCode) {
-      return;
-    }
+    if(!selectedUnitGroupCode) return;
     const newIndex = data.findIndex((g) => g.code === selectedUnitGroupCode);
     if (newIndex === -1) return;
     if (!list.current) return;
@@ -50,6 +49,9 @@ export const GbUnitGroupsList: React.FC = () => {
 };
 
 const UnitGroupListLiveItem: React.FC<{ code: string }> = ({ code }) => {
+  const selected = useSelector((state: RootState) =>
+  selectors.isSelectedUnitGroupCode(state, code)
+)
   const capacity = useSelector((state: RootState) =>
     selectors.unitGroupCapacity(state, code)
   );
@@ -73,6 +75,7 @@ const UnitGroupListLiveItem: React.FC<{ code: string }> = ({ code }) => {
       balancingVolume={balancingVolume}
       balancingDirection={balancingDirection}
       capacityFactor={capacityFactor}
+      selected={selected}
     />
   );
 };
