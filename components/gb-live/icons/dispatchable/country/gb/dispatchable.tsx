@@ -15,6 +15,7 @@ import {
   DispatchableIconMap,
 } from "../../map-icon";
 import { DISPATCHABLE_ICON_COLOURS } from "../../constants";
+import { ErrorBoundaryBlank } from "../../../../error-boundary";
 
 type GbDispatchableTurbineWheelProps = {
   unitGroupCode: string;
@@ -87,12 +88,14 @@ const GbDispatchableMapIcon: React.FC<GbDispatchableMapIconProps> = ({
 
 const generateGbDispatchableMapIcons = (fuelType: FuelType) =>
   filterUnitsByType(fuelType).map((ug) => (
-    <GbDispatchableMapIcon
-      key={ug.details.code}
-      unitGroupCode={ug.details.code}
-      point={calculatePoint(ug.details.coords)}
-      color={DISPATCHABLE_ICON_COLOURS[fuelType]}
-    />
+    <ErrorBoundaryBlank key={`error-boundary-disp-${fuelType}-${ug.details.code}`}>
+      <GbDispatchableMapIcon
+        key={ug.details.code}
+        unitGroupCode={ug.details.code}
+        point={calculatePoint(ug.details.coords)}
+        color={DISPATCHABLE_ICON_COLOURS[fuelType]}
+      />
+    </ErrorBoundaryBlank>
   ));
 
 export const GbGasMapIcons = generateGbDispatchableMapIcons("gas");

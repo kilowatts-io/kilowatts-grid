@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { GbUnitGroupsList } from "./unit-groups-list/unit-groups-list";
 import { Tab } from "@rneui/themed";
 import { useSelector } from "react-redux";
@@ -11,7 +11,7 @@ export const GbLiveBottomSheetTabs = () => {
   const [index, setIndex] = React.useState(selectedGeneratorId ? 1 : 0);
   React.useEffect(() => {
     // is a generator selected - ensure that the generator tab is selected
-    if (selectedGeneratorId !== null) setIndex(1)
+    if (selectedGeneratorId !== null) setIndex(1);
   }, [selectedGeneratorId]);
 
   return (
@@ -25,8 +25,10 @@ export const GbLiveBottomSheetTabs = () => {
         <Tab.Item>Totals</Tab.Item>
         <Tab.Item>Generators</Tab.Item>
       </Tab>
-      {index === 0 && <GbTotalsList />}
-      {index === 1 && <GbUnitGroupsList />}
+      <View style={styles.listContentContainer}>
+        {index === 0 && <GbTotalsList />}
+        {index === 1 && <GbUnitGroupsList />}
+      </View>
     </>
   );
 };
@@ -39,5 +41,7 @@ const styles = StyleSheet.create({
   tabTitleStyle: {
     fontSize: 10,
   },
-  contentContainer: {},
+  listContentContainer: {
+    height: '100%'
+  },
 });

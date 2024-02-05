@@ -2,19 +2,29 @@ import React from "react";
 import { RoundedRect } from "@shopify/react-native-skia";
 import { ICON_LIST_HEIGHT, ICON_LIST_WIDTH } from "../list-icons";
 import { calculateBatteryColor } from "./calcs";
+import {
+  BATTERY_BASE_WIDTH_FRACTION,
+  BATTERY_R_TO_HEIGHT_RATIO,
+  BATTERY_STROKE_WIDTH_TO_HEIGHT_RATIO,
+  BATTERY_TERMINAL_WIDTH_FRACTION,
+  BATTERY_TERMINAL_WIDTH_TO_HEIGHT_RATIO,
+  calculateBatteryTerminalTop,
+} from "./constants";
 
-const BATTERY_BASE_WIDTH_FRACTION = 0.8;
-const BATTERY_TERMINAL_WIDTH_FRACTION = 1 - BATTERY_BASE_WIDTH_FRACTION;
-
-const BATTERY_R_TO_HEIGHT_RATIO = 0.1;
 const BATTERY_ROUNDEDNESS = ICON_LIST_HEIGHT * BATTERY_R_TO_HEIGHT_RATIO;
-
 const BATTERY_WIDTH = ICON_LIST_WIDTH * BATTERY_BASE_WIDTH_FRACTION;
 const BATTERY_TERMINAL_WIDTH =
   ICON_LIST_WIDTH * BATTERY_TERMINAL_WIDTH_FRACTION;
 
-const BATTERY_TERMINAL_HEIGHT = ICON_LIST_HEIGHT * 0.3;
-const BATTERY_TERMINAL_TOP = (ICON_LIST_HEIGHT - BATTERY_TERMINAL_HEIGHT) / 2;
+const BATTERY_TERMINAL_HEIGHT =
+  ICON_LIST_HEIGHT * BATTERY_TERMINAL_WIDTH_TO_HEIGHT_RATIO;
+const BATTERY_TERMINAL_TOP = calculateBatteryTerminalTop(
+  ICON_LIST_HEIGHT,
+  BATTERY_TERMINAL_HEIGHT
+);
+
+const BATTERY_STROKE_WIDTH =
+  BATTERY_STROKE_WIDTH_TO_HEIGHT_RATIO * ICON_LIST_HEIGHT;
 
 interface BatteryListIconProps {
   cycleSeconds: number;
@@ -35,7 +45,7 @@ export const BatteryListIcon: React.FC<BatteryListIconProps> = (p) => {
         r={BATTERY_ROUNDEDNESS}
         color={color}
         style={"stroke"}
-        strokeWidth={2}
+        strokeWidth={BATTERY_STROKE_WIDTH}
       />
       <RoundedRect
         x={BATTERY_WIDTH}

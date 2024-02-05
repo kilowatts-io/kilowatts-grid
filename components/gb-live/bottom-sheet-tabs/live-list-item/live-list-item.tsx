@@ -5,7 +5,6 @@ import { OutputVolumeView, OutputVolumeViewEmpty } from "./output-text";
 import { BalancingVolumeView } from "./balancing-volume";
 import { LiveItemName } from "./name";
 import { IconView, IconViewEmpty } from "./icon";
-import ErrorBoundary from "react-native-error-boundary";
 
 interface GbLiveListItemProps {
   type:
@@ -27,16 +26,16 @@ interface GbLiveListItemProps {
   capacityFactor: number;
 }
 
+const Blank = () => <></>;
+
 export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
   <View style={styles.itemWrapper}>
     <View style={styles.left}>
-      <ErrorBoundary FallbackComponent={null}>
-        <IconView
-          type={p.type}
-          capacityFactor={p.capacityFactor}
-          balancingDirection={p.balancingDirection}
-        />
-      </ErrorBoundary>
+      <IconView
+        type={p.type}
+        capacityFactor={p.capacityFactor}
+        balancingDirection={p.balancingDirection}
+      />
       <LiveItemName name={p.name} />
     </View>
     <View style={styles.right}>

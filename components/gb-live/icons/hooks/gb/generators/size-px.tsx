@@ -9,7 +9,7 @@ const useSizePx = (unitGroupCode: string) => {
   React.useEffect(() => {
     const setSizePx = () => {
       const c = s.unitGroupCapacity(store.getState(), unitGroupCode);
-      const size = calculateSizePx(c);
+      const size = calculateSizePx(c) 
       if (sizePx.value !== size) sizePx.value = size;
     };
     setSizePx();

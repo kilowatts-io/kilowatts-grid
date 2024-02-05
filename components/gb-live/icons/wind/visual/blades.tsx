@@ -36,7 +36,7 @@ export const WindTurbineBladesMap: React.FC<{
     <>
       {BLADE_OFFSET_ANGLES.map(x => useGetBladeTransformMap(x, cycleSeconds, t)).map((transform, index) => (
         <WindTurbineBladeMap
-          key={index}
+          key={`blade-${point.x}-${point.y}-${index}`}
           r={bladeR}
           width={bladeWidth}
           height={height}
@@ -56,7 +56,7 @@ export const WindTurbineBladesList: React.FC<{
     <>
       {BLADE_OFFSET_ANGLES.map(x => useGetBladeTransformList(x, cycleSeconds, t)).map((transform, index) => (
         <WindTurbineBladeListItem
-          key={index}
+          key={`blade-${index}`}
           transform={transform}
         />
       ))}

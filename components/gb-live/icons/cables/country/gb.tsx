@@ -13,6 +13,7 @@ import {
 } from "../../calcs";
 import { CanvasPoint } from "../../../svg-map/types";
 import { Group } from "@shopify/react-native-skia";
+import { ErrorBoundaryBlank } from "../../../error-boundary";
 
 type GbCableProps = {
   unitGroupCode: string;
@@ -24,12 +25,15 @@ type GbCableProps = {
 const GbCable: React.FC<GbCableProps> = (p) => {
   const { gestureMode } = React.useContext(MapContext);
   const cycleSeconds = useSharedValue<null | number>(null);
-  const width = React.useMemo(() => calculateSizePx(p.capacity), [p.capacity])
+  const width = React.useMemo(() => calculateSizePx(p.capacity), [p.capacity]);
 
   React.useEffect(() => {
     const setCycleSeconds = () => {
       if (gestureMode.value !== "none") cycleSeconds.value = null;
-      const output = s.unitGroupCurrentOutput(store.getState(), p.unitGroupCode);
+      const output = s.unitGroupCurrentOutput(
+        store.getState(),
+        p.unitGroupCode
+      );
       const cs = calculateCycleSecondsInterconnector(p.capacity, output);
       if (cycleSeconds.value !== cs) cycleSeconds.value = cs;
     };
@@ -44,16 +48,18 @@ const GbCable: React.FC<GbCableProps> = (p) => {
 const GbForeignMarkets = foreignMarkets.map((m, key) => {
   const foreignPoint = calculatePoint(m.coords);
   return (
-    <Group key={key}>
+    <Group key={`group-int-${m.name}`}>
       <ForeignFlag key={key} name={m.name} point={foreignPoint} />
       {m.interconnectors.map((i, key) => (
-        <GbCable
-          key={key}
-          capacity={i.capacity}
-          unitGroupCode={i.code4}
-          from={calculatePoint(i.coords)}
-          to={foreignPoint}
-        />
+        <ErrorBoundaryBlank key={`error-b-int-${i.code4}`}>
+          <GbCable
+            key={key}
+            capacity={i.capacity}
+            unitGroupCode={i.code4}
+            from={calculatePoint(i.coords)}
+            to={foreignPoint}
+          />
+        </ErrorBoundaryBlank>
       ))}
     </Group>
   );

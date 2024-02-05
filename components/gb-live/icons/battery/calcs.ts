@@ -1,4 +1,4 @@
-const NORMAL_BATTERY_COLOR = "grey";
+const NORMAL_BATTERY_COLOR = "black";
 const CHARGING_BATTERY_COLOR = "green";
 const DISCHARGING_BATTERY_COLOR = "red";
 

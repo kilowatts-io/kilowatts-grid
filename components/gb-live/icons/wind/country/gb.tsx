@@ -1,4 +1,5 @@
 import { filterUnitsByType } from "../../../../../state/gb/fixtures/generators/unit-groups";
+import { ErrorBoundaryBlank } from "../../../error-boundary";
 import calculatePoint from "../../../svg-map/calcs/point";
 import {
   useGbBalancing,
@@ -6,10 +7,7 @@ import {
   useGbSizePx,
 } from "../../hooks/gb/generators";
 import { WindTurbineBalancingLightMap } from "../visual/balancing-light";
-import {
-  WindTurbineBladesMap,
-  WindTurbineBladesList,
-} from "../visual/blades";
+import { WindTurbineBladesMap, WindTurbineBladesList } from "../visual/blades";
 import { WindTurbineMastList, WindTurbineMastMap } from "../visual/mast";
 import React from "react";
 
@@ -71,7 +69,7 @@ export const GbWindMapIcon: React.FC<GbWindProps> = ({
 
 export const GbWindMapIcons = filterUnitsByType("wind").map((x) => (
   <GbWindMapIcon
-    key={x.details.code}
+    key={`${x.details.code}-wind-map-icon`}
     unitGroupCode={x.details.code}
     point={calculatePoint(x.details.coords)}
   />
@@ -84,8 +82,10 @@ type GbWindMapListIconProps = {
 };
 
 export const GbWindMapListIcon: React.FC<GbWindMapListIconProps> = (p) => (
-  <>
-    <WindTurbineMastList />
-    <WindTurbineBladesList cycleSeconds={p.cycleSeconds} />
-  </>
+  <ErrorBoundaryBlank>
+    <>
+      <WindTurbineMastList />
+      <WindTurbineBladesList cycleSeconds={p.cycleSeconds} />
+    </>
+  </ErrorBoundaryBlank>
 );

@@ -2,7 +2,7 @@
   "expo": {
     "name": "kilowatts",
     "slug": "kilowatts",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -20,14 +20,16 @@
       "bundleIdentifier": "com.benjaminwatts.kilowatts",
      "config": {
       "usesNonExemptEncryption": false
-     }
+     },
+     "buildNumber": "1.0.3"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.benjaminwatts.kilowatts"
+      "package": "com.benjaminwatts.kilowatts",
+      "versionCode": 5
     },
     "web": {
       "bundler": "metro",

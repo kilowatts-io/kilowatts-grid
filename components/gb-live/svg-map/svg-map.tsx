@@ -59,7 +59,7 @@ export const SvgMapLoaded: React.FC = () => {
         const scale = zoomPan.value.scale;
         if (scale < calculateMinScale(screen) || isNaN(scale)) return;
         const translateX = zoomPan.value.translateX + changeX;
-        if (isNaN(translateX))  return;
+        if (isNaN(translateX)) return;
         const translateY = zoomPan.value.translateY + changeY;
         if (isNaN(translateY)) return;
         zoomPan.value = {

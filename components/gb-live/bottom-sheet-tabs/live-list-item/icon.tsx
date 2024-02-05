@@ -2,8 +2,6 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Canvas } from "@shopify/react-native-skia";
 import {
-  LIST_ICON_CX,
-  LIST_ICON_CY,
   LIST_ICON_DIMS,
 } from "../../icons/list-icons";
 import { GbWindMapListIcon } from "../../icons/wind/country/gb";
@@ -12,6 +10,7 @@ import { DispatchableListIcon } from "../../icons/dispatchable/list-icon";
 import { BatteryListIcon } from "../../icons/battery/list-icon";
 import SolarListIcon from "../../icons/solar/list-icon";
 import { EU as EUFlag } from "../../icons/cables/flags";
+import { ErrorBoundaryBlank } from "../../error-boundary";
 
 interface IconViewProps {
   type:
@@ -31,10 +30,9 @@ interface IconViewProps {
 export const IconView: React.FC<IconViewProps> = (p) => {
   const cycleSeconds = calculateCycleSeconds(p.capacityFactor);
   const props = { cycleSeconds };
-  const isWeb = typeof window !== "undefined";
   return (
     <View style={styles.icon}>
-      {!isWeb && (
+      <ErrorBoundaryBlank>
         <Canvas style={styles.icon}>
           {p.type === "wind" && <GbWindMapListIcon {...props} />}
           {p.type === "battery" && <BatteryListIcon {...props} />}
@@ -50,7 +48,7 @@ export const IconView: React.FC<IconViewProps> = (p) => {
             <DispatchableListIcon {...props} type={p.type} />
           )}
         </Canvas>
-      )}
+      </ErrorBoundaryBlank>
     </View>
   );
 };

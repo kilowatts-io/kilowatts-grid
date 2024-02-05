@@ -26,7 +26,7 @@ export const GbTotalsList = () => {
       renderItem={({ item }) => (
         <GbLiveListItem
           type={item.key}
-          key={item.key}
+          key={`gb-totals-list-item-${item.key}`}
           name={capitalise(item.key)}
           {...item}
           capacity={item.capacity}

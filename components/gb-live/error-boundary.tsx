@@ -44,6 +44,13 @@ export const ErrorBoundaryWithRecovery: React.FC<
   );
 };
 
+const Blank = () => <></>;
+export const ErrorBoundaryBlank: React.FC<{
+  children: JSX.Element;
+}> = ({ children }) => {
+  return <ErrorBoundary FallbackComponent={Blank}>{children}</ErrorBoundary>;
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
