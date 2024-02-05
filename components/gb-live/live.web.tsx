@@ -11,7 +11,7 @@ const NativeAppDownloadLinks: React.FC = () => {
     <Card containerStyle={styles.cardContainer}>
       <Text>To view our map visualisation, you need to download the app, currently available in beta/preview for testing.</Text>
       <View style={styles.buttonRow}>
-        {/* <Button title="iOS/Mac" size='sm' onPress={() => window.location.replace(urls.testLinks.ios)}/> */}
+        <Button title="iOS/Mac" size='sm' onPress={() => window.location.replace(urls.testLinks.ios)}/>
         <Button title="Android" size="sm" onPress={() => window.location.replace(urls.testLinks.android)}/>
       </View>
     </Card>

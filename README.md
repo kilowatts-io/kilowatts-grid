@@ -1,10 +1,18 @@
 # kilowatts open source, live balancing market app
 This first-of-its kind, open source React Native app (for web and ios/android) provides live, second-by-second information on the output of different generators on the UK grid. 
 
+## Mobile Apps
+
+[Android Beta]('https://play.google.com/store/apps/details?id=com.benjaminwatts.kilowatts')
+[iOS Beta](https://testflight.apple.com/join/ZRfgNtsL')
+
+
 ## Website
 [Link](https://gb.kilowatts.io)
 
 Deployment Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/afd64ebf-87f9-4810-bbd3-989aed2e4e06/deploy-status)](https://app.netlify.com/sites/kilowatts/deploys)
+
+
 
 ## React Native
 
