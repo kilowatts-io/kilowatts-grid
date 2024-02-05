@@ -6,29 +6,34 @@ import { RootState } from "../../../../state/reducer";
 import { unitGroupNameFuelTypes } from "../../../../state/gb/fixtures/generators/unit-groups";
 import { GbLiveListItem } from "../live-list-item/live-list-item";
 import { View, StyleSheet } from "react-native";
-import { calculateBalancingDirection, calculateCapacityFactor } from "../../icons/tools";
+import {
+  calculateBalancingDirection,
+  calculateCapacityFactor,
+} from "../../icons/tools";
+
+const VIEWABLE_ITEM_INDEX = 1
 
 export const GbUnitGroupsList: React.FC = () => {
-  const dispatch = useDispatch()
-  const list = React.useRef<FlashList<{code: string}>>(null);
+  const dispatch = useDispatch();
+  const list = React.useRef<FlashList<{ code: string }>>(null);
   const data = useSelector(selectors.unitGroupSorted);
   const initialLoadComplete = useSelector(selectors.initialLoadComplete);
   const selectedUnitGroupCode = useSelector(selectors.selectedUnitGroupCode);
 
   const initialScrollIndex = React.useMemo(() => {
-    if (!selectedUnitGroupCode) return 0;
+    if (!selectedUnitGroupCode) return undefined;
     const index = data.findIndex((g) => g.code === selectedUnitGroupCode);
-    if (index === -1) return 0;
-    return index;
+    return index > 0 ? index : undefined;
   }, [selectedUnitGroupCode, data]);
 
   React.useEffect(() => {
-    if(!selectedUnitGroupCode) return;
-    const newIndex = data.findIndex((g) => g.code === selectedUnitGroupCode);
-    if (newIndex === -1) return;
-    if (!list.current) return;
-    list.current.scrollToIndex({ index: newIndex, animated: true });
-  }, [selectedUnitGroupCode]);
+    if (initialLoadComplete) {
+      list.current?.scrollToIndex({
+        index: initialScrollIndex ?? VIEWABLE_ITEM_INDEX,
+        animated: true,
+      });
+    }
+  }, [selectedUnitGroupCode])
 
   return (
     <FlashList
@@ -36,21 +41,20 @@ export const GbUnitGroupsList: React.FC = () => {
       initialScrollIndex={initialScrollIndex}
       refreshing={!initialLoadComplete}
       data={data}
-      keyExtractor={x => x.code}
+      keyExtractor={(x) => x.code}
       estimatedItemSize={30}
       renderItem={({ item }) => <UnitGroupListLiveItem code={item.code} />}
-      onScrollBeginDrag={() => {
-        dispatch(setSelectedUnitGroupCode(null))
-      }}
       ListFooterComponent={<View style={styles.footer} />}
     />
   );
 };
 
 const UnitGroupListLiveItem: React.FC<{ code: string }> = ({ code }) => {
+  const dispatch = useDispatch();
+
   const selected = useSelector((state: RootState) =>
-  selectors.isSelectedUnitGroupCode(state, code)
-)
+    selectors.isSelectedUnitGroupCode(state, code)
+  );
   const capacity = useSelector((state: RootState) =>
     selectors.unitGroupCapacity(state, code)
   );
@@ -75,11 +79,11 @@ const UnitGroupListLiveItem: React.FC<{ code: string }> = ({ code }) => {
       balancingDirection={balancingDirection}
       capacityFactor={capacityFactor}
       selected={selected}
+      onPress={() => dispatch(setSelectedUnitGroupCode(code))}
     />
   );
 };
 
-
 const styles = StyleSheet.create({
-  footer: {height: 100}
-})
+  footer: { height: 100 },
+});

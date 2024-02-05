@@ -12,10 +12,9 @@ import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptanc
 import SvgMap from "./svg-map/svg-map";
 import { Button, Icon } from "@rneui/themed";
 import { MAP_BACKGROUND_COLOR, MAP_BOTTOM_BUTTON_HEIGHT } from "./constants";
-// import { SafeAreaView } from "react-native-safe-area-context";
 
 const SNAP_POINTS = ["20%", "30%", "40%", "50%", "75%", "90%"];
-const INITIAL_SNAP_POINT_INDEX = 3;
+const INITIAL_SNAP_POINT_INDEX = 1
 
 export const GbLiveWrapped = () => {
   useGbLive();
@@ -37,7 +36,7 @@ export const GbLiveWrapped = () => {
   }, []);
 
   const handleSheetChanges = useCallback((index: number) => {
-    if(index===0)dispatch(setSelectedUnitGroupCode(null))
+    if(index<=INITIAL_SNAP_POINT_INDEX) dispatch(setSelectedUnitGroupCode(null))
   }, []);
 
   return (

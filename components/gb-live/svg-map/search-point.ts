@@ -1,4 +1,4 @@
-import { selectors, setSelectedUnitGroupCode } from "../../../state/gb/live";
+import { setSelectedUnitGroupCode } from "../../../state/gb/live";
 import { store } from "../../../state/reducer";
 import { CanvasPoint } from "./types";
 import calculatePoint from "./calcs/point";
@@ -9,9 +9,14 @@ export const generatorMapPoints = unitGroups.map((ug) => ({
   point: calculatePoint(ug.details.coords),
 }));
 
-const MAX_DISTANCE = 7.5;
+export const unitGroupMapPointDict = {}
+for (const point of generatorMapPoints) {
+  unitGroupMapPointDict[point.code] = point.point
+}
 
-const trySearchPoint = (point: CanvasPoint) => {
+const MAX_DISTANCE = 10;
+
+const searchPoint = async (point: CanvasPoint) => {
   const distances = generatorMapPoints
     .map((g) => ({
       ...g,
@@ -21,25 +26,16 @@ const trySearchPoint = (point: CanvasPoint) => {
   if (distances.length === 0) return;
   for (const found of distances) {
     if (!found.code) continue;
-    const isBalancing =
-      selectors.unitGroupBalancingDirection(store.getState(), found.code) !=
-      "none";
-    const isRunning =
-      selectors.unitGroupCurrentOutput(store.getState(), found.code).level != 0;
-    if (!isRunning && !isBalancing) continue;
-    if (found.dist < MAX_DISTANCE) {
-      store.dispatch(setSelectedUnitGroupCode(found.code));
-      return;
-    }
-  }
-  console.log("No active unit group found within 5 pixels of the click.");
-};
-
-const searchPoint = (point: CanvasPoint) => {
-  try {
-    trySearchPoint(point);
-  } catch (e) {
-    console.error(e);
+    if (found.dist > MAX_DISTANCE) break;
+    const balancing = store.getState().gbLiveSlice.unitGroups.balancingVolume[found.code];
+    const notBalancing = ! balancing || balancing === 0;
+    const currentOutput = store.getState().gbLiveSlice.unitGroups.currentOutput[found.code];
+    if(!currentOutput) continue
+    const inactive = notBalancing && currentOutput.level === 0;
+    if(inactive) continue
+    store.dispatch(setSelectedUnitGroupCode(found.code));
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    return null;
   }
 };
 

@@ -17,13 +17,25 @@ import GeneratorIcons from "./icons";
 import calculateMinScale from "./calcs/min-scale";
 import { PINCH_DAMPENING_FACTOR } from "./constants";
 import { runOnJS } from "react-native-reanimated";
-import searchPoint from "./search-point";
+import searchPoint, { unitGroupMapPointDict } from "./search-point";
 
 export const SvgMapLoaded: React.FC = () => {
+  const selectedUnitGroupCode = useSelector(selectors.selectedUnitGroupCode);
   const screen = useWindowDimensions();
   const context = initialMapContext(screen);
   const { zoomPan } = context;
   const transformD = h.useTransformD(context);
+
+  React.useEffect(() => {
+    const point = unitGroupMapPointDict[selectedUnitGroupCode];
+    if(!point) return 
+    if(!context.zoomPan) return
+    context.zoomPan.value = {
+      scale: context.zoomPan.value.scale,
+      translateX : screen.width / 2 - point.x * context.zoomPan.value.scale,
+      translateY : screen.height / 2 - point.y * context.zoomPan.value.scale
+    }
+  }, [selectedUnitGroupCode])
 
   const gesture = Gesture.Race(
     Gesture.Pinch()
