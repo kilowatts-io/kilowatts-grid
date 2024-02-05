@@ -11,35 +11,25 @@ import {
   calculateCapacityFactor,
 } from "../../icons/tools";
 
-const VIEWABLE_ITEM_INDEX = 1
-
 export const GbUnitGroupsList: React.FC = () => {
-  const dispatch = useDispatch();
   const list = React.useRef<FlashList<{ code: string }>>(null);
   const data = useSelector(selectors.unitGroupSorted);
-  const initialLoadComplete = useSelector(selectors.initialLoadComplete);
   const selectedUnitGroupCode = useSelector(selectors.selectedUnitGroupCode);
 
-  const initialScrollIndex = React.useMemo(() => {
+  React.useEffect(() => {
     if (!selectedUnitGroupCode) return undefined;
     const index = data.findIndex((g) => g.code === selectedUnitGroupCode);
-    return index > 0 ? index : undefined;
-  }, [selectedUnitGroupCode, data]);
-
-  React.useEffect(() => {
-    if (initialLoadComplete) {
-      list.current?.scrollToIndex({
-        index: initialScrollIndex ?? VIEWABLE_ITEM_INDEX,
-        animated: true,
-      });
-    }
-  }, [selectedUnitGroupCode])
+    if (index <= 1) return undefined;
+    list.current?.scrollToIndex({
+      index: index,
+      viewPosition: 0,
+      animated: true,
+    });
+  }, [selectedUnitGroupCode]);
 
   return (
     <FlashList
       ref={list as any}
-      initialScrollIndex={initialScrollIndex}
-      refreshing={!initialLoadComplete}
       data={data}
       keyExtractor={(x) => x.code}
       estimatedItemSize={30}

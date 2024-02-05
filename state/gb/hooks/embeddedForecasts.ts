@@ -86,7 +86,8 @@ export const useEmbeddedForecasts = () => {
       const result = interpolateValue(now.now, query.data);
       updateEmbeddedForecast(result);
     } catch(e) {
-      log.info(e)
+      console.warn(e)
     }
   }, [now.now, query.data]);
+  return {refetch: query.refetch}
 };

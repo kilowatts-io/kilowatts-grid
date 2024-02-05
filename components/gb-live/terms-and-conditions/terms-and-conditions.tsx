@@ -425,7 +425,6 @@ const TermsAndConditionsScreen: React.FC = () => {
               contact us: ben@kilowatts.io
             </Text>
 
-            <View></View>
           </View>
         </View>
       </View>
