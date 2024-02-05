@@ -10,10 +10,10 @@ const NativeAppDownloadLinks: React.FC = () => {
   return (
     <Card containerStyle={styles.cardContainer}>
       <Text>To view our map visualisation, you need to download the app, currently available in beta/preview for testing.</Text>
-      {/* <View style={styles.buttonRow}>
-        <Button title="iOS/Mac" size='sm' onPress={() => window.location.replace(urls.testLinks.ios)}/>
+      <View style={styles.buttonRow}>
+        {/* <Button title="iOS/Mac" size='sm' onPress={() => window.location.replace(urls.testLinks.ios)}/> */}
         <Button title="Android" size="sm" onPress={() => window.location.replace(urls.testLinks.android)}/>
-      </View> */}
+      </View>
     </Card>
   );
 };
