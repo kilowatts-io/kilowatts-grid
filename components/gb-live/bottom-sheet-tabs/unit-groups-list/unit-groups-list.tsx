@@ -19,7 +19,6 @@ export const GbUnitGroupsList: React.FC = () => {
     if (!selectedUnitGroupCode) return 0;
     const index = data.findIndex((g) => g.code === selectedUnitGroupCode);
     if (index === -1) return 0;
-    if(__DEV__) console.log('initialScrollIndex', index, selectedUnitGroupCode, data.length);
     return index;
   }, [selectedUnitGroupCode, data]);
 
