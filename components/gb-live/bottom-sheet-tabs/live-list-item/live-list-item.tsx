@@ -5,6 +5,9 @@ import { OutputVolumeView, OutputVolumeViewEmpty } from "./output-text";
 import { BalancingVolumeView } from "./balancing-volume";
 import { LiveItemName } from "./name";
 import { IconView, IconViewEmpty } from "./icon";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useDispatch } from "react-redux";
+import { selectors } from "../../../../state/gb/live";
 
 interface GbLiveListItemProps {
   type:
@@ -24,16 +27,20 @@ interface GbLiveListItemProps {
   balancingVolume: number;
   balancingDirection: "offer" | "bid" | "none";
   capacityFactor: number;
-  selected: boolean
+  selected: boolean;
+  onPress?: () => void;
 }
 
 const Blank = () => <></>;
 
 export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
-  <View style={{
-    ...styles.itemWrapper,
-    ...(p.selected ? styles.selectedItemWrapper : {}),
-  }}>
+  <TouchableOpacity
+    onPress={p.onPress}
+    style={{
+      ...styles.itemWrapper,
+      ...(p.selected ? styles.selectedItemWrapper : {}),
+    }}
+  >
     <View style={styles.left}>
       <IconView
         type={p.type}
@@ -47,7 +54,7 @@ export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
       <OutputVolumeView capacity={p.capacity} output={p.output} />
       <DeltaVolumeView delta={p.delta} />
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 export const GbLiveListItemBalancingTotal: React.FC<{
