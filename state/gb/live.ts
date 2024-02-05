@@ -325,6 +325,8 @@ export const gbLiveSlice = createSlice({
     setUpdatedEmbeddedForecasts: (state) => {
       state.lastUpdated.embeddedForecasts = new Date();
     },
+    // reset initial load
+    resetInitialState: () => initialState(),
   },
 });
 
@@ -369,7 +371,6 @@ export const selectors = {
       lastUpdated.capacities !== null &&
       lastUpdated.outputGenerators !== null &&
       lastUpdated.outputInterconnectors !== null //&&
-      // lastUpdated.embeddedForecasts !== null
     );
   },
 };

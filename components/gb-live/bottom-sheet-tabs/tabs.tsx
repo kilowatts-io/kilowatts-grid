@@ -8,10 +8,8 @@ import { GbTotalsList } from "./totals-list/totals-list";
 
 export const GbLiveBottomSheetTabs = () => {
   const selectedGeneratorId = useSelector(selectors.selectedUnitGroupCode);
-  const [index, setIndex] = React.useState(selectedGeneratorId ? 1 : 0);
-
+  const [index, setIndex] = React.useState(0);
   React.useEffect(() => {
-    // is a generator selected - ensure that the generator tab is selected
     if (selectedGeneratorId !== null && index == 0) setIndex(1);
   }, [selectedGeneratorId]);
 
@@ -43,6 +41,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   listContentContainer: {
-    height: '100%'
+    height: '100%',
+    width: '100%',
+    flex: 1
   },
 });

@@ -1,4 +1,3 @@
-import { log } from "../../../utils/logs";
 import { useMelsQuery, useBoalfQuery, usePnQuery } from "../../apis/elexon/api";
 import { BmUnitsBoalfsSchema } from "../../apis/elexon/boalf";
 import { BmUnitMelsSchema } from "../../apis/elexon/mels";
@@ -9,16 +8,17 @@ import { updateOutputTotalsGenerators } from "../updates/output-totals-generator
 import { updateOutputTotalsInterconnectors } from "../updates/output-totals-interconnectors";
 import { useNowQuery } from "./now";
 import React from "react";
+import { AppState } from "react-native";
 
 export type MelsPnBoalfsData = {
   pn: BmUnitPnsSchema;
   mels: BmUnitMelsSchema;
   boalf: BmUnitsBoalfsSchema;
-}
+};
 
 export type MelsPnBoalfsUpdateFunction = (
   now: Date,
-  data: MelsPnBoalfsData,
+  data: MelsPnBoalfsData
 ) => void;
 
 const UPDATE_FUNCTIONS: MelsPnBoalfsUpdateFunction[] = [
@@ -28,14 +28,19 @@ const UPDATE_FUNCTIONS: MelsPnBoalfsUpdateFunction[] = [
   updateOutputTotalsGenerators,
 ];
 
+const POLLING_INTERVAL = 1000 * 60 * 10;
+
 export const useMelsPnBoalfs = () => {
-  log.info("useMelsPnBoalfs");
   const now = useNowQuery();
-  const pn = usePnQuery(now.args.settlementPeriod);
-  const boalf = useBoalfQuery(now.args.fromTo, {
-    pollingInterval: 1000 * 60 * 15,
+  const pn = usePnQuery(now.args.settlementPeriod, {
+    pollingInterval: POLLING_INTERVAL,
   });
-  const mels = useMelsQuery(now.args.fromTo);
+  const boalf = useBoalfQuery(now.args.fromTo, {
+    pollingInterval: POLLING_INTERVAL,
+  });
+  const mels = useMelsQuery(now.args.fromTo, {
+    pollingInterval: POLLING_INTERVAL,
+  });
 
   React.useEffect(() => {
     if (pn.data && boalf.data && mels.data) {
@@ -47,4 +52,20 @@ export const useMelsPnBoalfs = () => {
       }
     }
   }, [now.now, pn.data, boalf.data, mels.data]);
+
+  // trigger refetch on app resume to get fresh data
+  React.useEffect(() => {
+    const handleAppStateChange = (nextAppState: string) => {
+      if (nextAppState === "active") {
+        pn.refetch();
+        boalf.refetch();
+        mels.refetch();
+      }
+
+    };
+    const listener = AppState.addEventListener("change", handleAppStateChange);
+    return () => {
+      listener.remove();
+    };
+  }, []);
 };

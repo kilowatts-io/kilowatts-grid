@@ -10,30 +10,19 @@ import { useGbLive } from "../../state/gb/hooks";
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
 import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptance";
 import SvgMap from "./svg-map/svg-map";
-import { Button, Icon } from "@rneui/themed";
-import { MAP_BACKGROUND_COLOR, MAP_BOTTOM_BUTTON_HEIGHT } from "./constants";
 
-const SNAP_POINTS = ["20%", "30%", "40%", "50%", "75%", "90%"];
-const INITIAL_SNAP_POINT_INDEX = 1
+const SNAP_POINTS = ["10%", "20%", "30%", "40%", "50%", "75%", "90%"];
+const INITIAL_SNAP_POINT_INDEX = 2
 
 export const GbLiveWrapped = () => {
   useGbLive();
   const dispatch = useDispatch();
   const isLoaded = useSelector(selectors.initialLoadComplete);
-  const selectedGeneratorId = useSelector(selectors.selectedUnitGroupCode);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   React.useEffect(() => {
     if (isLoaded) bottomSheetModalRef.current?.present();
   }, [isLoaded]);
-
-  React.useEffect(() => {
-    if (selectedGeneratorId !== null) bottomSheetModalRef.current?.present();
-  }, [selectedGeneratorId]);
-  
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
 
   const handleSheetChanges = useCallback((index: number) => {
     if(index<=INITIAL_SNAP_POINT_INDEX) dispatch(setSelectedUnitGroupCode(null))
@@ -43,25 +32,12 @@ export const GbLiveWrapped = () => {
     <View style={styles.mapContainer}>
       <BottomSheetModalProvider>
         <SvgMap />
-        <View style={styles.bottomButton}>
-          <Button
-            onPress={handlePresentModalPress}
-            type="clear"
-            icon={
-              <Icon
-                name={"chevron-up-circle-sharp"}
-                type={"ionicon"}
-                color="white"
-                size={40}
-              />
-            }
-          />
-        </View>
         <BottomSheetModal
           ref={bottomSheetModalRef}
           index={INITIAL_SNAP_POINT_INDEX}
           snapPoints={SNAP_POINTS}
           onChange={handleSheetChanges}
+          enablePanDownToClose={false}
         >
           <GbLiveBottomSheetTabs />
         </BottomSheetModal>
@@ -79,10 +55,6 @@ export const GbLive = () => (
 const styles = StyleSheet.create({
   mapContainer: {
     flex: 1,
-  },
-  bottomButton: {
-    height: MAP_BOTTOM_BUTTON_HEIGHT,
-    backgroundColor: MAP_BACKGROUND_COLOR,
   },
   tabTitleStyle: {
     fontSize: 10,
