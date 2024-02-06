@@ -6,16 +6,15 @@ import {
 } from "@gorhom/bottom-sheet";
 import { selectors, setSelectedUnitGroupCode } from "../../state/gb/live";
 import { useDispatch, useSelector } from "react-redux";
-import { useGbLive } from "../../state/gb/hooks";
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
 import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptance";
 import SvgMap from "./svg-map/svg-map";
+import { useGbLive } from "../../state/gb/hooks";
 
 const SNAP_POINTS = ["10%", "20%", "30%", "40%", "50%", "75%", "90%"];
 const INITIAL_SNAP_POINT_INDEX = 2
 
 export const GbLiveWrapped = () => {
-  useGbLive();
   const dispatch = useDispatch();
   const isLoaded = useSelector(selectors.initialLoadComplete);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -46,11 +45,14 @@ export const GbLiveWrapped = () => {
   );
 };
 
-export const GbLive = () => (
-  <WithTermsAndConditionsAccepted>
-    <GbLiveWrapped />
-  </WithTermsAndConditionsAccepted>
-);
+export const GbLive = () => {
+  useGbLive();
+  return (
+    <WithTermsAndConditionsAccepted>
+      <GbLiveWrapped />
+    </WithTermsAndConditionsAccepted>
+  );
+}
 
 const styles = StyleSheet.create({
   mapContainer: {
