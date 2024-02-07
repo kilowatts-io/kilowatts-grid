@@ -73,5 +73,5 @@ export const updateUnitGroupsOutput: MelsPnBoalfsUpdateFunction = (now, data) =>
     
 
   store.dispatch(setUnitGroupSortedOutput({ sortedOutput }));
-  log.info("updateUnitGroupsOutput complete");
+  console.info("updateUnitGroupsOutput complete");
 };

@@ -65,7 +65,7 @@ const updateOutputTotalsGenerators: MelsPnBoalfsUpdateFunction = (
   });
 
   store.dispatch(setUpdatedCurrentOutputGenerators());
-  log.info("updateOutputTotalsGenerators complete");
+  console.info("updateOutputTotalsGenerators complete");
 };
 
 export { updateOutputTotalsGenerators };

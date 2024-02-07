@@ -114,5 +114,5 @@ export const updateOutputTotalsInterconnectors: MelsPnBoalfsUpdateFunction = (
   );
 
   store.dispatch(setUpdatedCurrentOutputInterconnectors());
-  log.info("updateOutputTotalsInterconnectors complete");
+  console.info("updateOutputTotalsInterconnectors complete");
 };

@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, useWindowDimensions } from "react-native";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -15,15 +15,19 @@ const SNAP_POINTS = ["10%", "20%", "30%", "40%", "50%", "75%", "90%"];
 const INITIAL_SNAP_POINT_INDEX = 2
 
 export const GbLiveWrapped = () => {
+  const screen = useWindowDimensions();
   const dispatch = useDispatch();
   const isLoaded = useSelector(selectors.initialLoadComplete);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [currentSnapPointIndex, setCurrentSnapPointIndex] = React.useState(INITIAL_SNAP_POINT_INDEX);
+  const usableHeight = React.useMemo(() => screen.height * (1 - currentSnapPointIndex / SNAP_POINTS.length), [currentSnapPointIndex, screen.height]);
 
   React.useEffect(() => {
     if (isLoaded) bottomSheetModalRef.current?.present();
   }, [isLoaded]);
 
   const handleSheetChanges = useCallback((index: number) => {
+    setCurrentSnapPointIndex(index);
     if(index<=INITIAL_SNAP_POINT_INDEX) dispatch(setSelectedUnitGroupCode(null))
   }, []);
 
@@ -38,7 +42,9 @@ export const GbLiveWrapped = () => {
           onChange={handleSheetChanges}
           enablePanDownToClose={false}
         >
-          <GbLiveBottomSheetTabs />
+          <GbLiveBottomSheetTabs 
+            usableHeight={usableHeight}
+          />
         </BottomSheetModal>
       </BottomSheetModalProvider>
     </View>

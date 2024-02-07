@@ -6,7 +6,12 @@ import { useSelector } from "react-redux";
 import { selectors } from "../../../state/gb/live";
 import { GbTotalsList } from "./totals-list/totals-list";
 
-export const GbLiveBottomSheetTabs = () => {
+interface GbLiveBottomSheetTabsProps {
+  usableHeight?: number;
+}
+export const GbLiveBottomSheetTabs: React.FC<GbLiveBottomSheetTabsProps> = ({
+  usableHeight,
+}) => {
   const selectedGeneratorId = useSelector(selectors.selectedUnitGroupCode);
   const [index, setIndex] = React.useState(0);
   React.useEffect(() => {
@@ -24,7 +29,12 @@ export const GbLiveBottomSheetTabs = () => {
         <Tab.Item>Totals</Tab.Item>
         <Tab.Item>Generators</Tab.Item>
       </Tab>
-      <View style={styles.listContentContainer}>
+      <View
+        style={{
+          ...styles.listContentContainer,
+          height: usableHeight,
+        }}
+      >
         {index === 0 && <GbTotalsList />}
         {index === 1 && <GbUnitGroupsList />}
       </View>
@@ -41,8 +51,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   listContentContainer: {
-    height: '100%',
-    width: '100%',
-    flex: 1
+    height: "100%",
+    width: "100%",
+    flex: 1,
   },
 });

@@ -3,9 +3,9 @@ import { EmbeddedSolarAndWindRecord } from "../../apis/nationalGridEso/embeddedS
 import React from "react";
 import { updateEmbeddedForecast } from "../updates/embedded-forecast";
 import { useNowQuery } from "./now";
-import { log } from "../../../utils/logs";
 import { interpolateLevel } from "../calcs";
 import { CurrentOutput } from "../../utils";
+import { useRefresh } from "./appstate";
 
 interface InterpolatedEmbeddedForecast {
   wind: {
@@ -89,5 +89,6 @@ export const useEmbeddedForecasts = () => {
       console.warn(e)
     }
   }, [now.now, query.data]);
+  useRefresh(query.refetch);
   return {refetch: query.refetch}
 };

@@ -20,5 +20,5 @@ export const updateBalancingTotals: MelsPnBoalfsUpdateFunction = (now, data) => 
 
   store.dispatch(setBalancingTotalsBid(bid));
   store.dispatch(setBalancingTotalsOffer(offer));
-  log.info("updateBalancingTotals complete", { bid, offer });
+  console.info("updateBalancingTotals complete", { bid, offer });
 };

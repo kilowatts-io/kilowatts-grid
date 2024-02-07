@@ -22,6 +22,6 @@ const updateUnitGroupCapacity = (
 
 export const updateCapacity = (now: Date, data: BmUnitMelsSchema) => {
   unitGroupBmUnits.map((ug) => updateUnitGroupCapacity(now, data, ug));
-  log.info("updateCapacity complete");
+  console.info("Updated capacities");
   store.dispatch(setUpdatedCapacities());
 };

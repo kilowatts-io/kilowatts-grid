@@ -28,5 +28,7 @@ export const calculateBalancingDirection = (volume: number) => {
 export const calculateCapacityFactor = (output: number, capacity: number) => {
   if (output > capacity) return 1;
   if (output === 0) return 0;
-  return output / capacity;
+  // round to 2 decimal places
+  const exact = output / capacity;
+  return Math.round(exact * 100) / 100;
 };
