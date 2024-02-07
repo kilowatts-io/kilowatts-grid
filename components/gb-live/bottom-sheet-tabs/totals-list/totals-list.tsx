@@ -1,6 +1,9 @@
 import React from "react";
-import { FlashList } from "@shopify/flash-list";
-import { calculateOutputTotals } from "../../../../state/gb/calcs/output-totals";
+import { FlatList } from "react-native";
+import {
+  TotalsListOutputItem,
+  calculateOutputTotals,
+} from "../../../../state/gb/calcs/output-totals";
 import { useSelector } from "react-redux";
 import { selectors } from "../../../../state/gb/live";
 import { GbBalancingTotals } from "./balancing-totals/balancing-totals";
@@ -12,7 +15,7 @@ import {
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-export const GbTotalsList = () => {
+export const GbTotalsList: React.FC = () => {
   const initialLoadComplete = useSelector(selectors.initialLoadComplete);
   const rawTotals = useSelector(selectors.outputTotals);
   const totals = React.useMemo(
@@ -20,26 +23,37 @@ export const GbTotalsList = () => {
     [rawTotals]
   );
   return (
-    <FlashList
-      data={initialLoadComplete &&totals}
+    <FlatList
+      data={initialLoadComplete && totals}
       refreshing={!initialLoadComplete}
-      renderItem={({ item }) => (
-        <GbLiveListItem
-          type={item.key}
-          key={`gb-totals-list-item-${item.key}`}
-          name={capitalise(item.key)}
-          {...item}
-          capacity={item.capacity}
-          output={item.level}
-          delta={item.delta}
-          balancingVolume={item.balancingVolume}
-          balancingDirection={calculateBalancingDirection(item.balancingVolume)}
-          capacityFactor={calculateCapacityFactor(item.level, item.capacity)}
-          selected={false}
-        />
-      )}
+      renderItem={({ item }) => <GbTotalsListItem item={item} />}
       ListFooterComponent={GbBalancingTotals}
-      estimatedItemSize={75}
+    />
+  );
+};
+
+interface GbTotalsListItemProps {
+  item: TotalsListOutputItem;
+}
+
+const GbTotalsListItem: React.FC<GbTotalsListItemProps> = ({ item }) => {
+  const name = React.useMemo(() => capitalise(item.key), [item.key]);
+  const roundedLevel = React.useMemo(() => Math.round(item.level), [item.level])
+  const roundedDelta = React.useMemo(() => Math.round(item.delta), [item.delta])
+  const roundedBalancingVolume = React.useMemo(() => Math.round(item.balancingVolume), [item.balancingVolume])
+  const balancingDirection = React.useMemo(() => calculateBalancingDirection(item.balancingVolume), [item.balancingVolume])
+  return (
+    <GbLiveListItem
+      type={item.key}
+      key={`gb-totals-list-item-${item.key}`}
+      name={name}
+      capacity={item.capacity}
+      output={roundedLevel}
+      delta={roundedDelta}
+      balancingVolume={roundedBalancingVolume}
+      balancingDirection={balancingDirection}
+      capacityFactor={calculateCapacityFactor(item.level, item.capacity)}
+      selected={false}
     />
   );
 };

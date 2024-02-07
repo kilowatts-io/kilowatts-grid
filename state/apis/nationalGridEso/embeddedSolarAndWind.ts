@@ -251,7 +251,7 @@ export const transformResponse = (
     try {
       embeddedSolarAndWindRecord.validateSync(record)
     } catch(e) {
-      log.error(e)
+      console.error(e)
       throw new Error("Embedded solar/wind forecast record failed validation")
     }
     return record

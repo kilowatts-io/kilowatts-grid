@@ -1,14 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useMelsQuery, useBoalfQuery, usePnQuery } from "../../apis/elexon/api";
 import { BmUnitsBoalfsSchema } from "../../apis/elexon/boalf";
 import { BmUnitMelsSchema } from "../../apis/elexon/mels";
 import { BmUnitPnsSchema } from "../../apis/elexon/pn";
 import { updateBalancingTotals } from "../updates/balancing-totals";
+import { updateCapacity } from "../updates/capacity";
 import { updateUnitGroupsOutput } from "../updates/output";
 import { updateOutputTotalsGenerators } from "../updates/output-totals-generators";
 import { updateOutputTotalsInterconnectors } from "../updates/output-totals-interconnectors";
 import { useNowQuery } from "./now";
 import React from "react";
-import { AppState } from "react-native";
+import { useRefresh } from "./appstate";
+import { selectors } from "../live";
+import { RootState } from "../../reducer";
 
 export type MelsPnBoalfsData = {
   pn: BmUnitPnsSchema;
@@ -28,19 +32,53 @@ const UPDATE_FUNCTIONS: MelsPnBoalfsUpdateFunction[] = [
   updateOutputTotalsGenerators,
 ];
 
-const POLLING_INTERVAL = 1000 * 60 * 10;
+const POLLING_INTERVAL = 1000 * 20;
 
 export const useMelsPnBoalfs = () => {
+  const initialLoadComplete = useSelector((state: RootState) =>
+    selectors.initialLoadComplete(state)
+  );
+  const initiated = new Date();
+  // const dispatch = useDispatch()
+
   const now = useNowQuery();
   const pn = usePnQuery(now.args.settlementPeriod, {
     pollingInterval: POLLING_INTERVAL,
+    refetchOnReconnect: true,
   });
   const boalf = useBoalfQuery(now.args.fromTo, {
     pollingInterval: POLLING_INTERVAL,
+    refetchOnReconnect: true,
   });
   const mels = useMelsQuery(now.args.fromTo, {
     pollingInterval: POLLING_INTERVAL,
+    refetchOnReconnect: true,
   });
+
+  // refetch all data every 3 seconds if not initialLoadComplete
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      if (!initialLoadComplete) {
+        console.log(
+          "refetching data every 3 seconds until initialLoadComplete is true"
+        );
+        pn.refetch();
+        boalf.refetch();
+        mels.refetch();
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [initialLoadComplete]);
+
+  React.useEffect(() => {
+    if (mels.data) {
+      try {
+        updateCapacity(now.now, mels.data);
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+  }, [mels.data, now.now]);
 
   React.useEffect(() => {
     if (pn.data && boalf.data && mels.data) {
@@ -53,19 +91,9 @@ export const useMelsPnBoalfs = () => {
     }
   }, [now.now, pn.data, boalf.data, mels.data]);
 
-  // trigger refetch on app resume to get fresh data
-  React.useEffect(() => {
-    const handleAppStateChange = (nextAppState: string) => {
-      if (nextAppState === "active") {
-        pn.refetch();
-        boalf.refetch();
-        mels.refetch();
-      }
-
-    };
-    const listener = AppState.addEventListener("change", handleAppStateChange);
-    return () => {
-      listener.remove();
-    };
-  }, []);
+  useRefresh(() => {
+    pn.refetch();
+    boalf.refetch();
+    mels.refetch();
+  });
 };

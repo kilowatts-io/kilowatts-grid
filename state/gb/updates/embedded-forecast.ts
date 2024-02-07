@@ -20,6 +20,6 @@ interface EmbeddedForecastResult {
 export const updateEmbeddedForecast = (result: EmbeddedForecastResult) => {
   store.dispatch(setOutputTotalEmbeddedWind(result.wind));
   store.dispatch(setOutputTotalSolar(result.solar));
-  log.info("updateEmbeddedForecast complete");
+  console.info("updateEmbeddedForecast complete");
   store.dispatch(setUpdatedEmbeddedForecasts());
 };

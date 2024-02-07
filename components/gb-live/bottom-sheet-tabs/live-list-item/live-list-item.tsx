@@ -8,6 +8,7 @@ import { IconView, IconViewEmpty } from "./icon";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { selectors } from "../../../../state/gb/live";
+import { ErrorBoundaryBlank } from "../../error-boundary";
 
 interface GbLiveListItemProps {
   type:
@@ -42,11 +43,13 @@ export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
     }}
   >
     <View style={styles.left}>
-      <IconView
-        type={p.type}
-        capacityFactor={p.capacityFactor}
-        balancingDirection={p.balancingDirection}
-      />
+      <ErrorBoundaryBlank>
+        <IconView
+          type={p.type}
+          capacityFactor={p.capacityFactor}
+          balancingDirection={p.balancingDirection}
+        />
+      </ErrorBoundaryBlank>
       <LiveItemName name={p.name} />
     </View>
     <View style={styles.right}>

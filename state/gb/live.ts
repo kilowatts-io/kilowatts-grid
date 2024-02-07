@@ -74,21 +74,21 @@ const initialState = (): GbLiveState => {
   const ugO: CurrentOutput = {} as CurrentOutput;
   const ugC: Capacity = {} as Capacity;
 
-  for (const unitGroupCode of unitGroupCodes) {
-    ugB[unitGroupCode] = 0;
-    ugO[unitGroupCode] = { delta: 0, level: 0 };
-    ugC[unitGroupCode] = 0;
-  }
+  // for (const unitGroupCode of unitGroupCodes) {
+  //   ugB[unitGroupCode] = 0;
+  //   ugO[unitGroupCode] = { delta: 0, level: 0 };
+  //   ugC[unitGroupCode] = 0;
+  // }
 
   const uB: BalancingVolume = {} as BalancingVolume;
   const uO: CurrentOutput = {} as CurrentOutput;
   const uC: Capacity = {} as Capacity;
 
-  for (const bmUnit of bmUnits) {
-    uB[bmUnit] = 0;
-    uO[bmUnit] = { delta: 0, level: 0 };
-    uC[bmUnit] = 0;
-  }
+  // for (const bmUnit of bmUnits) {
+  //   uB[bmUnit] = 0;
+  //   uO[bmUnit] = { delta: 0, level: 0 };
+  //   uC[bmUnit] = 0;
+  // }
 
   return {
     lastUpdated: {
@@ -401,4 +401,6 @@ export const {
   setUpdatedCurrentOutputGenerators,
   setUpdatedCurrentOutputInterconnectors,
   setUpdatedEmbeddedForecasts,
+  // reset initial load
+  resetInitialState
 } = gbLiveSlice.actions;
