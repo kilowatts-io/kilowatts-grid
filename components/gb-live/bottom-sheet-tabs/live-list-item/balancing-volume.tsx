@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+
 import { formatMW } from "./formatters";
 
 interface BalancingVolumeViewProps {
@@ -17,13 +18,13 @@ const getBalancingColor = (volume: number) => {
 };
 
 export const BalancingVolumeView: React.FC<BalancingVolumeViewProps> = ({
-  balancingVolume,
+  balancingVolume
 }) => {
   return (
     <View
       style={{
         ...styles.balancing,
-        backgroundColor: getBalancingColor(balancingVolume),
+        backgroundColor: getBalancingColor(balancingVolume)
       }}
     >
       <Text style={styles.balancingText}>
@@ -35,17 +36,17 @@ export const BalancingVolumeView: React.FC<BalancingVolumeViewProps> = ({
 
 const styles = StyleSheet.create({
   balancing: {
-    maxWidth: 80,
-    display: "flex",
-    justifyContent: "center",
     alignItems: "flex-end",
     borderRadius: 2,
-    padding: 3,
+    display: "flex",
     height: "80%",
+    justifyContent: "center",
+    maxWidth: 80,
+    padding: 3
   },
   balancingText: {
     color: "white",
-    textAlign: "right",
     fontSize: 9,
-  },
+    textAlign: "right"
+  }
 });

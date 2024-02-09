@@ -1,8 +1,9 @@
 import React from "react";
+
 import { londonDateYYYYMMDD, londonTimeHHMMSS } from "../../../utils/dateTime";
 import { getStartOfCurrentHalfHour } from "../../utils";
 
-export const NOW_INTERVAL_SECS = 15
+export const NOW_INTERVAL_SECS = 15;
 
 export const add29Minutes = (date: Date) => {
   const result = new Date(date);
@@ -11,7 +12,7 @@ export const add29Minutes = (date: Date) => {
 };
 
 export const getSettlementPeriod = (date: Date) => {
-  const settlementDate = londonDateYYYYMMDD(date)
+  const settlementDate = londonDateYYYYMMDD(date);
   const HHMMSS = londonTimeHHMMSS(date);
   const hours = parseInt(HHMMSS.slice(0, 2));
   const minutes = parseInt(HHMMSS.slice(3, 5));
@@ -19,7 +20,7 @@ export const getSettlementPeriod = (date: Date) => {
 
   return {
     settlementDate,
-    settlementPeriod,
+    settlementPeriod
   };
 };
 
@@ -31,19 +32,22 @@ export const getCurrentSettlementPeriod = (now: Date) => {
     settlementPeriod,
     fromTo: {
       from: from.toISOString(),
-      to: to.toISOString(),
-    },
+      to: to.toISOString()
+    }
   };
 };
 
 export const useNowQuery = () => {
   const [now, setNow] = React.useState(new Date());
   React.useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 15000 * NOW_INTERVAL_SECS);
+    const interval = setInterval(
+      () => setNow(new Date()),
+      15000 * NOW_INTERVAL_SECS
+    );
     return () => clearInterval(interval);
   }, []);
   return {
     now,
-    args: getCurrentSettlementPeriod(now),
+    args: getCurrentSettlementPeriod(now)
   };
 };

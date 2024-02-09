@@ -4,14 +4,17 @@ import { calculateBalancingVolume } from "../calcs";
 import { MelsPnBoalfsUpdateFunction } from "../hooks/melsPnBoalfs";
 import { setBalancingTotalsBid, setBalancingTotalsOffer } from "../live";
 
-export const updateBalancingTotals: MelsPnBoalfsUpdateFunction = (now, data) => {
+export const updateBalancingTotals: MelsPnBoalfsUpdateFunction = (
+  now,
+  data
+) => {
   const volumes = data.boalf.map((unitBoalfs) => {
     const bmUnit = unitBoalfs.bmUnit;
     const pn = data.pn.find((pn) => pn.bmUnit === bmUnit);
     const mels = data.mels.find((mels) => mels.bmUnit === bmUnit);
     return calculateBalancingVolume({
       data: { pn: pn.levels, mels: mels.levels, boalf: unitBoalfs.boalfs },
-      now,
+      now
     });
   });
 

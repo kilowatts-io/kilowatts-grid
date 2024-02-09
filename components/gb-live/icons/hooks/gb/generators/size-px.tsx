@@ -1,7 +1,8 @@
-import { store } from "../../../../../../state/reducer";
 import React from "react";
 import { useSharedValue } from "react-native-reanimated";
+
 import { selectors as s } from "../../../../../../state/gb/live";
+import { store } from "../../../../../../state/reducer";
 import { calculateSizePx } from "../../../calcs";
 
 const useSizePx = (unitGroupCode: string) => {
@@ -9,7 +10,7 @@ const useSizePx = (unitGroupCode: string) => {
   React.useEffect(() => {
     const setSizePx = () => {
       const c = s.unitGroupCapacity(store.getState(), unitGroupCode);
-      const size = calculateSizePx(c) 
+      const size = calculateSizePx(c);
       if (sizePx.value !== size) sizePx.value = size;
     };
     setSizePx();

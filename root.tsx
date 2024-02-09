@@ -1,36 +1,37 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { Platform, StyleSheet } from "react-native";
-import { store } from "./state/reducer";
+import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { GbLive } from "./components/gb-live/live";
+import { Provider } from "react-redux";
+
 import { ErrorBoundaryWithRecovery } from "./components/gb-live/error-boundary";
+import { GbLive } from "./components/gb-live/live";
+import { store } from "./state/reducer";
 import { initSentry } from "./utils/sentry";
 
 export default function RootApp() {
   // React.useEffect(() => {
   //   if (__DEV__ && Platform.OS !== "web") {
   //     require("./utils/reactotron").initReactotron();
-  //   } 
+  //   }
   // }, []);
 
   React.useEffect(() => {
-    initSentry()
-  })
+    initSentry();
+  });
 
   return (
     <ErrorBoundaryWithRecovery>
-        <Provider store={store}>
-          <GestureHandlerRootView style={styles.gestureRootView}>
-            <GbLive/>
-          </GestureHandlerRootView>
-        </Provider>
+      <Provider store={store}>
+        <GestureHandlerRootView style={styles.gestureRootView}>
+          <GbLive />
+        </GestureHandlerRootView>
+      </Provider>
     </ErrorBoundaryWithRecovery>
   );
 }
 
 const styles = StyleSheet.create({
   gestureRootView: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });

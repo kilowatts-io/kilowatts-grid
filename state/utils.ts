@@ -1,6 +1,10 @@
 import { TransformedBoalfSchema } from "./apis/elexon/boalf";
 import { BasicLevel } from "./apis/elexon/commonTypes";
-import { InterpolatedLevel, evaluateBoalfsLevel, interpolateLevel } from "./gb/calcs";
+import {
+  evaluateBoalfsLevel,
+  InterpolatedLevel,
+  interpolateLevel
+} from "./gb/calcs";
 
 export const getMostRecentMels = (now: Date, levels: BasicLevel[]): number => {
   let latest: BasicLevel | undefined = undefined;
@@ -40,7 +44,6 @@ export type CurrentOutput = {
   };
 };
 
-
 export const getStartOfCurrentHalfHour = (now: Date) => {
   const start = new Date(now);
   start.setSeconds(0);
@@ -60,6 +63,3 @@ export const getStartOfCurrentHour = (now: Date) => {
   start.setMinutes(0);
   return start;
 };
-
-
-

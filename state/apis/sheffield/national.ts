@@ -1,4 +1,4 @@
-import { InferType, array, object, string, number } from "yup";
+import { array, InferType, number, object, string } from "yup";
 
 type QueryParams = {
   start: string;
@@ -18,7 +18,7 @@ export const query = ({ start, end }: QueryParams): string => {
 
 const rawResponse = object({
   data: array(array()).required(),
-  meta: array(string()).required(),
+  meta: array(string()).required()
 });
 
 type RawResponse = InferType<typeof rawResponse>;
@@ -26,7 +26,7 @@ type RawResponse = InferType<typeof rawResponse>;
 const solarValueSchema = object({
   start: string().required(),
   capacity: number().required(),
-  output: number().required(),
+  output: number().required()
 }).required();
 
 export type NationalSolarResponse = {
@@ -37,12 +37,12 @@ export type NationalSolarResponse = {
 
 export const transformResponse = (raw: RawResponse): NationalSolarResponse => {
   rawResponse.validateSync(raw);
-  let output: NationalSolarResponse = [];
+  const output: NationalSolarResponse = [];
   for (const row of raw.data) {
     const solarValue = {
       start: row[1],
       capacity: row[3],
-      output: row[2],
+      output: row[2]
     };
     solarValueSchema.validateSync(solarValue);
     output.push(solarValue);
@@ -51,5 +51,5 @@ export const transformResponse = (raw: RawResponse): NationalSolarResponse => {
     throw new Error("More than two rows returned");
   }
   const sorted = output.sort((a, b) => (a.start < b.start ? -1 : 1));
-  return sorted
+  return sorted;
 };

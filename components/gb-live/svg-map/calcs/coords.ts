@@ -7,31 +7,31 @@ const calculateCoords = (point: CanvasPoint) => {
   const { x, y } = point;
 
   // Scale pixel coordinates back to normalized coordinates
-  var normalizedLon = x / GB_SVG_DIMS.width;
-  var normalizedY = y / GB_SVG_DIMS.height;
+  const normalizedLon = x / GB_SVG_DIMS.width;
+  let normalizedY = y / GB_SVG_DIMS.height;
   normalizedY = 1 - normalizedY; // Invert Y back
   const bounds = GB_SVG_DIMS.bounds.land;
 
   // Convert normalized longitude back to radians
-  var lonRad =
+  const lonRad =
     normalizedLon *
       ((bounds.east * Math.PI) / 180 - (bounds.west * Math.PI) / 180) +
     (bounds.west * Math.PI) / 180;
 
   // Invert Mercator projection for latitude
-  var normalizedSouthY = Math.log(
+  const normalizedSouthY = Math.log(
     Math.tan(Math.PI / 4 + (bounds.south * Math.PI) / 180 / 2)
   );
-  var normalizedNorthY = Math.log(
+  const normalizedNorthY = Math.log(
     Math.tan(Math.PI / 4 + (bounds.north * Math.PI) / 180 / 2)
   );
-  var mercatorY =
+  const mercatorY =
     normalizedY * (normalizedNorthY - normalizedSouthY) + normalizedSouthY;
-  var latRad = 2 * (Math.atan(Math.exp(mercatorY)) - Math.PI / 4);
+  const latRad = 2 * (Math.atan(Math.exp(mercatorY)) - Math.PI / 4);
 
   // Convert radians back to degrees
-  var lat = (latRad * 180) / Math.PI;
-  var lon = (lonRad * 180) / Math.PI;
+  const lat = (latRad * 180) / Math.PI;
+  const lon = (lonRad * 180) / Math.PI;
 
   const coords = { lat, lon };
   return coords;

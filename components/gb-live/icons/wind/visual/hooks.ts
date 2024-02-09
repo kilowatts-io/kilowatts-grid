@@ -1,7 +1,9 @@
-import { SharedValue, useDerivedValue } from "react-native-reanimated";
-import { PI_TIMES_2 } from "./constants";
 import { useContext } from "react";
+import { SharedValue, useDerivedValue } from "react-native-reanimated";
+
 import { MapContext } from "../../../svg-map/context";
+
+import { PI_TIMES_2 } from "./constants";
 
 type CycleSeconds = SharedValue<number | null>;
 
@@ -10,31 +12,30 @@ export const useGetBladeTransformMap = (
   cycleSeconds: CycleSeconds,
   t: SharedValue<number>
 ) => {
-  const {gestureMode} = useContext(MapContext)
+  const { gestureMode } = useContext(MapContext);
 
   return useDerivedValue(
     () =>
-      !cycleSeconds.value || cycleSeconds.value == 0 || gestureMode.value != "none"
+      !cycleSeconds.value ||
+      cycleSeconds.value == 0 ||
+      gestureMode.value != "none"
         ? [{ rotate: offsetAngleRadians }]
         : [
             {
               rotate:
                 (t.value / 1000 / cycleSeconds.value) * PI_TIMES_2 +
-                offsetAngleRadians,
-            },
+                offsetAngleRadians
+            }
           ],
     []
   );
-}
-
-
+};
 
 export const useGetBladeTransformList = (
   offsetAngleRadians: number,
   cycleSeconds: number | null,
   t: SharedValue<number>
 ) => {
-
   return useDerivedValue(
     () =>
       !cycleSeconds || cycleSeconds == 0
@@ -43,9 +44,9 @@ export const useGetBladeTransformList = (
             {
               rotate:
                 (t.value / 1000 / cycleSeconds) * PI_TIMES_2 +
-                offsetAngleRadians,
-            },
+                offsetAngleRadians
+            }
           ],
     []
   );
-}
+};

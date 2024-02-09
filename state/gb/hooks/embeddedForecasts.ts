@@ -1,11 +1,13 @@
+import React from "react";
+
 import { useEmbeddedSolarAndWindQuery } from "../../apis/nationalGridEso/api";
 import { EmbeddedSolarAndWindRecord } from "../../apis/nationalGridEso/embeddedSolarAndWind";
-import React from "react";
-import { updateEmbeddedForecast } from "../updates/embedded-forecast";
-import { useNowQuery } from "./now";
-import { interpolateLevel } from "../calcs";
 import { CurrentOutput } from "../../utils";
+import { interpolateLevel } from "../calcs";
+import { updateEmbeddedForecast } from "../updates/embedded-forecast";
+
 import { useRefresh } from "./appstate";
+import { useNowQuery } from "./now";
 
 interface InterpolatedEmbeddedForecast {
   wind: {
@@ -24,7 +26,7 @@ export const interpolateValue = (
   now: Date,
   values: EmbeddedSolarAndWindRecord[]
 ): InterpolatedEmbeddedForecast | null => {
-  if(!values) return null  
+  if (!values) return null;
   if (values.length === 0) return null;
 
   const first = values[0];
@@ -34,15 +36,15 @@ export const interpolateValue = (
       solar: {
         capacity: first.solar.capacity,
         level: first.solar.level,
-        delta: 0,
+        delta: 0
       },
       wind: {
         capacity: first.wind.capacity,
         level: first.wind.level,
-        delta: 0,
-      },
+        delta: 0
+      }
     };
-  }  
+  }
 
   return {
     solar: {
@@ -51,9 +53,9 @@ export const interpolateValue = (
         now,
         values.map((x) => ({
           level: x.solar.level,
-          time: x.time,
+          time: x.time
         }))
-      ),
+      )
     },
     wind: {
       capacity: first.wind.capacity,
@@ -61,10 +63,10 @@ export const interpolateValue = (
         now,
         values.map((x) => ({
           level: x.wind.level,
-          time: x.time,
+          time: x.time
         }))
-      ),
-    },
+      )
+    }
   };
 };
 
@@ -79,16 +81,16 @@ export interface EmbeddedForecastResult {
 export const useEmbeddedForecasts = () => {
   const now = useNowQuery();
   const query = useEmbeddedSolarAndWindQuery(undefined, {
-    pollingInterval: 1000 * 60 * 15,
+    pollingInterval: 1000 * 60 * 15
   });
   React.useEffect(() => {
     try {
       const result = interpolateValue(now.now, query.data);
       updateEmbeddedForecast(result);
-    } catch(e) {
-      console.warn(e)
+    } catch (e) {
+      console.warn(e);
     }
   }, [now.now, query.data]);
   useRefresh(query.refetch);
-  return {refetch: query.refetch}
+  return { refetch: query.refetch };
 };

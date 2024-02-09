@@ -1,18 +1,18 @@
 import React from "react";
-import { BatteryMapIcon } from "../map-icon";
+import { useDerivedValue } from "react-native-reanimated";
+
 import { filterUnitsByType } from "../../../../../state/gb/fixtures/generators/unit-groups";
+import { ErrorBoundaryBlank } from "../../../error-boundary";
+import calculatePoint from "../../../svg-map/calcs/point";
+import { MapContext } from "../../../svg-map/context";
+import { BalancingDirectionLightMap } from "../../balancing-direction-light/map-icon";
 import {
   useGbBalancing,
   useGbCapacityFactor,
   useGbCycleSeconds,
-  useGbSizePx,
+  useGbSizePx
 } from "../../hooks/gb/generators";
-import calculatePoint from "../../../svg-map/calcs/point";
-import { BalancingDirectionLightMap } from "../../balancing-direction-light/map-icon";
-import { useDerivedValue } from "react-native-reanimated";
-import { MapContext } from "../../../svg-map/context";
-import ErrorBoundary from "react-native-error-boundary";
-import { ErrorBoundaryBlank } from "../../../error-boundary";
+import { BatteryMapIcon } from "../map-icon";
 
 type GbBatteryMapIconProps = {
   key: string;
@@ -22,11 +22,9 @@ type GbBatteryMapIconProps = {
 
 const BALANCING_DIRECTION_LIGHT_R = 0.5;
 
-const Blank = () => <></>;
-
 const GbBatteryMapIcon: React.FC<GbBatteryMapIconProps> = ({
   unitGroupCode,
-  point,
+  point
 }) => {
   const { zoomPan } = React.useContext(MapContext);
   const maxSizePx = useGbSizePx(unitGroupCode);

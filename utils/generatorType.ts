@@ -22,10 +22,10 @@ export const formatGeneratorType = (
       return "Other";
     case "wind":
       return "Wind";
-    case 'battery':
-        return "Battery"
-    case 'solar':
-        return "Solar"
+    case "battery":
+      return "Battery";
+    case "solar":
+      return "Solar";
     default:
       return generatorType;
   }

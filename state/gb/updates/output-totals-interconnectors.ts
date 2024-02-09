@@ -1,20 +1,20 @@
-import {
-  foreignMarkets,
-  matchInterconnector,
-  totalInterconnectorCapacity,
-} from "../fixtures/interconnectors/interconnectors";
 import { log } from "../../../utils/logs";
 import { BmUnitPnSchema } from "../../apis/elexon/pn";
 import { store } from "../../reducer";
 import { getUnitOutput } from "../calcs";
 import {
+  foreignMarkets,
+  matchInterconnector,
+  totalInterconnectorCapacity
+} from "../fixtures/interconnectors/interconnectors";
+import { MelsPnBoalfsUpdateFunction } from "../hooks/melsPnBoalfs";
+import {
   setOutputTotalInterconnectors,
   setUnitGroupBalancingVolume,
   setUnitGroupCapacity,
   setUnitGroupCurrentOutput,
-  setUpdatedCurrentOutputInterconnectors,
+  setUpdatedCurrentOutputInterconnectors
 } from "../live";
-import { MelsPnBoalfsUpdateFunction } from "../hooks/melsPnBoalfs";
 
 type InterconnectorCode = string;
 
@@ -29,16 +29,16 @@ type InterconnectorOutput = {
 const nullInterconnectorOutput = () => ({
   currentOutput: {
     level: 0,
-    delta: 0,
+    delta: 0
   },
-  balancingVolume: 0,
+  balancingVolume: 0
 });
 
 const nullOutput = () => ({
   capacity: 0,
   level: 0,
   delta: 0,
-  balancingVolume: 0,
+  balancingVolume: 0
 });
 
 export const updateOutputTotalsInterconnectors: MelsPnBoalfsUpdateFunction = (
@@ -71,7 +71,7 @@ export const updateOutputTotalsInterconnectors: MelsPnBoalfsUpdateFunction = (
       balancingVolume: unitOutput.postBm.actual - unitOutput.preBm,
       capacity: interconnector.capacity,
       delta: unitOutput.postBm.delta,
-      level: unitOutput.postBm.actual,
+      level: unitOutput.postBm.actual
     };
   };
 
@@ -83,33 +83,34 @@ export const updateOutputTotalsInterconnectors: MelsPnBoalfsUpdateFunction = (
         capacity: acc.capacity + curr.capacity,
         level: acc.level + curr.level,
         delta: acc.delta + curr.delta,
-        balancingVolume: acc.balancingVolume + curr.balancingVolume,
+        balancingVolume: acc.balancingVolume + curr.balancingVolume
       }),
       nullOutput()
     );
 
-   // group by market
+  // group by market
 
-  for (const [unitGroupCode, outputs] of Object.entries(interconnectorOutputs)) {
+  for (const [unitGroupCode, outputs] of Object.entries(
+    interconnectorOutputs
+  )) {
     store.dispatch(
       setUnitGroupCurrentOutput({
         unitGroupCode,
-        currentOutput: outputs.currentOutput,
+        currentOutput: outputs.currentOutput
       })
-    )
+    );
     store.dispatch(
       setUnitGroupBalancingVolume({
         unitGroupCode,
-        volume: outputs.balancingVolume,
+        volume: outputs.balancingVolume
       })
-    )
+    );
   }
-
 
   store.dispatch(
     setOutputTotalInterconnectors({
       ...output,
-      capacity: totalInterconnectorCapacity,
+      capacity: totalInterconnectorCapacity
     })
   );
 

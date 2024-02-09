@@ -1,16 +1,15 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Canvas } from "@shopify/react-native-skia";
-import {
-  LIST_ICON_DIMS,
-} from "../../icons/list-icons";
-import { GbWindMapListIcon } from "../../icons/wind/country/gb";
+
+import { ErrorBoundaryBlank } from "../../error-boundary";
+import { BatteryListIcon } from "../../icons/battery/list-icon";
+import { EU as EUFlag } from "../../icons/cables/flags";
 import { calculateCycleSeconds } from "../../icons/calcs";
 import { DispatchableListIcon } from "../../icons/dispatchable/list-icon";
-import { BatteryListIcon } from "../../icons/battery/list-icon";
+import { LIST_ICON_DIMS } from "../../icons/list-icons";
 import SolarListIcon from "../../icons/solar/list-icon";
-import { EU as EUFlag } from "../../icons/cables/flags";
-import { ErrorBoundaryBlank } from "../../error-boundary";
+import { GbWindMapListIcon } from "../../icons/wind/country/gb";
 
 interface IconViewProps {
   type:
@@ -45,7 +44,10 @@ export const IconView: React.FC<IconViewProps> = (p) => {
             p.type === "coal" ||
             p.type === "nuclear" ||
             p.type === "hydro") && (
-            <DispatchableListIcon {...props} type={p.type} />
+            <DispatchableListIcon
+              {...props}
+              type={p.type}
+            />
           )}
         </Canvas>
       </ErrorBoundaryBlank>
@@ -57,6 +59,6 @@ export const IconViewEmpty = () => <View style={styles.icon} />;
 
 const styles = StyleSheet.create({
   icon: {
-    ...LIST_ICON_DIMS,
-  },
+    ...LIST_ICON_DIMS
+  }
 });

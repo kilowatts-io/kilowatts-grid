@@ -23,9 +23,9 @@ describe("state/apis/elexon/mels", () => {
           notificationTime: "2021-01-01T00:00:00Z",
           notificationSequence: 1,
           nationalGridBmUnit: "ABTHP-1",
-          bmUnit: "T_ABTHP-1",
-        },
-      ],
+          bmUnit: "T_ABTHP-1"
+        }
+      ]
     };
 
     const transformed = mels.transformResponse(raw);
@@ -35,14 +35,14 @@ describe("state/apis/elexon/mels", () => {
         levels: [
           {
             time: "2021-01-01T00:00:00Z",
-            level: 0,
+            level: 0
           },
           {
             time: "2021-01-01T00:30:00Z",
-            level: 40,
-          },
-        ],
-      },
+            level: 40
+          }
+        ]
+      }
     ]);
   });
 });

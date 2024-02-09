@@ -22,7 +22,7 @@ const calculateWind = (w: OutputTotalsWind) => {
     delta: 0,
     level: 0,
     capacity: 0,
-    balancingVolume: 0,
+    balancingVolume: 0
   };
   if (w.embedded) {
     output.delta += w.embedded.delta;
@@ -41,14 +41,13 @@ const calculateWind = (w: OutputTotalsWind) => {
 export const calculateOutputTotals = (
   t: OutputTotals
 ): TotalsListOutputItem[] => {
-  
   const totals: TotalsListOutputItem[] = [];
   if (t.solar) totals.push({ key: "solar", ...t.solar });
   if (t.coal) totals.push({ key: "coal", ...t.coal });
   if (t.gas) totals.push({ key: "gas", ...t.gas });
   if (t.nuclear) totals.push({ key: "nuclear", ...t.nuclear });
-  if(t.battery) totals.push({ key: "battery", ...t.battery });
-  if(t.biomass) totals.push({ key: "biomass", ...t.biomass });
+  if (t.battery) totals.push({ key: "battery", ...t.battery });
+  if (t.biomass) totals.push({ key: "biomass", ...t.biomass });
   totals.push({ key: "wind", ...calculateWind(t.wind) });
   if (t.hydro) totals.push({ key: "hydro", ...t.hydro });
   if (t.interconnectors)

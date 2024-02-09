@@ -1,1 +1,1 @@
-export {GbDispatchableMapIcons} from './dispatchable'
+export { GbDispatchableMapIcons } from "./dispatchable";

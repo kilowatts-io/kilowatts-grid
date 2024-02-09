@@ -1,14 +1,16 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { DeltaVolumeView, DeltaVolumeViewEmpty } from "./delta-volume";
-import { OutputVolumeView, OutputVolumeViewEmpty } from "./output-text";
-import { BalancingVolumeView } from "./balancing-volume";
-import { LiveItemName } from "./name";
-import { IconView, IconViewEmpty } from "./icon";
+import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
+
 import { selectors } from "../../../../state/gb/live";
 import { ErrorBoundaryBlank } from "../../error-boundary";
+
+import { BalancingVolumeView } from "./balancing-volume";
+import { DeltaVolumeView, DeltaVolumeViewEmpty } from "./delta-volume";
+import { IconView, IconViewEmpty } from "./icon";
+import { LiveItemName } from "./name";
+import { OutputVolumeView, OutputVolumeViewEmpty } from "./output-text";
 
 interface GbLiveListItemProps {
   type:
@@ -39,7 +41,7 @@ export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
     onPress={p.onPress}
     style={{
       ...styles.itemWrapper,
-      ...(p.selected ? styles.selectedItemWrapper : {}),
+      ...(p.selected ? styles.selectedItemWrapper : {})
     }}
   >
     <View style={styles.left}>
@@ -54,7 +56,10 @@ export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
     </View>
     <View style={styles.right}>
       <BalancingVolumeView balancingVolume={p.balancingVolume} />
-      <OutputVolumeView capacity={p.capacity} output={p.output} />
+      <OutputVolumeView
+        capacity={p.capacity}
+        output={p.output}
+      />
       <DeltaVolumeView delta={p.delta} />
     </View>
   </TouchableOpacity>
@@ -79,25 +84,25 @@ export const GbLiveListItemBalancingTotal: React.FC<{
 
 export const styles = StyleSheet.create({
   itemWrapper: {
-    height: 35,
-    display: "flex",
-    justifyContent: "flex-start",
-    flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    padding: 5,
-  },
-  selectedItemWrapper: { backgroundColor: "rgba(0, 0, 0, 0.1)" },
-  left: {
-    justifyContent: "flex-start",
+    display: "flex",
     flexDirection: "row",
     gap: 10,
+    height: 35,
+    justifyContent: "flex-start",
+    padding: 5
+  },
+  left: {
+    flexDirection: "row",
     flex: 1,
+    gap: 10,
+    justifyContent: "flex-start"
   },
   right: {
-    justifyContent: "flex-end",
-    gap: 3,
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
+    gap: 3,
+    justifyContent: "flex-end"
   },
+  selectedItemWrapper: { backgroundColor: "rgba(0, 0, 0, 0.1)" }
 });

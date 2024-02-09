@@ -1,1 +1,1 @@
-export {SvgMap} from "./svg-map"
+export { SvgMap } from "./svg-map";

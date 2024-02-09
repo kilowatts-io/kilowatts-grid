@@ -1,10 +1,10 @@
-import { RawPnResponse, rawPnSchema, transformResponse, query } from "./pn";
+import { query, RawPnResponse, rawPnSchema, transformResponse } from "./pn";
 
 describe("state/apis/elexon/pn.test.ts", () => {
   test("can create valid query", () => {
     const params = {
       settlementDate: "2022-07-01",
-      settlementPeriod: 3,
+      settlementPeriod: 3
     };
     const result = query(params);
     expect(result).toEqual(
@@ -22,7 +22,7 @@ describe("state/apis/elexon/pn.test.ts", () => {
       levelFrom: 5,
       levelTo: 46,
       nationalGridBmUnit: "ABRBO-1",
-      bmUnit: "T_ABRBO-1",
+      bmUnit: "T_ABRBO-1"
     };
 
     rawPnSchema.validateSync(pn);
@@ -40,25 +40,27 @@ describe("state/apis/elexon/pn.test.ts", () => {
           levelFrom: 5,
           levelTo: 46,
           nationalGridBmUnit: "ABRBO-1",
-          bmUnit: "T_ABRBO-1",
-        },
-      ],
+          bmUnit: "T_ABRBO-1"
+        }
+      ]
     };
 
     const transformed = transformResponse(response);
 
-    expect(transformed).toEqual([{
-      bmUnit: "T_ABRBO-1",
-      levels: [
-        {
-          time: "2022-07-01T13:34:00Z",
-          level: 5,
-        },
-        {
-          time: "2022-07-01T13:35:00Z",
-          level: 46,
-        },
-      ],
-    }]);
+    expect(transformed).toEqual([
+      {
+        bmUnit: "T_ABRBO-1",
+        levels: [
+          {
+            time: "2022-07-01T13:34:00Z",
+            level: 5
+          },
+          {
+            time: "2022-07-01T13:35:00Z",
+            level: 46
+          }
+        ]
+      }
+    ]);
   });
 });

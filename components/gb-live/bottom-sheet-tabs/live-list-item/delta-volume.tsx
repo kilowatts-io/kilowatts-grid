@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export const DeltaVolumeView: React.FC<{ delta: number }> = ({ delta }) => {
   let symbol = "-";
@@ -23,12 +23,11 @@ export const DeltaVolumeView: React.FC<{ delta: number }> = ({ delta }) => {
 export const DeltaVolumeViewEmpty = () => <View style={styles.delta} />;
 
 const styles = StyleSheet.create({
-  deltaText: {
-    textAlign: "center",
-  },
   delta: {
-    width: 10,
     display: "flex",
+    width: 10
   },
+  deltaText: {
+    textAlign: "center"
+  }
 });
-

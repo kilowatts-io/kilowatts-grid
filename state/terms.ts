@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type TermsState = {
   licenseAccepted: boolean;
-}
+};
 
 const initialState: TermsState = {
   licenseAccepted: false
-}
+};
 
 export const termsSlice = createSlice({
   name: "termsSlice",
@@ -19,10 +19,9 @@ export const termsSlice = createSlice({
   selectors: {
     getTermsAccepted: (state) => {
       return state.licenseAccepted;
-    },
-
-  },
+    }
+  }
 });
 
-export const { acceptLicense} = termsSlice.actions;
+export const { acceptLicense } = termsSlice.actions;
 export const { getTermsAccepted } = termsSlice.selectors;

@@ -1,6 +1,7 @@
 import { createContext } from "react";
-import { SharedValue, useSharedValue } from "react-native-reanimated";
 import { ScaledSize } from "react-native";
+import { SharedValue, useSharedValue } from "react-native-reanimated";
+
 import getInitialZoomPanSharedValueState from "./calcs/initial-zoom-pan";
 
 export type GestureMode = "none" | "pan" | "pinch";
@@ -23,12 +24,12 @@ export type MapContextState = {
 
 export const initialMapContext = (screen): MapContextState => ({
   screen,
-  gestureMode: useSharedValue('none'),
+  gestureMode: useSharedValue("none"),
   zoomPan: useSharedValue(getInitialZoomPanSharedValueState(screen))
-})
+});
 
 export const MapContext = createContext<MapContextState>({
   screen: { width: 0, height: 0, scale: 1 },
-  gestureMode: {value: 'none'},
-  zoomPan: {value: {translateX: 0, translateY: 0, scale: 1}}
-}as any);
+  gestureMode: { value: "none" },
+  zoomPan: { value: { translateX: 0, translateY: 0, scale: 1 } }
+} as any);

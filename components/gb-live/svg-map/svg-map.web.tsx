@@ -1,20 +1,20 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 const SvgMapWeb = () => {
-    return (
-        <View style={styles.container}>
-            <Text>Map is not yet available on the web. Try our mobile app</Text>
-        </View>
-    )
-}
+  return (
+    <View style={styles.container}>
+      <Text>Map is not yet available on the web. Try our mobile app</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+  container: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center"
+  }
+});
 
-export default SvgMapWeb
+export default SvgMapWeb;

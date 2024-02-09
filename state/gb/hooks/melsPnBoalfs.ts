@@ -1,18 +1,20 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useMelsQuery, useBoalfQuery, usePnQuery } from "../../apis/elexon/api";
+
+import { useBoalfQuery, useMelsQuery, usePnQuery } from "../../apis/elexon/api";
 import { BmUnitsBoalfsSchema } from "../../apis/elexon/boalf";
 import { BmUnitMelsSchema } from "../../apis/elexon/mels";
 import { BmUnitPnsSchema } from "../../apis/elexon/pn";
+import { RootState } from "../../reducer";
+import { selectors } from "../live";
 import { updateBalancingTotals } from "../updates/balancing-totals";
 import { updateCapacity } from "../updates/capacity";
 import { updateUnitGroupsOutput } from "../updates/output";
 import { updateOutputTotalsGenerators } from "../updates/output-totals-generators";
 import { updateOutputTotalsInterconnectors } from "../updates/output-totals-interconnectors";
-import { useNowQuery } from "./now";
-import React from "react";
+
 import { useRefresh } from "./appstate";
-import { selectors } from "../live";
-import { RootState } from "../../reducer";
+import { useNowQuery } from "./now";
 
 export type MelsPnBoalfsData = {
   pn: BmUnitPnsSchema;
@@ -29,7 +31,7 @@ const UPDATE_FUNCTIONS: MelsPnBoalfsUpdateFunction[] = [
   updateUnitGroupsOutput,
   updateBalancingTotals,
   updateOutputTotalsInterconnectors,
-  updateOutputTotalsGenerators,
+  updateOutputTotalsGenerators
 ];
 
 const POLLING_INTERVAL = 1000 * 20;
@@ -44,15 +46,15 @@ export const useMelsPnBoalfs = () => {
   const now = useNowQuery();
   const pn = usePnQuery(now.args.settlementPeriod, {
     pollingInterval: POLLING_INTERVAL,
-    refetchOnReconnect: true,
+    refetchOnReconnect: true
   });
   const boalf = useBoalfQuery(now.args.fromTo, {
     pollingInterval: POLLING_INTERVAL,
-    refetchOnReconnect: true,
+    refetchOnReconnect: true
   });
   const mels = useMelsQuery(now.args.fromTo, {
     pollingInterval: POLLING_INTERVAL,
-    refetchOnReconnect: true,
+    refetchOnReconnect: true
   });
 
   // refetch all data every 3 seconds if not initialLoadComplete

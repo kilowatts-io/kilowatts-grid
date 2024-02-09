@@ -1,16 +1,18 @@
+import React from "react";
 import {
   SharedValue,
   useDerivedValue,
   useSharedValue,
   withRepeat,
-  withTiming,
+  withTiming
 } from "react-native-reanimated";
-import React from "react";
 import { Circle, Rect, useClock } from "@shopify/react-native-skia";
+
 import { MapContext } from "../../svg-map/context";
-import * as c from "./constants";
-import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../list-icons";
 import { CanvasPoint } from "../../svg-map/types";
+import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../list-icons";
+
+import * as c from "./constants";
 
 export type TurbineWheelProps = {
   point: CanvasPoint;
@@ -35,7 +37,7 @@ const TurbineSpokeMap: React.FC<TurbineSpokeMapProps> = ({
   width,
   cycleSeconds,
   offsetAngleDegrees,
-  opacity,
+  opacity
 }) => {
   const t = useClock();
   const gestureMode = React.useContext(MapContext).gestureMode;
@@ -72,7 +74,7 @@ export const TurbineWheelMap: React.FC<TurbineWheelProps> = ({
   height,
   cycleSeconds,
   backgroundColor,
-  opacity,
+  opacity
 }) => {
   const rotation = useSharedValue(0);
   const { gestureMode } = React.useContext(MapContext);
@@ -126,7 +128,7 @@ export type TurbineSpokeListProps = {
 
 const TurbineSpokeList: React.FC<TurbineSpokeListProps> = ({
   cycleSeconds,
-  offsetAngleDegrees,
+  offsetAngleDegrees
 }) => {
   const t = useClock();
   const transform = useDerivedValue(() => {
@@ -149,7 +151,7 @@ const TurbineSpokeList: React.FC<TurbineSpokeListProps> = ({
       color={c.TURBINE_WHEEEL_COLOR}
       origin={{
         x: LIST_ICON_CX,
-        y: LIST_ICON_CY,
+        y: LIST_ICON_CY
       }}
       transform={transform}
     />
@@ -163,7 +165,7 @@ type TurbineWheelListProps = {
 
 export const TurbineWheelList: React.FC<TurbineWheelListProps> = ({
   cycleSeconds,
-  backgroundColor,
+  backgroundColor
 }) => {
   return (
     <>

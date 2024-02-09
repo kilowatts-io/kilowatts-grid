@@ -3,7 +3,7 @@ import { store } from "../../reducer";
 import {
   setOutputTotalEmbeddedWind,
   setOutputTotalSolar,
-  setUpdatedEmbeddedForecasts,
+  setUpdatedEmbeddedForecasts
 } from "../live";
 
 interface EmbeddedForecastValue {

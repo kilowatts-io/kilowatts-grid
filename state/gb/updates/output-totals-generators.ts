@@ -1,3 +1,11 @@
+import { log } from "../../../utils/logs";
+import { store } from "../../reducer";
+import { getUnitOutput } from "../calcs/unit-output";
+import { unitGroups } from "../fixtures/generators/unit-groups";
+import {
+  MelsPnBoalfsData,
+  MelsPnBoalfsUpdateFunction
+} from "../hooks/melsPnBoalfs";
 import {
   setOutputTotalBattery,
   setOutputTotalBiomass,
@@ -6,22 +14,14 @@ import {
   setOutputTotalGas,
   setOutputTotalHydro,
   setOutputTotalNuclear,
-  setUpdatedCurrentOutputGenerators,
+  setUpdatedCurrentOutputGenerators
 } from "../live";
-import { unitGroups } from "../fixtures/generators/unit-groups";
-import { log } from "../../../utils/logs";
-import { store } from "../../reducer";
-import { getUnitOutput } from "../calcs/unit-output";
-import {
-  MelsPnBoalfsData,
-  MelsPnBoalfsUpdateFunction,
-} from "../hooks/melsPnBoalfs";
 
 const createActionPayload = () => ({
   level: 0,
   delta: 0,
   capacity: 0,
-  balancingVolume: 0,
+  balancingVolume: 0
 });
 
 const calculateGroupTotals = (
@@ -40,7 +40,7 @@ const calculateGroupTotals = (
         delta: acc.delta + totals.postBm.delta,
         capacity: acc.capacity + totals.capacity,
         balancingVolume:
-          acc.balancingVolume + (totals.postBm.actual - totals.preBm),
+          acc.balancingVolume + (totals.postBm.actual - totals.preBm)
       }),
       createActionPayload()
     );
@@ -56,7 +56,7 @@ const updateOutputTotalsGenerators: MelsPnBoalfsUpdateFunction = (
     coal: setOutputTotalCoal,
     hydro: setOutputTotalHydro,
     battery: setOutputTotalBattery,
-    biomass: setOutputTotalBiomass,
+    biomass: setOutputTotalBiomass
   };
 
   Object.keys(fuelTypes).forEach((fuelType) => {

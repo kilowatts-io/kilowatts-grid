@@ -1,15 +1,16 @@
-import { Group, RoundedRect } from "@shopify/react-native-skia";
 import React from "react";
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
+import { Group, RoundedRect } from "@shopify/react-native-skia";
+
+import { calculateBatteryColor } from "./calcs";
 import {
   BATTERY_BASE_WIDTH_FRACTION,
   BATTERY_R_TO_HEIGHT_RATIO,
   BATTERY_STROKE_WIDTH_TO_HEIGHT_RATIO,
   BATTERY_TERMINAL_WIDTH_FRACTION,
   BATTERY_TERMINAL_WIDTH_TO_HEIGHT_RATIO,
-  calculateBatteryTerminalTop,
+  calculateBatteryTerminalTop
 } from "./constants";
-import { calculateBatteryColor } from "./calcs";
 
 interface BatteryMapIconProps {
   point: { x: number; y: number };
@@ -21,7 +22,7 @@ interface BatteryMapIconProps {
 export const BatteryMapIcon: React.FC<BatteryMapIconProps> = ({
   point,
   maxSizePx,
-  cycleSeconds,
+  cycleSeconds
 }) => {
   const color = React.useMemo(
     () => calculateBatteryColor(cycleSeconds.value),

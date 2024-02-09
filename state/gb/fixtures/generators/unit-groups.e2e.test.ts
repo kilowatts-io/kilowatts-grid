@@ -2,10 +2,11 @@ import { BASE_API } from "../../../apis/elexon/api";
 import {
   BmUnitMelsSchema,
   query,
-  transformResponse,
+  transformResponse
 } from "../../../apis/elexon/mels";
 import { getMostRecentMels } from "../../../utils";
 import { getCurrentSettlementPeriod } from "../../hooks/now";
+
 import { unitGroups } from "./unit-groups";
 
 const now = new Date();
@@ -34,7 +35,7 @@ const checkUnitGroups = (mels: BmUnitMelsSchema) => {
   }
   const sorted = missed.sort((a, b) => a.capacity - b.capacity);
   for (const { unit, capacity } of sorted) {
-    if(capacity < MELS_LIMIT_MW) continue;
+    if (capacity < MELS_LIMIT_MW) continue;
     console.log(`{unit: "${unit}", capacity: ${capacity}},`);
   }
 };

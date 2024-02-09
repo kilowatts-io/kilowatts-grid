@@ -1,21 +1,22 @@
 import React from "react";
+
 import {
-  FuelType,
   filterUnitsByType,
+  FuelType
 } from "../../../../../../state/gb/fixtures/generators/unit-groups";
+import { ErrorBoundaryBlank } from "../../../../error-boundary";
+import calculatePoint from "../../../../svg-map/calcs/point";
 import {
   useGbBalancing,
   useGbCapacityFactor,
   useGbCycleSeconds,
-  useGbSizePx,
+  useGbSizePx
 } from "../../../hooks/gb/generators";
-import calculatePoint from "../../../../svg-map/calcs/point";
+import { DISPATCHABLE_ICON_COLOURS } from "../../constants";
 import {
   DispatchableIconBalancingLightMap,
-  DispatchableIconMap,
+  DispatchableIconMap
 } from "../../map-icon";
-import { DISPATCHABLE_ICON_COLOURS } from "../../constants";
-import { ErrorBoundaryBlank } from "../../../../error-boundary";
 
 type GbDispatchableTurbineWheelProps = {
   unitGroupCode: string;
@@ -25,7 +26,7 @@ type GbDispatchableTurbineWheelProps = {
 const GbDispatchableTurbineWheel: React.FC<GbDispatchableTurbineWheelProps> = ({
   unitGroupCode,
   point,
-  color,
+  color
 }) => {
   const sizePx = useGbSizePx(unitGroupCode);
   const cycleSeconds = useGbCycleSeconds(unitGroupCode);
@@ -69,7 +70,7 @@ type GbDispatchableMapIconProps = {
 const GbDispatchableMapIcon: React.FC<GbDispatchableMapIconProps> = ({
   unitGroupCode,
   point,
-  color,
+  color
 }) => {
   return (
     <>
@@ -88,7 +89,9 @@ const GbDispatchableMapIcon: React.FC<GbDispatchableMapIconProps> = ({
 
 const generateGbDispatchableMapIcons = (fuelType: FuelType) =>
   filterUnitsByType(fuelType).map((ug) => (
-    <ErrorBoundaryBlank key={`error-boundary-disp-${fuelType}-${ug.details.code}`}>
+    <ErrorBoundaryBlank
+      key={`error-boundary-disp-${fuelType}-${ug.details.code}`}
+    >
       <GbDispatchableMapIcon
         key={ug.details.code}
         unitGroupCode={ug.details.code}
@@ -111,5 +114,5 @@ export const GbDispatchableMapIcons = [
   ...GbCoalMapIcons,
   ...GbNuclearMapIcons,
   ...GbHydroMapIcons,
-  ...GbBiomassMapIcons,
+  ...GbBiomassMapIcons
 ];

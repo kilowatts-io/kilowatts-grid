@@ -1,5 +1,5 @@
-import { getMostRecentMels } from "../../utils";
 import { BmUnitMelsSchema } from "../../apis/elexon/mels";
+import { getMostRecentMels } from "../../utils";
 
 export const getUnitCapacity = (
   now: Date,

@@ -1,22 +1,24 @@
-import { Canvas, Group } from "@shopify/react-native-skia";
 import React from "react";
-import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import {
-  View,
-  useWindowDimensions,
-  StyleSheet,
   ActivityIndicator,
+  StyleSheet,
+  useWindowDimensions,
+  View
 } from "react-native";
-import { MapContext, initialMapContext } from "./context";
-import GvSvgPath from "./path";
-import { useSelector } from "react-redux";
-import { selectors } from "../../../state/gb/live";
-import * as h from "./hooks";
-import * as c from "./constants";
-import GeneratorIcons from "./icons";
-import calculateMinScale from "./calcs/min-scale";
-import { PINCH_DAMPENING_FACTOR } from "./constants";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
+import { useSelector } from "react-redux";
+import { Canvas, Group } from "@shopify/react-native-skia";
+
+import { selectors } from "../../../state/gb/live";
+
+import calculateMinScale from "./calcs/min-scale";
+import * as c from "./constants";
+import { PINCH_DAMPENING_FACTOR } from "./constants";
+import { initialMapContext, MapContext } from "./context";
+import * as h from "./hooks";
+import GeneratorIcons from "./icons";
+import GvSvgPath from "./path";
 import searchPoint, { unitGroupMapPointDict } from "./search-point";
 
 export const SvgMapLoaded: React.FC = () => {
@@ -28,14 +30,14 @@ export const SvgMapLoaded: React.FC = () => {
 
   React.useEffect(() => {
     const point = unitGroupMapPointDict[selectedUnitGroupCode];
-    if(!point) return 
-    if(!context.zoomPan) return
+    if (!point) return;
+    if (!context.zoomPan) return;
     context.zoomPan.value = {
       scale: context.zoomPan.value.scale,
-      translateX : screen.width / 2 - point.x * context.zoomPan.value.scale,
-      translateY : screen.height / 2 - point.y * context.zoomPan.value.scale
-    }
-  }, [selectedUnitGroupCode])
+      translateX: screen.width / 2 - point.x * context.zoomPan.value.scale,
+      translateY: screen.height / 2 - point.y * context.zoomPan.value.scale
+    };
+  }, [selectedUnitGroupCode]);
 
   const gesture = Gesture.Race(
     Gesture.Pinch()
@@ -61,7 +63,7 @@ export const SvgMapLoaded: React.FC = () => {
         zoomPan.value = {
           scale: newScale,
           translateX,
-          translateY,
+          translateY
         };
       }),
     Gesture.Pan()
@@ -77,7 +79,7 @@ export const SvgMapLoaded: React.FC = () => {
         zoomPan.value = {
           translateX,
           translateY,
-          scale,
+          scale
         };
       }),
     Gesture.Tap()
@@ -85,7 +87,7 @@ export const SvgMapLoaded: React.FC = () => {
       .onEnd(({ x, y }) =>
         runOnJS(searchPoint)({
           x: (x - zoomPan.value.translateX) / zoomPan.value.scale,
-          y: (y - zoomPan.value.translateY) / zoomPan.value.scale,
+          y: (y - zoomPan.value.translateY) / zoomPan.value.scale
         })
       )
   );
@@ -108,7 +110,10 @@ export const SvgMapLoaded: React.FC = () => {
 
 const SvgMapLoadingView = () => (
   <View style={styles.loadingView}>
-    <ActivityIndicator size="large" color="white" />
+    <ActivityIndicator
+      size="large"
+      color="white"
+    />
   </View>
 );
 
@@ -120,13 +125,13 @@ const SvgMap = () => {
 export default SvgMap;
 
 const styles = StyleSheet.create({
-  mapView: { display: "flex", width: "100%", flex: 1 },
-  canvas: { flex: 1, backgroundColor: c.BACKGROUND_COLOR },
+  canvas: { backgroundColor: c.BACKGROUND_COLOR, flex: 1 },
   loadingView: {
-    flex: 1,
+    alignItems: "center",
     backgroundColor: c.BACKGROUND_COLOR,
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    flex: 1,
+    justifyContent: "center"
   },
+  mapView: { display: "flex", flex: 1, width: "100%" }
 });

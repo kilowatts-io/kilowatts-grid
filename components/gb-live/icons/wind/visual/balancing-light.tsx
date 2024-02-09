@@ -1,11 +1,13 @@
 import React from "react";
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
-import {
-  MINIMUM_HEIGHT_PX,
-  MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO,
-  BALANCING_DIRECTION_LIGHT_R_TO_WIDTH_RATIO,
-} from "./constants";
+
 import { BalancingDirectionLightMap } from "../../balancing-direction-light/map-icon";
+
+import {
+  BALANCING_DIRECTION_LIGHT_R_TO_WIDTH_RATIO,
+  MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO,
+  MINIMUM_HEIGHT_PX
+} from "./constants";
 
 type BalancingLightProps = {
   point: { x: number; y: number };
@@ -16,8 +18,8 @@ type BalancingLightProps = {
 export const WindTurbineBalancingLightMap: React.FC<BalancingLightProps> = ({
   point,
   balancing,
-  sizePx,
-}) => { 
+  sizePx
+}) => {
   const height = useDerivedValue(
     () => Math.max(sizePx.value, MINIMUM_HEIGHT_PX),
     [sizePx]

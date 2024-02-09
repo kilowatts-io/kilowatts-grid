@@ -1,7 +1,9 @@
 import React from "react";
-import * as flags from "./flags";
+
 import { ForeignMarketName } from "../../../../state/gb/fixtures/interconnectors/interconnectors";
 import { CanvasPoint } from "../../svg-map/types";
+
+import * as flags from "./flags";
 
 type ForeignFlagProps = {
   name: ForeignMarketName;

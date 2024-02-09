@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export const LiveItemName: React.FC<{ name: string }> = ({ name }) => {
   return (
@@ -10,5 +10,5 @@ export const LiveItemName: React.FC<{ name: string }> = ({ name }) => {
 };
 
 export const styles = StyleSheet.create({
-  name: {},
+  name: {}
 });

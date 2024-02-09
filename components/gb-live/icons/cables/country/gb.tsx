@@ -1,19 +1,20 @@
-import { useSharedValue } from "react-native-reanimated";
-import { foreignMarkets } from "../../../../../state/gb/fixtures/interconnectors/interconnectors";
-import calculatePoint from "../../../svg-map/calcs/point";
-import { Cable } from "../cable";
-import { ForeignFlag } from "../foreign-market-cable";
 import React from "react";
-import { MapContext } from "../../../svg-map/context";
-import { store } from "../../../../../state/reducer";
+import { useSharedValue } from "react-native-reanimated";
+import { Group } from "@shopify/react-native-skia";
+
+import { foreignMarkets } from "../../../../../state/gb/fixtures/interconnectors/interconnectors";
 import { selectors as s } from "../../../../../state/gb/live";
+import { store } from "../../../../../state/reducer";
+import { ErrorBoundaryBlank } from "../../../error-boundary";
+import calculatePoint from "../../../svg-map/calcs/point";
+import { MapContext } from "../../../svg-map/context";
+import { CanvasPoint } from "../../../svg-map/types";
 import {
   calculateCycleSecondsInterconnector,
-  calculateSizePx,
+  calculateSizePx
 } from "../../calcs";
-import { CanvasPoint } from "../../../svg-map/types";
-import { Group } from "@shopify/react-native-skia";
-import { ErrorBoundaryBlank } from "../../../error-boundary";
+import { Cable } from "../cable";
+import { ForeignFlag } from "../foreign-market-cable";
 
 type GbCableProps = {
   unitGroupCode: string;
@@ -42,14 +43,24 @@ const GbCable: React.FC<GbCableProps> = (p) => {
     return () => sub();
   }, [p.unitGroupCode, gestureMode.value]);
 
-  return <Cable {...p} cycleSeconds={cycleSeconds} width={width} />;
+  return (
+    <Cable
+      {...p}
+      cycleSeconds={cycleSeconds}
+      width={width}
+    />
+  );
 };
 
 const GbForeignMarkets = foreignMarkets.map((m, key) => {
   const foreignPoint = calculatePoint(m.coords);
   return (
     <Group key={`group-int-${m.name}`}>
-      <ForeignFlag key={key} name={m.name} point={foreignPoint} />
+      <ForeignFlag
+        key={key}
+        name={m.name}
+        point={foreignPoint}
+      />
       {m.interconnectors.map((i, key) => (
         <ErrorBoundaryBlank key={`error-b-int-${i.code4}`}>
           <GbCable
