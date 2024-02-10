@@ -1,8 +1,10 @@
 import React from "react";
-import { TurbineWheelMap } from "./turbine";
-import { MapContext } from "../../svg-map/context";
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
+
+import { MapContext } from "../../svg-map/context";
 import { BalancingDirectionLightMap } from "../balancing-direction-light/map-icon";
+
+import { TurbineWheelMap } from "./turbine";
 
 const BALANCING_DIRECTION_LIGHT_R = 0.5;
 
@@ -19,7 +21,7 @@ export const DispatchableIconMap: React.FC<DispatchableIconMapProps> = ({
   point,
   backgroundColor,
   capacityFactor,
-  cycleSeconds,
+  cycleSeconds
 }) => {
   const { zoomPan } = React.useContext(MapContext);
   const r = useDerivedValue(() => {

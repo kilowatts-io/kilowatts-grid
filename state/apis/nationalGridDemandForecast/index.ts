@@ -1,1 +1,1 @@
-export {nationalGridDemandForeastApi} from './api'
+export { nationalGridDemandForeastApi } from "./api";

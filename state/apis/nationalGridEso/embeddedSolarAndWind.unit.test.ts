@@ -12,7 +12,7 @@ describe("state/apis/nationalGridEso/embeddedSolarAndWind/parseDate", () => {
         EMBEDDED_WIND_FORECAST: 3984,
         EMBEDDED_WIND_CAPACITY: 6488,
         EMBEDDED_SOLAR_FORECAST: 4678,
-        EMBEDDED_SOLAR_CAPACITY: 15905,
+        EMBEDDED_SOLAR_CAPACITY: 15905
       })
     ).toEqual("2024-01-26T12:00:00.000Z");
   });
@@ -28,7 +28,7 @@ describe("state/apis/nationalGridEso/embeddedSolarAndWind/parseDate", () => {
         EMBEDDED_WIND_FORECAST: 3984,
         EMBEDDED_WIND_CAPACITY: 6488,
         EMBEDDED_SOLAR_FORECAST: 4678,
-        EMBEDDED_SOLAR_CAPACITY: 15905,
+        EMBEDDED_SOLAR_CAPACITY: 15905
       })
     ).toEqual("2024-07-26T12:00:00.000Z");
   });
@@ -49,23 +49,23 @@ describe("state/apis/nationalGridEso/embeddedSolarAndWind/transformResponse", ()
               EMBEDDED_WIND_FORECAST: 3984,
               EMBEDDED_WIND_CAPACITY: 6488,
               EMBEDDED_SOLAR_FORECAST: 4678,
-              EMBEDDED_SOLAR_CAPACITY: 15905,
-            },
-          ],
-        },
+              EMBEDDED_SOLAR_CAPACITY: 15905
+            }
+          ]
+        }
       } as any)
     ).toEqual([
       {
         time: "2024-07-26T12:00:00.000Z",
         solar: {
           capacity: 15905,
-          level: 4678,
+          level: 4678
         },
         wind: {
           capacity: 6488,
-          level: 3984,
-        },
-      },
+          level: 3984
+        }
+      }
     ]);
   });
 });

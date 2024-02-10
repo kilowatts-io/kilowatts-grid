@@ -1,27 +1,29 @@
-import { createStore } from "../../reducer";
-import { elexonApi } from "./api";
-import { Provider } from "react-redux";
 import React from "react";
-import { renderHook, cleanup, waitFor } from "@testing-library/react-native";
+import { Provider } from "react-redux";
+import { cleanup, renderHook, waitFor } from "@testing-library/react-native";
+
+import { createStore } from "../../reducer";
+
+import { elexonApi } from "./api";
 
 const { useBoalfQuery } = elexonApi;
 
 const wrapper = (props: any) => {
-  return <Provider store={createStore()} children={props.children} />;
+  return (
+    <Provider
+      store={createStore()}
+      children={props.children}
+    />
+  );
 };
 
-
 describe("state/apis/elexon/boalf.e2e.test.ts", () => {
-  test("useBoalfQuery", async() => {
+  test("useBoalfQuery", async () => {
     const p = {
-      from: '2023-12-01T00:00:00.000Z',
-      to: '2023-12-01T00:00:29.000Z',
+      from: "2023-12-01T00:00:00.000Z",
+      to: "2023-12-01T00:00:29.000Z"
     };
-    const r = renderHook(
-      () =>
-        useBoalfQuery(p),
-      { wrapper }
-    );
+    const r = renderHook(() => useBoalfQuery(p), { wrapper });
 
     await waitFor(() => {
       expect(r.result.current.data).toBeDefined();

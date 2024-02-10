@@ -1,16 +1,16 @@
 import React from "react";
-import { FlashList } from "@shopify/flash-list";
-import { selectors, setSelectedUnitGroupCode } from "../../../../state/gb/live";
+import { StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../state/reducer";
+import { FlashList } from "@shopify/flash-list";
+
 import { unitGroupNameFuelTypes } from "../../../../state/gb/fixtures/generators/unit-groups";
-import { GbLiveListItem } from "../live-list-item/live-list-item";
-import { View, StyleSheet } from "react-native";
+import { selectors, setSelectedUnitGroupCode } from "../../../../state/gb/live";
+import { RootState } from "../../../../state/reducer";
 import {
   calculateBalancingDirection,
-  calculateCapacityFactor,
+  calculateCapacityFactor
 } from "../../icons/tools";
-
+import { GbLiveListItem } from "../live-list-item/live-list-item";
 
 export const GbUnitGroupsList: React.FC = () => {
   const initialLoadComplete = useSelector(selectors.initialLoadComplete);
@@ -24,7 +24,7 @@ export const GbUnitGroupsList: React.FC = () => {
     list.current?.scrollToIndex({
       index: index,
       viewPosition: 0,
-      animated: true,
+      animated: true
     });
   }, [selectedUnitGroupCode]);
   return (
@@ -42,17 +42,40 @@ export const GbUnitGroupsList: React.FC = () => {
 const UnitGroupListLiveItem: React.FC<{ code: string }> = ({ code }) => {
   const dispatch = useDispatch();
   // selectors
-  const selected = useSelector((state: RootState) => selectors.isSelectedUnitGroupCode(state, code))
-  const capacity = useSelector((state: RootState) => selectors.unitGroupCapacity(state, code));
-  const currentOutput = useSelector((state: RootState) => selectors.unitGroupCurrentOutput(state, code));
-  const balancingVolume = useSelector((state: RootState) => selectors.unitGroupBalancingVolume(state, code));
+  const selected = useSelector((state: RootState) =>
+    selectors.isSelectedUnitGroupCode(state, code)
+  );
+  const capacity = useSelector((state: RootState) =>
+    selectors.unitGroupCapacity(state, code)
+  );
+  const currentOutput = useSelector((state: RootState) =>
+    selectors.unitGroupCurrentOutput(state, code)
+  );
+  const balancingVolume = useSelector((state: RootState) =>
+    selectors.unitGroupBalancingVolume(state, code)
+  );
   // memos to reduce re-renders
-  const nameFuelType = React.useMemo(() => unitGroupNameFuelTypes[code], [code]);
-  const balancingDirection = React.useMemo(() => calculateBalancingDirection(balancingVolume), [balancingVolume]);
-  const capacityFactor = React.useMemo(() => calculateCapacityFactor(currentOutput.level, capacity), [currentOutput.level, capacity]);
+  const nameFuelType = React.useMemo(
+    () => unitGroupNameFuelTypes[code],
+    [code]
+  );
+  const balancingDirection = React.useMemo(
+    () => calculateBalancingDirection(balancingVolume),
+    [balancingVolume]
+  );
+  const capacityFactor = React.useMemo(
+    () => calculateCapacityFactor(currentOutput.level, capacity),
+    [currentOutput.level, capacity]
+  );
   const roundedCapacity = React.useMemo(() => Math.round(capacity), [capacity]);
-  const roundedCurrentOutput1Dp = React.useMemo(() => Math.round(currentOutput.level * 10) / 10, [currentOutput.level]);
-  const roundedRoundedCurrentOutputDelta1Dp = React.useMemo(() => Math.round(currentOutput.delta * 10) / 10, [currentOutput.delta]);
+  const roundedCurrentOutput1Dp = React.useMemo(
+    () => Math.round(currentOutput.level * 10) / 10,
+    [currentOutput.level]
+  );
+  const roundedRoundedCurrentOutputDelta1Dp = React.useMemo(
+    () => Math.round(currentOutput.delta * 10) / 10,
+    [currentOutput.delta]
+  );
 
   return (
     <GbLiveListItem
@@ -72,5 +95,5 @@ const UnitGroupListLiveItem: React.FC<{ code: string }> = ({ code }) => {
 };
 
 const styles = StyleSheet.create({
-  footer: { height: 100 },
+  footer: { height: 100 }
 });

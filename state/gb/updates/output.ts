@@ -1,16 +1,19 @@
+import { log } from "../../../utils/logs";
+import { store } from "../../reducer";
+import { getUnitOutput } from "../calcs";
 import {
   UnitGroupBmUnits,
-  unitGroupBmUnits,
+  unitGroupBmUnits
 } from "../fixtures/generators/unit-groups";
 import {
-  setUnitGroupCurrentOutput,
-  setUnitGroupSortedOutput,
+  MelsPnBoalfsData,
+  MelsPnBoalfsUpdateFunction
+} from "../hooks/melsPnBoalfs";
+import {
   setUnitGroupBalancingVolume,
+  setUnitGroupCurrentOutput,
+  setUnitGroupSortedOutput
 } from "../live";
-import { store } from "../../reducer";
-import { log } from "../../../utils/logs";
-import { getUnitOutput } from "../calcs";
-import { MelsPnBoalfsData, MelsPnBoalfsUpdateFunction } from "../hooks/melsPnBoalfs";
 
 type UpdateUnitGroupOutputResult = {
   code: string;
@@ -41,18 +44,18 @@ const updateUnitGroupOutput = (
       unitGroupCode: ug.unitGroupCode,
       currentOutput: {
         delta: postBmDelta,
-        level: postBmLevel,
-      },
+        level: postBmLevel
+      }
     })
   );
   store.dispatch(
     setUnitGroupBalancingVolume({
       unitGroupCode: ug.unitGroupCode,
-      volume: balancingVolume,
+      volume: balancingVolume
     })
   );
 
-  return { code: ug.unitGroupCode, postBmLevel, balancingVolume  };
+  return { code: ug.unitGroupCode, postBmLevel, balancingVolume };
 };
 
 const compareOutputs = (
@@ -64,13 +67,15 @@ const compareOutputs = (
   if (bal !== 0) return bal;
 };
 
-export const updateUnitGroupsOutput: MelsPnBoalfsUpdateFunction = (now, data) => {
+export const updateUnitGroupsOutput: MelsPnBoalfsUpdateFunction = (
+  now,
+  data
+) => {
   const sortedOutput = unitGroupBmUnits
     .map((ug) => updateUnitGroupOutput(now, data, ug))
-    .filter(x => x.balancingVolume !== 0 || x.postBmLevel !== 0)
+    .filter((x) => x.balancingVolume !== 0 || x.postBmLevel !== 0)
     .sort(compareOutputs)
-    .map((x, i) => ({ code: x.code, i }))
-    
+    .map((x, i) => ({ code: x.code, i }));
 
   store.dispatch(setUnitGroupSortedOutput({ sortedOutput }));
   console.info("updateUnitGroupsOutput complete");

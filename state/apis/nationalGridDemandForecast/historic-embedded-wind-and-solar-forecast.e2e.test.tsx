@@ -1,11 +1,18 @@
-import { renderHook, waitFor } from "@testing-library/react-native";
-import { Provider } from "react-redux";
-import { createStore } from "../../reducer";
-import { useHistoricEmbeddedWindAndSolarForecastQuery } from "./api";
 import React from "react";
+import { Provider } from "react-redux";
+import { renderHook, waitFor } from "@testing-library/react-native";
+
+import { createStore } from "../../reducer";
+
+import { useHistoricEmbeddedWindAndSolarForecastQuery } from "./api";
 
 const wrapper = (props: any) => {
-  return <Provider store={createStore()} children={props.children} />;
+  return (
+    <Provider
+      store={createStore()}
+      children={props.children}
+    />
+  );
 };
 
 describe("state/apis/nationalGridDemandForecast/historic-embedded-wind-and-solar-forecast", () => {
@@ -21,7 +28,7 @@ describe("state/apis/nationalGridDemandForecast/historic-embedded-wind-and-solar
           year,
           month,
           day,
-          hour,
+          hour
         }),
       { wrapper }
     );
@@ -44,7 +51,7 @@ describe("state/apis/nationalGridDemandForecast/historic-embedded-wind-and-solar
           year,
           month,
           day,
-          hour,
+          hour
         }),
       { wrapper }
     );

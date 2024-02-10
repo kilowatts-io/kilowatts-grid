@@ -32,27 +32,27 @@ export const unitGroups: UnitGroup[] = [
       name: "Heysham",
       coords: {
         lat: 54.0295,
-        lng: -2.9149,
+        lng: -2.9149
       },
-      fuelType: "nuclear",
+      fuelType: "nuclear"
     },
     units: [
       {
-        bmUnit: "T_HEYM28",
+        bmUnit: "T_HEYM28"
       },
       {
-        bmUnit: "T_HEYM12",
+        bmUnit: "T_HEYM12"
       },
       {
-        bmUnit: "T_HEYM27",
+        bmUnit: "T_HEYM27"
       },
       {
-        bmUnit: "T_HEYM11",
+        bmUnit: "T_HEYM11"
       },
       {
-        bmUnit: "T_HEYM2-D",
-      },
-    ],
+        bmUnit: "T_HEYM2-D"
+      }
+    ]
   },
 
   {
@@ -61,21 +61,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Torness",
       coords: {
         lat: 55.96929194350165,
-        lng: -2.4061520827496983,
+        lng: -2.4061520827496983
       },
-      fuelType: "nuclear",
+      fuelType: "nuclear"
     },
     units: [
       {
-        bmUnit: "T_TORN-1",
+        bmUnit: "T_TORN-1"
       },
       {
-        bmUnit: "T_TORN-2",
+        bmUnit: "T_TORN-2"
       },
       {
-        bmUnit: "T_TORN-D",
-      },
-    ],
+        bmUnit: "T_TORN-D"
+      }
+    ]
   },
 
   {
@@ -84,18 +84,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Sizewell B",
       coords: {
         lat: 52.2123,
-        lng: 1.6195,
+        lng: 1.6195
       },
-      fuelType: "nuclear",
+      fuelType: "nuclear"
     },
     units: [
       {
-        bmUnit: "T_SIZB-1",
+        bmUnit: "T_SIZB-1"
       },
       {
-        bmUnit: "T_SIZB-2",
-      },
-    ],
+        bmUnit: "T_SIZB-2"
+      }
+    ]
   },
 
   {
@@ -104,18 +104,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Hartlepool",
       coords: {
         lat: 54.6341,
-        lng: -1.1801,
+        lng: -1.1801
       },
-      fuelType: "nuclear",
+      fuelType: "nuclear"
     },
     units: [
       {
-        bmUnit: "T_HRTL-1",
+        bmUnit: "T_HRTL-1"
       },
       {
-        bmUnit: "T_HRTL-2",
-      },
-    ],
+        bmUnit: "T_HRTL-2"
+      }
+    ]
   },
 
   {
@@ -124,27 +124,27 @@ export const unitGroups: UnitGroup[] = [
       name: "Pembroke",
       coords: {
         lat: 51.68436,
-        lng: -4.9968,
+        lng: -4.9968
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_PEMB-11",
+        bmUnit: "T_PEMB-11"
       },
       {
-        bmUnit: "T_PEMB-21",
+        bmUnit: "T_PEMB-21"
       },
       {
-        bmUnit: "T_PEMB-31",
+        bmUnit: "T_PEMB-31"
       },
       {
-        bmUnit: "T_PEMB-41",
+        bmUnit: "T_PEMB-41"
       },
       {
-        bmUnit: "T_PEMB-51",
-      },
-    ],
+        bmUnit: "T_PEMB-51"
+      }
+    ]
   },
 
   {
@@ -153,18 +153,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Carrington",
       coords: {
         lat: 53.43772,
-        lng: -2.41014,
+        lng: -2.41014
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_CARR-1",
+        bmUnit: "T_CARR-1"
       },
       {
-        bmUnit: "T_CARR-2",
-      },
-    ],
+        bmUnit: "T_CARR-2"
+      }
+    ]
   },
 
   {
@@ -173,15 +173,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Little Barford",
       coords: {
         lat: 52.20533,
-        lng: -0.2668,
+        lng: -0.2668
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_LBAR-1",
-      },
-    ],
+        bmUnit: "T_LBAR-1"
+      }
+    ]
   },
 
   {
@@ -190,18 +190,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Spalding",
       coords: {
         lat: 52.80721,
-        lng: -0.13334,
+        lng: -0.13334
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_SPLN-1",
+        bmUnit: "T_SPLN-1"
       },
       {
-        bmUnit: "T_SEEL-1",
-      },
-    ],
+        bmUnit: "T_SEEL-1"
+      }
+    ]
   },
 
   {
@@ -210,15 +210,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Redfield Road Farm",
       coords: {
         lat: 52.93468,
-        lng: -1.17903,
+        lng: -1.17903
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_RDFRD-1",
-      },
-    ],
+        bmUnit: "E_RDFRD-1"
+      }
+    ]
   },
 
   {
@@ -227,15 +227,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Down Barn Farm",
       coords: {
         lat: 51.12498309936491,
-        lng: -1.7579043828348275,
+        lng: -1.7579043828348275
       },
-      fuelType: "solar",
+      fuelType: "solar"
     },
     units: [
       {
-        bmUnit: "E_DBFRM-1",
-      },
-    ],
+        bmUnit: "E_DBFRM-1"
+      }
+    ]
   },
 
   {
@@ -244,15 +244,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Rake Lane",
       coords: {
         lat: 53.521311061038254,
-        lng: -2.324436034380185,
+        lng: -2.324436034380185
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_RAKE-1",
-      },
-    ],
+        bmUnit: "E_RAKE-1"
+      }
+    ]
   },
 
   {
@@ -261,21 +261,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Moray East",
       coords: {
         lat: 58.188,
-        lng: -2.72,
+        lng: -2.72
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_MOWEO-1",
+        bmUnit: "T_MOWEO-1"
       },
       {
-        bmUnit: "T_MOWEO-2",
+        bmUnit: "T_MOWEO-2"
       },
       {
-        bmUnit: "T_MOWEO-3",
-      },
-    ],
+        bmUnit: "T_MOWEO-3"
+      }
+    ]
   },
 
   {
@@ -284,21 +284,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Hornsea A",
       coords: {
         lat: 53.88,
-        lng: 1.79,
+        lng: 1.79
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_HOWAO-1",
+        bmUnit: "T_HOWAO-1"
       },
       {
-        bmUnit: "T_HOWAO-2",
+        bmUnit: "T_HOWAO-2"
       },
       {
-        bmUnit: "T_HOWAO-3",
-      },
-    ],
+        bmUnit: "T_HOWAO-3"
+      }
+    ]
   },
 
   {
@@ -307,21 +307,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Hornsea B",
       coords: {
         lat: 53.95,
-        lng: 1.56,
+        lng: 1.56
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_HOWBO-1",
+        bmUnit: "T_HOWBO-1"
       },
       {
-        bmUnit: "T_HOWBO-2",
+        bmUnit: "T_HOWBO-2"
       },
       {
-        bmUnit: "T_HOWBO-3",
-      },
-    ],
+        bmUnit: "T_HOWBO-3"
+      }
+    ]
   },
 
   {
@@ -330,30 +330,30 @@ export const unitGroups: UnitGroup[] = [
       name: "Seagreen",
       coords: {
         lat: 56.6355,
-        lng: -1.9266,
+        lng: -1.9266
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_SGRWO-1",
+        bmUnit: "T_SGRWO-1"
       },
       {
-        bmUnit: "T_SGRWO-2",
+        bmUnit: "T_SGRWO-2"
       },
       {
-        bmUnit: "T_SGRWO-3",
+        bmUnit: "T_SGRWO-3"
       },
       {
-        bmUnit: "T_SGRWO-4",
+        bmUnit: "T_SGRWO-4"
       },
       {
-        bmUnit: "T_SGRWO-5",
+        bmUnit: "T_SGRWO-5"
       },
       {
-        bmUnit: "T_SGRWO-6",
-      },
-    ],
+        bmUnit: "T_SGRWO-6"
+      }
+    ]
   },
 
   {
@@ -362,18 +362,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Triton Knoll",
       coords: {
         lat: 53.2123,
-        lng: 0.8616,
+        lng: 0.8616
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_TKNEW-1",
+        bmUnit: "T_TKNEW-1"
       },
       {
-        bmUnit: "T_TKNWW-1",
-      },
-    ],
+        bmUnit: "T_TKNWW-1"
+      }
+    ]
   },
 
   {
@@ -382,15 +382,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Fawley North",
       coords: {
         lat: 50.818,
-        lng: -1.329,
+        lng: -1.329
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_FAWN-1",
-      },
-    ],
+        bmUnit: "E_FAWN-1"
+      }
+    ]
   },
 
   {
@@ -399,29 +399,29 @@ export const unitGroups: UnitGroup[] = [
       name: "Walney",
       coords: {
         lat: 54.0394,
-        lng: 3.5158,
+        lng: 3.5158
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_WLNYO-1",
+        bmUnit: "T_WLNYO-1"
       },
       {
-        bmUnit: "T_WLNYO-2",
+        bmUnit: "T_WLNYO-2"
       },
 
       {
-        bmUnit: "T_WLNYO-3",
+        bmUnit: "T_WLNYO-3"
       },
 
       {
-        bmUnit: "T_WLNYO-4",
+        bmUnit: "T_WLNYO-4"
       },
       {
-        bmUnit: "T_WLNYW-1",
-      },
-    ],
+        bmUnit: "T_WLNYW-1"
+      }
+    ]
   },
 
   {
@@ -430,15 +430,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Cottam",
       coords: {
         lat: 53.304757,
-        lng: -0.781646,
+        lng: -0.781646
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_CDCL-1",
-      },
-    ],
+        bmUnit: "T_CDCL-1"
+      }
+    ]
   },
 
   {
@@ -447,24 +447,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Connah's Quay",
       coords: {
         lat: 53.2317,
-        lng: -3.08149,
+        lng: -3.08149
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_CNQPS-1",
+        bmUnit: "T_CNQPS-1"
       },
       {
-        bmUnit: "T_CNQPS-2",
+        bmUnit: "T_CNQPS-2"
       },
       {
-        bmUnit: "T_CNQPS-3",
+        bmUnit: "T_CNQPS-3"
       },
       {
-        bmUnit: "T_CNQPS-4",
-      },
-    ],
+        bmUnit: "T_CNQPS-4"
+      }
+    ]
   },
 
   {
@@ -473,30 +473,30 @@ export const unitGroups: UnitGroup[] = [
       name: "Ratcliffe",
       coords: {
         lat: 52.866945,
-        lng: -1.256635,
+        lng: -1.256635
       },
-      fuelType: "coal",
+      fuelType: "coal"
     },
     units: [
       {
-        bmUnit: "T_RATS-1",
+        bmUnit: "T_RATS-1"
       },
       {
-        bmUnit: "T_RATS-2",
+        bmUnit: "T_RATS-2"
       },
       {
-        bmUnit: "T_RATS-3",
+        bmUnit: "T_RATS-3"
       },
       {
-        bmUnit: "T_RATS-4",
+        bmUnit: "T_RATS-4"
       },
       {
-        bmUnit: "T_RATSGT-2",
+        bmUnit: "T_RATSGT-2"
       },
       {
-        bmUnit: "T_RATSGT-4",
-      },
-    ],
+        bmUnit: "T_RATSGT-4"
+      }
+    ]
   },
 
   {
@@ -505,15 +505,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Rocksavage",
       coords: {
         lat: 53.31522,
-        lng: -2.72278,
+        lng: -2.72278
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_ROCK-1",
-      },
-    ],
+        bmUnit: "T_ROCK-1"
+      }
+    ]
   },
 
   {
@@ -522,15 +522,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Enfield",
       coords: {
         lat: 51.66248,
-        lng: -0.02248,
+        lng: -0.02248
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_EECL-1",
-      },
-    ],
+        bmUnit: "T_EECL-1"
+      }
+    ]
   },
 
   {
@@ -539,15 +539,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Shoreham",
       coords: {
         lat: 50.82992,
-        lng: -0.23144,
+        lng: -0.23144
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_SHOS-1",
-      },
-    ],
+        bmUnit: "E_SHOS-1"
+      }
+    ]
   },
 
   {
@@ -556,18 +556,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Seabank",
       coords: {
         lat: 51.5392,
-        lng: -2.67,
+        lng: -2.67
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_SEAB-1",
+        bmUnit: "T_SEAB-1"
       },
       {
-        bmUnit: "T_SEAB-2",
-      },
-    ],
+        bmUnit: "T_SEAB-2"
+      }
+    ]
   },
 
   {
@@ -576,27 +576,27 @@ export const unitGroups: UnitGroup[] = [
       name: "Grain",
       coords: {
         lat: 51.44298,
-        lng: 0.70782,
+        lng: 0.70782
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_GRAI-6",
+        bmUnit: "T_GRAI-6"
       },
       {
-        bmUnit: "T_GRAI-7",
+        bmUnit: "T_GRAI-7"
       },
       {
-        bmUnit: "T_GRAI-8",
+        bmUnit: "T_GRAI-8"
       },
       {
-        bmUnit: "T_GRAI4G",
+        bmUnit: "T_GRAI4G"
       },
       {
-        bmUnit: "T_GRAI1G",
-      },
-    ],
+        bmUnit: "T_GRAI1G"
+      }
+    ]
   },
 
   {
@@ -605,15 +605,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Great Yarmouth",
       coords: {
         lat: 52.58395,
-        lng: 1.73381,
+        lng: 1.73381
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_GYAR-1",
-      },
-    ],
+        bmUnit: "E_GYAR-1"
+      }
+    ]
   },
 
   {
@@ -622,24 +622,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Saltend",
       coords: {
         lat: 53.73543,
-        lng: -0.24315,
+        lng: -0.24315
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_SCCL-1",
+        bmUnit: "T_SCCL-1"
       },
       {
-        bmUnit: "T_SCCL-2",
+        bmUnit: "T_SCCL-2"
       },
       {
-        bmUnit: "T_SCCL-3",
+        bmUnit: "T_SCCL-3"
       },
       {
-        bmUnit: "T_SCCL-4",
-      },
-    ],
+        bmUnit: "T_SCCL-4"
+      }
+    ]
   },
 
   {
@@ -648,15 +648,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Chapel Farm",
       coords: {
         lat: 51.466,
-        lng: -0.379,
+        lng: -0.379
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_CHAPB-1",
-      },
-    ],
+        bmUnit: "E_CHAPB-1"
+      }
+    ]
   },
 
   {
@@ -665,15 +665,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Port of Tyne",
       coords: {
         lat: 54.989,
-        lng: -1.455,
+        lng: -1.455
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_POTES-1",
-      },
-    ],
+        bmUnit: "E_POTES-1"
+      }
+    ]
   },
 
   {
@@ -682,18 +682,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Keith",
       coords: {
         lat: 57.547,
-        lng: -2.956,
+        lng: -2.956
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_KTHRS-1",
+        bmUnit: "T_KTHRS-1"
       },
       {
-        bmUnit: "T_KTHRS-2",
-      },
-    ],
+        bmUnit: "T_KTHRS-2"
+      }
+    ]
   },
 
   {
@@ -702,15 +702,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Camilla",
       coords: {
         lat: 56.116,
-        lng: -3.3,
+        lng: -3.3
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "V__AG-HEL0DN",
-      },
-    ],
+        bmUnit: "V__AG-HEL0DN"
+      }
+    ]
   },
 
   {
@@ -719,15 +719,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Fordtown",
       coords: {
         lat: 57.229,
-        lng: -2.266,
+        lng: -2.266
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "V__AG-HEL0CP",
-      },
-    ],
+        bmUnit: "V__AG-HEL0CP"
+      }
+    ]
   },
 
   {
@@ -736,15 +736,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Wishaw Bess",
       coords: {
         lat: 55.777,
-        lng: -3.927,
+        lng: -3.927
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_WISHB-1",
-      },
-    ],
+        bmUnit: "T_WISHB-1"
+      }
+    ]
   },
 
   {
@@ -753,15 +753,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Ilmer Lane",
       coords: {
         lat: 51.644,
-        lng: -0.807,
+        lng: -0.807
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_ILMEB-1",
-      },
-    ],
+        bmUnit: "E_ILMEB-1"
+      }
+    ]
   },
 
   {
@@ -770,15 +770,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Lockleaze",
       coords: {
         lat: 51.466,
-        lng: -0.379,
+        lng: -0.379
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "2__LRWED001",
-      },
-    ],
+        bmUnit: "2__LRWED001"
+      }
+    ]
   },
 
   {
@@ -787,15 +787,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Blockwich",
       coords: {
         lat: 53.237,
-        lng: -2.506,
+        lng: -2.506
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_ARNKB-1",
-      },
-    ],
+        bmUnit: "E_ARNKB-1"
+      }
+    ]
   },
 
   {
@@ -804,15 +804,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Roosecote",
       coords: {
         lat: 54.108,
-        lng: -3.244,
+        lng: -3.244
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_ROOSB-1",
-      },
-    ],
+        bmUnit: "E_ROOSB-1"
+      }
+    ]
   },
 
   {
@@ -821,15 +821,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Brook Farm",
       coords: {
         lat: 51.466,
-        lng: -0.379,
+        lng: -0.379
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_BROFB-1",
-      },
-    ],
+        bmUnit: "E_BROFB-1"
+      }
+    ]
   },
 
   {
@@ -838,15 +838,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Marchwood",
       coords: {
         lat: 50.89798,
-        lng: -1.43751,
+        lng: -1.43751
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_MRWD-1",
-      },
-    ],
+        bmUnit: "T_MRWD-1"
+      }
+    ]
   },
 
   {
@@ -855,15 +855,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Immingham",
       coords: {
         lat: 53.63779,
-        lng: -0.23674,
+        lng: -0.23674
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_HUMR-1",
-      },
-    ],
+        bmUnit: "T_HUMR-1"
+      }
+    ]
   },
 
   {
@@ -872,15 +872,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Langage",
       coords: {
         lat: 50.3872,
-        lng: -4.01099,
+        lng: -4.01099
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_LAGA-1",
-      },
-    ],
+        bmUnit: "T_LAGA-1"
+      }
+    ]
   },
   {
     details: {
@@ -888,30 +888,30 @@ export const unitGroups: UnitGroup[] = [
       name: "Didcot",
       coords: {
         lat: 51.6246,
-        lng: -1.2683,
+        lng: -1.2683
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_DIDCB5",
+        bmUnit: "T_DIDCB5"
       },
       {
-        bmUnit: "T_DIDCB6",
+        bmUnit: "T_DIDCB6"
       },
       {
-        bmUnit: "E_DIDC01G",
+        bmUnit: "E_DIDC01G"
       },
       {
-        bmUnit: "E_DIDC02G",
+        bmUnit: "E_DIDC02G"
       },
       {
-        bmUnit: "E_DIDC03G",
+        bmUnit: "E_DIDC03G"
       },
       {
-        bmUnit: "E_DIDC04G",
-      },
-    ],
+        bmUnit: "E_DIDC04G"
+      }
+    ]
   },
   {
     details: {
@@ -919,30 +919,30 @@ export const unitGroups: UnitGroup[] = [
       name: "Drax",
       coords: {
         lat: 53.737196,
-        lng: -0.999021,
+        lng: -0.999021
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "T_DRAXX-1",
+        bmUnit: "T_DRAXX-1"
       },
       {
-        bmUnit: "T_DRAXX-2",
+        bmUnit: "T_DRAXX-2"
       },
       {
-        bmUnit: "T_DRAXX-3",
+        bmUnit: "T_DRAXX-3"
       },
       {
-        bmUnit: "T_DRAXX-4",
+        bmUnit: "T_DRAXX-4"
       },
       {
-        bmUnit: "T_DRAXX-10G",
+        bmUnit: "T_DRAXX-10G"
       },
       {
-        bmUnit: "T_DRAXX-9G",
-      },
-    ],
+        bmUnit: "T_DRAXX-9G"
+      }
+    ]
   },
 
   {
@@ -951,18 +951,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Damhead Creek",
       coords: {
         lat: 51.42492,
-        lng: 0.60143,
+        lng: 0.60143
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_DAMC-1",
+        bmUnit: "T_DAMC-1"
       },
       {
-        bmUnit: "T_DAMC-2",
-      },
-    ],
+        bmUnit: "T_DAMC-2"
+      }
+    ]
   },
 
   {
@@ -971,24 +971,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Staythorpe",
       coords: {
         lat: 53.07368,
-        lng: -0.85901,
+        lng: -0.85901
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_STAY-1",
+        bmUnit: "T_STAY-1"
       },
       {
-        bmUnit: "T_STAY-2",
+        bmUnit: "T_STAY-2"
       },
       {
-        bmUnit: "T_STAY-3",
+        bmUnit: "T_STAY-3"
       },
       {
-        bmUnit: "T_STAY-4",
-      },
-    ],
+        bmUnit: "T_STAY-4"
+      }
+    ]
   },
 
   {
@@ -997,18 +997,18 @@ export const unitGroups: UnitGroup[] = [
       name: "South Humber",
       coords: {
         lat: 53.60078,
-        lng: -0.14462,
+        lng: -0.14462
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_SHBA-1",
+        bmUnit: "T_SHBA-1"
       },
       {
-        bmUnit: "T_SHBA-2",
-      },
-    ],
+        bmUnit: "T_SHBA-2"
+      }
+    ]
   },
 
   {
@@ -1017,27 +1017,27 @@ export const unitGroups: UnitGroup[] = [
       name: "West Burton",
       coords: {
         lat: 53.36223,
-        lng: -0.80759,
+        lng: -0.80759
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_WBURB-1",
+        bmUnit: "T_WBURB-1"
       },
       {
-        bmUnit: "T_WBURB-2",
+        bmUnit: "T_WBURB-2"
       },
       {
-        bmUnit: "T_WBURB-3",
+        bmUnit: "T_WBURB-3"
       },
       {
-        bmUnit: "T_WBUGT-1",
+        bmUnit: "T_WBUGT-1"
       },
       {
-        bmUnit: "T_WBUGT-4",
-      },
-    ],
+        bmUnit: "T_WBUGT-4"
+      }
+    ]
   },
 
   {
@@ -1046,18 +1046,18 @@ export const unitGroups: UnitGroup[] = [
       name: "West Burton",
       coords: {
         lat: 53.36223,
-        lng: -0.80759,
+        lng: -0.80759
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_WBURB-41",
+        bmUnit: "T_WBURB-41"
       },
       {
-        bmUnit: "T_WBURB-43",
-      },
-    ],
+        bmUnit: "T_WBURB-43"
+      }
+    ]
   },
 
   {
@@ -1066,15 +1066,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Whitelee",
       coords: {
         lat: 55.6812,
-        lng: -4.2791,
+        lng: -4.2791
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_WHLWB-1",
-      },
-    ],
+        bmUnit: "T_WHLWB-1"
+      }
+    ]
   },
 
   {
@@ -1083,15 +1083,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Hunningly",
       coords: {
         lat: 53.517,
-        lng: -1.432,
+        lng: -1.432
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_BARNB-1",
-      },
-    ],
+        bmUnit: "E_BARNB-1"
+      }
+    ]
   },
 
   {
@@ -1100,15 +1100,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Gypsy Lane",
       coords: {
         lat: 54.581,
-        lng: -1.25,
+        lng: -1.25
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "V_AG-HEL0AG",
-      },
-    ],
+        bmUnit: "V_AG-HEL0AG"
+      }
+    ]
   },
 
   {
@@ -1117,18 +1117,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Race Bank",
       coords: {
         lat: 53.136,
-        lng: 0.5892,
+        lng: 0.5892
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_RCBKO-1",
+        bmUnit: "T_RCBKO-1"
       },
       {
-        bmUnit: "T_RCBKO-2",
-      },
-    ],
+        bmUnit: "T_RCBKO-2"
+      }
+    ]
   },
 
   {
@@ -1137,21 +1137,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Keadby",
       coords: {
         lat: 53.59444,
-        lng: -0.75044,
+        lng: -0.75044
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_KEAD-1",
+        bmUnit: "T_KEAD-1"
       },
       {
-        bmUnit: "T_KEAD-2",
+        bmUnit: "T_KEAD-2"
       },
       {
-        bmUnit: "T_KEADGT-2",
-      },
-    ],
+        bmUnit: "T_KEADGT-2"
+      }
+    ]
   },
 
   {
@@ -1160,18 +1160,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Whitelee",
       coords: {
         lat: 55.6812,
-        lng: -4.2791,
+        lng: -4.2791
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_WHILW-1",
+        bmUnit: "T_WHILW-1"
       },
       {
-        bmUnit: "T_WHILW-2",
-      },
-    ],
+        bmUnit: "T_WHILW-2"
+      }
+    ]
   },
 
   {
@@ -1180,18 +1180,18 @@ export const unitGroups: UnitGroup[] = [
       name: "East Anglia",
       coords: {
         lat: 52.137,
-        lng: 2.1728,
+        lng: 2.1728
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_EAAO-1",
+        bmUnit: "T_EAAO-1"
       },
       {
-        bmUnit: "T_EAAO-2",
-      },
-    ],
+        bmUnit: "T_EAAO-2"
+      }
+    ]
   },
 
   {
@@ -1200,24 +1200,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Errochty",
       coords: {
         lat: 56.7091,
-        lng: -4.0065,
+        lng: -4.0065
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_ERRO-1",
+        bmUnit: "T_ERRO-1"
       },
       {
-        bmUnit: "T_ERRO-2",
+        bmUnit: "T_ERRO-2"
       },
       {
-        bmUnit: "T_ERRO-3",
+        bmUnit: "T_ERRO-3"
       },
       {
-        bmUnit: "T_ERRO-4",
-      },
-    ],
+        bmUnit: "T_ERRO-4"
+      }
+    ]
   },
 
   {
@@ -1226,15 +1226,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Rheidol",
       coords: {
         lat: 52.396,
-        lng: -3.9,
+        lng: -3.9
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "E_RHEI-1",
-      },
-    ],
+        bmUnit: "E_RHEI-1"
+      }
+    ]
   },
 
   {
@@ -1243,15 +1243,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Tilbury",
       coords: {
         lat: 51.454926,
-        lng: 0.391677,
+        lng: 0.391677
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "E_TGP1",
-      },
-    ],
+        bmUnit: "E_TGP1"
+      }
+    ]
   },
 
   {
@@ -1260,15 +1260,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Creag Riabhach",
       coords: {
         lat: 58.21076473583207,
-        lng: -4.500526851791008,
+        lng: -4.500526851791008
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CREAW-1",
-      },
-    ],
+        bmUnit: "T_CREAW-1"
+      }
+    ]
   },
 
   {
@@ -1277,18 +1277,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Pillswood",
       coords: {
         lat: 51.464,
-        lng: -0.379,
+        lng: -0.379
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_PILLB-1",
+        bmUnit: "E_PILLB-1"
       },
       {
-        bmUnit: "E_PILLB-2",
-      },
-    ],
+        bmUnit: "E_PILLB-2"
+      }
+    ]
   },
 
   {
@@ -1297,15 +1297,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Contego",
       coords: {
         lat: 50.954,
-        lng: -0.142,
+        lng: -0.142
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_CONTB-1",
-      },
-    ],
+        bmUnit: "E_CONTB-1"
+      }
+    ]
   },
 
   {
@@ -1314,15 +1314,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Arbroath",
       coords: {
         lat: 56.559,
-        lng: -2.587,
+        lng: -2.587
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_ARBRB-1",
-      },
-    ],
+        bmUnit: "E_ARBRB-1"
+      }
+    ]
   },
 
   {
@@ -1331,15 +1331,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Farnham",
       coords: {
         lat: 51.214,
-        lng: -0.802,
+        lng: -0.802
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_FARNB-1",
-      },
-    ],
+        bmUnit: "E_FARNB-1"
+      }
+    ]
   },
 
   {
@@ -1348,15 +1348,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Broadditch",
       coords: {
         lat: 51.399,
-        lng: 0.231,
+        lng: 0.231
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_BROAB-1",
-      },
-    ],
+        bmUnit: "E_BROAB-1"
+      }
+    ]
   },
 
   {
@@ -1365,15 +1365,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Coventry",
       coords: {
         lat: 52.421,
-        lng: -1.506,
+        lng: -1.506
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_COVNB-1",
-      },
-    ],
+        bmUnit: "T_COVNB-1"
+      }
+    ]
   },
 
   {
@@ -1382,18 +1382,18 @@ export const unitGroups: UnitGroup[] = [
       code: "WDNSO",
       coords: {
         lat: 53.9851,
-        lng: -3.462,
+        lng: -3.462
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_WDNSO-1",
+        bmUnit: "T_WDNSO-1"
       },
       {
-        bmUnit: "T_WDNSO-2",
-      },
-    ],
+        bmUnit: "T_WDNSO-2"
+      }
+    ]
   },
 
   {
@@ -1402,15 +1402,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Westmost Rough",
       coords: {
         lat: 53.81,
-        lng: 0.15,
+        lng: 0.15
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_WTMSO-1",
-      },
-    ],
+        bmUnit: "T_WTMSO-1"
+      }
+    ]
   },
 
   {
@@ -1419,21 +1419,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Lynemouth",
       coords: {
         lat: 55.204167,
-        lng: -1.520833,
+        lng: -1.520833
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "E_LYNE1",
+        bmUnit: "E_LYNE1"
       },
       {
-        bmUnit: "E_LYNE2",
+        bmUnit: "E_LYNE2"
       },
       {
-        bmUnit: "E_LYNE3",
-      },
-    ],
+        bmUnit: "E_LYNE3"
+      }
+    ]
   },
 
   {
@@ -1442,18 +1442,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Sheringham Shoal",
       coords: {
         lat: 53.81,
-        lng: 0.15,
+        lng: 0.15
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_SHRSW-1",
+        bmUnit: "T_SHRSW-1"
       },
       {
-        bmUnit: "T_SHRSW-2",
-      },
-    ],
+        bmUnit: "T_SHRSW-2"
+      }
+    ]
   },
 
   {
@@ -1462,24 +1462,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Gwynt y Mor",
       coords: {
         lat: 53.454,
-        lng: -3.6266,
+        lng: -3.6266
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GYMR-15",
+        bmUnit: "T_GYMR-15"
       },
       {
-        bmUnit: "T_GYMR-17",
+        bmUnit: "T_GYMR-17"
       },
       {
-        bmUnit: "T_GYMR-26",
+        bmUnit: "T_GYMR-26"
       },
       {
-        bmUnit: "T_GYMR-28",
-      },
-    ],
+        bmUnit: "T_GYMR-28"
+      }
+    ]
   },
 
   {
@@ -1488,30 +1488,30 @@ export const unitGroups: UnitGroup[] = [
       name: "Dinorwig",
       coords: {
         lat: 53.1206,
-        lng: -4.1153,
+        lng: -4.1153
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_DINO-1",
+        bmUnit: "T_DINO-1"
       },
       {
-        bmUnit: "T_DINO-2",
+        bmUnit: "T_DINO-2"
       },
       {
-        bmUnit: "T_DINO-3",
+        bmUnit: "T_DINO-3"
       },
       {
-        bmUnit: "T_DINO-4",
+        bmUnit: "T_DINO-4"
       },
       {
-        bmUnit: "T_DINO-5",
+        bmUnit: "T_DINO-5"
       },
       {
-        bmUnit: "T_DINO-6",
-      },
-    ],
+        bmUnit: "T_DINO-6"
+      }
+    ]
   },
 
   {
@@ -1520,24 +1520,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Ffestiniog",
       coords: {
         lat: 52.9808,
-        lng: -3.9686,
+        lng: -3.9686
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_FFES-1",
+        bmUnit: "T_FFES-1"
       },
       {
-        bmUnit: "T_FFES-2",
+        bmUnit: "T_FFES-2"
       },
       {
-        bmUnit: "T_FFES-3",
+        bmUnit: "T_FFES-3"
       },
       {
-        bmUnit: "T_FFES-4",
-      },
-    ],
+        bmUnit: "T_FFES-4"
+      }
+    ]
   },
 
   {
@@ -1546,24 +1546,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Fasnakyle",
       coords: {
         lat: 57.32586,
-        lng: -4.79438,
+        lng: -4.79438
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_FASN-1",
+        bmUnit: "T_FASN-1"
       },
       {
-        bmUnit: "E_FASN-4",
+        bmUnit: "E_FASN-4"
       },
       {
-        bmUnit: "T_FASN-2",
+        bmUnit: "T_FASN-2"
       },
       {
-        bmUnit: "E_FASN-3",
-      },
-    ],
+        bmUnit: "E_FASN-3"
+      }
+    ]
   },
 
   {
@@ -1572,15 +1572,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Aberdeen",
       coords: {
         lat: 57.2225,
-        lng: -1.9728,
+        lng: -1.9728
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_ABRBO-1",
-      },
-    ],
+        bmUnit: "T_ABRBO-1"
+      }
+    ]
   },
 
   {
@@ -1589,15 +1589,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Auchrobert",
       coords: {
         lat: 55.624,
-        lng: -3.9842,
+        lng: -3.9842
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_ABRTW-1",
-      },
-    ],
+        bmUnit: "E_ABRTW-1"
+      }
+    ]
   },
 
   {
@@ -1606,15 +1606,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Achlachan",
       coords: {
         lat: 58.4489,
-        lng: -3.4546,
+        lng: -3.4546
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "C__PSMAR001",
-      },
-    ],
+        bmUnit: "C__PSMAR001"
+      }
+    ]
   },
 
   {
@@ -1623,15 +1623,15 @@ export const unitGroups: UnitGroup[] = [
       name: "A`Chruach",
       coords: {
         lat: 56.1528,
-        lng: -5.3102,
+        lng: -5.3102
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_ACHRW-1",
-      },
-    ],
+        bmUnit: "T_ACHRW-1"
+      }
+    ]
   },
 
   {
@@ -1640,15 +1640,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Afton",
       coords: {
         lat: 55.3116,
-        lng: -4.1743,
+        lng: -4.1743
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_AFTOW-1",
-      },
-    ],
+        bmUnit: "T_AFTOW-1"
+      }
+    ]
   },
 
   {
@@ -1657,15 +1657,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Airies",
       coords: {
         lat: 54.8021,
-        lng: -4.6577,
+        lng: -4.6577
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_AIRSW-1",
-      },
-    ],
+        bmUnit: "E_AIRSW-1"
+      }
+    ]
   },
 
   {
@@ -1674,18 +1674,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Aikengall",
       coords: {
         lat: 55.9172,
-        lng: -2.4901,
+        lng: -2.4901
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_AKGLW-2",
+        bmUnit: "T_AKGLW-2"
       },
       {
-        bmUnit: "T_AKGLW-3",
-      },
-    ],
+        bmUnit: "T_AKGLW-3"
+      }
+    ]
   },
 
   {
@@ -1694,15 +1694,15 @@ export const unitGroups: UnitGroup[] = [
       name: "An Suidhe",
       coords: {
         lat: 56.2187,
-        lng: -5.2194,
+        lng: -5.2194
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_ANSUW-1",
-      },
-    ],
+        bmUnit: "T_ANSUW-1"
+      }
+    ]
   },
 
   {
@@ -1711,15 +1711,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Arecleoch",
       coords: {
         lat: 55.0688,
-        lng: -4.7971,
+        lng: -4.7971
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_ARCHW-1",
-      },
-    ],
+        bmUnit: "T_ARCHW-1"
+      }
+    ]
   },
 
   {
@@ -1728,15 +1728,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Andershaw",
       coords: {
         lat: 55.5093,
-        lng: -3.8463,
+        lng: -3.8463
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_ASHWW-1",
-      },
-    ],
+        bmUnit: "E_ASHWW-1"
+      }
+    ]
   },
 
   {
@@ -1745,15 +1745,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Baillie",
       coords: {
         lat: 58.5679,
-        lng: -3.677,
+        lng: -3.677
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_BABAW-1",
-      },
-    ],
+        bmUnit: "E_BABAW-1"
+      }
+    ]
   },
 
   {
@@ -1762,18 +1762,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Baglan Bay",
       coords: {
         lat: 51.61551,
-        lng: -3.8346,
+        lng: -3.8346
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_BAGE-1",
+        bmUnit: "T_BAGE-1"
       },
       {
-        bmUnit: "T_BAGE-2",
-      },
-    ],
+        bmUnit: "T_BAGE-2"
+      }
+    ]
   },
 
   {
@@ -1782,15 +1782,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Bad A Cheo",
       coords: {
         lat: 58.4205,
-        lng: -3.4292,
+        lng: -3.4292
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BDCHW-1",
-      },
-    ],
+        bmUnit: "T_BDCHW-1"
+      }
+    ]
   },
 
   {
@@ -1799,24 +1799,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Beatrice",
       coords: {
         lat: 58.0882,
-        lng: -2.9502,
+        lng: -2.9502
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BEATO-1",
+        bmUnit: "T_BEATO-1"
       },
       {
-        bmUnit: "T_BEATO-2",
+        bmUnit: "T_BEATO-2"
       },
       {
-        bmUnit: "T_BEATO-3",
+        bmUnit: "T_BEATO-3"
       },
       {
-        bmUnit: "T_BEATO-4",
-      },
-    ],
+        bmUnit: "T_BEATO-4"
+      }
+    ]
   },
 
   {
@@ -1825,15 +1825,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Beinneun",
       coords: {
         lat: 57.0956,
-        lng: -4.9655,
+        lng: -4.9655
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BEINW-1",
-      },
-    ],
+        bmUnit: "T_BEINW-1"
+      }
+    ]
   },
 
   {
@@ -1842,15 +1842,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Bhlaraidh",
       coords: {
         lat: 57.2191,
-        lng: -4.5819,
+        lng: -4.5819
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BHLAW-1",
-      },
-    ],
+        bmUnit: "T_BHLAW-1"
+      }
+    ]
   },
 
   {
@@ -1859,15 +1859,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Blackcraig",
       coords: {
         lat: 55.1199,
-        lng: -4.032,
+        lng: -4.032
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BLKWW-1",
-      },
-    ],
+        bmUnit: "T_BLKWW-1"
+      }
+    ]
   },
 
   {
@@ -1876,15 +1876,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Craig",
       coords: {
         lat: 55.1199,
-        lng: -4.032,
+        lng: -4.032
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_CRGTW-1",
-      },
-    ],
+        bmUnit: "E_CRGTW-1"
+      }
+    ]
   },
 
   {
@@ -1893,15 +1893,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Little Raith",
       coords: {
         lat: 56.143,
-        lng: -3.353,
+        lng: -3.353
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_LITRB-1",
-      },
-    ],
+        bmUnit: "E_LITRB-1"
+      }
+    ]
   },
 
   {
@@ -1910,18 +1910,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Blacklaw",
       coords: {
         lat: 55.766944,
-        lng: -3.738889,
+        lng: -3.738889
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BLLA-1",
+        bmUnit: "T_BLLA-1"
       },
       {
-        bmUnit: "T_BLLA-2",
-      },
-    ],
+        bmUnit: "T_BLLA-2"
+      }
+    ]
   },
 
   {
@@ -1930,15 +1930,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Burn of Whilk",
       coords: {
         lat: 58.3568,
-        lng: -3.2039,
+        lng: -3.2039
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_BNWKW-1",
-      },
-    ],
+        bmUnit: "E_BNWKW-1"
+      }
+    ]
   },
 
   {
@@ -1947,15 +1947,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Barrow",
       coords: {
         lat: 53.9915,
-        lng: -3.2983,
+        lng: -3.2983
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BOWLW-1",
-      },
-    ],
+        bmUnit: "T_BOWLW-1"
+      }
+    ]
   },
 
   {
@@ -1964,18 +1964,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Burbo",
       coords: {
         lat: 53.4882,
-        lng: -3.1849,
+        lng: -3.1849
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_BRBEO-1",
+        bmUnit: "T_BRBEO-1"
       },
       {
-        bmUnit: "E_BURBO",
-      },
-    ],
+        bmUnit: "E_BURBO"
+      }
+    ]
   },
 
   {
@@ -1984,15 +1984,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Braes O'Doune",
       coords: {
         lat: 56.2698,
-        lng: -4.0589,
+        lng: -4.0589
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_BRDUW-1",
-      },
-    ],
+        bmUnit: "E_BRDUW-1"
+      }
+    ]
   },
 
   {
@@ -2001,15 +2001,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Brigg",
       coords: {
         lat: 53.5423,
-        lng: -0.5092,
+        lng: -0.5092
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "E_BRGG-1",
-      },
-    ],
+        bmUnit: "E_BRGG-1"
+      }
+    ]
   },
 
   {
@@ -2018,15 +2018,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Berry Burn",
       coords: {
         lat: 57.4466,
-        lng: -3.4754,
+        lng: -3.4754
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_BRYBW-1",
-      },
-    ],
+        bmUnit: "E_BRYBW-1"
+      }
+    ]
   },
 
   {
@@ -2035,18 +2035,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Beinn an Turic",
       coords: {
         lat: 55.5732,
-        lng: -5.5874,
+        lng: -5.5874
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_BTUIW-2",
+        bmUnit: "E_BTUIW-2"
       },
       {
-        bmUnit: "E_BTUIW-3",
-      },
-    ],
+        bmUnit: "E_BTUIW-3"
+      }
+    ]
   },
 
   {
@@ -2055,21 +2055,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Cairn Uish",
       coords: {
         lat: 57.5373,
-        lng: -3.363,
+        lng: -3.363
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "2_PPGEN001",
+        bmUnit: "2_PPGEN001"
       },
       {
-        bmUnit: "2_PPGEN001",
+        bmUnit: "2_PPGEN001"
       },
       {
-        bmUnit: "2__PSTAT001",
-      },
-    ],
+        bmUnit: "2__PSTAT001"
+      }
+    ]
   },
 
   {
@@ -2078,15 +2078,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Beauly",
       coords: {
         lat: 57.47309,
-        lng: -4.45938,
+        lng: -4.45938
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "M_CAS-BEU01",
-      },
-    ],
+        bmUnit: "M_CAS-BEU01"
+      }
+    ]
   },
 
   {
@@ -2095,15 +2095,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Clunie",
       coords: {
         lat: 56.71688724042855,
-        lng: -3.7780916020120454,
+        lng: -3.7780916020120454
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "M_CAS-CLU01",
-      },
-    ],
+        bmUnit: "M_CAS-CLU01"
+      }
+    ]
   },
 
   {
@@ -2112,15 +2112,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Conon",
       coords: {
         lat: 57.5746352506808,
-        lng: -4.686210732440651,
+        lng: -4.686210732440651
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "M_CAS-CON01",
-      },
-    ],
+        bmUnit: "M_CAS-CON01"
+      }
+    ]
   },
 
   {
@@ -2129,15 +2129,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Garry",
       coords: {
         lat: 57.070466800000005,
-        lng: -5.281377792807345,
+        lng: -5.281377792807345
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "M_CAS-GAR01",
-      },
-    ],
+        bmUnit: "M_CAS-GAR01"
+      }
+    ]
   },
 
   {
@@ -2146,15 +2146,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Killin",
       coords: {
         lat: 56.481,
-        lng: -4.298,
+        lng: -4.298
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "M_CAS-KIL01",
-      },
-    ],
+        bmUnit: "M_CAS-KIL01"
+      }
+    ]
   },
 
   {
@@ -2163,15 +2163,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Moriston",
       coords: {
         lat: 57.1761093185331,
-        lng: -4.803003452163473,
+        lng: -4.803003452163473
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "M_CAS-MOR01",
-      },
-    ],
+        bmUnit: "M_CAS-MOR01"
+      }
+    ]
   },
 
   {
@@ -2180,15 +2180,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Corriegarth",
       coords: {
         lat: 57.186684969545475,
-        lng: -4.366919616037227,
+        lng: -4.366919616037227
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CGTHW-1",
-      },
-    ],
+        bmUnit: "T_CGTHW-1"
+      }
+    ]
   },
 
   {
@@ -2197,15 +2197,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Clachan",
       coords: {
         lat: 56.27744438034275,
-        lng: -4.920869168208424,
+        lng: -4.920869168208424
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_CLAC-1",
-      },
-    ],
+        bmUnit: "E_CLAC-1"
+      }
+    ]
   },
 
   {
@@ -2214,21 +2214,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Clyde",
       coords: {
         lat: 55.44612344718645,
-        lng: -3.5987094283153507,
+        lng: -3.5987094283153507
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CLDCW-1",
+        bmUnit: "T_CLDCW-1"
       },
       {
-        bmUnit: "T_CLDNW-1",
+        bmUnit: "T_CLDNW-1"
       },
       {
-        bmUnit: "T_CLDSW-1",
-      },
-    ],
+        bmUnit: "T_CLDSW-1"
+      }
+    ]
   },
 
   {
@@ -2237,15 +2237,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Clashindarroch",
       coords: {
         lat: 57.3665,
-        lng: -2.8661,
+        lng: -2.8661
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_CLDRW-1",
-      },
-    ],
+        bmUnit: "E_CLDRW-1"
+      }
+    ]
   },
 
   {
@@ -2254,15 +2254,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Clachan flats",
       coords: {
         lat: 56.2881,
-        lng: -4.9429,
+        lng: -4.9429
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_CLFLW-1",
-      },
-    ],
+        bmUnit: "E_CLFLW-1"
+      }
+    ]
   },
 
   {
@@ -2271,15 +2271,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Camster",
       coords: {
         lat: 58.4087,
-        lng: -3.2715,
+        lng: -3.2715
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "2_PPGEN003",
-      },
-    ],
+        bmUnit: "2_PPGEN003"
+      }
+    ]
   },
 
   {
@@ -2288,15 +2288,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Coire na Cloiche",
       coords: {
         lat: 57.7696,
-        lng: -4.3732,
+        lng: -4.3732
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_CNCLW-1",
-      },
-    ],
+        bmUnit: "E_CNCLW-1"
+      }
+    ]
   },
 
   {
@@ -2305,15 +2305,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Corby",
       coords: {
         lat: 52.51044,
-        lng: -0.68143,
+        lng: -0.68143
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "E_CORB-1",
-      },
-    ],
+        bmUnit: "E_CORB-1"
+      }
+    ]
   },
 
   {
@@ -2322,15 +2322,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Coryton",
       coords: {
         lat: 51.51185,
-        lng: 0.5079,
+        lng: 0.5079
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_COSO-1",
-      },
-    ],
+        bmUnit: "T_COSO-1"
+      }
+    ]
   },
 
   {
@@ -2339,15 +2339,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Cour",
       coords: {
         lat: 55.569361,
-        lng: -5.624389,
+        lng: -5.624389
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_COUWW-1",
-      },
-    ],
+        bmUnit: "T_COUWW-1"
+      }
+    ]
   },
 
   {
@@ -2356,18 +2356,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Cowes",
       coords: {
         lat: 50.74711,
-        lng: -1.2862,
+        lng: -1.2862
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_COWE1",
+        bmUnit: "E_COWE1"
       },
       {
-        bmUnit: "E_COWE2",
-      },
-    ],
+        bmUnit: "E_COWE2"
+      }
+    ]
   },
 
   {
@@ -2376,24 +2376,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Crossdykes",
       coords: {
         lat: 55.1762,
-        lng: -3.1729,
+        lng: -3.1729
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CRDEW-1",
+        bmUnit: "T_CRDEW-1"
       },
       {
-        bmUnit: "T_CRDEW-2",
+        bmUnit: "T_CRDEW-2"
       },
       {
-        bmUnit: "E_CRDEW-1", // T_CRDEW-1
+        bmUnit: "E_CRDEW-1" // T_CRDEW-1
       },
       {
-        bmUnit: "E_CRDEW-2",
-      },
-    ],
+        bmUnit: "E_CRDEW-2"
+      }
+    ]
   },
 
   {
@@ -2402,15 +2402,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Carnegie Road",
       coords: {
         lat: 55.955,
-        lng: -3.193,
+        lng: -3.193
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_CRSSB-1",
-      },
-    ],
+        bmUnit: "E_CRSSB-1"
+      }
+    ]
   },
 
   {
@@ -2419,15 +2419,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Coupar",
       coords: {
         lat: 56.318,
-        lng: -3.009,
+        lng: -3.009
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_CUPAB-1",
-      },
-    ],
+        bmUnit: "E_CUPAB-1"
+      }
+    ]
   },
 
   {
@@ -2436,15 +2436,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Tollgate",
       coords: {
         lat: 51.264,
-        lng: 1.136,
+        lng: 1.136
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_TOLLB-1",
-      },
-    ],
+        bmUnit: "E_TOLLB-1"
+      }
+    ]
   },
 
   {
@@ -2453,15 +2453,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Bustleholme",
       coords: {
         lat: 52.531,
-        lng: -2.013,
+        lng: -2.013
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_BUSTB-1",
-      },
-    ],
+        bmUnit: "T_BUSTB-1"
+      }
+    ]
   },
 
   {
@@ -2470,15 +2470,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Cowley",
       coords: {
         lat: 51.747,
-        lng: -1.227,
+        lng: -1.227
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_COWB-1",
-      },
-    ],
+        bmUnit: "T_COWB-1"
+      }
+    ]
   },
 
   {
@@ -2487,15 +2487,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Pen y Cymoedd",
       coords: {
         lat: 51.747,
-        lng: -1.227,
+        lng: -1.227
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_PNYCB-1",
-      },
-    ],
+        bmUnit: "T_PNYCB-1"
+      }
+    ]
   },
 
   {
@@ -2504,15 +2504,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Nursling",
       coords: {
         lat: 50.921,
-        lng: -1.479,
+        lng: -1.479
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_NURSB-1",
-      },
-    ],
+        bmUnit: "T_NURSB-1"
+      }
+    ]
   },
 
   {
@@ -2521,15 +2521,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Kemsley",
       coords: {
         lat: 51.358,
-        lng: 0.735,
+        lng: 0.735
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_KEMB-1",
-      },
-    ],
+        bmUnit: "T_KEMB-1"
+      }
+    ]
   },
 
   {
@@ -2538,15 +2538,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Greenfield Road",
       coords: {
         lat: 53.252,
-        lng: -3.005,
+        lng: -3.005
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_GRFLB-1",
-      },
-    ],
+        bmUnit: "E_GRFLB-1"
+      }
+    ]
   },
 
   {
@@ -2555,15 +2555,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Carraig Gheal",
       coords: {
         lat: 56.339,
-        lng: -5.2945,
+        lng: -5.2945
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CRGHW-1",
-      },
-    ],
+        bmUnit: "T_CRGHW-1"
+      }
+    ]
   },
 
   {
@@ -2572,15 +2572,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Corrimoillie",
       coords: {
         lat: 57.667667,
-        lng: -4.773333,
+        lng: -4.773333
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CRMLW-1",
-      },
-    ],
+        bmUnit: "T_CRMLW-1"
+      }
+    ]
   },
 
   {
@@ -2589,24 +2589,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Cruachan",
       coords: {
         lat: 56.4192,
-        lng: -5.0127,
+        lng: -5.0127
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_CRUA-1",
+        bmUnit: "T_CRUA-1"
       },
       {
-        bmUnit: "T_CRUA-2",
+        bmUnit: "T_CRUA-2"
       },
       {
-        bmUnit: "T_CRUA-3",
+        bmUnit: "T_CRUA-3"
       },
       {
-        bmUnit: "T_CRUA-4",
-      },
-    ],
+        bmUnit: "T_CRUA-4"
+      }
+    ]
   },
 
   {
@@ -2615,18 +2615,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Crystal Rig",
       coords: {
         lat: 55.883,
-        lng: -2.5075,
+        lng: -2.5075
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CRYRW-2",
+        bmUnit: "T_CRYRW-2"
       },
       {
-        bmUnit: "T_CRYRW-3",
-      },
-    ],
+        bmUnit: "T_CRYRW-3"
+      }
+    ]
   },
 
   {
@@ -2635,15 +2635,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Dalswinton",
       coords: {
         lat: 55.1841,
-        lng: -3.6506,
+        lng: -3.6506
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_DALSW-1",
-      },
-    ],
+        bmUnit: "E_DALSW-1"
+      }
+    ]
   },
 
   {
@@ -2652,24 +2652,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Dudgeon",
       coords: {
         lat: 53.1175,
-        lng: 0.6135,
+        lng: 0.6135
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DDGNO-1",
+        bmUnit: "T_DDGNO-1"
       },
       {
-        bmUnit: "T_DDGNO-2",
+        bmUnit: "T_DDGNO-2"
       },
       {
-        bmUnit: "T_DDGNO-3",
+        bmUnit: "T_DDGNO-3"
       },
       {
-        bmUnit: "T_DDGNO-4",
-      },
-    ],
+        bmUnit: "T_DDGNO-4"
+      }
+    ]
   },
 
   {
@@ -2678,15 +2678,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Deeside",
       coords: {
         lat: 53.233333,
-        lng: -3.054722,
+        lng: -3.054722
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_DEEP-1",
-      },
-    ],
+        bmUnit: "T_DEEP-1"
+      }
+    ]
   },
 
   {
@@ -2695,15 +2695,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Dunbar",
       coords: {
         lat: 55.99467893827063,
-        lng: -2.5037593767422934,
+        lng: -2.5037593767422934
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "2__NSMAR001",
-      },
-    ],
+        bmUnit: "2__NSMAR001"
+      }
+    ]
   },
 
   {
@@ -2712,15 +2712,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Dunlaw",
       coords: {
         lat: 55.805583,
-        lng: -2.852889,
+        lng: -2.852889
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DNLWW-1",
-      },
-    ],
+        bmUnit: "T_DNLWW-1"
+      }
+    ]
   },
 
   {
@@ -2729,18 +2729,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Dorenell",
       coords: {
         lat: 57.352722,
-        lng: -3.129167,
+        lng: -3.129167
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DOREW-1",
+        bmUnit: "T_DOREW-1"
       },
       {
-        bmUnit: "T_DOREW-2",
-      },
-    ],
+        bmUnit: "T_DOREW-2"
+      }
+    ]
   },
 
   {
@@ -2749,15 +2749,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Dersalloch",
       coords: {
         lat: 55.31925878073858,
-        lng: -4.468916566180941,
+        lng: -4.468916566180941
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DRSLW-1",
-      },
-    ],
+        bmUnit: "T_DRSLW-1"
+      }
+    ]
   },
 
   {
@@ -2766,15 +2766,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Dunmaglass",
       coords: {
         lat: 57.239772263978885,
-        lng: -4.267768506763746,
+        lng: -4.267768506763746
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DUNGW-1",
-      },
-    ],
+        bmUnit: "T_DUNGW-1"
+      }
+    ]
   },
 
   {
@@ -2783,15 +2783,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Burwell Weirs",
       coords: {
         lat: 52.272,
-        lng: 0.337,
+        lng: 0.337
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_BURWB-1",
-      },
-    ],
+        bmUnit: "E_BURWB-1"
+      }
+    ]
   },
 
   {
@@ -2800,15 +2800,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Edinbane",
       coords: {
         lat: 57.40959498314662,
-        lng: -6.417996723851728,
+        lng: -6.417996723851728
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_EDINW-1",
-      },
-    ],
+        bmUnit: "T_EDINW-1"
+      }
+    ]
   },
 
   {
@@ -2817,15 +2817,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Ewe Hill",
       coords: {
         lat: 55.115,
-        lng: -3.228,
+        lng: -3.228
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_EWHLW-1",
-      },
-    ],
+        bmUnit: "T_EWHLW-1"
+      }
+    ]
   },
 
   {
@@ -2834,18 +2834,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Farr",
       coords: {
         lat: 57.325264293976204,
-        lng: -4.092302940312459,
+        lng: -4.092302940312459
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_FARR-1",
+        bmUnit: "T_FARR-1"
       },
       {
-        bmUnit: "T_FARR-2",
-      },
-    ],
+        bmUnit: "T_FARR-2"
+      }
+    ]
   },
 
   {
@@ -2854,15 +2854,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Goole Fields",
       coords: {
         lat: 53.7167,
-        lng: -0.9333,
+        lng: -0.9333
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_GFLDW-1",
-      },
-    ],
+        bmUnit: "E_GFLDW-1"
+      }
+    ]
   },
 
   {
@@ -2871,15 +2871,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Castner Kellner",
       coords: {
         lat: 53.329417,
-        lng: -2.754083,
+        lng: -2.754083
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "T_CASKD-1",
-      },
-    ],
+        bmUnit: "T_CASKD-1"
+      }
+    ]
   },
 
   {
@@ -2888,15 +2888,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Glen Kyllachy",
       coords: {
         lat: 57.334806,
-        lng: -4.104861,
+        lng: -4.104861
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GLNKW-1",
-      },
-    ],
+        bmUnit: "T_GLNKW-1"
+      }
+    ]
   },
 
   {
@@ -2905,15 +2905,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Dollymans",
       coords: {
         lat: 51.589,
-        lng: 0.564,
+        lng: 0.564
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_DOLLB-1",
-      },
-    ],
+        bmUnit: "E_DOLLB-1"
+      }
+    ]
   },
 
   {
@@ -2922,15 +2922,15 @@ export const unitGroups: UnitGroup[] = [
       name: "BheBeinn Tharsuinn",
       coords: {
         lat: 57.8015,
-        lng: -4.3314,
+        lng: -4.3314
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_BETHW-1",
-      },
-    ],
+        bmUnit: "E_BETHW-1"
+      }
+    ]
   },
 
   {
@@ -2939,15 +2939,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Fallago",
       coords: {
         lat: 55.82489777951005,
-        lng: -2.66409699462629,
+        lng: -2.66409699462629
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_FALGW-1",
-      },
-    ],
+        bmUnit: "T_FALGW-1"
+      }
+    ]
   },
 
   {
@@ -2956,15 +2956,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Fellside",
       coords: {
         lat: 50.83,
-        lng: -1.35,
+        lng: -1.35
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "E_FELL-1",
-      },
-    ],
+        bmUnit: "E_FELL-1"
+      }
+    ]
   },
 
   {
@@ -2973,15 +2973,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Finlarig",
       coords: {
         lat: 56.28,
-        lng: -3.61,
+        lng: -3.61
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_FINL-1",
-      },
-    ],
+        bmUnit: "T_FINL-1"
+      }
+    ]
   },
 
   {
@@ -2990,18 +2990,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Foyers",
       coords: {
         lat: 57.24,
-        lng: -4.36,
+        lng: -4.36
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_FOYE-1",
+        bmUnit: "T_FOYE-1"
       },
       {
-        bmUnit: "T_FOYE-2",
-      },
-    ],
+        bmUnit: "T_FOYE-2"
+      }
+    ]
   },
 
   {
@@ -3010,15 +3010,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Freasdail",
       coords: {
         lat: 55.78,
-        lng: -5.48,
+        lng: -5.48
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_FSDLW-1",
-      },
-    ],
+        bmUnit: "T_FSDLW-1"
+      }
+    ]
   },
 
   {
@@ -3027,24 +3027,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Galloper",
       coords: {
         lat: 51.89,
-        lng: 2.04,
+        lng: 2.04
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GANW-11",
+        bmUnit: "T_GANW-11"
       },
       {
-        bmUnit: "T_GANW-13",
+        bmUnit: "T_GANW-13"
       },
       {
-        bmUnit: "T_GANW-22",
+        bmUnit: "T_GANW-22"
       },
       {
-        bmUnit: "T_GANW-24",
-      },
-    ],
+        bmUnit: "T_GANW-24"
+      }
+    ]
   },
 
   {
@@ -3053,27 +3053,27 @@ export const unitGroups: UnitGroup[] = [
       name: "Dogger Bank",
       coords: {
         lat: 54.1,
-        lng: 2.5,
+        lng: 2.5
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DBAWO-1",
+        bmUnit: "T_DBAWO-1"
       },
       {
-        bmUnit: "T_DBAWO-2",
+        bmUnit: "T_DBAWO-2"
       },
       {
-        bmUnit: "T_DBAWO-3",
+        bmUnit: "T_DBAWO-3"
       },
       {
-        bmUnit: "T_DBAWO-4",
+        bmUnit: "T_DBAWO-4"
       },
       {
-        bmUnit: "T_DBAWO-5",
-      },
-    ],
+        bmUnit: "T_DBAWO-5"
+      }
+    ]
   },
 
   {
@@ -3082,15 +3082,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Cumberhead",
       coords: {
         lat: 55.6,
-        lng: -3.9,
+        lng: -3.9
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_CUMHW-1",
-      },
-    ],
+        bmUnit: "T_CUMHW-1"
+      }
+    ]
   },
 
   {
@@ -3099,15 +3099,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Assel Valley",
       coords: {
         lat: 55.226333,
-        lng: -4.7715,
+        lng: -4.7715
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_ASLVW-1",
-      },
-    ],
+        bmUnit: "E_ASLVW-1"
+      }
+    ]
   },
 
   {
@@ -3116,15 +3116,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Gordonstoun",
       coords: {
         lat: 57.448389,
-        lng: -2.4745,
+        lng: -2.4745
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_GDSTW-1",
-      },
-    ],
+        bmUnit: "E_GDSTW-1"
+      }
+    ]
   },
 
   {
@@ -3133,15 +3133,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Glenchamber",
       coords: {
         lat: 54.96,
-        lng: -4.75,
+        lng: -4.75
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_GLCHW-1",
-      },
-    ],
+        bmUnit: "E_GLCHW-1"
+      }
+    ]
   },
 
   {
@@ -3150,15 +3150,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Glendoe",
       coords: {
         lat: 57.15,
-        lng: -5.17,
+        lng: -5.17
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_GLNDO-1",
-      },
-    ],
+        bmUnit: "T_GLNDO-1"
+      }
+    ]
   },
 
   {
@@ -3167,15 +3167,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Glens of Foudland",
       coords: {
         lat: 57.22,
-        lng: -2.88,
+        lng: -2.88
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_GLOFW-1",
-      },
-    ],
+        bmUnit: "E_GLOFW-1"
+      }
+    ]
   },
 
   {
@@ -3184,15 +3184,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Galawhistle",
       coords: {
         lat: 55.53,
-        lng: -3.92,
+        lng: -3.92
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GLWSW-1",
-      },
-    ],
+        bmUnit: "T_GLWSW-1"
+      }
+    ]
   },
 
   {
@@ -3201,15 +3201,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Glen App",
       coords: {
         lat: 55.02,
-        lng: -5.03,
+        lng: -5.03
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GNAPW-1",
-      },
-    ],
+        bmUnit: "T_GNAPW-1"
+      }
+    ]
   },
 
   {
@@ -3218,21 +3218,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Gunfleet Sands",
       coords: {
         lat: 51.74,
-        lng: 1.17,
+        lng: 1.17
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GNFSW-1",
+        bmUnit: "T_GNFSW-1"
       },
       {
-        bmUnit: "E_GNFSW-2",
+        bmUnit: "E_GNFSW-2"
       },
       {
-        bmUnit: "T_GNFSW-2",
-      },
-    ],
+        bmUnit: "T_GNFSW-2"
+      }
+    ]
   },
 
   {
@@ -3241,18 +3241,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Gordonbush",
       coords: {
         lat: 58.07153332938159,
-        lng: -3.991809012205654,
+        lng: -3.991809012205654
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GORDW-1",
+        bmUnit: "T_GORDW-1"
       },
       {
-        bmUnit: "T_GORDW-2",
-      },
-    ],
+        bmUnit: "T_GORDW-2"
+      }
+    ]
   },
 
   {
@@ -3261,21 +3261,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Greater Gabbard",
       coords: {
         lat: 51.86649367222777,
-        lng: 1.9277117027817146,
+        lng: 1.9277117027817146
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GRGBW-1",
+        bmUnit: "T_GRGBW-1"
       },
       {
-        bmUnit: "T_GRGBW-2",
+        bmUnit: "T_GRGBW-2"
       },
       {
-        bmUnit: "T_GRGBW-3",
-      },
-    ],
+        bmUnit: "T_GRGBW-3"
+      }
+    ]
   },
 
   {
@@ -3284,18 +3284,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Griffin",
       coords: {
         lat: 56.53,
-        lng: -3.39,
+        lng: -3.39
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_GRIFW-1",
+        bmUnit: "T_GRIFW-1"
       },
       {
-        bmUnit: "T_GRIFW-2",
-      },
-    ],
+        bmUnit: "T_GRIFW-2"
+      }
+    ]
   },
 
   {
@@ -3304,15 +3304,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Grangemouth",
       coords: {
         lat: 56.02,
-        lng: -3.73,
+        lng: -3.73
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_GRMO-1",
-      },
-    ],
+        bmUnit: "T_GRMO-1"
+      }
+    ]
   },
 
   {
@@ -3321,15 +3321,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Halsary",
       coords: {
         lat: 58.44652833288308,
-        lng: -3.4208646140957404,
+        lng: -3.4208646140957404
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_HALSW-1",
-      },
-    ],
+        bmUnit: "T_HALSW-1"
+      }
+    ]
   },
 
   {
@@ -3338,15 +3338,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Harburnhead",
       coords: {
         lat: 55.814764307994125,
-        lng: -3.54231733790513,
+        lng: -3.54231733790513
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_HBHDW-1",
-      },
-    ],
+        bmUnit: "E_HBHDW-1"
+      }
+    ]
   },
 
   {
@@ -3355,15 +3355,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Hill of Glaschyle",
       coords: {
         lat: 57.51,
-        lng: -3.62,
+        lng: -3.62
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_HLGLW-1",
-      },
-    ],
+        bmUnit: "E_HLGLW-1"
+      }
+    ]
   },
   {
     details: {
@@ -3371,15 +3371,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Hill of Towie",
       coords: {
         lat: 57.49,
-        lng: -2.41,
+        lng: -2.41
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_HLTWW-1",
-      },
-    ],
+        bmUnit: "E_HLTWW-1"
+      }
+    ]
   },
   {
     details: {
@@ -3387,18 +3387,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Humber Gateway",
       coords: {
         lat: 53.65936008605068,
-        lng: 0.29528252560843476,
+        lng: 0.29528252560843476
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_HMGTO-1",
+        bmUnit: "T_HMGTO-1"
       },
       {
-        bmUnit: "T_HMGTO-2",
-      },
-    ],
+        bmUnit: "T_HMGTO-2"
+      }
+    ]
   },
   {
     details: {
@@ -3406,15 +3406,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Hare Hill",
       coords: {
         lat: 55.36726941867161,
-        lng: -4.1089394055798705,
+        lng: -4.1089394055798705
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_HRHLW-1",
-      },
-    ],
+        bmUnit: "E_HRHLW-1"
+      }
+    ]
   },
 
   {
@@ -3423,15 +3423,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Harestanes",
       coords: {
         lat: 55.37438774601089,
-        lng: -3.9614870161241624,
+        lng: -3.9614870161241624
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_HRSTW-1",
-      },
-    ],
+        bmUnit: "T_HRSTW-1"
+      }
+    ]
   },
 
   {
@@ -3440,15 +3440,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Hywind",
       coords: {
         lat: 57.48,
-        lng: -1.35,
+        lng: -1.35
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_HYWDW-1",
-      },
-    ],
+        bmUnit: "E_HYWDW-1"
+      }
+    ]
   },
 
   {
@@ -3457,15 +3457,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Indian Queens",
       coords: {
         lat: 50.39636444053638,
-        lng: -4.898096864753528,
+        lng: -4.898096864753528
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_INDQ-1",
-      },
-    ],
+        bmUnit: "T_INDQ-1"
+      }
+    ]
   },
 
   {
@@ -3474,15 +3474,15 @@ export const unitGroups: UnitGroup[] = [
       name: "JG Pears",
       coords: {
         lat: 51.74,
-        lng: -3.07,
+        lng: -3.07
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "T_JGPR-1",
-      },
-    ],
+        bmUnit: "T_JGPR-1"
+      }
+    ]
   },
 
   {
@@ -3491,15 +3491,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Kilbraur",
       coords: {
         lat: 58.04,
-        lng: -4.06,
+        lng: -4.06
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_KILBW-1",
-      },
-    ],
+        bmUnit: "T_KILBW-1"
+      }
+    ]
   },
 
   {
@@ -3508,15 +3508,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Holes Bay",
       coords: {
         lat: 50.723,
-        lng: -2.016,
+        lng: -2.016
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "BHOLB-1",
-      },
-    ],
+        bmUnit: "BHOLB-1"
+      }
+    ]
   },
 
   {
@@ -3525,21 +3525,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Killingholme",
       coords: {
         lat: 53.65419,
-        lng: -0.25518,
+        lng: -0.25518
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_KILLPG-1",
+        bmUnit: "T_KILLPG-1"
       },
       {
-        bmUnit: "T_KILLPG-2",
+        bmUnit: "T_KILLPG-2"
       },
       {
-        bmUnit: "T_KILNS-1",
-      },
-    ],
+        bmUnit: "T_KILNS-1"
+      }
+    ]
   },
 
   {
@@ -3548,15 +3548,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Kincardine",
       coords: {
         lat: 56.98,
-        lng: 1.88,
+        lng: 1.88
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_KINCW-1",
-      },
-    ],
+        bmUnit: "E_KINCW-1"
+      }
+    ]
   },
 
   {
@@ -3565,15 +3565,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Kilgallioch",
       coords: {
         lat: 55.049912278136496,
-        lng: -4.764493574079205,
+        lng: -4.764493574079205
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_KLGLW-1",
-      },
-    ],
+        bmUnit: "T_KLGLW-1"
+      }
+    ]
   },
 
   {
@@ -3582,15 +3582,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Kings Lynn",
       coords: {
         lat: 52.72750854417357,
-        lng: 0.38092497060502656,
+        lng: 0.38092497060502656
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_KLYN-A-1",
-      },
-    ],
+        bmUnit: "E_KLYN-A-1"
+      }
+    ]
   },
   {
     details: {
@@ -3598,18 +3598,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Kype Muir",
       coords: {
         lat: 55.62896285665657,
-        lng: -4.061570179294071,
+        lng: -4.061570179294071
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_KPMRW-1",
+        bmUnit: "T_KPMRW-1"
       },
       {
-        bmUnit: "T_KYPEW-1",
-      },
-    ],
+        bmUnit: "T_KYPEW-1"
+      }
+    ]
   },
 
   {
@@ -3618,15 +3618,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Keith Hill",
       coords: {
         lat: 55.82,
-        lng: 2.83,
+        lng: 2.83
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_KTHLW-1",
-      },
-    ],
+        bmUnit: "T_KTHLW-1"
+      }
+    ]
   },
 
   {
@@ -3635,24 +3635,24 @@ export const unitGroups: UnitGroup[] = [
       name: "London Array",
       coords: {
         lat: 51.65,
-        lng: 1.36,
+        lng: 1.36
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_LARYW-1",
+        bmUnit: "T_LARYW-1"
       },
       {
-        bmUnit: "T_LARYW-2",
+        bmUnit: "T_LARYW-2"
       },
       {
-        bmUnit: "T_LARYW-3",
+        bmUnit: "T_LARYW-3"
       },
       {
-        bmUnit: "T_LARYW-4",
-      },
-    ],
+        bmUnit: "T_LARYW-4"
+      }
+    ]
   },
 
   {
@@ -3661,15 +3661,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Lochluichart",
       coords: {
         lat: 57.74,
-        lng: -4.56,
+        lng: -4.56
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_LCLTW-1",
-      },
-    ],
+        bmUnit: "T_LCLTW-1"
+      }
+    ]
   },
   {
     details: {
@@ -3677,18 +3677,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Lincs",
       coords: {
         lat: 53.1519564550017,
-        lng: 0.5274637683028764,
+        lng: 0.5274637683028764
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_LNCSW-1",
+        bmUnit: "T_LNCSW-1"
       },
       {
-        bmUnit: "T_LNCSW-2",
-      },
-    ],
+        bmUnit: "T_LNCSW-2"
+      }
+    ]
   },
   {
     details: {
@@ -3696,15 +3696,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Markinch",
       coords: {
         lat: 56.200423605026515,
-        lng: -3.1567815618346255,
+        lng: -3.1567815618346255
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "E_MARK-1",
-      },
-    ],
+        bmUnit: "E_MARK-1"
+      }
+    ]
   },
 
   {
@@ -3713,15 +3713,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Mid Hill",
       coords: {
         lat: 56.96,
-        lng: -2.48,
+        lng: -2.48
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "2__PSTAT002",
-      },
-    ],
+        bmUnit: "2__PSTAT002"
+      }
+    ]
   },
 
   {
@@ -3730,15 +3730,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Water Lane",
       coords: {
         lat: 50.70804436952977,
-        lng: -3.5209000751934574,
+        lng: -3.5209000751934574
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_WTRLN-1",
-      },
-    ],
+        bmUnit: "E_WTRLN-1"
+      }
+    ]
   },
 
   {
@@ -3747,15 +3747,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Medway",
       coords: {
         lat: 51.38,
-        lng: 0.89,
+        lng: 0.89
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_MEDP-1",
-      },
-    ],
+        bmUnit: "T_MEDP-1"
+      }
+    ]
   },
 
   {
@@ -3764,15 +3764,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Moorfield Drive",
       coords: {
         lat: 53.7758,
-        lng: -2.36467,
+        lng: -2.36467
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_MORFL-1",
-      },
-    ],
+        bmUnit: "T_MORFL-1"
+      }
+    ]
   },
 
   {
@@ -3781,15 +3781,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Bispham",
       coords: {
         lat: 53.8493407416543,
-        lng: -3.0325663339413875,
+        lng: -3.0325663339413875
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E-BSPHM-1",
-      },
-    ],
+        bmUnit: "E-BSPHM-1"
+      }
+    ]
   },
 
   {
@@ -3798,15 +3798,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Middlewich",
       coords: {
         lat: 53.18726,
-        lng: -2.42461,
+        lng: -2.42461
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_MDLWH-1",
-      },
-    ],
+        bmUnit: "E_MDLWH-1"
+      }
+    ]
   },
 
   {
@@ -3815,15 +3815,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Middle Muir",
       coords: {
         lat: 55.514378415866375,
-        lng: -3.803041190703463,
+        lng: -3.803041190703463
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_MIDMW-1",
-      },
-    ],
+        bmUnit: "T_MIDMW-1"
+      }
+    ]
   },
 
   {
@@ -3832,15 +3832,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Millennium",
       coords: {
         lat: 57.12374520636007,
-        lng: -4.845656718900648,
+        lng: -4.845656718900648
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_MILWW-1",
-      },
-    ],
+        bmUnit: "T_MILWW-1"
+      }
+    ]
   },
 
   {
@@ -3849,15 +3849,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Minsca",
       coords: {
         lat: 55.04,
-        lng: -3.47,
+        lng: -3.47
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_MINSW-1",
-      },
-    ],
+        bmUnit: "E_MINSW-1"
+      }
+    ]
   },
 
   {
@@ -3866,15 +3866,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Mark Hill",
       coords: {
         lat: 55.16,
-        lng: 4.82,
+        lng: 4.82
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_MKHLW-1",
-      },
-    ],
+        bmUnit: "T_MKHLW-1"
+      }
+    ]
   },
 
   {
@@ -3883,15 +3883,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Moy",
       coords: {
         lat: 57.39,
-        lng: -4.06,
+        lng: -4.06
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_MOYEW-1",
-      },
-    ],
+        bmUnit: "E_MOYEW-1"
+      }
+    ]
   },
 
   {
@@ -3900,15 +3900,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Minnygap",
       coords: {
         lat: 55.25,
-        lng: -3.51,
+        lng: -3.51
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_MYGPW-1",
-      },
-    ],
+        bmUnit: "T_MYGPW-1"
+      }
+    ]
   },
   {
     details: {
@@ -3916,15 +3916,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Nant",
       coords: {
         lat: 56.33791021804411,
-        lng: -5.211113121758361,
+        lng: -5.211113121758361
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "T_NANT-1",
-      },
-    ],
+        bmUnit: "T_NANT-1"
+      }
+    ]
   },
 
   {
@@ -3933,15 +3933,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Ormonde",
       coords: {
         lat: 54.1,
-        lng: -3.4,
+        lng: -3.4
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_OMNDW-1",
-      },
-    ],
+        bmUnit: "T_OMNDW-1"
+      }
+    ]
   },
   {
     details: {
@@ -3949,15 +3949,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Pauls' Hill",
       coords: {
         lat: 57.45,
-        lng: -3.46,
+        lng: -3.46
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "2_PPGEN002",
-      },
-    ],
+        bmUnit: "2_PPGEN002"
+      }
+    ]
   },
 
   {
@@ -3966,15 +3966,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Peterhead",
       coords: {
         lat: 57.48,
-        lng: -1.87,
+        lng: -1.87
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_PEHE-1",
-      },
-    ],
+        bmUnit: "T_PEHE-1"
+      }
+    ]
   },
 
   {
@@ -3983,15 +3983,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Peterborough",
       coords: {
         lat: 52.58,
-        lng: -0.2,
+        lng: -0.2
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "E_PETEM1",
-      },
-    ],
+        bmUnit: "E_PETEM1"
+      }
+    ]
   },
   {
     details: {
@@ -3999,15 +3999,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Pogbie",
       coords: {
         lat: 55.8551,
-        lng: -2.8648,
+        lng: -2.8648
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_PGBIW-1",
-      },
-    ],
+        bmUnit: "T_PGBIW-1"
+      }
+    ]
   },
   {
     details: {
@@ -4015,15 +4015,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Pen y Cymoedd",
       coords: {
         lat: 51.70973149497483,
-        lng: -3.5864877520574443,
+        lng: -3.5864877520574443
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_PNYCW-1",
-      },
-    ],
+        bmUnit: "T_PNYCW-1"
+      }
+    ]
   },
 
   {
@@ -4032,15 +4032,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Redditch",
       coords: {
         lat: 52.3,
-        lng: -1.93,
+        lng: -1.93
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_REDGT-1",
-      },
-    ],
+        bmUnit: "E_REDGT-1"
+      }
+    ]
   },
 
   {
@@ -4049,18 +4049,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Rampion",
       coords: {
         lat: 50.67,
-        lng: 0.27,
+        lng: 0.27
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_RMPNO-1",
+        bmUnit: "T_RMPNO-1"
       },
       {
-        bmUnit: "T_RMPNO-2",
-      },
-    ],
+        bmUnit: "T_RMPNO-2"
+      }
+    ]
   },
 
   {
@@ -4069,18 +4069,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Robin Rigg",
       coords: {
         lat: 54.75,
-        lng: -3.72,
+        lng: -3.72
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_RREW-1",
+        bmUnit: "T_RREW-1"
       },
       {
-        bmUnit: "T_RRWW-1",
-      },
-    ],
+        bmUnit: "T_RRWW-1"
+      }
+    ]
   },
 
   {
@@ -4089,15 +4089,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Rosehall",
       coords: {
         lat: 57.981691487181486,
-        lng: -4.4977128370244905,
+        lng: -4.4977128370244905
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_RSHLW-1",
-      },
-    ],
+        bmUnit: "E_RSHLW-1"
+      }
+    ]
   },
   {
     details: {
@@ -4105,15 +4105,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Rye House",
       coords: {
         lat: 51.763,
-        lng: 0.009,
+        lng: 0.009
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_RYHPS-1",
-      },
-    ],
+        bmUnit: "T_RYHPS-1"
+      }
+    ]
   },
 
   {
@@ -4122,15 +4122,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Sanquhar",
       coords: {
         lat: 55.3457579610213,
-        lng: -4.0249049858595045,
+        lng: -4.0249049858595045
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_SANQW-1",
-      },
-    ],
+        bmUnit: "T_SANQW-1"
+      }
+    ]
   },
 
   {
@@ -4139,24 +4139,24 @@ export const unitGroups: UnitGroup[] = [
       name: "Sloy",
       coords: {
         lat: 56.2,
-        lng: -4.74,
+        lng: -4.74
       },
-      fuelType: "hydro",
+      fuelType: "hydro"
     },
     units: [
       {
-        bmUnit: "M_SLOY-1",
+        bmUnit: "M_SLOY-1"
       },
       {
-        bmUnit: "T_SLOY-2",
+        bmUnit: "T_SLOY-2"
       },
       {
-        bmUnit: "T_SLOY-3",
+        bmUnit: "T_SLOY-3"
       },
       {
-        bmUnit: "M_SLOY-4",
-      },
-    ],
+        bmUnit: "M_SLOY-4"
+      }
+    ]
   },
 
   {
@@ -4165,21 +4165,21 @@ export const unitGroups: UnitGroup[] = [
       name: "Stronelairg",
       coords: {
         lat: 57.1,
-        lng: -4.46,
+        lng: -4.46
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_STLGW-1",
+        bmUnit: "T_STLGW-1"
       },
       {
-        bmUnit: "T_STLGW-2",
+        bmUnit: "T_STLGW-2"
       },
       {
-        bmUnit: "T_STLGW-3",
-      },
-    ],
+        bmUnit: "T_STLGW-3"
+      }
+    ]
   },
 
   {
@@ -4188,15 +4188,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Stathy North",
       coords: {
         lat: 58.510179108214274,
-        lng: -4.021163500770599,
+        lng: -4.021163500770599
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_STRNW-1",
-      },
-    ],
+        bmUnit: "T_STRNW-1"
+      }
+    ]
   },
 
   // sutton bridge 0.10 52.62
@@ -4207,15 +4207,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Sutton Bridge",
       coords: {
         lat: 52.62,
-        lng: 0.1,
+        lng: 0.1
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_SUTB-1",
-      },
-    ],
+        bmUnit: "T_SUTB-1"
+      }
+    ]
   },
 
   // Severn Power 3.07 51.74 T_SVRP-10 T_SVRP-20
@@ -4226,18 +4226,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Severn Power",
       coords: {
         lat: 51.74,
-        lng: -3.07,
+        lng: -3.07
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_SVRP-10",
+        bmUnit: "T_SVRP-10"
       },
       {
-        bmUnit: "T_SVRP-20",
-      },
-    ],
+        bmUnit: "T_SVRP-20"
+      }
+    ]
   },
 
   //   Taylors Lane	E_TAYL2G 	E_TAYL3G -0.26 51.55
@@ -4248,18 +4248,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Taylors Lane",
       coords: {
         lat: 51.55,
-        lng: -0.26,
+        lng: -0.26
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_TAYL2G",
+        bmUnit: "E_TAYL2G"
       },
       {
-        bmUnit: "E_TAYL3G",
-      },
-    ],
+        bmUnit: "E_TAYL3G"
+      }
+    ]
   },
 
   // Toddleburn	T_TDBNW-1 -2.53 53.27
@@ -4270,15 +4270,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Toddleburn",
       coords: {
         lat: 55.77346477505817,
-        lng: -2.8698050803142077,
+        lng: -2.8698050803142077
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_TDBNW-1",
-      },
-    ],
+        bmUnit: "T_TDBNW-1"
+      }
+    ]
   },
   // Thanet Offshore Wind	T_THNTO-1 	T_THNTO-2 1.46 51.39
 
@@ -4288,18 +4288,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Thanet",
       coords: {
         lat: 51.39,
-        lng: 1.46,
+        lng: 1.46
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_THNTO-1",
+        bmUnit: "T_THNTO-1"
       },
       {
-        bmUnit: "T_THNTO-2",
-      },
-    ],
+        bmUnit: "T_THNTO-2"
+      }
+    ]
   },
 
   // Tullymurdoch	E_TLYMW-1 -3.29 56.67
@@ -4310,15 +4310,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Tullymurdoch",
       coords: {
         lat: 56.67,
-        lng: -3.29,
+        lng: -3.29
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_TLYMW-1",
-      },
-    ],
+        bmUnit: "E_TLYMW-1"
+      }
+    ]
   },
 
   // Tralorg	T_TRLGW-1 -2.53 53.27
@@ -4329,15 +4329,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Tralorg",
       coords: {
         lat: 55.2497,
-        lng: -4.80797,
+        lng: -4.80797
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_TRLGW-1",
-      },
-    ],
+        bmUnit: "T_TRLGW-1"
+      }
+    ]
   },
   {
     details: {
@@ -4345,15 +4345,15 @@ export const unitGroups: UnitGroup[] = [
       name: "MGT Teesside",
       coords: {
         lat: 54.5975,
-        lng: -1.1703,
+        lng: -1.1703
       },
-      fuelType: "biomass",
+      fuelType: "biomass"
     },
     units: [
       {
-        bmUnit: "T_TSREP-1",
-      },
-    ],
+        bmUnit: "T_TSREP-1"
+      }
+    ]
   },
   {
     details: {
@@ -4361,18 +4361,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Tullo",
       coords: {
         lat: 56.83392741448257,
-        lng: -2.392349391051705,
+        lng: -2.392349391051705
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_TULWW-1",
+        bmUnit: "E_TULWW-1"
       },
       {
-        bmUnit: "E_TULWW-2",
-      },
-    ],
+        bmUnit: "E_TULWW-2"
+      }
+    ]
   },
   // twent T_TWSHW-1 -3.92 55.32
 
@@ -4382,15 +4382,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Twent",
       coords: {
         lat: 55.32,
-        lng: -3.92,
+        lng: -3.92
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_TWSHW-1",
-      },
-    ],
+        bmUnit: "T_TWSHW-1"
+      }
+    ]
   },
   {
     details: {
@@ -4398,15 +4398,15 @@ export const unitGroups: UnitGroup[] = [
       code: "T_WDRGW-1",
       coords: {
         lat: 55.27475,
-        lng: -4.1795,
+        lng: -4.1795
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_WDRGW-1",
-      },
-    ],
+        bmUnit: "T_WDRGW-1"
+      }
+    ]
   },
 
   // Whiteside Hill T_WHIHW-1 -2.53 53.27
@@ -4417,18 +4417,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Whiteside Hill",
       coords: {
         lat: 55.3575,
-        lng: -4.0313,
+        lng: -4.0313
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_WHIHW-1",
+        bmUnit: "T_WHIHW-1"
       },
       {
-        bmUnit: "T_WHIHW-2",
-      },
-    ],
+        bmUnit: "T_WHIHW-2"
+      }
+    ]
   },
   {
     details: {
@@ -4436,15 +4436,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Wilton",
       coords: {
         lat: 54.5894,
-        lng: -1.1185,
+        lng: -1.1185
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "T_WILCT-1",
-      },
-    ],
+        bmUnit: "T_WILCT-1"
+      }
+    ]
   },
 
   // E_WINN-1 Winnington -2.53	53.27
@@ -4455,15 +4455,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Winnington",
       coords: {
         lat: 53.26702,
-        lng: -2.53098,
+        lng: -2.53098
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_WINN-1",
-      },
-    ],
+        bmUnit: "E_WINN-1"
+      }
+    ]
   },
 
   {
@@ -4472,15 +4472,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Windy Standard II",
       coords: {
         lat: 55.27,
-        lng: -4.18,
+        lng: -4.18
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_WISTW-2",
-      },
-    ],
+        bmUnit: "T_WISTW-2"
+      }
+    ]
   },
   // {
   //   details: {
@@ -4504,15 +4504,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Derby",
       coords: {
         lat: 52.92,
-        lng: -1.5,
+        lng: -1.5
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_DERBY-1",
-      },
-    ],
+        bmUnit: "E_DERBY-1"
+      }
+    ]
   },
   {
     details: {
@@ -4520,16 +4520,16 @@ export const unitGroups: UnitGroup[] = [
       name: "Thame Road",
       coords: {
         lat: 51.63,
-        lng: -1.07,
+        lng: -1.07
       },
 
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_THMRB-1",
-      },
-    ],
+        bmUnit: "E_THMRB-1"
+      }
+    ]
   },
   {
     details: {
@@ -4537,15 +4537,15 @@ export const unitGroups: UnitGroup[] = [
       name: "South Kyle",
       coords: {
         lat: 55.329817522785824,
-        lng: -4.341610700916734,
+        lng: -4.341610700916734
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_SOKYW-1",
-      },
-    ],
+        bmUnit: "T_SOKYW-1"
+      }
+    ]
   },
 
   //Kennoxhead T_KENNW-1 55.49831806503957, -3.9137355183118387
@@ -4556,15 +4556,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Kennoxhead",
       coords: {
         lat: 55.49831806503957,
-        lng: -3.9137355183118387,
+        lng: -3.9137355183118387
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_KENNW-1",
-      },
-    ],
+        bmUnit: "T_KENNW-1"
+      }
+    ]
   },
 
   // Pinfold
@@ -4575,30 +4575,30 @@ export const unitGroups: UnitGroup[] = [
       name: "Capenhurst",
       coords: {
         lat: 53.26596802790049,
-        lng: -2.941941529015923,
+        lng: -2.941941529015923
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "T_PINFB-1",
+        bmUnit: "T_PINFB-1"
       },
       {
-        bmUnit: "T_PINFB-2",
+        bmUnit: "T_PINFB-2"
       },
       {
-        bmUnit: "T_PINFB-3",
+        bmUnit: "T_PINFB-3"
       },
       {
-        bmUnit: "T_PINFB-4",
+        bmUnit: "T_PINFB-4"
       },
       {
-        bmUnit: "T_PINFD-5",
+        bmUnit: "T_PINFD-5"
       },
       {
-        bmUnit: "T_PINFD-6",
-      },
-    ],
+        bmUnit: "T_PINFD-6"
+      }
+    ]
   },
 
   // Hutton Battery E_ARNKB-2
@@ -4609,15 +4609,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Hutton Battery",
       coords: {
         lat: 55.884,
-        lng: -3.922,
+        lng: -3.922
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_ARNKB-2",
-      },
-    ],
+        bmUnit: "E_ARNKB-2"
+      }
+    ]
   },
 
   // Greengairs east wind farm
@@ -4628,15 +4628,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Greengairs East",
       coords: {
         lat: 55.884,
-        lng: -3.922,
+        lng: -3.922
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_GRGRW-1",
-      },
-    ],
+        bmUnit: "E_GRGRW-1"
+      }
+    ]
   },
   {
     details: {
@@ -4644,15 +4644,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Blary Hill",
       coords: {
         lat: 55.884,
-        lng: -3.922,
+        lng: -3.922
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "E_BLARW-1",
-      },
-    ],
+        bmUnit: "E_BLARW-1"
+      }
+    ]
   },
 
   {
@@ -4661,15 +4661,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Dalquhandy",
       coords: {
         lat: 55.884,
-        lng: -3.922,
+        lng: -3.922
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DALQW-1",
-      },
-    ],
+        bmUnit: "T_DALQW-1"
+      }
+    ]
   },
 
   {
@@ -4678,15 +4678,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Sandy Knowe",
       coords: {
         lat: 55.884,
-        lng: -3.922,
+        lng: -3.922
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_SAKNW-1",
-      },
-    ],
+        bmUnit: "T_SAKNW-1"
+      }
+    ]
   },
 
   {
@@ -4695,15 +4695,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Skelmersdale",
       coords: {
         lat: 53.55,
-        lng: -2.8,
+        lng: -2.8
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_SKELB-1",
-      },
-    ],
+        bmUnit: "E_SKELB-1"
+      }
+    ]
   },
 
   {
@@ -4712,18 +4712,18 @@ export const unitGroups: UnitGroup[] = [
       name: "Clay Tye",
       coords: {
         lat: 51.97,
-        lng: 0.74,
+        lng: 0.74
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_CLAYB-2",
+        bmUnit: "E_CLAYB-2"
       },
       {
-        bmUnit: "E_CLAYB-1",
-      },
-    ],
+        bmUnit: "E_CLAYB-1"
+      }
+    ]
   },
 
   {
@@ -4732,15 +4732,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Douglas West",
       coords: {
         lat: 55.57481257534265,
-        lng: -3.8527474924568645,
+        lng: -3.8527474924568645
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_DOUGW-1",
-      },
-    ],
+        bmUnit: "T_DOUGW-1"
+      }
+    ]
   },
 
   {
@@ -4749,15 +4749,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Hadyard Hill",
       coords: {
         lat: 55.57481257534265,
-        lng: -3.8527474924568645,
+        lng: -3.8527474924568645
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "T_HADHW-1",
-      },
-    ],
+        bmUnit: "T_HADHW-1"
+      }
+    ]
   },
 
   {
@@ -4766,15 +4766,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Larks Green",
       coords: {
         lat: 51.580335192168,
-        lng: -2.488009122311269,
+        lng: -2.488009122311269
       },
-      fuelType: "solar",
+      fuelType: "solar"
     },
     units: [
       {
-        bmUnit: "T_LARKS-1",
-      },
-    ],
+        bmUnit: "T_LARKS-1"
+      }
+    ]
   },
 
   {
@@ -4783,16 +4783,16 @@ export const unitGroups: UnitGroup[] = [
       name: "Rosehall",
       coords: {
         lat: 58.003537,
-        lng: -4.55391,
+        lng: -4.55391
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
 
     units: [
       {
-        bmUnit: "2__PEDGE004",
-      },
-    ],
+        bmUnit: "2__PEDGE004"
+      }
+    ]
   },
   {
     details: {
@@ -4800,15 +4800,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Tomnanclach",
       coords: {
         lat: 57.39224368803747,
-        lng: -3.8940041371091225,
+        lng: -3.8940041371091225
       },
-      fuelType: "wind",
+      fuelType: "wind"
     },
     units: [
       {
-        bmUnit: "C__PSTAT011",
-      },
-    ],
+        bmUnit: "C__PSTAT011"
+      }
+    ]
   },
 
   {
@@ -4817,19 +4817,19 @@ export const unitGroups: UnitGroup[] = [
       name: "Richborough",
       coords: {
         lat: 51.31179445054598,
-        lng: 1.3483102242965337,
+        lng: 1.3483102242965337
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
 
     units: [
       {
-        bmUnit: "T_RICHB-1",
+        bmUnit: "T_RICHB-1"
       },
       {
-        bmUnit: "T_RICHB-2",
-      },
-    ],
+        bmUnit: "T_RICHB-2"
+      }
+    ]
   },
   {
     details: {
@@ -4837,15 +4837,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Croydon",
       coords: {
         lat: 51.3788,
-        lng: -0.1211,
+        lng: -0.1211
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_CROYD-2",
-      },
-    ],
+        bmUnit: "E_CROYD-2"
+      }
+    ]
   },
   {
     details: {
@@ -4853,15 +4853,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Chickerell",
       coords: {
         lat: 53.27,
-        lng: -2.53,
+        lng: -2.53
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_CHICK-1",
-      },
-    ],
+        bmUnit: "E_CHICK-1"
+      }
+    ]
   },
   {
     details: {
@@ -4869,15 +4869,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Exeter",
       coords: {
         lat: 50.7067,
-        lng: -3.5244,
+        lng: -3.5244
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_EXETR-2",
-      },
-    ],
+        bmUnit: "E_EXETR-2"
+      }
+    ]
   },
   {
     details: {
@@ -4885,15 +4885,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Exeter",
       coords: {
         lat: 50.7067,
-        lng: -3.5244,
+        lng: -3.5244
       },
-      fuelType: "oil",
+      fuelType: "oil"
     },
     units: [
       {
-        bmUnit: "E_PGEXTR",
-      },
-    ],
+        bmUnit: "E_PGEXTR"
+      }
+    ]
   },
   {
     details: {
@@ -4901,15 +4901,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Thornhill",
       coords: {
         lat: 53.677222,
-        lng: -1.654722,
+        lng: -1.654722
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_THRNL-1",
-      },
-    ],
+        bmUnit: "E_THRNL-1"
+      }
+    ]
   },
   {
     details: {
@@ -4917,15 +4917,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Sudmeadow",
       coords: {
         lat: 51.86506,
-        lng: -2.26379,
+        lng: -2.26379
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_SUDME-1",
-      },
-    ],
+        bmUnit: "E_SUDME-1"
+      }
+    ]
   },
   {
     details: {
@@ -4933,15 +4933,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Redscar",
       coords: {
         lat: 53.78285876623803,
-        lng: -2.6389794927155616,
+        lng: -2.6389794927155616
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_RDSCR-1",
-      },
-    ],
+        bmUnit: "E_RDSCR-1"
+      }
+    ]
   },
   {
     details: {
@@ -4949,15 +4949,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Alcoa",
       coords: {
         lat: 51.64929477115635,
-        lng: -4.0143616171303105,
+        lng: -4.0143616171303105
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_ALCOA-1",
-      },
-    ],
+        bmUnit: "E_ALCOA-1"
+      }
+    ]
   },
   {
     details: {
@@ -4965,15 +4965,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Jamesfield",
       coords: {
         lat: 56.341884708051374,
-        lng: -3.288748040697988,
+        lng: -3.288748040697988
       },
-      fuelType: "battery",
+      fuelType: "battery"
     },
     units: [
       {
-        bmUnit: "E_JAMBB-1",
-      },
-    ],
+        bmUnit: "E_JAMBB-1"
+      }
+    ]
   },
   {
     details: {
@@ -4981,15 +4981,15 @@ export const unitGroups: UnitGroup[] = [
       name: "Chatterly",
       coords: {
         lat: 53.07673,
-        lng: -2.17748,
+        lng: -2.17748
       },
-      fuelType: "oil",
+      fuelType: "oil"
     },
     units: [
       {
-        bmUnit: "E_CHTRY-1",
-      },
-    ],
+        bmUnit: "E_CHTRY-1"
+      }
+    ]
   },
 
   {
@@ -4998,16 +4998,16 @@ export const unitGroups: UnitGroup[] = [
       name: "Goose House",
       coords: {
         lat: 53.70736,
-        lng: -2.46825,
+        lng: -2.46825
       },
-      fuelType: "gas",
+      fuelType: "gas"
     },
     units: [
       {
-        bmUnit: "E_GOSHS-1",
-      },
-    ],
-  },
+        bmUnit: "E_GOSHS-1"
+      }
+    ]
+  }
 ];
 
 // new batteries E_HAWKB-1
@@ -5025,7 +5025,7 @@ export const unitGroupNameFuelTypes = {};
 for (const ug of unitGroups) {
   unitGroupNameFuelTypes[ug.details.code] = {
     name: ug.details.name,
-    fuelType: ug.details.fuelType,
+    fuelType: ug.details.fuelType
   };
 }
 
@@ -5052,7 +5052,7 @@ export type UnitGroupBmUnits = {
 export const unitGroupBmUnits = unitGroups.map((ug) => {
   return {
     unitGroupCode: ug.details.code,
-    bmUnits: ug.units.map((u) => u.bmUnit),
+    bmUnits: ug.units.map((u) => u.bmUnit)
   };
 }) as UnitGroupBmUnits[];
 

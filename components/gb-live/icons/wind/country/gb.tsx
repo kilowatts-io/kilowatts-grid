@@ -1,15 +1,16 @@
+import React from "react";
+
 import { filterUnitsByType } from "../../../../../state/gb/fixtures/generators/unit-groups";
 import { ErrorBoundaryBlank } from "../../../error-boundary";
 import calculatePoint from "../../../svg-map/calcs/point";
 import {
   useGbBalancing,
   useGbCycleSeconds,
-  useGbSizePx,
+  useGbSizePx
 } from "../../hooks/gb/generators";
 import { WindTurbineBalancingLightMap } from "../visual/balancing-light";
-import { WindTurbineBladesMap, WindTurbineBladesList } from "../visual/blades";
+import { WindTurbineBladesList, WindTurbineBladesMap } from "../visual/blades";
 import { WindTurbineMastList, WindTurbineMastMap } from "../visual/mast";
-import React from "react";
 
 type GbWindProps = {
   point: { x: number; y: number };
@@ -18,7 +19,7 @@ type GbWindProps = {
 
 export const GbWindBalancingDirectionLight: React.FC<GbWindProps> = ({
   unitGroupCode,
-  point,
+  point
 }) => {
   const sizePx = useGbSizePx(unitGroupCode);
   const balancing = useGbBalancing(unitGroupCode);
@@ -33,12 +34,17 @@ export const GbWindBalancingDirectionLight: React.FC<GbWindProps> = ({
 
 export const GbWindMast: React.FC<GbWindProps> = ({ unitGroupCode, point }) => {
   const sizePx = useGbSizePx(unitGroupCode);
-  return <WindTurbineMastMap point={point} sizePx={sizePx} />;
+  return (
+    <WindTurbineMastMap
+      point={point}
+      sizePx={sizePx}
+    />
+  );
 };
 
 export const GbWindBlades: React.FC<GbWindProps> = ({
   unitGroupCode,
-  point,
+  point
 }) => {
   const cycleSeconds = useGbCycleSeconds(unitGroupCode);
   const sizePx = useGbSizePx(unitGroupCode);
@@ -55,15 +61,21 @@ export const GbWindBlades: React.FC<GbWindProps> = ({
 
 export const GbWindMapIcon: React.FC<GbWindProps> = ({
   unitGroupCode,
-  point,
+  point
 }) => (
   <>
     <GbWindBalancingDirectionLight
       unitGroupCode={unitGroupCode}
       point={point}
     />
-    <GbWindMast unitGroupCode={unitGroupCode} point={point} />
-    <GbWindBlades unitGroupCode={unitGroupCode} point={point} />
+    <GbWindMast
+      unitGroupCode={unitGroupCode}
+      point={point}
+    />
+    <GbWindBlades
+      unitGroupCode={unitGroupCode}
+      point={point}
+    />
   </>
 );
 

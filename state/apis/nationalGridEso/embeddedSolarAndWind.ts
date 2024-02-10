@@ -1,4 +1,5 @@
 import { object, string } from "yup";
+
 import { log } from "../../../utils/logs";
 
 export const query = () =>
@@ -201,14 +202,14 @@ type RawResponse = {
 };
 
 export type EmbeddedForecastValue = {
-    capacity: number;
-    level: number;
-}
+  capacity: number;
+  level: number;
+};
 
 export type EmbeddedSolarAndWindRecord = {
   time: string;
-  wind: EmbeddedForecastValue
-  solar: EmbeddedForecastValue
+  wind: EmbeddedForecastValue;
+  solar: EmbeddedForecastValue;
 };
 
 export const parseDate = (r: RawResponseRecord): string => {
@@ -221,13 +222,13 @@ const embeddedSolarAndWindRecord = object({
   time: string().required(),
   wind: object({
     capacity: string().required(),
-    level: string().required(),
+    level: string().required()
   }).required(),
   solar: object({
     capacity: string().required(),
-    level: string().required(),
-  }).required(),
-})
+    level: string().required()
+  }).required()
+});
 
 export const transformResponse = (
   r: RawResponse
@@ -239,26 +240,27 @@ export const transformResponse = (
   const output = records.map((v) => {
     const record = {
       time: parseDate(v),
-    wind: {
-      capacity: Number(v.EMBEDDED_WIND_CAPACITY),
-      level: Number(v.EMBEDDED_WIND_FORECAST),
-    },
-    solar: {
-      capacity: Number(v.EMBEDDED_SOLAR_CAPACITY),
-      level: Number(v.EMBEDDED_SOLAR_FORECAST),
-    },
-    }
+      wind: {
+        capacity: Number(v.EMBEDDED_WIND_CAPACITY),
+        level: Number(v.EMBEDDED_WIND_FORECAST)
+      },
+      solar: {
+        capacity: Number(v.EMBEDDED_SOLAR_CAPACITY),
+        level: Number(v.EMBEDDED_SOLAR_FORECAST)
+      }
+    };
     try {
-      embeddedSolarAndWindRecord.validateSync(record)
-    } catch(e) {
-      console.error(e)
-      throw new Error("Embedded solar/wind forecast record failed validation")
+      embeddedSolarAndWindRecord.validateSync(record);
+    } catch (e) {
+      console.error(e);
+      throw new Error("Embedded solar/wind forecast record failed validation");
     }
-    return record
+    return record;
   });
 
-  if(output.length == 0) {throw new Error("No embedded solar/wind forecast records returned")}
+  if (output.length == 0) {
+    throw new Error("No embedded solar/wind forecast records returned");
+  }
 
-  
-  return output
+  return output;
 };

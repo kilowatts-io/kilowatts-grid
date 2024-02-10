@@ -1,12 +1,13 @@
 import React from "react";
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
 import { useClock } from "@shopify/react-native-skia";
+
 import { WindTurbineBladeListItem, WindTurbineBladeMap } from "./blade";
 import {
   BLADE_OFFSET_ANGLES,
   MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO,
   MINIMUM_HEIGHT_PX,
-  ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO,
+  ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO
 } from "./constants";
 import { useGetBladeTransformList, useGetBladeTransformMap } from "./hooks";
 
@@ -34,7 +35,9 @@ export const WindTurbineBladesMap: React.FC<{
   );
   return (
     <>
-      {BLADE_OFFSET_ANGLES.map(x => useGetBladeTransformMap(x, cycleSeconds, t)).map((transform, index) => (
+      {BLADE_OFFSET_ANGLES.map((x) =>
+        useGetBladeTransformMap(x, cycleSeconds, t)
+      ).map((transform, index) => (
         <WindTurbineBladeMap
           key={`blade-${point.x}-${point.y}-${index}`}
           r={bladeR}
@@ -50,11 +53,13 @@ export const WindTurbineBladesMap: React.FC<{
 
 export const WindTurbineBladesList: React.FC<{
   cycleSeconds: number | null;
-}> = ({cycleSeconds}) => {
+}> = ({ cycleSeconds }) => {
   const t = useClock();
   return (
     <>
-      {BLADE_OFFSET_ANGLES.map(x => useGetBladeTransformList(x, cycleSeconds, t)).map((transform, index) => (
+      {BLADE_OFFSET_ANGLES.map((x) =>
+        useGetBladeTransformList(x, cycleSeconds, t)
+      ).map((transform, index) => (
         <WindTurbineBladeListItem
           key={`blade-${index}`}
           transform={transform}
@@ -62,5 +67,4 @@ export const WindTurbineBladesList: React.FC<{
       ))}
     </>
   );
-
-}
+};

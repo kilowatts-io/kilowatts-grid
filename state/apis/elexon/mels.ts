@@ -1,4 +1,5 @@
-import { object, string, number, InferType, array, lazy } from "yup";
+import { array, InferType, lazy, number, object, string } from "yup";
+
 import { BasicLevel, basicLevelSchema } from "./commonTypes";
 
 export const query = (p: { from: string; to: string }) =>
@@ -15,32 +16,32 @@ export const rawMelsSchema = object({
   notificationTime: string().required(),
   notificationSequence: number().required(),
   nationalGridBmUnit: string().required(),
-  bmUnit: string().nullable(),
+  bmUnit: string().nullable()
 });
 
-export type RawMels = Required<InferType<typeof rawMelsSchema>>
+export type RawMels = Required<InferType<typeof rawMelsSchema>>;
 
 export const rawMelsResponseSchema = object({
-  data: array(rawMelsSchema).required(),
+  data: array(rawMelsSchema).required()
 });
 
 type RawMelsResponse = {
   data: RawMels[];
-}
+};
 
 const bmUnitMelSchema = object({
   bmUnit: string().nonNullable(),
-  levels: array(basicLevelSchema).nonNullable(),
-})
+  levels: array(basicLevelSchema).nonNullable()
+});
 
 export type BmUnitMelSchema = {
   bmUnit: string;
   levels: BasicLevel[];
-}
+};
 
-export const bmUnitMelsSchema = array(bmUnitMelSchema).nonNullable()
+export const bmUnitMelsSchema = array(bmUnitMelSchema).nonNullable();
 
-export type BmUnitMelsSchema = BmUnitMelSchema[]
+export type BmUnitMelsSchema = BmUnitMelSchema[];
 
 export const transformResponse = (
   response: RawMelsResponse
@@ -52,7 +53,7 @@ export const transformResponse = (
     throw e;
   }
 
-  let bmUnits = new Set<string>();
+  const bmUnits = new Set<string>();
   for (const mels of response.data) {
     if (mels.bmUnit) {
       bmUnits.add(mels.bmUnit);
@@ -60,7 +61,7 @@ export const transformResponse = (
   }
   const output: BmUnitMelsSchema = [];
   for (const bmUnit of bmUnits) {
-    let levelsDict: Record<string, number> = {};
+    const levelsDict: Record<string, number> = {};
     for (const mels of response.data) {
       if (mels.bmUnit === bmUnit) {
         levelsDict[mels.timeFrom] = mels.levelFrom;
@@ -72,11 +73,9 @@ export const transformResponse = (
       levels: Object.keys(levelsDict)
         .map((time) => ({
           time,
-          level: levelsDict[time],
+          level: levelsDict[time]
         }))
-        .sort(
-          (a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()
-        ),
+        .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
     });
   }
 

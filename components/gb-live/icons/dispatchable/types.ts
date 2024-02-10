@@ -1,4 +1,3 @@
-
 export type DispatchableFuelType =
   | "gas"
   | "oil"
@@ -7,4 +6,3 @@ export type DispatchableFuelType =
   | "hydro"
   | "wind"
   | "biomass";
-

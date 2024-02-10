@@ -1,6 +1,7 @@
-import { selectors as s } from "../../../../../../state/gb/live";
 import React from "react";
 import { useSharedValue } from "react-native-reanimated";
+
+import { selectors as s } from "../../../../../../state/gb/live";
 import { store } from "../../../../../../state/reducer";
 
 const useCapacityFactor = (unitGroupCode: string) => {

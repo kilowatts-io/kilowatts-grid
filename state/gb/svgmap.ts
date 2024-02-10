@@ -1,20 +1,23 @@
-import { useSelector } from "react-redux";
 import React from "react";
 import { useSharedValue } from "react-native-reanimated";
+import { useSelector } from "react-redux";
+
 import { RootState, store } from "../reducer";
+
 import { selectors } from "./live";
 
 const getBalancingDirection = (volume: number) => {
   if (volume === 0) return "none";
   if (volume > 0) return "offer";
   return "bid";
-}
+};
 
 export const useGbBalancingDirectionSharedValue = (unitGroupCode: string) => {
   const balancing = useSharedValue<"none" | "bid" | "offer">("none");
   React.useEffect(() => {
     const setBalancing = () => {
-      const b = store.getState().gbLiveSlice.unitGroups.balancingVolume[unitGroupCode]
+      const b =
+        store.getState().gbLiveSlice.unitGroups.balancingVolume[unitGroupCode];
       const direction = getBalancingDirection(b);
       if (balancing.value !== direction) {
         balancing.value = direction;
@@ -37,11 +40,16 @@ export const useGbCapacityFactorSharedValue = (unitGroupCode: string) => {
   const capacityFactor = useSharedValue<number>(0);
   React.useEffect(() => {
     const setCapacityFactor = () => {
-      const output = store.getState().gbLiveSlice.unitGroups.currentOutput[unitGroupCode];
-      const capacity = store.getState().gbLiveSlice.unitGroups.capacity[unitGroupCode];
+      const output =
+        store.getState().gbLiveSlice.unitGroups.currentOutput[unitGroupCode];
+      const capacity =
+        store.getState().gbLiveSlice.unitGroups.capacity[unitGroupCode];
       if (!output || !capacity) return;
       const impliedCapacityFactor = output.level / capacity;
-      const correctedCapacityFactor = Math.max(0, Math.min(1, impliedCapacityFactor))
+      const correctedCapacityFactor = Math.max(
+        0,
+        Math.min(1, impliedCapacityFactor)
+      );
       if (capacityFactor.value !== correctedCapacityFactor) {
         capacityFactor.value = correctedCapacityFactor;
       }
@@ -52,7 +60,7 @@ export const useGbCapacityFactorSharedValue = (unitGroupCode: string) => {
   }, [unitGroupCode]);
 
   return capacityFactor;
-}
+};
 
 const WIND_CAPACITY_TO_MAX_SIZE_PX_RATIO = 0.02;
 
@@ -88,8 +96,11 @@ export const useGbCycleSecondsSharedValue = (unitGroupCode: string) => {
   const cycleSeconds = useSharedValue<undefined | number>(undefined);
   React.useEffect(() => {
     const setCycleSeconds = () => {
-      const output = store.getState().gbLiveSlice.unitGroups.currentOutput[unitGroupCode].level
-      const capacity = store.getState().gbLiveSlice.unitGroups.capacity[unitGroupCode];
+      const output =
+        store.getState().gbLiveSlice.unitGroups.currentOutput[unitGroupCode]
+          .level;
+      const capacity =
+        store.getState().gbLiveSlice.unitGroups.capacity[unitGroupCode];
       if (!output || !capacity) return;
       const capacityFactor = roundCapacityFactor(output / capacity);
       const impliedCycleSeconds =

@@ -1,12 +1,12 @@
+import { log } from "../../../utils/logs";
 import { BmUnitMelsSchema } from "../../apis/elexon/mels";
+import { store } from "../../reducer";
+import { getUnitGroupCapacity } from "../calcs";
 import {
   UnitGroupBmUnits,
-  unitGroupBmUnits,
+  unitGroupBmUnits
 } from "../fixtures/generators/unit-groups";
-import { store } from "../../reducer";
 import { setUnitGroupCapacity, setUpdatedCapacities } from "../live";
-import { log } from "../../../utils/logs";
-import { getUnitGroupCapacity } from "../calcs";
 
 const updateUnitGroupCapacity = (
   now: Date,
@@ -16,7 +16,7 @@ const updateUnitGroupCapacity = (
   store.dispatch(
     setUnitGroupCapacity({
       unitGroupCode: ug.unitGroupCode,
-      capacity: getUnitGroupCapacity(now, data, ug),
+      capacity: getUnitGroupCapacity(now, data, ug)
     })
   );
 

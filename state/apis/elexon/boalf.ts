@@ -1,12 +1,5 @@
-import {
-  object,
-  string,
-  number,
-  InferType,
-  array,
-  boolean,
+import { array, boolean, InferType, number, object, string } from "yup";
 
-} from "yup";
 import { BasicLevel, basicLevelSchema } from "./commonTypes";
 
 export const query = (p: { from: string; to: string }) =>
@@ -29,18 +22,18 @@ export const rawBoalfSchema = object({
   storFlag: boolean().required(),
   rrFlag: boolean().required(),
   nationalGridBmUnit: string().required(),
-  bmUnit: string().nullable(),
+  bmUnit: string().nullable()
 }).required();
 
-export type RawBoalf = Required<InferType<typeof rawBoalfSchema>>
+export type RawBoalf = Required<InferType<typeof rawBoalfSchema>>;
 
 const rawBoalfResponseSchema = object({
   data: array(rawBoalfSchema).required()
 });
 
 export type RawBoalfResponse = {
-  data: RawBoalf[]
-}
+  data: RawBoalf[];
+};
 
 export const transformedBoalfSchema = object({
   acceptanceNumber: number(),
@@ -50,8 +43,8 @@ export const transformedBoalfSchema = object({
   amendmentFlag: string().nonNullable(),
   storFlag: boolean().required(),
   rrFlag: boolean().nonNullable(),
-  levels: array(basicLevelSchema),
-})
+  levels: array(basicLevelSchema)
+});
 
 export type TransformedBoalfSchema = {
   acceptanceNumber: number;
@@ -62,20 +55,20 @@ export type TransformedBoalfSchema = {
   storFlag: boolean;
   rrFlag: boolean;
   levels: BasicLevel[];
-}
+};
 
 export const bmUnitBoalfsSchema = object({
   bmUnit: string().nonNullable(),
-  boalfs: array(transformedBoalfSchema).nonNullable(),
-})
+  boalfs: array(transformedBoalfSchema).nonNullable()
+});
 
 export type BmUnitBoalfsSchema = {
   bmUnit: string;
   boalfs: TransformedBoalfSchema[];
-}
-export const bmUnitsBoalfsSchema = array(bmUnitBoalfsSchema)
+};
+export const bmUnitsBoalfsSchema = array(bmUnitBoalfsSchema);
 
-export type BmUnitsBoalfsSchema = BmUnitBoalfsSchema[]
+export type BmUnitsBoalfsSchema = BmUnitBoalfsSchema[];
 
 export const transformResponse = (r: RawBoalfResponse): BmUnitsBoalfsSchema => {
   try {
@@ -85,7 +78,7 @@ export const transformResponse = (r: RawBoalfResponse): BmUnitsBoalfsSchema => {
     throw e;
   }
 
-  let bmUnits = new Set<string>();
+  const bmUnits = new Set<string>();
   for (const boalf of r.data) {
     if (boalf.bmUnit) {
       bmUnits.add(boalf.bmUnit);
@@ -95,7 +88,7 @@ export const transformResponse = (r: RawBoalfResponse): BmUnitsBoalfsSchema => {
   const output: BmUnitsBoalfsSchema = [];
 
   for (const bmUnit of bmUnits) {
-    let acceptancesNumbers = new Set<number>();
+    const acceptancesNumbers = new Set<number>();
     for (const boalf of r.data) {
       if (boalf.bmUnit === bmUnit) {
         acceptancesNumbers.add(boalf.acceptanceNumber);
@@ -104,40 +97,40 @@ export const transformResponse = (r: RawBoalfResponse): BmUnitsBoalfsSchema => {
 
     output.push({
       bmUnit,
-      boalfs: Array.from(acceptancesNumbers).sort(
-        (a, b) => a - b
-      ).map((acceptanceNumber) => {
-        const first = r.data.find(
-          (boalf) =>
-            boalf.bmUnit === bmUnit &&
-            boalf.acceptanceNumber === acceptanceNumber
-        )!;
-        let levelsDict: Record<string, number> = {};
-        for (const boalf of r.data) {
-          if (
-            boalf.bmUnit === bmUnit &&
-            boalf.acceptanceNumber === acceptanceNumber
-          ) {
-            levelsDict[boalf.timeFrom] = boalf.levelFrom;
-            levelsDict[boalf.timeTo] = boalf.levelTo;
+      boalfs: Array.from(acceptancesNumbers)
+        .sort((a, b) => a - b)
+        .map((acceptanceNumber) => {
+          const first = r.data.find(
+            (boalf) =>
+              boalf.bmUnit === bmUnit &&
+              boalf.acceptanceNumber === acceptanceNumber
+          )!;
+          const levelsDict: Record<string, number> = {};
+          for (const boalf of r.data) {
+            if (
+              boalf.bmUnit === bmUnit &&
+              boalf.acceptanceNumber === acceptanceNumber
+            ) {
+              levelsDict[boalf.timeFrom] = boalf.levelFrom;
+              levelsDict[boalf.timeTo] = boalf.levelTo;
+            }
           }
-        }
-        return {
-          acceptanceNumber,
-          acceptanceTime: first.acceptanceTime,
-          deemedBoFlag: first.deemedBoFlag,
-          soFlag: first.soFlag,
-          amendmentFlag: first.amendmentFlag,
-          storFlag: first.storFlag,
-          rrFlag: first.rrFlag,
-          levels: Object.keys(levelsDict)
-            .map((time) => ({
-              time,
-              level: levelsDict[time],
-            }))
-            .sort((a, b) => a.time.localeCompare(b.time)),
-        };
-      }),
+          return {
+            acceptanceNumber,
+            acceptanceTime: first.acceptanceTime,
+            deemedBoFlag: first.deemedBoFlag,
+            soFlag: first.soFlag,
+            amendmentFlag: first.amendmentFlag,
+            storFlag: first.storFlag,
+            rrFlag: first.rrFlag,
+            levels: Object.keys(levelsDict)
+              .map((time) => ({
+                time,
+                level: levelsDict[time]
+              }))
+              .sort((a, b) => a.time.localeCompare(b.time))
+          };
+        })
     });
   }
   return output;

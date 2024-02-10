@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { bmUnits, unitGroupCodes } from "./fixtures/generators/unit-groups";
+
 import { RootState } from "../reducer";
+
+import { bmUnits, unitGroupCodes } from "./fixtures/generators/unit-groups";
 
 type Code = string;
 
@@ -95,27 +97,27 @@ const initialState = (): GbLiveState => {
       capacities: null,
       outputGenerators: null,
       outputInterconnectors: null,
-      embeddedForecasts: null,
+      embeddedForecasts: null
     },
     selectedUnitGroupCode: null,
     unitGroups: {
       balancingVolume: ugB,
       currentOutput: ugO,
       capacity: ugC,
-      sortedOutput: [],
+      sortedOutput: []
     },
     bmUnits: {
       balancingVolume: uB,
       currentOutput: uO,
       capacity: uC,
-      sortedOutput: [],
+      sortedOutput: []
     },
     totals: {
       balancing: {},
       output: {
-        wind: {},
-      },
-    },
+        wind: {}
+      }
+    }
   };
 };
 
@@ -252,7 +254,7 @@ export const gbLiveSlice = createSlice({
     ) => {
       state.totals.output.solar = {
         ...action.payload,
-        balancingVolume: 0,
+        balancingVolume: 0
       };
     },
     setOutputTotalEmbeddedWind: (
@@ -261,7 +263,7 @@ export const gbLiveSlice = createSlice({
     ) => {
       state.totals.output.wind.embedded = {
         ...action.payload,
-        balancingVolume: 0,
+        balancingVolume: 0
       };
     },
     setOutputTotalGas: (
@@ -326,8 +328,8 @@ export const gbLiveSlice = createSlice({
       state.lastUpdated.embeddedForecasts = new Date();
     },
     // reset initial load
-    resetInitialState: () => initialState(),
-  },
+    resetInitialState: () => initialState()
+  }
 });
 
 // selectors
@@ -372,7 +374,7 @@ export const selectors = {
       lastUpdated.outputGenerators !== null &&
       lastUpdated.outputInterconnectors !== null //&&
     );
-  },
+  }
 };
 
 export const {

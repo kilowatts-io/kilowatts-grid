@@ -17,11 +17,11 @@ export const useRefresh = (refetch: () => void) => {
 
   React.useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
-      if (state.isConnected && !isConnected) refetch(); 
+      if (state.isConnected && !isConnected) refetch();
       setIsConnected(state.isConnected);
     });
     return () => {
-      unsubscribe(); 
+      unsubscribe();
     };
   }, [isConnected, refetch]);
 };

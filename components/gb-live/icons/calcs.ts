@@ -11,7 +11,7 @@ export const calculateCycleSeconds = (capacityFactor: number) => {
   if (capacityFactor == 0) return null;
   const exact = CYCLE_MILISECONDS_AT_FULL_CAPACITY / capacityFactor;
   const rounded = roundCapacityFactor(exact);
-  return rounded
+  return rounded;
 };
 
 export const calculateCycleSecondsInterconnector = (

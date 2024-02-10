@@ -29,7 +29,7 @@ describe("state/api/elexon/boalf.unit.test.ts", () => {
           storFlag: false,
           rrFlag: false,
           nationalGridBmUnit: "NGET-100",
-          bmUnit: "NGET-100",
+          bmUnit: "NGET-100"
         },
         {
           dataset: "BOALF",
@@ -48,9 +48,9 @@ describe("state/api/elexon/boalf.unit.test.ts", () => {
           storFlag: false,
           rrFlag: false,
           nationalGridBmUnit: "NGET-100",
-          bmUnit: "NGET-100",
-        },
-      ],
+          bmUnit: "NGET-100"
+        }
+      ]
     };
     const transformed = boalf.transformResponse(raw);
     expect(transformed).toEqual([
@@ -68,20 +68,20 @@ describe("state/api/elexon/boalf.unit.test.ts", () => {
             levels: [
               {
                 time: "2021-01-01T00:00:00.000Z",
-                level: 1,
+                level: 1
               },
               {
                 time: "2021-01-01T00:30:00.000Z",
-                level: 2,
+                level: 2
               },
               {
                 time: "2021-01-01T01:00:00.000Z",
-                level: 3,
-              },
-            ],
+                level: 3
+              }
+            ]
           }
-        ],
-      },
+        ]
+      }
     ]);
   });
 });

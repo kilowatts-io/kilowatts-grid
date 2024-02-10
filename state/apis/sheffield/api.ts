@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import * as national from './national'
+
+import * as national from "./national";
 
 const BASE_API = `https://api.solar.sheffield.ac.uk/pvlive/api/v4`;
 
@@ -10,10 +11,8 @@ export const sheffieldApi = createApi({
     national: builder.query({
       query: national.query,
       transformResponse: national.transformResponse
-    }),
-
-  }),
+    })
+  })
 });
-
 
 export const { useNationalQuery } = sheffieldApi;

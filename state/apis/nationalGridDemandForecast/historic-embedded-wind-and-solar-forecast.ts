@@ -1,4 +1,4 @@
-import { object, string, number } from "yup";
+import { number, object, string } from "yup";
 
 export type QueryParams = {
   year: number;
@@ -24,21 +24,21 @@ export const ngEsoEmbeddedWindAndSolarForecastValue = object({
   SETTLEMENT_DATE: string().required(),
   EMBEDDED_SOLAR_FORECAST: number().required(),
   // _id: number().required(),
-  EMBEDDED_SOLAR_CAPACITY: number().required(),
+  EMBEDDED_SOLAR_CAPACITY: number().required()
 });
 
 export type NgEsoEmbeddedWindAndSolarForecastValue = {
-    DATE_GMT: string;
-    EMBEDDED_WIND_FORECAST: string;
-    EMBEDDED_WIND_CAPACITY: string;
-    TIME_GMT: string;
-    // _full_text: string;
-    SETTLEMENT_PERIOD: number;
-    SETTLEMENT_DATE: string;
-    EMBEDDED_SOLAR_FORECAST: string;
-    // _id: number;
-    EMBEDDED_SOLAR_CAPACITY: string;
-}
+  DATE_GMT: string;
+  EMBEDDED_WIND_FORECAST: string;
+  EMBEDDED_WIND_CAPACITY: string;
+  TIME_GMT: string;
+  // _full_text: string;
+  SETTLEMENT_PERIOD: number;
+  SETTLEMENT_DATE: string;
+  EMBEDDED_SOLAR_FORECAST: string;
+  // _id: number;
+  EMBEDDED_SOLAR_CAPACITY: string;
+};
 
 export const transformResponse = (
   response: NgEsoEmbeddedWindAndSolarForecastValue[]

@@ -1,8 +1,9 @@
 import React from "react";
-import { Circle, useClock } from "@shopify/react-native-skia";
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
-import { MapContext } from "../../svg-map/context";
+import { Circle, useClock } from "@shopify/react-native-skia";
+
 import { BALANCING_COLORS } from "../../../../utils/colors";
+import { MapContext } from "../../svg-map/context";
 import { CanvasPoint } from "../../svg-map/types";
 
 export type BalancingDirectionLightMapProps = {
@@ -10,7 +11,6 @@ export type BalancingDirectionLightMapProps = {
   center: CanvasPoint;
   balancing: SharedValue<"bid" | "offer" | "none">;
 };
-
 
 export const BalancingDirectionLightMap: React.FC<
   BalancingDirectionLightMapProps

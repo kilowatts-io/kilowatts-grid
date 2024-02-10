@@ -1,14 +1,16 @@
 import React, { useContext } from "react";
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
 import { RoundedRect } from "@shopify/react-native-skia";
+
 import { MapContext } from "../../../svg-map/context";
+import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../../list-icons";
+
 import {
   MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO,
   MINIMUM_HEIGHT_PX,
   ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO,
-  WIND_TURBINE_COLOR,
+  WIND_TURBINE_COLOR
 } from "./constants";
-import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../../list-icons";
 
 export const WindTurbineMastMap: React.FC<{
   point: { x: number; y: number };

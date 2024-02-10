@@ -1,7 +1,8 @@
+import { StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
+
 import { selectors } from "../../../../../state/gb/live";
 import { GbLiveListItemBalancingTotal } from "../../live-list-item/live-list-item";
-import { StyleSheet, View } from "react-native";
 
 export const GbBalancingTotals = () => {
   const initialLoadComplete = useSelector(selectors.initialLoadComplete);
@@ -27,6 +28,6 @@ export const GbBalancingTotals = () => {
 
 const styles = StyleSheet.create({
   totals: {
-    paddingTop: 15,
-  },
+    paddingTop: 15
+  }
 });

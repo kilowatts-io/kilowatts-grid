@@ -1,6 +1,7 @@
 import React from "react";
-import { TurbineWheelList } from "./turbine";
+
 import { DISPATCHABLE_ICON_COLOURS } from "./constants";
+import { TurbineWheelList } from "./turbine";
 
 interface DispatchableListIconProps {
   cycleSeconds: number;
@@ -9,7 +10,7 @@ interface DispatchableListIconProps {
 
 export const DispatchableListIcon: React.FC<DispatchableListIconProps> = ({
   cycleSeconds,
-  type,
+  type
 }) => (
   <TurbineWheelList
     backgroundColor={DISPATCHABLE_ICON_COLOURS[type]}

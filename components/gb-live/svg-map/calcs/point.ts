@@ -27,7 +27,7 @@ const calculatePoint = (coords: Coords): CanvasPoint => {
 
   return {
     x: normalizedLon * GB_SVG_DIMS.width,
-    y: normalizedY * GB_SVG_DIMS.height,
+    y: normalizedY * GB_SVG_DIMS.height
   };
 };
 
