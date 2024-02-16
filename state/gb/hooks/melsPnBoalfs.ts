@@ -40,8 +40,6 @@ export const useMelsPnBoalfs = () => {
   const initialLoadComplete = useSelector((state: RootState) =>
     selectors.initialLoadComplete(state)
   );
-  const initiated = new Date();
-  // const dispatch = useDispatch()
 
   const now = useNowQuery();
   const pn = usePnQuery(now.args.settlementPeriod, {
