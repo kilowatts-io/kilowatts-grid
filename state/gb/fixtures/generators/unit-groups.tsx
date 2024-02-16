@@ -180,6 +180,9 @@ export const unitGroups: UnitGroup[] = [
     units: [
       {
         bmUnit: "T_LBAR-1"
+      },
+      {
+        bmUnit: "T_LBAR-1G"
       }
     ]
   },
@@ -200,23 +203,6 @@ export const unitGroups: UnitGroup[] = [
       },
       {
         bmUnit: "T_SEEL-1"
-      }
-    ]
-  },
-
-  {
-    details: {
-      code: "RDFRD",
-      name: "Redfield Road Farm",
-      coords: {
-        lat: 52.93468,
-        lng: -1.17903
-      },
-      fuelType: "gas"
-    },
-    units: [
-      {
-        bmUnit: "E_RDFRD-1"
       }
     ]
   },
@@ -5007,10 +4993,219 @@ export const unitGroups: UnitGroup[] = [
         bmUnit: "E_GOSHS-1"
       }
     ]
+  },
+  {
+    details: {
+      code: "BURWS",
+      name: "Burwell/Beechgreen",
+      coords: {
+        lat: 52.29019358783335,
+        lng: 0.31888643552728213
+      },
+      fuelType: "solar"
+    },
+    units: [
+      {
+        bmUnit: "T_BURWS-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "BROCW",
+      name: "Brokencross",
+      coords: {
+        lat: 55.6045,
+        lng: -3.8162
+      },
+      fuelType: "wind"
+    },
+    units: [
+      {
+        bmUnit: "T_BROCW-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "FDUN",
+      name: "Fort Dunlop",
+      coords: {
+        lat: 52.510192278466555,
+        lng: -1.8084489366392935
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_FDUN-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "HAWKB",
+      name: "Hawkers Hill",
+      coords: {
+        lat: 51.014049506673544,
+        lng: -2.2062949110986945
+      },
+      fuelType: "battery"
+    },
+    units: [
+      {
+        bmUnit: "E_HAWKB-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "BSPHM",
+      name: "Bispham",
+      coords: {
+        lat: 53.84937,
+        lng: -3.02964
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_BSPHM-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "ABERDARE",
+      name: "Aberdare",
+      coords: {
+        lat: 51.697580592208915,
+        lng: -3.416172490484192
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_ABERDARE"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "SOLUTIA",
+      name: "Solutia",
+      coords: {
+        lat: 51.59,
+        lng: -3.0
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_SOLUTIA"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "RDFRD",
+      name: "Redfield Road Farm",
+      coords: {
+        lat: 52.93468,
+        lng: -1.17903
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_RDFRD-1"
+      },
+      {
+        bmUnit: "E_RDFRB-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "LECHW",
+      name: "Letchworth",
+      coords: {
+        lat: 51.98,
+        lng: -0.2
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_LCHWT-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "LSTWY",
+      name: "Lester Way",
+      coords: {
+        lat: 51.59621432117479,
+        lng: -1.1401863740917435
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_LSTWY-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "TRFPK",
+      name: "Trafalgar Park",
+      coords: {
+        lat: 52.89172,
+        lng: -1.47466
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_TRFPK-1"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "SEVINGTN",
+      name: "Sevington",
+      coords: {
+        lat: 51.13,
+        lng: 0.91
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_SEVINGTN"
+      }
+    ]
+  },
+  {
+    details: {
+      code: "BRIDGWTR",
+      name: "Bridgewater",
+      coords: {
+        lat: 51.13,
+        lng: 0.91
+      },
+      fuelType: "gas"
+    },
+    units: [
+      {
+        bmUnit: "E_BRIDGWTR"
+      }
+    ]
   }
 ];
-
-// new batteries E_HAWKB-1
 
 /* used in the aggregation of live generation by fuel type */
 
