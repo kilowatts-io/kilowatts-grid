@@ -3763,23 +3763,6 @@ export const unitGroups: UnitGroup[] = [
 
   {
     details: {
-      code: "BSPHM",
-      name: "Bispham",
-      coords: {
-        lat: 53.8493407416543,
-        lng: -3.0325663339413875
-      },
-      fuelType: "gas"
-    },
-    units: [
-      {
-        bmUnit: "E-BSPHM-1"
-      }
-    ]
-  },
-
-  {
-    details: {
       code: "MDLWH",
       name: "Middlewich",
       coords: {
