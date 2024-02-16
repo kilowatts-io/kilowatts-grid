@@ -2,7 +2,7 @@
   "expo": {
     "name": "kilowatts",
     "slug": "kilowatts",
-    "version": "1.0.3",
+    "version": "1.1.16",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -18,10 +18,10 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.benjaminwatts.kilowatts",
-     "config": {
-      "usesNonExemptEncryption": false
-     },
-     "buildNumber": "1.0.3"
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "buildNumber": "1.1.16"
     },
     "android": {
       "adaptiveIcon": {
@@ -47,6 +47,12 @@
       "eas": {
         "projectId": "06a9e672-4ff0-4f7d-9373-6c4c8dcbdf91"
       }
+    },
+    "runtimeVersion": "1.1.16",
+    "updates": {
+      "url": "https://u.expo.dev/06a9e672-4ff0-4f7d-9373-6c4c8dcbdf91",
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD"
     }
   }
 }
