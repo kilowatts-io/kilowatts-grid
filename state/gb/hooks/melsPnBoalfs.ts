@@ -34,7 +34,7 @@ const UPDATE_FUNCTIONS: MelsPnBoalfsUpdateFunction[] = [
   updateOutputTotalsGenerators
 ];
 
-const POLLING_INTERVAL = 1000 * 20;
+const POLLING_INTERVAL = 1000 * 30;
 
 export const useMelsPnBoalfs = () => {
   const initialLoadComplete = useSelector((state: RootState) =>
@@ -55,6 +55,12 @@ export const useMelsPnBoalfs = () => {
     refetchOnReconnect: true
   });
 
+  const refetch = React.useCallback(() => {
+    pn.refetch();
+    boalf.refetch();
+    mels.refetch();
+  }, [pn.refetch, boalf.refetch, mels.refetch]);
+
   // refetch all data every 3 seconds if not initialLoadComplete
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -62,13 +68,11 @@ export const useMelsPnBoalfs = () => {
         console.log(
           "refetching data every 3 seconds until initialLoadComplete is true"
         );
-        pn.refetch();
-        boalf.refetch();
-        mels.refetch();
+        refetch();
       }
     }, 3000);
     return () => clearInterval(interval);
-  }, [initialLoadComplete]);
+  }, [initialLoadComplete, refetch]);
 
   React.useEffect(() => {
     if (mels.data) {
@@ -91,9 +95,5 @@ export const useMelsPnBoalfs = () => {
     }
   }, [now.now, pn.data, boalf.data, mels.data]);
 
-  useRefresh(() => {
-    pn.refetch();
-    boalf.refetch();
-    mels.refetch();
-  });
+  useRefresh(() => refetch());
 };
