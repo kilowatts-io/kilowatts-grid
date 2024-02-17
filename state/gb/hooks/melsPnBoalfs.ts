@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { useBoalfQuery, useMelsQuery, usePnQuery } from "../../apis/elexon/api";
 import { BmUnitsBoalfsSchema } from "../../apis/elexon/boalf";
@@ -96,4 +96,5 @@ export const useMelsPnBoalfs = () => {
   }, [now.now, pn.data, boalf.data, mels.data]);
 
   useRefresh(() => refetch());
+  return refetch;
 };

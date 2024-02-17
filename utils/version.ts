@@ -9,8 +9,10 @@ import { store } from "../state/reducer";
 const APP_VERSION_KEY = "currentVersion";
 const REVISION_ID_KEY = "revisionId";
 
-const userAlert = () =>
-  Alert.alert("App has been updated or re-installed. Reloading grid data.");
+const userAlert = () => {
+  if (__DEV__)
+    Alert.alert("App has been updated or re-installed. Reloading grid data.");
+};
 
 export const checkUpdatesRequireStateRefresh = async () => {
   try {
