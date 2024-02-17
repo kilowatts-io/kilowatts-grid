@@ -92,5 +92,5 @@ export const useEmbeddedForecasts = () => {
     }
   }, [now.now, query.data]);
   useRefresh(query.refetch);
-  return { refetch: query.refetch };
+  return query.refetch;
 };

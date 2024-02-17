@@ -8,6 +8,8 @@ import {
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
 import { useSelector } from "react-redux";
+import { Button } from "@rneui/base";
+import { Card, Divider, Icon, Text } from "@rneui/themed";
 import { Canvas, Group } from "@shopify/react-native-skia";
 
 import { selectors } from "../../../state/gb/live";
@@ -107,19 +109,58 @@ export const SvgMapLoaded: React.FC = () => {
     </View>
   );
 };
+interface SvgMapLoadingViewProps {
+  refetch: () => void;
+}
 
-const SvgMapLoadingView = () => (
+const Spacer = () => <View style={{ height: 10 }} />;
+const SvgMapLoadingView: React.FC<SvgMapLoadingViewProps> = ({ refetch }) => (
   <View style={styles.loadingView}>
-    <ActivityIndicator
-      size="large"
-      color="white"
-    />
+    <Card>
+      <Card.Title>Loading</Card.Title>
+
+      <Text>
+        Downloading and updating cache of hundreds of power sources around GB,
+        including wind, gas, solar, hydro and interconnectors.
+      </Text>
+      <Spacer />
+      <ActivityIndicator
+        size="large"
+        color="grey"
+      />
+      <Spacer />
+
+      <Text>
+        This can take a while, especially for the first time, on older devices
+        and with a poor internet connection.
+      </Text>
+      <Spacer />
+
+      <Button
+        onPress={refetch}
+        title="Retry"
+        iconPosition="right"
+        icon={
+          <Icon
+            name="refresh"
+            color="white"
+          />
+        }
+      />
+    </Card>
   </View>
 );
 
-const SvgMap = () => {
+interface SvgMapProps {
+  refetch: () => void;
+}
+const SvgMap: React.FC<SvgMapProps> = ({ refetch }) => {
   const initialLoadComplete = useSelector(selectors.initialLoadComplete);
-  return !initialLoadComplete ? <SvgMapLoadingView /> : <SvgMapLoaded />;
+  return !initialLoadComplete ? (
+    <SvgMapLoadingView refetch={refetch} />
+  ) : (
+    <SvgMapLoaded />
+  );
 };
 
 export default SvgMap;

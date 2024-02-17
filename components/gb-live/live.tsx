@@ -16,7 +16,10 @@ import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptanc
 const SNAP_POINTS = ["10%", "20%", "30%", "40%", "50%", "75%", "90%"];
 const INITIAL_SNAP_POINT_INDEX = 2;
 
-export const GbLiveWrapped = () => {
+interface GbLiveWrappedProps {
+  refetch: () => void;
+}
+export const GbLiveWrapped: React.FC<GbLiveWrappedProps> = ({ refetch }) => {
   const screen = useWindowDimensions();
   const dispatch = useDispatch();
   const isLoaded = useSelector(selectors.initialLoadComplete);
@@ -42,7 +45,7 @@ export const GbLiveWrapped = () => {
   return (
     <View style={styles.mapContainer}>
       <BottomSheetModalProvider>
-        <SvgMap />
+        <SvgMap refetch={refetch} />
         <BottomSheetModal
           ref={bottomSheetModalRef}
           index={INITIAL_SNAP_POINT_INDEX}
@@ -58,20 +61,16 @@ export const GbLiveWrapped = () => {
 };
 
 export const GbLive = () => {
-  useGbLive();
+  const refetch = useGbLive();
   return (
     <WithTermsAndConditionsAccepted>
-      <GbLiveWrapped />
+      <GbLiveWrapped refetch={refetch} />
     </WithTermsAndConditionsAccepted>
   );
 };
 
 const styles = StyleSheet.create({
-  contentContainer: {},
   mapContainer: {
     flex: 1
-  },
-  tabTitleStyle: {
-    fontSize: 10
   }
 });

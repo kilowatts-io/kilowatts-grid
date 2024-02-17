@@ -2,6 +2,10 @@ import { useEmbeddedForecasts } from "./embeddedForecasts";
 import { useMelsPnBoalfs } from "./melsPnBoalfs";
 
 export const useGbLive = () => {
-  useMelsPnBoalfs();
-  useEmbeddedForecasts();
+  const bm = useMelsPnBoalfs();
+  const emb = useEmbeddedForecasts();
+  return () => {
+    bm();
+    emb();
+  };
 };

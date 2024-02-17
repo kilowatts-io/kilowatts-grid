@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "../reducer";
 
-import { bmUnits, unitGroupCodes } from "./fixtures/generators/unit-groups";
-
 type Code = string;
 
 type BalancingVolume = Record<Code, number>;
