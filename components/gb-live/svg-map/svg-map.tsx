@@ -3,7 +3,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   useWindowDimensions,
-  View
+  View,
 } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
@@ -37,7 +37,7 @@ export const SvgMapLoaded: React.FC = () => {
     context.zoomPan.value = {
       scale: context.zoomPan.value.scale,
       translateX: screen.width / 2 - point.x * context.zoomPan.value.scale,
-      translateY: screen.height / 2 - point.y * context.zoomPan.value.scale
+      translateY: screen.height / 2 - point.y * context.zoomPan.value.scale,
     };
   }, [selectedUnitGroupCode]);
 
@@ -65,7 +65,7 @@ export const SvgMapLoaded: React.FC = () => {
         zoomPan.value = {
           scale: newScale,
           translateX,
-          translateY
+          translateY,
         };
       }),
     Gesture.Pan()
@@ -81,7 +81,7 @@ export const SvgMapLoaded: React.FC = () => {
         zoomPan.value = {
           translateX,
           translateY,
-          scale
+          scale,
         };
       }),
     Gesture.Tap()
@@ -89,9 +89,9 @@ export const SvgMapLoaded: React.FC = () => {
       .onEnd(({ x, y }) =>
         runOnJS(searchPoint)({
           x: (x - zoomPan.value.translateX) / zoomPan.value.scale,
-          y: (y - zoomPan.value.translateY) / zoomPan.value.scale
-        })
-      )
+          y: (y - zoomPan.value.translateY) / zoomPan.value.scale,
+        }),
+      ),
   );
 
   return (
@@ -124,10 +124,7 @@ const SvgMapLoadingView: React.FC<SvgMapLoadingViewProps> = ({ refetch }) => (
         including wind, gas, solar, hydro and interconnectors.
       </Text>
       <Spacer />
-      <ActivityIndicator
-        size="large"
-        color="grey"
-      />
+      <ActivityIndicator size="large" color="grey" />
       <Spacer />
 
       <Text>
@@ -140,12 +137,7 @@ const SvgMapLoadingView: React.FC<SvgMapLoadingViewProps> = ({ refetch }) => (
         onPress={refetch}
         title="Retry"
         iconPosition="right"
-        icon={
-          <Icon
-            name="refresh"
-            color="white"
-          />
-        }
+        icon={<Icon name="refresh" color="white" />}
       />
     </Card>
   </View>
@@ -172,7 +164,7 @@ const styles = StyleSheet.create({
     backgroundColor: c.BACKGROUND_COLOR,
     display: "flex",
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
   },
-  mapView: { display: "flex", flex: 1, width: "100%" }
+  mapView: { display: "flex", flex: 1, width: "100%" },
 });
