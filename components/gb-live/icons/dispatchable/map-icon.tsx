@@ -45,10 +45,7 @@ interface DispatchableIconBalancingLightMapProps {
 export const DispatchableIconBalancingLightMap: React.FC<
   DispatchableIconBalancingLightMapProps
 > = ({ point, maxSizePx, balancing }) => {
-  const { zoomPan } = React.useContext(MapContext);
-  const balancingR = useDerivedValue(() => {
-    return (maxSizePx / zoomPan.value.scale) * BALANCING_DIRECTION_LIGHT_R;
-  }, [maxSizePx, zoomPan]);
+  const balancingR = maxSizePx * BALANCING_DIRECTION_LIGHT_R;
   return (
     <BalancingDirectionLightMap
       center={point}
