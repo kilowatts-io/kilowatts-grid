@@ -31,8 +31,8 @@ class BmSnapshot(BaseModel):
 
 
 class BalancingTotals(BaseModel):
-    bids: float
-    offers: float
+    bids: float = Field(description="total live bids in MW")
+    offers: float = Field(description="total live offers in MW")
 
     def model_dump_json(self):
         return json.dumps(
@@ -41,8 +41,9 @@ class BalancingTotals(BaseModel):
 
 
 class Snapshot(BalancingTotals):
-    cp: float
-    ac: float
+    cp: float = Field(description="actual output in MW")
+    ac: float = Field(description="capacity in MW")
+    dl: float = Field(description="delta in MW/minute")
 
     def model_dump_json(self):
         return json.dumps(

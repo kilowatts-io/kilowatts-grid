@@ -43,6 +43,6 @@ class ForeignMarketTotals(BaseModel):
         totals = TotalsSnapshot(
             name="Interconnectors",
             key="interconnector",
-            **self.bm[["ac", "bids", "offers", "cp"]].sum().to_dict()
+            **self.bm[["ac", "bids", "offers", "cp", "dl"]].sum().to_dict()
         )
         return foreign_markets, totals

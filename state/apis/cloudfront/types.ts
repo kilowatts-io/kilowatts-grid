@@ -1,14 +1,13 @@
-enum FuelType {
-  gas = "gas",
-  coal = "coal",
-  nuclear = "nuclear",
-  wind = "wind",
-  solar = "solar",
-  hydro = "hydro",
-  biomass = "biomass",
-  oil = "oil",
-  other = "other"
-}
+type FuelType =
+  | "gas"
+  | "coal"
+  | "nuclear"
+  | "wind"
+  | "solar"
+  | "hydro"
+  | "biomass"
+  | "oil"
+  | "other";
 interface Coords {
   lat: number;
   lng: number;
@@ -19,6 +18,7 @@ interface GbSummaryBaseValues {
   offers: number;
   cp: number;
   ac: number;
+  dv: number;
   name: string;
   key: string;
 }
@@ -46,4 +46,8 @@ interface GbSummaryOutputResponse {
   totals: GbSummaryOutputTotal[];
   generators: GbSummaryOutputGenerator[];
   foreign_markets: GbSummaryOutputForeignMarket[];
+  balancing_totals: {
+    bids: number;
+    offers: number;
+  };
 }

@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import { kilowattsCloudfront } from "./apis/cloudfront/api";
+import { gbLiveSlice } from "./gb/live";
 import { termsSlice } from "./terms";
 
 const rootReducer = combineReducers({
   kilowattsCloudfront: kilowattsCloudfront.reducer,
-  termsSlice: termsSlice.reducer
+  termsSlice: termsSlice.reducer,
+  gbLiveSlice: gbLiveSlice.reducer
 });
 
 export const createStore = () =>

@@ -1,27 +1,23 @@
 import { StyleSheet, View } from "react-native";
-import { useSelector } from "react-redux";
 
-import { selectors } from "../../../../../state/gb/live";
+import { useGbSummaryOutputQuery } from "../../../../../state/apis/cloudfront/api";
 import { GbLiveListItemBalancingTotal } from "../../live-list-item/live-list-item";
 
 export const GbBalancingTotals = () => {
-  const initialLoadComplete = useSelector(selectors.initialLoadComplete);
-  const bid = useSelector(selectors.balancingTotalsBid);
-  const offer = useSelector(selectors.balancingTotalsOffer);
+  const { data } = useGbSummaryOutputQuery();
+
   return (
     <View style={styles.totals}>
-      {initialLoadComplete && (
-        <>
-          <GbLiveListItemBalancingTotal
-            name="Total Bid Acceptances"
-            balancingVolume={bid}
-          />
-          <GbLiveListItemBalancingTotal
-            name="Total Offer Acceptances"
-            balancingVolume={offer}
-          />
-        </>
-      )}
+      <>
+        <GbLiveListItemBalancingTotal
+          name="Total Bid Acceptances"
+          balancingVolume={data && data.balancing_totals.bids}
+        />
+        <GbLiveListItemBalancingTotal
+          name="Total Offer Acceptances"
+          balancingVolume={data && data.balancing_totals.offers}
+        />
+      </>
     </View>
   );
 };
