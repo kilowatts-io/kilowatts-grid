@@ -1,5 +1,4 @@
 import React from "react";
-import { SharedValue, useDerivedValue } from "react-native-reanimated";
 import { useClock } from "@shopify/react-native-skia";
 
 import { WindTurbineBladeListItem, WindTurbineBladeMap } from "./blade";
@@ -9,34 +8,22 @@ import {
   MINIMUM_HEIGHT_PX,
   ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO
 } from "./constants";
-import { useGetBladeTransformList, useGetBladeTransformMap } from "./hooks";
+import { useGetBladeTransformList } from "./hooks";
 
 export const WindTurbineBladesMap: React.FC<{
   point: { x: number; y: number };
-  cycleSeconds: SharedValue<number | null>;
-  sizePx: SharedValue<number>;
+  cycleSeconds: number | null;
+  sizePx: number;
 }> = ({ point, cycleSeconds, sizePx }) => {
   const t = useClock();
-  const height = useDerivedValue(
-    () => Math.max(sizePx.value, MINIMUM_HEIGHT_PX),
-    [sizePx]
-  );
-  const width = useDerivedValue(
-    () => height.value * MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO,
-    [sizePx]
-  );
-  const bladeR = useDerivedValue(
-    () => ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO * width.value,
-    [width]
-  );
-  const bladeWidth = useDerivedValue(
-    () => MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO * height.value,
-    [height]
-  );
+  const height = Math.max(sizePx, MINIMUM_HEIGHT_PX);
+  const width = height * MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO;
+  const bladeR = ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO * width;
+  const bladeWidth = MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO * height;
   return (
     <>
       {BLADE_OFFSET_ANGLES.map((x) =>
-        useGetBladeTransformMap(x, cycleSeconds, t)
+        useGetBladeTransformList(x, cycleSeconds, t)
       ).map((transform, index) => (
         <WindTurbineBladeMap
           key={`blade-${point.x}-${point.y}-${index}`}

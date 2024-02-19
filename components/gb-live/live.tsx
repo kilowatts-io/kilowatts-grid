@@ -1,13 +1,13 @@
 import React, { useCallback, useRef } from "react";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   BottomSheetModal,
   BottomSheetModalProvider
 } from "@gorhom/bottom-sheet";
 
-import { useGbLive } from "../../state/gb/hooks";
-import { selectors, setSelectedUnitGroupCode } from "../../state/gb/live";
+import { useGbSummaryOutputQuery } from "../../state/apis/cloudfront/api";
+import { setSelectedUnitGroupCode } from "../../state/gb/live";
 
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
 import SvgMap from "./svg-map/svg-map";
@@ -16,13 +16,9 @@ import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptanc
 const SNAP_POINTS = ["10%", "20%", "30%", "40%", "50%", "75%", "90%"];
 const INITIAL_SNAP_POINT_INDEX = 2;
 
-interface GbLiveWrappedProps {
-  refetch: () => void;
-}
-export const GbLiveWrapped: React.FC<GbLiveWrappedProps> = ({ refetch }) => {
+export const GbLiveWrapped: React.FC = () => {
   const screen = useWindowDimensions();
   const dispatch = useDispatch();
-  const isLoaded = useSelector(selectors.initialLoadComplete);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [currentSnapPointIndex, setCurrentSnapPointIndex] = React.useState(
     INITIAL_SNAP_POINT_INDEX
@@ -33,8 +29,8 @@ export const GbLiveWrapped: React.FC<GbLiveWrappedProps> = ({ refetch }) => {
   );
 
   React.useEffect(() => {
-    if (isLoaded) bottomSheetModalRef.current?.present();
-  }, [isLoaded]);
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   const handleSheetChanges = useCallback((index: number) => {
     setCurrentSnapPointIndex(index);
@@ -45,7 +41,7 @@ export const GbLiveWrapped: React.FC<GbLiveWrappedProps> = ({ refetch }) => {
   return (
     <View style={styles.mapContainer}>
       <BottomSheetModalProvider>
-        <SvgMap refetch={refetch} />
+        <SvgMap />
         <BottomSheetModal
           ref={bottomSheetModalRef}
           index={INITIAL_SNAP_POINT_INDEX}
@@ -61,10 +57,14 @@ export const GbLiveWrapped: React.FC<GbLiveWrappedProps> = ({ refetch }) => {
 };
 
 export const GbLive = () => {
-  const refetch = useGbLive();
+  const query = useGbSummaryOutputQuery();
+  React.useEffect(() => {
+    query.refetch();
+  }, []);
+
   return (
     <WithTermsAndConditionsAccepted>
-      <GbLiveWrapped refetch={refetch} />
+      <GbLiveWrapped />
     </WithTermsAndConditionsAccepted>
   );
 };

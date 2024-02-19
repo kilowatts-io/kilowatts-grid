@@ -1,9 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useDispatch } from "react-redux";
 
-import { selectors } from "../../../../state/gb/live";
 import { ErrorBoundaryBlank } from "../../error-boundary";
 
 import { BalancingVolumeView } from "./balancing-volume";
@@ -19,6 +17,7 @@ interface GbLiveListItemProps {
     | "nuclear"
     | "wind"
     | "coal"
+    | "oil"
     | "battery"
     | "interconnectors"
     | "solar"
@@ -33,8 +32,6 @@ interface GbLiveListItemProps {
   selected: boolean;
   onPress?: () => void;
 }
-
-const Blank = () => <></>;
 
 export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
   <TouchableOpacity
@@ -104,5 +101,6 @@ export const styles = StyleSheet.create({
     gap: 3,
     justifyContent: "flex-end"
   },
+  // eslint-disable-next-line react-native/no-color-literals
   selectedItemWrapper: { backgroundColor: "rgba(0, 0, 0, 0.1)" }
 });

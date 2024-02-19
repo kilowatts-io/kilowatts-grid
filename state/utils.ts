@@ -1,65 +1,37 @@
-import { TransformedBoalfSchema } from "./apis/elexon/boalf";
-import { BasicLevel } from "./apis/elexon/commonTypes";
-import {
-  evaluateBoalfsLevel,
-  InterpolatedLevel,
-  interpolateLevel
-} from "./gb/calcs";
-
-export const getMostRecentMels = (now: Date, levels: BasicLevel[]): number => {
-  let latest: BasicLevel | undefined = undefined;
-  for (const level of levels) {
-    const date = new Date(level.time);
-    // not sure why conversion to number is required here.
-    if (Number(date) === Number(now)) {
-      return level.level;
-    }
-    if (date < now) latest = level;
-    if (date > now) break;
+interface WithBalancingVolumes {
+  bids: number;
+  offers: number;
+}
+export const calculateBalancingDirection = ({
+  bids,
+  offers
+}: WithBalancingVolumes): "none" | "bid" | "offer" => {
+  const net = bids - offers;
+  if (net === 0) return "none";
+  if (net > 0) {
+    return "offer";
   }
-  if (!latest) {
-    // throw new Error(`No MELS available prior to ${now}`);
-    return 0;
+  return "bid";
+};
+
+interface WithCapacityFactor {
+  ac: number;
+  cp: number;
+}
+
+export const calculateCapacityFactor = ({ ac, cp }: WithCapacityFactor) => {
+  if (cp === 0) return 0;
+  if (ac === 0) return 0;
+  if (ac > 0) {
+    return Math.min(1, cp / ac);
   }
-  return latest.level;
+  return Math.max(-1, cp / ac);
 };
 
-export const getMels = (
-  now: Date,
-  levels: BasicLevel[],
-  outputLevels: InterpolatedLevel[]
-): number => {
-  const mostRecent = getMostRecentMels(now, levels);
-  // sometimes stations put out a lower mels than their expected output, e.g. nuclear stations
-  const maxOutput = outputLevels.reduce((acc, x) => Math.max(acc, x.level), 0);
-  return Math.max(mostRecent, maxOutput);
-};
+const CYCLE_MILISECONDS_AT_FULL_CAPACITY = 2;
 
-export type CurrentOutput = {
-  capacity: number;
-  preBm: number;
-  postBm: {
-    actual: number;
-    delta: number;
-  };
-};
-
-export const getStartOfCurrentHalfHour = (now: Date) => {
-  const start = new Date(now);
-  start.setSeconds(0);
-  start.setMilliseconds(0);
-  if (start.getMinutes() >= 30) {
-    start.setMinutes(30);
-  } else {
-    start.setMinutes(0);
-  }
-  return start;
-};
-
-export const getStartOfCurrentHour = (now: Date) => {
-  const start = new Date(now);
-  start.setSeconds(0);
-  start.setMilliseconds(0);
-  start.setMinutes(0);
-  return start;
+export const calculateCycleSeconds = (x: WithCapacityFactor) => {
+  const cf = calculateCapacityFactor(x);
+  if (cf === 0) return null;
+  return Math.abs(CYCLE_MILISECONDS_AT_FULL_CAPACITY / cf);
 };

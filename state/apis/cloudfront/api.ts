@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { GbSummaryOutputResponse } from "./types";
+
 export const BASE_API = `https://di3d4gkiykgeo.cloudfront.net`;
 
 export const kilowattsCloudfront = createApi({

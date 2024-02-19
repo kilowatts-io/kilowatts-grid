@@ -1,7 +1,12 @@
 import logging
 from typing import List
 from pydantic import BaseModel
-from .bm.generation import UNIT_UNITGROUP, UNITGROUP_FUELTYPE, UNITGROUP_COORDS
+from .bm.generation import (
+    UNIT_UNITGROUP,
+    UNITGROUP_FUELTYPE,
+    UNITGROUP_COORDS,
+    UNITGROUP_NAMES,
+)
 import pandas as pd
 from .ptypes import EmbeddedSnapshot, TotalsSnapshot, UnitGroupSnapshot
 
@@ -54,7 +59,7 @@ class GenerationTotals(BaseModel):
         )
         return [
             UnitGroupSnapshot(
-                name=unit_group,
+                name=UNITGROUP_NAMES[unit_group],
                 key=unit_group,
                 fuel_type=UNITGROUP_FUELTYPE[unit_group],
                 coords=self._get_coords(unit_group),

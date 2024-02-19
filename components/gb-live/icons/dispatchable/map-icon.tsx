@@ -1,5 +1,5 @@
 import React from "react";
-import { SharedValue, useDerivedValue } from "react-native-reanimated";
+import { useDerivedValue } from "react-native-reanimated";
 
 import { MapContext } from "../../svg-map/context";
 import { BalancingDirectionLightMap } from "../balancing-direction-light/map-icon";
@@ -9,9 +9,9 @@ import { TurbineWheelMap } from "./turbine";
 const BALANCING_DIRECTION_LIGHT_R = 0.5;
 
 type DispatchableIconMapProps = {
-  maxSizePx: SharedValue<number>;
-  capacityFactor: SharedValue<number>;
-  cycleSeconds: SharedValue<number>;
+  maxSizePx: number;
+  capacityFactor: number;
+  cycleSeconds: number;
   point: { x: number; y: number };
   backgroundColor: string;
 };
@@ -23,19 +23,14 @@ export const DispatchableIconMap: React.FC<DispatchableIconMapProps> = ({
   capacityFactor,
   cycleSeconds
 }) => {
-  const { zoomPan } = React.useContext(MapContext);
-  const r = useDerivedValue(() => {
-    return Math.max(maxSizePx.value / zoomPan.value.scale, 3);
-  }, [maxSizePx, zoomPan]);
-  const opacity = useDerivedValue(() => {
-    return 0.3 + 0.7 * capacityFactor.value;
-  });
+  const r = Math.max(maxSizePx, 3);
+  const opacity = 0.3 + 0.7 * capacityFactor;
   return (
     <TurbineWheelMap
       point={point}
       height={r}
       backgroundColor={backgroundColor}
-      opacity={opacity.value}
+      opacity={opacity}
       cycleSeconds={cycleSeconds}
     />
   );
@@ -43,8 +38,8 @@ export const DispatchableIconMap: React.FC<DispatchableIconMapProps> = ({
 
 interface DispatchableIconBalancingLightMapProps {
   point: { x: number; y: number };
-  maxSizePx: SharedValue<number>;
-  balancing: SharedValue<"bid" | "offer" | "none">;
+  maxSizePx: number;
+  balancing: "bid" | "offer" | "none";
 }
 
 export const DispatchableIconBalancingLightMap: React.FC<
@@ -52,9 +47,7 @@ export const DispatchableIconBalancingLightMap: React.FC<
 > = ({ point, maxSizePx, balancing }) => {
   const { zoomPan } = React.useContext(MapContext);
   const balancingR = useDerivedValue(() => {
-    return (
-      (maxSizePx.value / zoomPan.value.scale) * BALANCING_DIRECTION_LIGHT_R
-    );
+    return (maxSizePx / zoomPan.value.scale) * BALANCING_DIRECTION_LIGHT_R;
   }, [maxSizePx, zoomPan]);
   return (
     <BalancingDirectionLightMap
@@ -62,5 +55,40 @@ export const DispatchableIconBalancingLightMap: React.FC<
       r={balancingR}
       balancing={balancing}
     />
+  );
+};
+
+type DispatchableMapIconProps = {
+  sizePx: number;
+  capacityFactor: number;
+  point: { x: number; y: number };
+  balancing: "bid" | "offer" | "none";
+  backgroundColor: string;
+  cycleSeconds: number;
+};
+
+export const DispatchableMapIcon: React.FC<DispatchableMapIconProps> = ({
+  sizePx,
+  capacityFactor,
+  point,
+  backgroundColor,
+  cycleSeconds,
+  balancing
+}) => {
+  return (
+    <>
+      <DispatchableIconMap
+        maxSizePx={sizePx}
+        capacityFactor={capacityFactor}
+        point={point}
+        backgroundColor={backgroundColor}
+        cycleSeconds={cycleSeconds}
+      />
+      <DispatchableIconBalancingLightMap
+        balancing={balancing}
+        point={point}
+        maxSizePx={sizePx}
+      />
+    </>
   );
 };

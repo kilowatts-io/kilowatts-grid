@@ -16,17 +16,17 @@ import * as c from "./constants";
 
 export type TurbineWheelProps = {
   point: CanvasPoint;
-  height: SharedValue<number>;
-  cycleSeconds: SharedValue<number>;
+  height: number;
+  cycleSeconds: number;
   backgroundColor: string;
   opacity: number;
 };
 
 export type TurbineSpokeMapProps = {
   centerPoint: CanvasPoint;
-  length: SharedValue<number>;
-  width: SharedValue<number>;
-  cycleSeconds: SharedValue<number>;
+  length: number;
+  width: number;
+  cycleSeconds: number;
   offsetAngleDegrees: number;
   opacity: number;
 };
@@ -41,14 +41,14 @@ const TurbineSpokeMap: React.FC<TurbineSpokeMapProps> = ({
 }) => {
   const t = useClock();
   const gestureMode = React.useContext(MapContext).gestureMode;
-  const x = useDerivedValue(() => centerPoint.x - width.value / 2);
-  const y = useDerivedValue(() => centerPoint.y - length.value);
+  const x = useDerivedValue(() => centerPoint.x - width / 2);
+  const y = useDerivedValue(() => centerPoint.y - length);
 
   const transform = useDerivedValue(() => {
     if (gestureMode.value != "none")
       return [{ rotate: offsetAngleDegrees * (Math.PI / 180) }];
     const timeInSeconds = t.value / 1000;
-    const rotationFraction = timeInSeconds / cycleSeconds.value;
+    const rotationFraction = timeInSeconds / cycleSeconds;
     const anglePreOffsetRadians = rotationFraction * Math.PI * 2;
     const offsetAngleRadians = offsetAngleDegrees * (Math.PI / 180);
     const rotateRadians = anglePreOffsetRadians + offsetAngleRadians;
@@ -81,21 +81,15 @@ export const TurbineWheelMap: React.FC<TurbineWheelProps> = ({
 
   React.useEffect(() => {
     rotation.value = withRepeat(
-      withTiming(360, { duration: cycleSeconds.value * 1000 }),
+      withTiming(360, { duration: cycleSeconds * 1000 }),
       -1,
       false
     );
   }, [cycleSeconds, gestureMode]);
 
-  const r = useDerivedValue(() => {
-    return height.value / 2;
-  });
-  const turbineLength = useDerivedValue(() => {
-    return (height.value / 2) * 0.8;
-  });
-  const turbineWidth = useDerivedValue(() => {
-    return height.value / 2 / 20;
-  });
+  const r = height / 2;
+  const turbineLength = (height / 2) * 0.8;
+  const turbineWidth = height / 2 / 20;
 
   return (
     <>

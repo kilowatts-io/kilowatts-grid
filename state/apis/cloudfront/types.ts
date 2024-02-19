@@ -6,8 +6,8 @@ type FuelType =
   | "solar"
   | "hydro"
   | "biomass"
-  | "oil"
-  | "other";
+  | "battery";
+
 interface Coords {
   lat: number;
   lng: number;
@@ -18,7 +18,7 @@ interface GbSummaryBaseValues {
   offers: number;
   cp: number;
   ac: number;
-  dv: number;
+  dl: number;
   name: string;
   key: string;
 }
@@ -36,12 +36,14 @@ interface GbSummaryOutputTotal extends GbSummaryBaseValues {
   key: FuelType;
 }
 
+export type GbSummaryForeignMarketKey = "fr" | "be" | "nl" | "dk" | "no" | "ie";
+
 interface GbSummaryOutputForeignMarket {
-  key: string;
+  key: GbSummaryForeignMarketKey;
   coords: Coords;
   interconnectors: GbSummaryOutputInterconnector[];
 }
-interface GbSummaryOutputResponse {
+export interface GbSummaryOutputResponse {
   dt: string;
   totals: GbSummaryOutputTotal[];
   generators: GbSummaryOutputGenerator[];

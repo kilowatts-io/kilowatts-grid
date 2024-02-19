@@ -18,5 +18,10 @@ def write_summary_output(summary_output: SummaryOutput):
     logging.info(
         f"file_size: {round(size_mb, 3)} mb writing to s3://{bucket}/gb/summary_output.json"
     )
-    s3.put_object(Body=Body, Bucket=bucket, Key="gb/summary_output.json")
+    s3.put_object(
+        Body=Body,
+        Bucket=bucket,
+        Key="gb/summary_output.json",
+        CacheControl="max-age=60, no-cache, no-store, must-revalidate",
+    )
     logging.info("wrote summary output to s3")

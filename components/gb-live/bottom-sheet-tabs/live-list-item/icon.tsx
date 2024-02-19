@@ -9,7 +9,7 @@ import { calculateCycleSeconds } from "../../icons/calcs";
 import { DispatchableListIcon } from "../../icons/dispatchable/list-icon";
 import { LIST_ICON_DIMS } from "../../icons/list-icons";
 import SolarListIcon from "../../icons/solar/list-icon";
-import { GbWindMapListIcon } from "../../icons/wind/country/gb";
+import { WindListIcon } from "../../icons/wind/list-icon";
 
 interface IconViewProps {
   type:
@@ -18,8 +18,9 @@ interface IconViewProps {
     | "nuclear"
     | "wind"
     | "coal"
+    | "oil"
     | "battery"
-    | "interconnectors"
+    | "interconnector"
     | "solar"
     | "biomass";
   capacityFactor: number;
@@ -33,13 +34,14 @@ export const IconView: React.FC<IconViewProps> = (p) => {
     <View style={styles.icon}>
       <ErrorBoundaryBlank>
         <Canvas style={styles.icon}>
-          {p.type === "wind" && <GbWindMapListIcon {...props} />}
+          {p.type === "wind" && <WindListIcon {...props} />}
           {p.type === "battery" && <BatteryListIcon {...props} />}
           {p.type === "solar" && cycleSeconds != 0 && (
             <SolarListIcon {...props} />
           )}
-          {p.type === "interconnectors" && <EUFlag />}
+          {p.type === "interconnector" && <EUFlag />}
           {(p.type === "gas" ||
+            p.type === "oil" ||
             p.type === "biomass" ||
             p.type === "coal" ||
             p.type === "nuclear" ||
