@@ -59,11 +59,7 @@ export class KilowattsGridStack extends cdk.Stack {
           this,
           "GbSnapshotRequestsLayer",
           "arn:aws:lambda:eu-west-2:770693421928:layer:Klayers-p311-requests:5"
-        ),
-        new lambda.LayerVersion(this, "GbSnapshotLambdaMpLayer", {
-          code: lambda.Code.fromAsset("layers/lambda_mp"),
-          compatibleRuntimes: [lambda.Runtime.PYTHON_3_11]
-        })
+        )
       ]
     });
     bucket.grantWrite(handler);

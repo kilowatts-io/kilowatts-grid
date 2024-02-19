@@ -9,7 +9,6 @@ from .mels import MelsRequest
 import logging
 from pydantic import BaseModel
 from datetime import datetime
-from lambda_multiprocessing import Pool
 
 
 def get_data(args):
