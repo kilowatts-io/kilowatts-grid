@@ -1,7 +1,5 @@
 import React from "react";
-import { useDerivedValue } from "react-native-reanimated";
 
-import { MapContext } from "../../svg-map/context";
 import { BalancingDirectionLightMap } from "../balancing-direction-light/map-icon";
 
 import { TurbineWheelMap } from "./turbine";
@@ -44,16 +42,13 @@ interface DispatchableIconBalancingLightMapProps {
 
 export const DispatchableIconBalancingLightMap: React.FC<
   DispatchableIconBalancingLightMapProps
-> = ({ point, maxSizePx, balancing }) => {
-  const balancingR = maxSizePx * BALANCING_DIRECTION_LIGHT_R;
-  return (
-    <BalancingDirectionLightMap
-      center={point}
-      r={balancingR}
-      balancing={balancing}
-    />
-  );
-};
+> = ({ point, maxSizePx, balancing }) => (
+  <BalancingDirectionLightMap
+    center={point}
+    r={maxSizePx * BALANCING_DIRECTION_LIGHT_R}
+    balancing={balancing}
+  />
+);
 
 type DispatchableMapIconProps = {
   sizePx: number;

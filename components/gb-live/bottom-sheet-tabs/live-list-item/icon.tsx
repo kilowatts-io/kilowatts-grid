@@ -5,7 +5,6 @@ import { Canvas } from "@shopify/react-native-skia";
 import { ErrorBoundaryBlank } from "../../error-boundary";
 import { BatteryListIcon } from "../../icons/battery/list-icon";
 import { EU as EUFlag } from "../../icons/cables/flags";
-import { calculateCycleSeconds } from "../../icons/calcs";
 import { DispatchableListIcon } from "../../icons/dispatchable/list-icon";
 import { LIST_ICON_DIMS } from "../../icons/list-icons";
 import SolarListIcon from "../../icons/solar/list-icon";
@@ -25,19 +24,18 @@ interface IconViewProps {
     | "biomass";
   capacityFactor: number;
   balancingDirection: "offer" | "bid" | "none";
+  cycleSeconds: number | null;
 }
 
 export const IconView: React.FC<IconViewProps> = (p) => {
-  const cycleSeconds = calculateCycleSeconds(p.capacityFactor);
-  const props = { cycleSeconds };
   return (
     <View style={styles.icon}>
       <ErrorBoundaryBlank>
         <Canvas style={styles.icon}>
-          {p.type === "wind" && <WindListIcon {...props} />}
-          {p.type === "battery" && <BatteryListIcon {...props} />}
-          {p.type === "solar" && cycleSeconds != 0 && (
-            <SolarListIcon {...props} />
+          {p.type === "wind" && <WindListIcon {...p} />}
+          {p.type === "battery" && <BatteryListIcon {...p} />}
+          {p.type === "solar" && p.cycleSeconds != 0 && (
+            <SolarListIcon {...p} />
           )}
           {p.type === "interconnector" && <EUFlag />}
           {(p.type === "gas" ||
@@ -47,7 +45,7 @@ export const IconView: React.FC<IconViewProps> = (p) => {
             p.type === "nuclear" ||
             p.type === "hydro") && (
             <DispatchableListIcon
-              {...props}
+              {...p}
               type={p.type}
             />
           )}

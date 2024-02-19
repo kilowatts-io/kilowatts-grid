@@ -17,7 +17,7 @@ export const BalancingDirectionLightMap: React.FC<
 > = (p) => {
   const { gestureMode } = React.useContext(MapContext);
   const c = useClock();
-  const color = useDerivedValue(() => BALANCING_COLORS[p.balancing], []);
+  const color = BALANCING_COLORS[p.balancing];
 
   const opacity = useDerivedValue(() => {
     if (gestureMode.value !== "none" || p.balancing == "none") return 0;

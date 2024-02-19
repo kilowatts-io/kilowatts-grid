@@ -23,7 +23,7 @@ interface GbSummaryBaseValues {
   key: string;
 }
 
-interface GbSummaryOutputGenerator extends GbSummaryBaseValues {
+export interface GbSummaryOutputGenerator extends GbSummaryBaseValues {
   fuel_type: FuelType;
   coords: Coords;
 }

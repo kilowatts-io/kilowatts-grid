@@ -1,13 +1,13 @@
 import React, { useCallback, useRef } from "react";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BottomSheetModal,
   BottomSheetModalProvider
 } from "@gorhom/bottom-sheet";
 
 import { useGbSummaryOutputQuery } from "../../state/apis/cloudfront/api";
-import { setSelectedUnitGroupCode } from "../../state/gb/live";
+import { selectors, setSelectedUnitGroupCode } from "../../state/gb/live";
 
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
 import SvgMap from "./svg-map/svg-map";
@@ -18,8 +18,9 @@ const INITIAL_SNAP_POINT_INDEX = 2;
 
 export const GbLiveWrapped: React.FC = () => {
   const screen = useWindowDimensions();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const selectedUnitGroup = useSelector(selectors.selectedUnitGroupCode);
   const [currentSnapPointIndex, setCurrentSnapPointIndex] = React.useState(
     INITIAL_SNAP_POINT_INDEX
   );
@@ -34,9 +35,15 @@ export const GbLiveWrapped: React.FC = () => {
 
   const handleSheetChanges = useCallback((index: number) => {
     setCurrentSnapPointIndex(index);
-    if (index <= INITIAL_SNAP_POINT_INDEX)
-      dispatch(setSelectedUnitGroupCode(null));
+    // if (index == 0) dispatch(setSelectedUnitGroupCode(null));
   }, []);
+
+  React.useEffect(() => {
+    if (selectedUnitGroup) {
+      bottomSheetModalRef.current?.snapToIndex(1);
+      setCurrentSnapPointIndex(1);
+    }
+  }, [selectedUnitGroup]);
 
   return (
     <View style={styles.mapContainer}>

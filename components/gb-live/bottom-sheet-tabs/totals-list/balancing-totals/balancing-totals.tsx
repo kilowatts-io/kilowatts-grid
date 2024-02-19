@@ -18,7 +18,7 @@ export const GbBalancingTotals = () => {
         <>
           <GbLiveListItemBalancingTotal
             name="Total Bid Acceptances"
-            balancingVolume={data && data.balancing_totals.bids}
+            balancingVolume={data && -data.balancing_totals.bids}
           />
           <GbLiveListItemBalancingTotal
             name="Total Offer Acceptances"

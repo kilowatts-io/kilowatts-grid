@@ -3,7 +3,7 @@ import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
 import { useSelector } from "react-redux";
-import { Canvas, Group } from "@shopify/react-native-skia";
+import { Canvas, Circle, Group } from "@shopify/react-native-skia";
 
 import { useGbSummaryOutputQuery } from "../../../state/apis/cloudfront/api";
 import { selectors } from "../../../state/gb/live";
@@ -50,6 +50,13 @@ export const SvgMap: React.FC = () => {
       balancing: calculateBalancingDirection(g)
     }));
   }, [data]);
+  const selectedUnitGroupPoint = React.useMemo(() => {
+    if (!selectedUnitGroupCode) return;
+    const match = generatorMapPoints.find(
+      (p) => p.key === selectedUnitGroupCode
+    );
+    return match ? match.point : undefined;
+  }, [selectedUnitGroupCode]);
 
   React.useEffect(() => {
     const unitGroup = generatorMapPoints.find(
@@ -129,6 +136,15 @@ export const SvgMap: React.FC = () => {
           <Group transform={transformD}>
             <GvSvgPath />
             <MapContext.Provider value={context}>
+              {selectedUnitGroupPoint && (
+                <Circle
+                  cx={selectedUnitGroupPoint.x}
+                  cy={selectedUnitGroupPoint.y}
+                  r={10}
+                  opacity={0.4}
+                  color={"lightgrey"}
+                />
+              )}
               {data && (
                 <>
                   {data.foreign_markets.map((f) => {
@@ -140,17 +156,23 @@ export const SvgMap: React.FC = () => {
                           code={f.key}
                           key={`foreign-flag-${f.key}`}
                         />
-                        {f.interconnectors.map((c) => {
-                          const cycleSeconds = calculateCycleSeconds(c);
-                          <Cable
-                            from={calculatePoint(c.coords)}
-                            to={foreignPoint}
-                            cycleSeconds={cycleSeconds}
-                            width={calculateSizePx(c.cp)}
-                            isExport={c.ac > 0}
-                            key={`cable-${c.key}`}
-                          />;
-                        })}
+                        <>
+                          {f.interconnectors.map((i) => {
+                            const cycleSeconds = calculateCycleSeconds(i);
+                            const width = calculateSizePx(i.cp);
+                            const from = calculatePoint(i.coords);
+                            return (
+                              <Cable
+                                from={from}
+                                to={foreignPoint}
+                                cycleSeconds={cycleSeconds}
+                                width={width}
+                                isExport={i.ac > 0}
+                                key={`cable-${i.key}`}
+                              />
+                            );
+                          })}
+                        </>
                       </>
                     );
                   })}

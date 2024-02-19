@@ -4,7 +4,8 @@ import { FlatList } from "react-native";
 import { useGbSummaryOutputQuery } from "../../../../state/apis/cloudfront/api";
 import {
   calculateBalancingDirection,
-  calculateCapacityFactor
+  calculateCapacityFactor,
+  calculateCycleSeconds
 } from "../../../../state/utils";
 import { GbLiveListItem } from "../live-list-item/live-list-item";
 
@@ -31,9 +32,10 @@ export const GbTotalsList: React.FC = () => {
           capacity={item.cp}
           output={item.ac}
           delta={item.dl}
-          balancingVolume={item.bids + item.offers}
+          balancingVolume={item.offers - item.bids}
           balancingDirection={calculateBalancingDirection(item)}
           capacityFactor={calculateCapacityFactor(item)}
+          cycleSeconds={calculateCycleSeconds(item)}
           selected={false}
         />
       )}

@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import List
 from .bm.interconnector import (
-    INTERCONNECTOR_COORDS,
+    INTERCONNECTORS,
     get_interconnector_code,
     INTERCONNECTOR_FOREIGN_MARKETS,
     FOREIGN_MARKET_COORDS,
@@ -27,10 +27,14 @@ class ForeignMarketTotals(BaseModel):
             interconnectors = []
             for interconnector, idf in fdf.groupby("interconnector"):
                 del idf["interconnector"]
-                i_coords = INTERCONNECTOR_COORDS[interconnector]
+                del idf["cp"]
+                i = INTERCONNECTORS[interconnector]
                 interconnectors.append(
                     InterconnectorSnapshot(
-                        key=interconnector, coords=i_coords, **idf.sum().to_dict()
+                        key=interconnector,
+                        coords=i.coords.model_dump(),
+                        **idf.sum().to_dict(),
+                        cp=i.capacity
                     )
                 )
             f_coords = FOREIGN_MARKET_COORDS[foreign_market]

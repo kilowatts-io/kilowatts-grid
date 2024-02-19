@@ -27,7 +27,6 @@ export const Cable: React.FC<CableProps> = ({
   width,
   cycleSeconds
 }) => {
-  console.log("CableProps", from, to, width, cycleSeconds);
   const { gestureMode } = useContext(MapContext);
   const t = useClock();
   const dims = calculateDims(from, to);
@@ -54,7 +53,6 @@ export const Cable: React.FC<CableProps> = ({
   const cy = useDerivedValue(() =>
     isExport ? from.y + dims.y * progress.value : to.y - dims.y * progress.value
   );
-
   return (
     <>
       <Line

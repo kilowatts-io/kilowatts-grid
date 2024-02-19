@@ -1,5 +1,4 @@
 import React from "react";
-import { SharedValue } from "react-native-reanimated";
 import { RoundedRect } from "@shopify/react-native-skia";
 
 import { calculateBatteryColor } from "./calcs";

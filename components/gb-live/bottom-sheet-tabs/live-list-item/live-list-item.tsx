@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { ErrorBoundaryBlank } from "../../error-boundary";
 
@@ -19,7 +18,7 @@ interface GbLiveListItemProps {
     | "coal"
     | "oil"
     | "battery"
-    | "interconnectors"
+    | "interconnector"
     | "solar"
     | "biomass";
   name: string;
@@ -30,12 +29,11 @@ interface GbLiveListItemProps {
   balancingDirection: "offer" | "bid" | "none";
   capacityFactor: number;
   selected: boolean;
-  onPress?: () => void;
+  cycleSeconds: number | null;
 }
 
 export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
-  <TouchableOpacity
-    onPress={p.onPress}
+  <View
     style={{
       ...styles.itemWrapper,
       ...(p.selected ? styles.selectedItemWrapper : {})
@@ -47,6 +45,7 @@ export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
           type={p.type}
           capacityFactor={p.capacityFactor}
           balancingDirection={p.balancingDirection}
+          cycleSeconds={p.cycleSeconds}
         />
       </ErrorBoundaryBlank>
       <LiveItemName name={p.name} />
@@ -59,7 +58,7 @@ export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
       />
       <DeltaVolumeView delta={p.delta} />
     </View>
-  </TouchableOpacity>
+  </View>
 );
 
 export const GbLiveListItemBalancingTotal: React.FC<{

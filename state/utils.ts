@@ -23,9 +23,9 @@ export const calculateCapacityFactor = ({ ac, cp }: WithCapacityFactor) => {
   if (cp === 0) return 0;
   if (ac === 0) return 0;
   if (ac > 0) {
-    return Math.min(1, cp / ac);
+    return Math.min(1, ac / cp);
   }
-  return Math.max(-1, cp / ac);
+  return Math.max(-1, ac / cp);
 };
 
 const CYCLE_MILISECONDS_AT_FULL_CAPACITY = 2;
@@ -33,5 +33,5 @@ const CYCLE_MILISECONDS_AT_FULL_CAPACITY = 2;
 export const calculateCycleSeconds = (x: WithCapacityFactor) => {
   const cf = calculateCapacityFactor(x);
   if (cf === 0) return null;
-  return Math.abs(CYCLE_MILISECONDS_AT_FULL_CAPACITY / cf);
+  return CYCLE_MILISECONDS_AT_FULL_CAPACITY / Math.abs(cf);
 };

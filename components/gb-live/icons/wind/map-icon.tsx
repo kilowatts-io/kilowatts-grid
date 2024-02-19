@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { WindTurbineBalancingLightMap } from "./visual/balancing-light";
 import { WindTurbineBladesMap } from "./visual/blades";
 import { WindTurbineMastMap } from "./visual/mast";
@@ -10,27 +9,22 @@ type WindMapIconProps = {
   cycleSeconds: number;
 };
 
-export const WindMapIcon: React.FC<WindMapIconProps> = ({
-  balancing,
-  point,
-  sizePx,
-  cycleSeconds
-}) => {
+export const WindMapIcon: React.FC<WindMapIconProps> = (p) => {
   return (
     <>
       <WindTurbineBalancingLightMap
-        balancing={balancing}
-        point={point}
-        sizePx={sizePx}
+        balancing={p.balancing}
+        point={p.point}
+        sizePx={p.sizePx}
       />
       <WindTurbineMastMap
-        point={point}
-        sizePx={sizePx}
+        point={p.point}
+        sizePx={p.sizePx}
       />
       <WindTurbineBladesMap
-        point={point}
-        cycleSeconds={cycleSeconds}
-        sizePx={sizePx}
+        point={p.point}
+        cycleSeconds={p.cycleSeconds}
+        sizePx={p.sizePx}
       />
     </>
   );

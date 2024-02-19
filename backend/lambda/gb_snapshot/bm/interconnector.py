@@ -150,15 +150,19 @@ total_interconnector_capacity = sum(
     [sum([i.capacity for i in m.interconnectors]) for m in foreign_markets]
 )
 
+
 # queries and lookups
-def is_interconnector(full_code:str):
+def is_interconnector(full_code: str):
     return full_code[:2] == "I_"
+
 
 def extract_code_4(full_code: str) -> str:
     return full_code.split("-")[1][:4]
 
+
 def extract_code_2(full_code: str) -> str:
     return full_code.split("_")[1][:2]
+
 
 def get_interconnector(bmunit_code: str) -> Union[Interconnector, None]:
     if not is_interconnector(bmunit_code):
@@ -173,17 +177,20 @@ def get_interconnector(bmunit_code: str) -> Union[Interconnector, None]:
                 return interconnector
     return None
 
+
 def get_interconnector_code(bmunit_code: str):
     interconnector = get_interconnector(bmunit_code)
     if interconnector:
         return interconnector.code4
     return None
 
+
 def get_foreign_market(interconnector: Interconnector) -> ForeignMarket:
     for market in foreign_markets:
         if interconnector in market.interconnectors:
             return market
     return None
+
 
 def get_foreign_market_from_interconnector() -> Dict[str, ForeignMarketKey]:
     outputs = {}
@@ -192,7 +199,8 @@ def get_foreign_market_from_interconnector() -> Dict[str, ForeignMarketKey]:
             outputs[interconnector.code4] = market.key
     return outputs
 
-INTERCONNECTOR_COORDS = {i.code4: i.coords.model_dump() for m in foreign_markets for i in m.interconnectors}
+
+INTERCONNECTORS = {i.code4: i for m in foreign_markets for i in m.interconnectors}
 FOREIGN_MARKET_COORDS = {m.key.value: m.coords.model_dump() for m in foreign_markets}
 
 INTERCONNECTOR_FOREIGN_MARKETS = get_foreign_market_from_interconnector()
