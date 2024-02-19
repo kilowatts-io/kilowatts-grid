@@ -109,8 +109,6 @@ const nsl: Interconnector = {
   capacity: 1400
 };
 
-// the two below have very similar paths so need an elbow
-
 const ifa1: Interconnector = {
   name: "IFA",
   code4: "FRAN",

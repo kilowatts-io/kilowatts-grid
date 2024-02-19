@@ -1,0 +1,4 @@
+pydantic==2.6.0
+pandas==2.2.0
+lambda_multiprocessing==0.1.0
+requests==2.26.0

@@ -1,19 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import { elexonApi } from "./apis/elexon/api";
-import { nationalGridDemandForeastApi } from "./apis/nationalGridDemandForecast/api";
-import { nationalGridEsoApi } from "./apis/nationalGridEso/api";
-import { sheffieldApi } from "./apis/sheffield/api";
-import { gbLiveSlice } from "./gb/live";
+import { kilowattsCloudfront } from "./apis/cloudfront/api";
 import { termsSlice } from "./terms";
 
 const rootReducer = combineReducers({
-  elexonApi: elexonApi.reducer,
-  sheffieldApi: sheffieldApi.reducer,
-  nationalGridDemandForeastApi: nationalGridDemandForeastApi.reducer,
-  nationalGridEsoApi: nationalGridEsoApi.reducer,
-  termsSlice: termsSlice.reducer,
-  gbLiveSlice: gbLiveSlice.reducer
+  kilowattsCloudfront: kilowattsCloudfront.reducer,
+  termsSlice: termsSlice.reducer
 });
 
 export const createStore = () =>
@@ -22,16 +14,14 @@ export const createStore = () =>
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false // avoids errors in prod
-      })
-        .concat(elexonApi.middleware)
-        .concat(sheffieldApi.middleware)
-        .concat(nationalGridEsoApi.middleware)
-        .concat(nationalGridDemandForeastApi.middleware)
+      }).concat(kilowattsCloudfront.middleware)
   });
 
 export const store = createStore();
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type UseAppSelector = (selector: (state: RootState) => any) => any;
+export type UseAppSelector = (
+  selector: (state: RootState) => unknown
+) => unknown;
 
 export type AppDispatch = typeof store.dispatch;

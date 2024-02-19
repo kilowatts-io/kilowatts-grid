@@ -5,6 +5,7 @@
 
 # dependencies
 node_modules/
+*.envrc
 
 # Expo
 .expo/
@@ -46,3 +47,4 @@ expo-env.d.ts
 .netlify
 outputs/prod.ipa
 credentials.json
+cdk/.envrc
