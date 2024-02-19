@@ -30,7 +30,9 @@ import GvSvgPath from "./path";
 import searchPoint from "./search-point";
 
 export const SvgMap: React.FC = () => {
-  const { data } = useGbSummaryOutputQuery();
+  const { data } = useGbSummaryOutputQuery(undefined, {
+    pollingInterval: 60 * 1000
+  });
   const selectedUnitGroupCode = useSelector(selectors.selectedUnitGroupCode);
   const screen = useWindowDimensions();
   const context = initialMapContext(screen);
