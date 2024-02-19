@@ -35,19 +35,14 @@ class GenerationTotals(BaseModel):
 
     def _add_embedded(self, bm_fuel_types: pd.DataFrame):
         for attr in ["solar", "wind"]:
-            if getattr(self.embedded, attr).generation > 0:
-                if attr in bm_fuel_types.index:
-                    bm_fuel_types.loc[attr, "ac"] += getattr(
-                        self.embedded, attr
-                    ).generation
-                    bm_fuel_types.loc[attr, "cp"] += getattr(
-                        self.embedded, attr
-                    ).capacity
-                else:
-                    bm_fuel_types.loc[attr] = {
-                        "ac": getattr(self.embedded, attr).generation,
-                        "cp": getattr(self.embedded, attr).capacity,
-                    }
+            if attr in bm_fuel_types.index:
+                bm_fuel_types.loc[attr, "ac"] += getattr(self.embedded, attr).generation
+                bm_fuel_types.loc[attr, "cp"] += getattr(self.embedded, attr).capacity
+            else:
+                bm_fuel_types.loc[attr] = {
+                    "ac": getattr(self.embedded, attr).generation,
+                    "cp": getattr(self.embedded, attr).capacity,
+                }
         return bm_fuel_types
 
     def _serialize_unit_groups(self, df: pd.DataFrame) -> List[UnitGroupSnapshot]:
