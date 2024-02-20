@@ -4,7 +4,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
 
 import { ErrorBoundaryWithRecovery } from "./components/gb-live/error-boundary";
-import { GbLive } from "./components/gb-live/live";
+import GbLive from "./components/gb-live/live";
 import { store } from "./state/reducer";
 import { initSentry } from "./utils/sentry";
 import { checkUpdatesRequireStateRefresh } from "./utils/version";
@@ -12,7 +12,7 @@ import { checkUpdatesRequireStateRefresh } from "./utils/version";
 export default function RootApp() {
   React.useEffect(() => {
     if (__DEV__ && Platform.OS !== "web") {
-      require("./utils/reactotron").initReactotron();
+      // require("./utils/reactotron").initReactotron();
     }
   }, []);
 
@@ -21,7 +21,9 @@ export default function RootApp() {
   }, []);
 
   React.useEffect(() => {
-    initSentry();
+    if (Platform.OS == "ios" || Platform.OS == "android") {
+      initSentry();
+    }
   });
 
   return (

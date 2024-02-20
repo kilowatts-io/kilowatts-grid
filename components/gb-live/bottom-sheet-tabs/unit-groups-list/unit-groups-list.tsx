@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { FlashList } from "@shopify/flash-list";
 
@@ -14,12 +14,18 @@ import {
 } from "../../../../state/utils";
 import { GbLiveListItem } from "../live-list-item/live-list-item";
 
+import Pagination from "./pagination";
+
+const WEB_PAGE_SIZE = 15;
+
 export const GbUnitGroupsList: React.FC = () => {
   const { data, isLoading, refetch } = useGbSummaryOutputQuery(undefined, {
     pollingInterval: 1000 * 15,
     refetchOnReconnect: true
   });
+  const [webPage, setWebPage] = React.useState(0);
   const list = React.useRef<FlashList<{ GbSummaryOutputGenerator }>>(null);
+
   const selectedUnitGroupCode = useSelector(selectors.selectedUnitGroupCode);
   React.useEffect(() => {
     if (!selectedUnitGroupCode) return;
@@ -30,11 +36,24 @@ export const GbUnitGroupsList: React.FC = () => {
     // make this item the top of the list
     list.current?.scrollToIndex({ index, animated: false });
   }, [selectedUnitGroupCode]);
+
+  const memoData = React.useMemo(() => {
+    if (!data || !data.generators) return [];
+    if (Platform.OS === "web") {
+      return data.generators.slice(
+        webPage * WEB_PAGE_SIZE,
+        (webPage + 1) * WEB_PAGE_SIZE
+      );
+    } else {
+      return data.generators;
+    }
+  }, [data, webPage]);
+
   return (
     <FlashList
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={list as any}
-      data={data && data.generators}
+      data={memoData}
       refreshing={isLoading}
       onRefresh={() => refetch()}
       keyExtractor={(x) => x.code}
@@ -45,14 +64,19 @@ export const GbUnitGroupsList: React.FC = () => {
           code={item.code}
         />
       )}
-      ListFooterComponent={<View style={styles.footer} />}
+      ListFooterComponent={
+        Platform.OS === "web" ? (
+          <Pagination
+            currentPage={webPage}
+            totalPages={data && data.generators.length / WEB_PAGE_SIZE}
+            onNext={() => setWebPage((p) => p + 1)}
+            onPrevious={() => setWebPage((p) => p - 1)}
+          />
+        ) : undefined
+      }
     />
   );
 };
-
-const styles = StyleSheet.create({
-  footer: { height: 100 }
-});
 
 const UnitGroupsListLiveItem: React.FC<
   GbSummaryOutputGenerator & {

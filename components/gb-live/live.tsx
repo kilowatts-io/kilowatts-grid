@@ -1,13 +1,13 @@
 import React, { useCallback, useRef } from "react";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   BottomSheetModal,
   BottomSheetModalProvider
 } from "@gorhom/bottom-sheet";
 
 import { useGbSummaryOutputQuery } from "../../state/apis/cloudfront/api";
-import { selectors, setSelectedUnitGroupCode } from "../../state/gb/live";
+import { selectors } from "../../state/gb/live";
 
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
 import SvgMap from "./svg-map/svg-map";
@@ -63,7 +63,7 @@ export const GbLiveWrapped: React.FC = () => {
   );
 };
 
-export const GbLive = () => {
+const GbLive = () => {
   const query = useGbSummaryOutputQuery();
   React.useEffect(() => {
     query.refetch();
@@ -81,3 +81,5 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+export default GbLive;
