@@ -1,8 +1,14 @@
 import React from "react";
 import { Group, Path, Rect, Skia } from "@shopify/react-native-skia";
+
 import { CanvasPoint } from "../../svg-map/types";
+import {
+  ICON_LIST_HEIGHT,
+  ICON_LIST_WIDTH,
+  LIST_ICON_CENTER_POINT
+} from "../list-icons";
+
 import * as c from "./constants";
-import { ICON_LIST_HEIGHT, ICON_LIST_WIDTH, LIST_ICON_CENTER_POINT, LIST_ICON_DIMS } from "../list-icons";
 
 type FlagProps = {
   point: CanvasPoint;
@@ -19,7 +25,7 @@ const triColourDimensions = ({ point }: FlagProps) => {
     topY: point.y - c.FLAG_HEIGHT / 2,
     leftX: point.x - c.FLAG_WIDTH * (1 / 3),
     rightX: point.x + c.FLAG_HEIGHT * (1 / 3),
-    stripeWidth: c.FLAG_WIDTH / 3,
+    stripeWidth: c.FLAG_WIDTH / 3
   };
 };
 
@@ -27,16 +33,28 @@ const TricolorFlag: React.FC<TricolorFlagProps> = ({
   point,
   color1,
   color2,
-  color3,
+  color3
 }) => {
   const d = triColourDimensions({ point });
   const props = { width: d.stripeWidth, height: c.FLAG_HEIGHT, y: d.topY };
 
   return (
     <>
-      <Rect {...props} x={d.leftX} color={color1} />
-      <Rect {...props} x={point.x} color={color2} />
-      <Rect {...props} x={d.rightX} color={color3} />
+      <Rect
+        {...props}
+        x={d.leftX}
+        color={color1}
+      />
+      <Rect
+        {...props}
+        x={point.x}
+        color={color2}
+      />
+      <Rect
+        {...props}
+        x={d.rightX}
+        color={color3}
+      />
     </>
   );
 };
@@ -45,7 +63,7 @@ export const France: React.FC<FlagProps> = (p) => (
   <Group
     transform={[
       { translateY: c.FLAG_HEIGHT / 2 },
-      { translateX: -c.FLAG_WIDTH / 4 },
+      { translateX: -c.FLAG_WIDTH / 4 }
     ]}
   >
     <TricolorFlag
@@ -61,7 +79,7 @@ export const Belgium: React.FC<FlagProps> = (p) => (
   <Group
     transform={[
       { translateY: c.FLAG_HEIGHT / 2 },
-      { translateX: c.FLAG_WIDTH / 4 },
+      { translateX: c.FLAG_WIDTH / 4 }
     ]}
   >
     <TricolorFlag
@@ -93,7 +111,7 @@ export const Netherlands: React.FC<FlagProps> = ({ point }) => {
 
   const props = {
     x: leftX,
-    height: c.FLAG_HEIGHT / 3,
+    height: c.FLAG_HEIGHT / 3
   };
 
   const topY = point.y - c.FLAG_HEIGHT / 2;
@@ -102,9 +120,24 @@ export const Netherlands: React.FC<FlagProps> = ({ point }) => {
 
   return (
     <Group transform={[{ translateX: c.FLAG_WIDTH / 2 }]}>
-      <Rect y={topY} width={c.FLAG_WIDTH} {...props} color={c.FLAG_COLORS.red} />
-      <Rect y={y2} width={c.FLAG_WIDTH} {...props} color={c.FLAG_COLORS.white} />
-      <Rect y={y3} width={c.FLAG_WIDTH} {...props} color={c.FLAG_COLORS.blue} />
+      <Rect
+        y={topY}
+        width={c.FLAG_WIDTH}
+        {...props}
+        color={c.FLAG_COLORS.red}
+      />
+      <Rect
+        y={y2}
+        width={c.FLAG_WIDTH}
+        {...props}
+        color={c.FLAG_COLORS.white}
+      />
+      <Rect
+        y={y3}
+        width={c.FLAG_WIDTH}
+        {...props}
+        color={c.FLAG_COLORS.blue}
+      />
     </Group>
   );
 };
@@ -147,7 +180,7 @@ export const Denmark: React.FC<FlagProps & {}> = ({ point }) => {
     <Group
       transform={[
         { translateY: -c.FLAG_WIDTH / 3 },
-        { translateX: c.FLAG_WIDTH / 8 },
+        { translateX: c.FLAG_WIDTH / 8 }
       ]}
     >
       <RedBackgroundWhiteCross {...{ point }} />
@@ -183,7 +216,6 @@ export const Norway: React.FC<FlagProps> = (p) => {
     </Group>
   );
 };
-
 
 export const EU: React.FC = (p) => {
   const radius = ICON_LIST_WIDTH / 3; // Adjust the radius based on the width of the flag
@@ -226,7 +258,10 @@ export const EU: React.FC = (p) => {
         width={ICON_LIST_WIDTH}
         color={c.FLAG_COLORS.eublue}
       />
-      <Path path={starsPath} color={c.FLAG_COLORS.yellow} />
+      <Path
+        path={starsPath}
+        color={c.FLAG_COLORS.yellow}
+      />
     </Group>
   );
 };

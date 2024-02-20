@@ -1,16 +1,18 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { GbUnitGroupsList } from "./unit-groups-list/unit-groups-list";
-import { Tab } from "@rneui/themed";
 import { useSelector } from "react-redux";
+import { Tab } from "@rneui/themed";
+
 import { selectors } from "../../../state/gb/live";
+
 import { GbTotalsList } from "./totals-list/totals-list";
+import { GbUnitGroupsList } from "./unit-groups-list/unit-groups-list";
 
 interface GbLiveBottomSheetTabsProps {
   usableHeight?: number;
 }
 export const GbLiveBottomSheetTabs: React.FC<GbLiveBottomSheetTabsProps> = ({
-  usableHeight,
+  usableHeight
 }) => {
   const selectedGeneratorId = useSelector(selectors.selectedUnitGroupCode);
   const [index, setIndex] = React.useState(0);
@@ -32,7 +34,7 @@ export const GbLiveBottomSheetTabs: React.FC<GbLiveBottomSheetTabsProps> = ({
       <View
         style={{
           ...styles.listContentContainer,
-          height: usableHeight,
+          height: usableHeight
         }}
       >
         {index === 0 && <GbTotalsList />}
@@ -43,16 +45,12 @@ export const GbLiveBottomSheetTabs: React.FC<GbLiveBottomSheetTabsProps> = ({
 };
 
 const styles = StyleSheet.create({
-  mapContainer: {
+  listContentContainer: {
     flex: 1,
-    paddingBottom: 50,
+    height: "100%",
+    width: "100%"
   },
   tabTitleStyle: {
-    fontSize: 10,
-  },
-  listContentContainer: {
-    height: "100%",
-    width: "100%",
-    flex: 1,
-  },
+    fontSize: 10
+  }
 });

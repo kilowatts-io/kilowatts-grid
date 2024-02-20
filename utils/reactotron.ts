@@ -1,23 +1,23 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Reactotron from "reactotron-react-native";
-import { reactotronRedux } from 'reactotron-redux';
-import sagaPlugin from 'reactotron-redux-saga';
+import { reactotronRedux } from "reactotron-redux";
+import sagaPlugin from "reactotron-redux-saga";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const initReactotron = () => {
   // DevSettings.reload();
   Reactotron.setAsyncStorageHandler(AsyncStorage)
     .configure({
-      host: "192.168.0.27",
+      host: "192.168.0.27"
     })
     .useReactNative({
       asyncStorage: false,
       networking: {
-        ignoreUrls: /symbolicate/,
+        ignoreUrls: /symbolicate/
       },
       editor: false,
-      overlay: false,
+      overlay: false
     })
     .use(reactotronRedux())
-    .use(sagaPlugin({except: ['']}))
+    .use(sagaPlugin({ except: [""] }))
     .connect();
 };

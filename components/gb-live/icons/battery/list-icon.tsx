@@ -1,6 +1,8 @@
 import React from "react";
 import { RoundedRect } from "@shopify/react-native-skia";
+
 import { ICON_LIST_HEIGHT, ICON_LIST_WIDTH } from "../list-icons";
+
 import { calculateBatteryColor } from "./calcs";
 import {
   BATTERY_BASE_WIDTH_FRACTION,
@@ -8,7 +10,7 @@ import {
   BATTERY_STROKE_WIDTH_TO_HEIGHT_RATIO,
   BATTERY_TERMINAL_WIDTH_FRACTION,
   BATTERY_TERMINAL_WIDTH_TO_HEIGHT_RATIO,
-  calculateBatteryTerminalTop,
+  calculateBatteryTerminalTop
 } from "./constants";
 
 const BATTERY_ROUNDEDNESS = ICON_LIST_HEIGHT * BATTERY_R_TO_HEIGHT_RATIO;

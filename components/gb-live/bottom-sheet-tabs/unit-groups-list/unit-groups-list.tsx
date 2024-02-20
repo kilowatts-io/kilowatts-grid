@@ -1,76 +1,110 @@
 import React from "react";
-import { FlashList } from "@shopify/flash-list";
-import { selectors, setSelectedUnitGroupCode } from "../../../../state/gb/live";
+import { Platform, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { FlashList } from "@shopify/flash-list";
+
+import { useGbSummaryOutputQuery } from "../../../../state/apis/cloudfront/api";
+import { GbSummaryOutputGenerator } from "../../../../state/apis/cloudfront/types";
+import { selectors, setSelectedUnitGroupCode } from "../../../../state/gb/live";
 import { RootState } from "../../../../state/reducer";
-import { unitGroupNameFuelTypes } from "../../../../state/gb/fixtures/generators/unit-groups";
-import { GbLiveListItem } from "../live-list-item/live-list-item";
-import { View, StyleSheet } from "react-native";
 import {
   calculateBalancingDirection,
   calculateCapacityFactor,
-} from "../../icons/tools";
+  calculateCycleSeconds
+} from "../../../../state/utils";
+import { GbLiveListItem } from "../live-list-item/live-list-item";
 
+import Pagination from "./pagination";
+
+const WEB_PAGE_SIZE = 15;
 
 export const GbUnitGroupsList: React.FC = () => {
-  const initialLoadComplete = useSelector(selectors.initialLoadComplete);
-  const list = React.useRef<FlashList<{ code: string }>>(null);
-  const data = useSelector(selectors.unitGroupSorted);
+  const { data, isLoading, refetch } = useGbSummaryOutputQuery(undefined, {
+    pollingInterval: 1000 * 15,
+    refetchOnReconnect: true
+  });
+  const [webPage, setWebPage] = React.useState(0);
+  const list = React.useRef<FlashList<{ GbSummaryOutputGenerator }>>(null);
+
   const selectedUnitGroupCode = useSelector(selectors.selectedUnitGroupCode);
   React.useEffect(() => {
-    if (!selectedUnitGroupCode) return undefined;
-    const index = data.findIndex((g) => g.code === selectedUnitGroupCode);
-    if (index <= 1) return undefined;
-    list.current?.scrollToIndex({
-      index: index,
-      viewPosition: 0,
-      animated: true,
-    });
+    if (!selectedUnitGroupCode) return;
+    const index = data.generators.findIndex(
+      (g) => g.code === selectedUnitGroupCode
+    );
+    if (index < 0) return undefined;
+    // make this item the top of the list
+    list.current?.scrollToIndex({ index, animated: false });
   }, [selectedUnitGroupCode]);
+
+  const memoData = React.useMemo(() => {
+    if (!data || !data.generators) return [];
+    if (Platform.OS === "web") {
+      return data.generators.slice(
+        webPage * WEB_PAGE_SIZE,
+        (webPage + 1) * WEB_PAGE_SIZE
+      );
+    } else {
+      return data.generators;
+    }
+  }, [data, webPage]);
+
   return (
     <FlashList
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={list as any}
-      data={initialLoadComplete && data}
+      data={memoData}
+      refreshing={isLoading}
+      onRefresh={() => refetch()}
       keyExtractor={(x) => x.code}
       estimatedItemSize={30}
-      renderItem={({ item }) => <UnitGroupListLiveItem code={item.code} />}
-      ListFooterComponent={<View style={styles.footer} />}
+      renderItem={({ item }) => (
+        <UnitGroupsListLiveItem
+          {...item}
+          code={item.code}
+        />
+      )}
+      ListFooterComponent={
+        Platform.OS === "web" ? (
+          <Pagination
+            currentPage={webPage}
+            totalPages={data && data.generators.length / WEB_PAGE_SIZE}
+            onNext={() => setWebPage((p) => p + 1)}
+            onPrevious={() => setWebPage((p) => p - 1)}
+          />
+        ) : undefined
+      }
     />
   );
 };
 
-const UnitGroupListLiveItem: React.FC<{ code: string }> = ({ code }) => {
+const UnitGroupsListLiveItem: React.FC<
+  GbSummaryOutputGenerator & {
+    code: string;
+  }
+> = (item) => {
   const dispatch = useDispatch();
-  // selectors
-  const selected = useSelector((state: RootState) => selectors.isSelectedUnitGroupCode(state, code))
-  const capacity = useSelector((state: RootState) => selectors.unitGroupCapacity(state, code));
-  const currentOutput = useSelector((state: RootState) => selectors.unitGroupCurrentOutput(state, code));
-  const balancingVolume = useSelector((state: RootState) => selectors.unitGroupBalancingVolume(state, code));
-  // memos to reduce re-renders
-  const nameFuelType = React.useMemo(() => unitGroupNameFuelTypes[code], [code]);
-  const balancingDirection = React.useMemo(() => calculateBalancingDirection(balancingVolume), [balancingVolume]);
-  const capacityFactor = React.useMemo(() => calculateCapacityFactor(currentOutput.level, capacity), [currentOutput.level, capacity]);
-  const roundedCapacity = React.useMemo(() => Math.round(capacity), [capacity]);
-  const roundedCurrentOutput1Dp = React.useMemo(() => Math.round(currentOutput.level * 10) / 10, [currentOutput.level]);
-  const roundedRoundedCurrentOutputDelta1Dp = React.useMemo(() => Math.round(currentOutput.delta * 10) / 10, [currentOutput.delta]);
+  const selected = useSelector((state: RootState) =>
+    selectors.isSelectedUnitGroupCode(state, item.code)
+  );
 
   return (
-    <GbLiveListItem
-      key={code}
-      name={nameFuelType.name}
-      type={nameFuelType.fuelType}
-      capacity={roundedCapacity}
-      output={roundedCurrentOutput1Dp}
-      delta={roundedRoundedCurrentOutputDelta1Dp}
-      balancingVolume={balancingVolume}
-      balancingDirection={balancingDirection}
-      capacityFactor={capacityFactor}
-      selected={selected}
-      onPress={() => dispatch(setSelectedUnitGroupCode(code))}
-    />
+    <TouchableOpacity
+      onPress={() => dispatch(setSelectedUnitGroupCode(item.code))}
+    >
+      <GbLiveListItem
+        key={item.code}
+        cycleSeconds={calculateCycleSeconds(item)}
+        name={item.name}
+        type={item.fuel_type}
+        capacity={item.cp}
+        output={item.ac}
+        delta={item.dl}
+        balancingVolume={item.offers - item.bids}
+        balancingDirection={calculateBalancingDirection(item)}
+        capacityFactor={calculateCapacityFactor(item)}
+        selected={selected}
+      />
+    </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  footer: { height: 100 },
-});

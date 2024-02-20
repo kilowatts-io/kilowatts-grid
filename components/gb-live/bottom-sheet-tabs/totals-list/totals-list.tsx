@@ -1,59 +1,45 @@
 import React from "react";
 import { FlatList } from "react-native";
-import {
-  TotalsListOutputItem,
-  calculateOutputTotals,
-} from "../../../../state/gb/calcs/output-totals";
-import { useSelector } from "react-redux";
-import { selectors } from "../../../../state/gb/live";
-import { GbBalancingTotals } from "./balancing-totals/balancing-totals";
-import { GbLiveListItem } from "../live-list-item/live-list-item";
+
+import { useGbSummaryOutputQuery } from "../../../../state/apis/cloudfront/api";
 import {
   calculateBalancingDirection,
   calculateCapacityFactor,
-} from "../../icons/tools";
+  calculateCycleSeconds
+} from "../../../../state/utils";
+import { GbLiveListItem } from "../live-list-item/live-list-item";
+
+import { GbBalancingTotals } from "./balancing-totals/balancing-totals";
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export const GbTotalsList: React.FC = () => {
-  const initialLoadComplete = useSelector(selectors.initialLoadComplete);
-  const rawTotals = useSelector(selectors.outputTotals);
-  const totals = React.useMemo(
-    () => calculateOutputTotals(rawTotals),
-    [rawTotals]
-  );
+  const { data, isLoading, refetch } = useGbSummaryOutputQuery(undefined, {
+    pollingInterval: 1000 * 15,
+    refetchOnReconnect: true
+  });
+
   return (
     <FlatList
-      data={initialLoadComplete && totals}
-      refreshing={!initialLoadComplete}
-      renderItem={({ item }) => <GbTotalsListItem item={item} />}
+      data={data && data.totals}
+      refreshing={isLoading}
+      onRefresh={() => refetch()}
+      renderItem={({ item }) => (
+        <GbLiveListItem
+          type={item.code}
+          key={`gb-totals-list-item-${item.code}`}
+          name={capitalise(item.name)}
+          capacity={item.cp}
+          output={item.ac}
+          delta={item.dl}
+          balancingVolume={item.offers - item.bids}
+          balancingDirection={calculateBalancingDirection(item)}
+          capacityFactor={calculateCapacityFactor(item)}
+          cycleSeconds={calculateCycleSeconds(item)}
+          selected={false}
+        />
+      )}
       ListFooterComponent={GbBalancingTotals}
-    />
-  );
-};
-
-interface GbTotalsListItemProps {
-  item: TotalsListOutputItem;
-}
-
-const GbTotalsListItem: React.FC<GbTotalsListItemProps> = ({ item }) => {
-  const name = React.useMemo(() => capitalise(item.key), [item.key]);
-  const roundedLevel = React.useMemo(() => Math.round(item.level), [item.level])
-  const roundedDelta = React.useMemo(() => Math.round(item.delta), [item.delta])
-  const roundedBalancingVolume = React.useMemo(() => Math.round(item.balancingVolume), [item.balancingVolume])
-  const balancingDirection = React.useMemo(() => calculateBalancingDirection(item.balancingVolume), [item.balancingVolume])
-  return (
-    <GbLiveListItem
-      type={item.key}
-      key={`gb-totals-list-item-${item.key}`}
-      name={name}
-      capacity={item.capacity}
-      output={roundedLevel}
-      delta={roundedDelta}
-      balancingVolume={roundedBalancingVolume}
-      balancingDirection={balancingDirection}
-      capacityFactor={calculateCapacityFactor(item.level, item.capacity)}
-      selected={false}
     />
   );
 };

@@ -1,6 +1,6 @@
 import { SharedValue } from "react-native-reanimated";
-import { CanvasPoint } from "../svg-map/types";
 
+import { CanvasPoint } from "../svg-map/types";
 
 export type Balancing = "bid" | "offer" | "none";
 
@@ -24,7 +24,7 @@ const LIST_ITEM_ICON_SIZE = 20;
 
 export const listItemIconStyles = {
   width: LIST_ITEM_ICON_SIZE,
-  height: LIST_ITEM_ICON_SIZE,
+  height: LIST_ITEM_ICON_SIZE
 };
 
 export type ListItemIconProps = BaseIconProps & {

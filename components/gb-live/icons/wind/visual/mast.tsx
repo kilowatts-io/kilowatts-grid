@@ -1,30 +1,28 @@
-import React, { useContext } from "react";
-import { SharedValue, useDerivedValue } from "react-native-reanimated";
+import React from "react";
+import { useDerivedValue } from "react-native-reanimated";
 import { RoundedRect } from "@shopify/react-native-skia";
-import { MapContext } from "../../../svg-map/context";
+
+import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../../list-icons";
+
 import {
   MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO,
   MINIMUM_HEIGHT_PX,
   ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO,
-  WIND_TURBINE_COLOR,
+  WIND_TURBINE_COLOR
 } from "./constants";
-import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../../list-icons";
 
 export const WindTurbineMastMap: React.FC<{
   point: { x: number; y: number };
-  sizePx: SharedValue<number>;
+  sizePx: number;
 }> = ({ point, sizePx }) => {
-  const height = useDerivedValue(
-    () => Math.max(sizePx.value, MINIMUM_HEIGHT_PX),
-    [sizePx]
-  );
+  const height = Math.max(sizePx, MINIMUM_HEIGHT_PX);
 
   const mastR = useDerivedValue(
-    () => height.value * ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO,
+    () => height * ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO,
     [height]
   );
   const mastWidth = useDerivedValue(
-    () => MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO * height.value,
+    () => MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO * height,
     [height]
   );
   return (

@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+
 import { formatMW } from "./formatters";
 
 interface OutputVolumeViewProps {
@@ -9,7 +10,7 @@ interface OutputVolumeViewProps {
 
 export const OutputVolumeView: React.FC<OutputVolumeViewProps> = ({
   capacity,
-  output,
+  output
 }) => {
   return (
     <View style={styles.output}>
@@ -24,13 +25,13 @@ export const OutputVolumeViewEmpty = () => <View style={styles.output} />;
 
 const styles = StyleSheet.create({
   output: {
-    width: 110,
+    alignItems: "flex-end",
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-end",
+    width: 110
   },
   outputText: {
-    textAlign: "right",
     fontSize: 11,
-  },
+    textAlign: "right"
+  }
 });

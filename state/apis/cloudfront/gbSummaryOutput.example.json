@@ -1,0 +1,1888 @@
+{
+  "dt": "2024-02-19T10:29:00Z",
+  "totals": [
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 18572.0,
+      "ac": 13969.4,
+      "name": "wind",
+      "key": "wind"
+    },
+    {
+      "bids": 220.0,
+      "offers": 128.0,
+      "cp": 24294.0,
+      "ac": 6876.5,
+      "name": "gas",
+      "key": "gas"
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 3782.0,
+      "ac": 3671.0,
+      "name": "nuclear",
+      "key": "nuclear"
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 0.0,
+      "ac": 2786.0,
+      "name": "Interconnectors",
+      "key": "interconnector"
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 3674.0,
+      "ac": 2680.0,
+      "name": "biomass",
+      "key": "biomass"
+    },
+    {
+      "bids": 0.0,
+      "offers": 200.0,
+      "cp": 3345.0,
+      "ac": 873.0,
+      "name": "hydro",
+      "key": "hydro"
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 117.0,
+      "ac": 34.0,
+      "name": "solar",
+      "key": "solar"
+    },
+    {
+      "bids": 1.0,
+      "offers": 0.0,
+      "cp": 951.0,
+      "ac": 23.8,
+      "name": "battery",
+      "key": "battery"
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 1375.0,
+      "ac": 0.0,
+      "name": "coal",
+      "key": "coal"
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": 0.0,
+      "name": "oil",
+      "key": "oil"
+    }
+  ],
+  "generators": [
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 2194.0,
+      "ac": 2170.0,
+      "name": "PEMB",
+      "key": "PEMB",
+      "fuel_type": "gas",
+      "coords": { "lat": 51.7, "lng": -5.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 2644.0,
+      "ac": 1967.0,
+      "name": "DRAX",
+      "key": "DRAX",
+      "fuel_type": "biomass",
+      "coords": { "lat": 53.7, "lng": -1.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 1728.0,
+      "ac": 1692.0,
+      "name": "STAY",
+      "key": "STAY",
+      "fuel_type": "gas",
+      "coords": { "lat": 53.1, "lng": -0.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 1297.0,
+      "ac": 1238.0,
+      "name": "HEYM",
+      "key": "HEYM",
+      "fuel_type": "nuclear",
+      "coords": { "lat": 54.0, "lng": -2.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 1282.0,
+      "ac": 1230.0,
+      "name": "TORN",
+      "key": "TORN",
+      "fuel_type": "nuclear",
+      "coords": { "lat": 56.0, "lng": -2.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 1203.0,
+      "ac": 1203.0,
+      "name": "SIZB",
+      "key": "SIZB",
+      "fuel_type": "nuclear",
+      "coords": { "lat": 52.2, "lng": 1.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 1267.0,
+      "ac": 1129.3,
+      "name": "HOWB",
+      "key": "HOWB",
+      "fuel_type": "wind",
+      "coords": { "lat": 54.0, "lng": 1.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 1012.0,
+      "ac": 917.0,
+      "name": "SGRWO",
+      "key": "SGRWO",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.6, "lng": -1.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 128.0,
+      "cp": 878.0,
+      "ac": 750.0,
+      "name": "MRWD",
+      "key": "MRWD",
+      "fuel_type": "gas",
+      "coords": { "lat": 50.9, "lng": -1.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 740.0,
+      "ac": 740.0,
+      "name": "DIDC",
+      "key": "DIDC",
+      "fuel_type": "gas",
+      "coords": { "lat": 51.6, "lng": -1.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 799.0,
+      "ac": 719.0,
+      "name": "TKN",
+      "key": "TKN",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.2, "lng": 0.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 953.0,
+      "ac": 640.6,
+      "name": "WLNYO",
+      "key": "WLNYO",
+      "fuel_type": "wind",
+      "coords": { "lat": 54.0, "lng": 3.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 669.0,
+      "ac": 620.0,
+      "name": "EAAO",
+      "key": "EAAO",
+      "fuel_type": "wind",
+      "coords": { "lat": 52.1, "lng": 2.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 720.0,
+      "ac": 529.0,
+      "name": "MOWEO",
+      "key": "MOWEO",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.2, "lng": -2.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 591.0,
+      "ac": 477.0,
+      "name": "LARYW",
+      "key": "LARYW",
+      "fuel_type": "wind",
+      "coords": { "lat": 51.6, "lng": 1.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 300.0,
+      "ac": 430.0,
+      "name": "HOWA",
+      "key": "HOWA",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.9, "lng": 1.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 442.0,
+      "ac": 423.0,
+      "name": "CARR",
+      "key": "CARR",
+      "fuel_type": "gas",
+      "coords": { "lat": 53.4, "lng": -2.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 573.0,
+      "ac": 420.0,
+      "name": "BEATO",
+      "key": "BEATO",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.1, "lng": -3.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 420.0,
+      "ac": 367.0,
+      "name": "GYMR",
+      "key": "GYMR",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.5, "lng": -3.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 364.0,
+      "ac": 364.0,
+      "name": "DDGNO",
+      "key": "DDGNO",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.1, "lng": 0.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 501.0,
+      "ac": 352.0,
+      "name": "GRGBW",
+      "key": "GRGBW",
+      "fuel_type": "wind",
+      "coords": { "lat": 51.9, "lng": 1.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 769.0,
+      "ac": 350.0,
+      "name": "HUMR",
+      "key": "HUMR",
+      "fuel_type": "gas",
+      "coords": { "lat": 53.6, "lng": -0.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 505.0,
+      "ac": 346.0,
+      "name": "T_CLDCW",
+      "key": "T_CLDCW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.4, "lng": -3.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 340.0,
+      "ac": 340.0,
+      "name": "CRUA",
+      "key": "CRUA",
+      "fuel_type": "hydro",
+      "coords": { "lat": 56.4, "lng": -5.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 394.0,
+      "ac": 336.0,
+      "name": "RMPNO",
+      "key": "RMPNO",
+      "fuel_type": "wind",
+      "coords": { "lat": 50.7, "lng": 0.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 382.0,
+      "ac": 324.0,
+      "name": "WDNSO",
+      "key": "WDNSO",
+      "fuel_type": "wind",
+      "coords": { "lat": 54.0, "lng": -3.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 341.0,
+      "ac": 321.0,
+      "name": "BRBO",
+      "key": "BRBO",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.5, "lng": -3.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 352.0,
+      "ac": 315.0,
+      "name": "GANW",
+      "key": "GANW",
+      "fuel_type": "wind",
+      "coords": { "lat": 51.9, "lng": 2.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 291.0,
+      "ac": 291.0,
+      "name": "SHRSW",
+      "key": "SHRSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.8, "lng": 0.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 200.0,
+      "ac": 285.0,
+      "name": "TSREP",
+      "key": "TSREP",
+      "fuel_type": "biomass",
+      "coords": { "lat": 54.6, "lng": -1.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 260.0,
+      "ac": 270.0,
+      "name": "LYNE",
+      "key": "LYNE",
+      "fuel_type": "biomass",
+      "coords": { "lat": 55.2, "lng": -1.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 497.0,
+      "ac": 248.0,
+      "name": "WHILW",
+      "key": "WHILW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.7, "lng": -4.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 277.0,
+      "ac": 244.0,
+      "name": "RCBK",
+      "key": "RCBK",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.1, "lng": 0.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 771.0,
+      "ac": 232.0,
+      "name": "SCCL",
+      "key": "SCCL",
+      "fuel_type": "gas",
+      "coords": { "lat": 53.7, "lng": -0.2 }
+    },
+    {
+      "bids": 220.0,
+      "offers": 0.0,
+      "cp": 1285.0,
+      "ac": 220.0,
+      "name": "WBURB",
+      "key": "WBURB",
+      "fuel_type": "gas",
+      "coords": { "lat": 53.4, "lng": -0.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 260.0,
+      "ac": 212.7,
+      "name": "LNCSW",
+      "key": "LNCSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.2, "lng": 0.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 202.0,
+      "ac": 176.9,
+      "name": "WTMSO",
+      "key": "WTMSO",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.8, "lng": 0.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 177.0,
+      "ac": 162.7,
+      "name": "DOREW",
+      "key": "DOREW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.4, "lng": -3.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 192.0,
+      "ac": 161.0,
+      "name": "HMGTO",
+      "key": "HMGTO",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.7, "lng": 0.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 229.0,
+      "ac": 157.0,
+      "name": "STLGW",
+      "key": "STLGW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.1, "lng": -4.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 240.0,
+      "ac": 140.0,
+      "name": "SOKYW",
+      "key": "SOKYW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.3, "lng": -4.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 144.0,
+      "ac": 140.0,
+      "name": "AKGL",
+      "key": "AKGL",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.9, "lng": -2.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 152.0,
+      "ac": 139.9,
+      "name": "CRYRW",
+      "key": "CRYRW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.9, "lng": -2.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 300.0,
+      "ac": 138.0,
+      "name": "THNTO",
+      "key": "THNTO",
+      "fuel_type": "wind",
+      "coords": { "lat": 51.4, "lng": 1.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 135.0,
+      "ac": 135.0,
+      "name": "FAWN",
+      "key": "FAWN",
+      "fuel_type": "gas",
+      "coords": { "lat": 50.8, "lng": -1.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 183.0,
+      "ac": 121.0,
+      "name": "KLGLW",
+      "key": "KLGLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.0, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 108.0,
+      "ac": 108.0,
+      "name": "FALGW",
+      "key": "FALGW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.8, "lng": -2.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 161.0,
+      "ac": 101.9,
+      "name": "GNFSW",
+      "key": "GNFSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 51.7, "lng": 1.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 113.0,
+      "ac": 100.0,
+      "name": "KPMRW",
+      "key": "KPMRW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.6, "lng": -4.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 94.0,
+      "ac": 92.0,
+      "name": "GRMO",
+      "key": "GRMO",
+      "fuel_type": "gas",
+      "coords": { "lat": 56.0, "lng": -3.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 228.0,
+      "ac": 90.0,
+      "name": "PNYCW",
+      "key": "PNYCW",
+      "fuel_type": "wind",
+      "coords": { "lat": 51.7, "lng": -3.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 390.0,
+      "ac": 85.5,
+      "name": "SVRP",
+      "key": "SVRP",
+      "fuel_type": "gas",
+      "coords": { "lat": 51.7, "lng": -3.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 190.0,
+      "ac": 84.0,
+      "name": "GRIFW",
+      "key": "GRIFW",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.5, "lng": -3.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 86.0,
+      "ac": 84.0,
+      "name": "BEU",
+      "key": "BEU",
+      "fuel_type": "hydro",
+      "coords": { "lat": 57.5, "lng": -4.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 86.0,
+      "ac": 83.9,
+      "name": "SAKNW",
+      "key": "SAKNW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.9, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 81.0,
+      "ac": 77.0,
+      "name": "CON",
+      "key": "CON",
+      "fuel_type": "hydro",
+      "coords": { "lat": 57.6, "lng": -4.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 94.0,
+      "ac": 74.0,
+      "name": "ARCHW",
+      "key": "ARCHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.1, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 174.0,
+      "ac": 69.0,
+      "name": "RREW",
+      "key": "RREW",
+      "fuel_type": "wind",
+      "coords": { "lat": 54.8, "lng": -3.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 70.0,
+      "ac": 69.0,
+      "name": "FASN",
+      "key": "FASN",
+      "fuel_type": "hydro",
+      "coords": { "lat": 57.3, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 93.0,
+      "ac": 68.0,
+      "name": "BTUIW",
+      "key": "BTUIW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.6, "lng": -5.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 109.0,
+      "ac": 67.0,
+      "name": "BEINW",
+      "key": "BEINW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.1, "lng": -5.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 171.0,
+      "ac": 66.0,
+      "name": "BLLA",
+      "key": "BLLA",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.8, "lng": -3.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 125.0,
+      "ac": 64.0,
+      "name": "HRSTW",
+      "key": "HRSTW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.4, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 67.0,
+      "ac": 64.0,
+      "name": "KILBW",
+      "key": "KILBW",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.0, "lng": -4.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 0.0,
+      "ac": 63.0,
+      "name": "CASKD",
+      "key": "CASKD",
+      "fuel_type": "biomass",
+      "coords": { "lat": 53.3, "lng": -2.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 108.0,
+      "ac": 57.0,
+      "name": "GORDW",
+      "key": "GORDW",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.1, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 62.0,
+      "ac": 56.0,
+      "name": "WISTW",
+      "key": "WISTW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.3, "lng": -4.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 100.0,
+      "ac": 55.0,
+      "name": "HAADHW",
+      "key": "HAADHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.6, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 89.0,
+      "ac": 55.0,
+      "name": "DUNGW",
+      "key": "DUNGW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.2, "lng": -4.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 108.0,
+      "ac": 53.0,
+      "name": "BHLAW",
+      "key": "BHLAW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.2, "lng": -4.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 69.0,
+      "ac": 53.0,
+      "name": "DRSLW",
+      "key": "DRSLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.3, "lng": -4.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 53.0,
+      "ac": 53.0,
+      "name": "MARK",
+      "key": "MARK",
+      "fuel_type": "biomass",
+      "coords": { "lat": 56.2, "lng": -3.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 60.0,
+      "ac": 52.0,
+      "name": "KENNW",
+      "key": "KENNW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.5, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 72.0,
+      "ac": 51.0,
+      "name": "MOR",
+      "key": "MOR",
+      "fuel_type": "hydro",
+      "coords": { "lat": 57.2, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 65.0,
+      "ac": 50.9,
+      "name": "MILWW",
+      "key": "MILWW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.1, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 50.0,
+      "cp": 100.0,
+      "ac": 50.0,
+      "name": "GLNDO",
+      "key": "GLNDO",
+      "fuel_type": "hydro",
+      "coords": { "lat": 57.2, "lng": -5.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 71.0,
+      "ac": 47.0,
+      "name": "CLU",
+      "key": "CLU",
+      "fuel_type": "hydro",
+      "coords": { "lat": 56.7, "lng": -3.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 58.0,
+      "ac": 45.0,
+      "name": "KIL",
+      "key": "KIL",
+      "fuel_type": "hydro",
+      "coords": { "lat": 56.5, "lng": -4.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 68.0,
+      "ac": 44.0,
+      "name": "STRNW",
+      "key": "STRNW",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.5, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 43.0,
+      "ac": 43.0,
+      "name": "T_WDRGW-1",
+      "key": "T_WDRGW-1",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.3, "lng": -4.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 40.0,
+      "ac": 42.0,
+      "name": "TILB",
+      "key": "TILB",
+      "fuel_type": "biomass",
+      "coords": { "lat": 51.5, "lng": 0.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 50.0,
+      "ac": 41.0,
+      "name": "RHEI",
+      "key": "RHEI",
+      "fuel_type": "hydro",
+      "coords": { "lat": 52.4, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 63.0,
+      "ac": 40.8,
+      "name": "CREA",
+      "key": "CREA",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.2, "lng": -4.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 55.0,
+      "ac": 40.0,
+      "name": "GLWSW",
+      "key": "GLWSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.5, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 40.0,
+      "ac": 40.0,
+      "name": "CLAC",
+      "key": "CLAC",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.3, "lng": -4.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 41.0,
+      "ac": 39.0,
+      "name": "PSTAT",
+      "key": "PSTAT",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.4, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 50.0,
+      "ac": 38.0,
+      "name": "AFTO",
+      "key": "AFTO",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.3, "lng": -4.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 38.0,
+      "ac": 38.0,
+      "name": "GAR",
+      "key": "GAR",
+      "fuel_type": "hydro",
+      "coords": { "lat": 57.1, "lng": -5.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 92.0,
+      "ac": 37.9,
+      "name": "FARR",
+      "key": "FARR",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.3, "lng": -4.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 42.0,
+      "ac": 34.9,
+      "name": "ACHR",
+      "key": "ACHR",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.2, "lng": -5.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 63.0,
+      "ac": 33.9,
+      "name": "CGTHW",
+      "key": "CGTHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.2, "lng": -4.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 69.0,
+      "ac": 32.7,
+      "name": "LCLTW",
+      "key": "LCLTW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.7, "lng": -4.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 50.0,
+      "ac": 32.0,
+      "name": "CUMHW",
+      "key": "CUMHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.6, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 32.0,
+      "ac": 32.0,
+      "name": "BRYB",
+      "key": "BRYB",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.4, "lng": -3.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 48.0,
+      "ac": 31.0,
+      "name": "HLTWW",
+      "key": "HLTWW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.5, "lng": -2.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 50.0,
+      "ac": 29.1,
+      "name": "KINCW",
+      "key": "KINCW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.0, "lng": 1.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 41.0,
+      "ac": 28.8,
+      "name": "CAIR",
+      "key": "CAIR",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.5, "lng": -3.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 42.0,
+      "ac": 28.0,
+      "name": "DALQW",
+      "key": "DALQW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.9, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 38.0,
+      "ac": 28.0,
+      "name": "TWENT",
+      "key": "TWENT",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.3, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 52.0,
+      "ac": 27.9,
+      "name": "HBHDW",
+      "key": "HBHDW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.8, "lng": -3.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 0.0,
+      "ac": 27.0,
+      "name": "BLKWW",
+      "key": "BLKWW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.1, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 60.0,
+      "ac": 26.8,
+      "name": "MOYEW",
+      "key": "MOYEW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.4, "lng": -4.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 72.0,
+      "ac": 26.1,
+      "name": "BRDU",
+      "key": "BRDU",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.3, "lng": -4.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 45.0,
+      "ac": 26.0,
+      "name": "DOUGW",
+      "key": "DOUGW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.6, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 37.0,
+      "ac": 26.0,
+      "name": "CLDRW",
+      "key": "CLDRW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.4, "lng": -2.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 30.0,
+      "ac": 26.0,
+      "name": "HALSW",
+      "key": "HALSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.4, "lng": -3.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 30.0,
+      "ac": 26.0,
+      "name": "SANQW",
+      "key": "SANQW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.3, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 26.0,
+      "ac": 26.0,
+      "name": "BABAW",
+      "key": "BABAW",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.6, "lng": -3.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 69.0,
+      "ac": 25.1,
+      "name": "BOWL",
+      "key": "BOWL",
+      "fuel_type": "wind",
+      "coords": { "lat": 54.0, "lng": -3.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 48.0,
+      "ac": 25.0,
+      "name": "CRMLW",
+      "key": "CRMLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.7, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 27.0,
+      "ac": 25.0,
+      "name": "WHIHW",
+      "key": "WHIHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.4, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 50.0,
+      "ac": 24.0,
+      "name": "LARKS",
+      "key": "LARKS",
+      "fuel_type": "solar",
+      "coords": { "lat": 51.6, "lng": -2.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 28.0,
+      "ac": 24.0,
+      "name": "TDBNW",
+      "key": "TDBNW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.8, "lng": -2.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 24.0,
+      "ac": 24.0,
+      "name": "HYWDW",
+      "key": "HYWDW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.5, "lng": -1.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 51.0,
+      "ac": 23.9,
+      "name": "MIDMW",
+      "key": "MIDMW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.5, "lng": -3.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 36.0,
+      "ac": 23.0,
+      "name": "ABRTW",
+      "key": "ABRTW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.6, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 28.0,
+      "ac": 23.0,
+      "name": "HRHLW",
+      "key": "HRHLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.4, "lng": -4.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 44.0,
+      "ac": 21.0,
+      "name": "CRGHW",
+      "key": "CRGHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.3, "lng": -5.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 50.0,
+      "ac": 20.0,
+      "name": "MKHLW",
+      "key": "MKHLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.2, "lng": 4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 48.0,
+      "ac": 20.0,
+      "name": "GFLDW",
+      "key": "GFLDW",
+      "fuel_type": "wind",
+      "coords": { "lat": 53.7, "lng": -0.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 48.0,
+      "ac": 20.0,
+      "name": "GLNKW",
+      "key": "GLNKW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.3, "lng": -4.1 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": 20.0,
+      "name": "ASHWW",
+      "key": "ASHWW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.5, "lng": -3.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 31.0,
+      "ac": 19.0,
+      "name": "GGRSW",
+      "key": "GGRSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.9, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 25.0,
+      "ac": 19.0,
+      "name": "ASLVW",
+      "key": "ASLVW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.2, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 18.0,
+      "ac": 19.0,
+      "name": "BLARW",
+      "key": "BLARW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.9, "lng": -3.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 97.0,
+      "ac": 18.0,
+      "name": "ANRB",
+      "key": "ANRB",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.2, "lng": -2.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 46.0,
+      "ac": 18.0,
+      "name": "CRDEW",
+      "key": "CRDEW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.2, "lng": -3.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": 18.0,
+      "name": "COVN",
+      "key": "COVN",
+      "fuel_type": "battery",
+      "coords": { "lat": 52.4, "lng": -1.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 18.0,
+      "ac": 18.0,
+      "name": "TRLGW",
+      "key": "TRLGW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.2, "lng": -4.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": 17.2,
+      "name": "BUST",
+      "key": "BUST",
+      "fuel_type": "battery",
+      "coords": { "lat": 52.5, "lng": -2.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 42.0,
+      "ac": 17.0,
+      "name": "EDINW",
+      "key": "EDINW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.4, "lng": -6.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 30.0,
+      "ac": 16.0,
+      "name": "CNCLW",
+      "key": "CNCLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.8, "lng": -4.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": 16.0,
+      "name": "BETHW",
+      "key": "BETHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.8, "lng": -4.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": 16.0,
+      "name": "COUWW",
+      "key": "COUWW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.6, "lng": -5.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 16.0,
+      "ac": 16.0,
+      "name": "FINL",
+      "key": "FINL",
+      "fuel_type": "hydro",
+      "coords": { "lat": 56.3, "lng": -3.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 27.0,
+      "ac": 15.0,
+      "name": "DNLWW",
+      "key": "DNLWW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.8, "lng": -2.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 15.0,
+      "ac": 15.0,
+      "name": "NANT",
+      "key": "NANT",
+      "fuel_type": "hydro",
+      "coords": { "lat": 56.3, "lng": -5.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 37.0,
+      "ac": 14.0,
+      "name": "MINSW",
+      "key": "MINSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.0, "lng": -3.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 26.0,
+      "ac": 14.0,
+      "name": "GLOFW",
+      "key": "GLOFW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.2, "lng": -2.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 23.0,
+      "ac": 14.0,
+      "name": "PEDGE",
+      "key": "PEDGE",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.0, "lng": -4.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 76.0,
+      "ac": 13.1,
+      "name": "MIDH",
+      "key": "MIDH",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.0, "lng": -2.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 22.0,
+      "ac": 13.0,
+      "name": "FSDLW",
+      "key": "FSDLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.8, "lng": -5.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 13.0,
+      "ac": 13.0,
+      "name": "DBAWO",
+      "key": "DBAWO",
+      "fuel_type": "wind",
+      "coords": { "lat": 54.1, "lng": 2.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 26.0,
+      "ac": 12.0,
+      "name": "BDCHW",
+      "key": "BDCHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.4, "lng": -3.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 22.0,
+      "ac": 12.0,
+      "name": "BNWK",
+      "key": "BNWK",
+      "fuel_type": "wind",
+      "coords": { "lat": 58.4, "lng": -3.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 25.0,
+      "ac": 11.0,
+      "name": "MYGPW",
+      "key": "MYGPW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.2, "lng": -3.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 30.0,
+      "ac": 10.9,
+      "name": "DALSW",
+      "key": "DALSW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.2, "lng": -3.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 50.0,
+      "ac": 10.0,
+      "name": "BURWS",
+      "key": "BURWS",
+      "fuel_type": "solar",
+      "coords": { "lat": 52.3, "lng": 0.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 33.0,
+      "ac": 10.0,
+      "name": "EWHLW",
+      "key": "EWHLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.1, "lng": -3.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": 10.0,
+      "name": "GNAPW",
+      "key": "GNAPW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.0, "lng": -5.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 27.0,
+      "ac": 8.9,
+      "name": "HLGLW",
+      "key": "HLGLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.5, "lng": -3.6 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 42.0,
+      "ac": 7.1,
+      "name": "TULWW",
+      "key": "TULWW",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.8, "lng": -2.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 14.0,
+      "ac": 7.0,
+      "name": "TLYMW",
+      "key": "TLYMW",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.7, "lng": -3.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 7.0,
+      "ac": 7.0,
+      "name": "ANSU",
+      "key": "ANSU",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.2, "lng": -5.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 12.0,
+      "ac": 6.0,
+      "name": "GDSTW",
+      "key": "GDSTW",
+      "fuel_type": "wind",
+      "coords": { "lat": 57.4, "lng": -2.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 35.0,
+      "ac": 5.0,
+      "name": "AIRS",
+      "key": "AIRS",
+      "fuel_type": "wind",
+      "coords": { "lat": 54.8, "lng": -4.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 8.0,
+      "ac": 5.0,
+      "name": "PGBIW",
+      "key": "PGBIW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.9, "lng": -2.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 5.0,
+      "ac": 5.0,
+      "name": "CLFLW",
+      "key": "CLFLW",
+      "fuel_type": "wind",
+      "coords": { "lat": 56.3, "lng": -4.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 5.0,
+      "ac": 5.0,
+      "name": "RICHB",
+      "key": "RICHB",
+      "fuel_type": "battery",
+      "coords": { "lat": 51.3, "lng": 1.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 25.0,
+      "ac": 4.0,
+      "name": "GLCHW",
+      "key": "GLCHW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.0, "lng": -4.8 }
+    },
+    {
+      "bids": 1.0,
+      "offers": 0.0,
+      "cp": 25.0,
+      "ac": 4.0,
+      "name": "PINF",
+      "key": "PINF",
+      "fuel_type": "battery",
+      "coords": { "lat": 53.3, "lng": -2.9 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 9.0,
+      "ac": 1.5,
+      "name": "BURWB",
+      "key": "BURWB",
+      "fuel_type": "battery",
+      "coords": { "lat": 52.3, "lng": 0.3 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 5.0,
+      "ac": 1.0,
+      "name": "CRGTW",
+      "key": "CRGTW",
+      "fuel_type": "wind",
+      "coords": { "lat": 55.1, "lng": -4.0 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 150.0,
+      "cp": 300.0,
+      "ac": 0.0,
+      "name": "FOYE",
+      "key": "FOYE",
+      "fuel_type": "hydro",
+      "coords": { "lat": 57.2, "lng": -4.4 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 2.0,
+      "ac": -1.0,
+      "name": "WBURBB",
+      "key": "WBURBB",
+      "fuel_type": "battery",
+      "coords": { "lat": 53.4, "lng": -0.8 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 20.0,
+      "ac": -3.0,
+      "name": "HAWKB",
+      "key": "HAWKB",
+      "fuel_type": "battery",
+      "coords": { "lat": 51.0, "lng": -2.2 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 25.0,
+      "ac": -7.0,
+      "name": "NURS",
+      "key": "NURS",
+      "fuel_type": "battery",
+      "coords": { "lat": 50.9, "lng": -1.5 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 97.0,
+      "ac": -11.0,
+      "name": "CLAYB",
+      "key": "CLAYB",
+      "fuel_type": "battery",
+      "coords": { "lat": 52.0, "lng": 0.7 }
+    },
+    {
+      "bids": 0.0,
+      "offers": 0.0,
+      "cp": 185.0,
+      "ac": -13.0,
+      "name": "WILCT",
+      "key": "WILCT",
+      "fuel_type": "gas",
+      "coords": { "lat": 54.6, "lng": -1.1 }
+    }
+  ],
+  "foreign_markets": [
+    {
+      "key": "be",
+      "coords": { "lat": 50.85, "lng": 3.0 },
+      "interconnectors": [
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 286.0,
+          "key": "NEMO",
+          "coords": { "lat": 51.3113, "lng": 1.3456 }
+        }
+      ]
+    },
+    {
+      "key": "dk",
+      "coords": { "lat": 54.5, "lng": 1.5 },
+      "interconnectors": [
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 288.0,
+          "key": "VKL",
+          "coords": { "lat": 53.35, "lng": 0.2 }
+        }
+      ]
+    },
+    {
+      "key": "fr",
+      "coords": { "lat": 50.0, "lng": 2.5 },
+      "interconnectors": [
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 629.0,
+          "key": "ELEC",
+          "coords": { "lat": 51.0, "lng": 1.0 }
+        },
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 1665.0,
+          "key": "IFA1",
+          "coords": { "lat": 51.104, "lng": 1.35 }
+        },
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 0.0,
+          "key": "IFA2",
+          "coords": { "lat": 50.81031, "lng": -1.193889 }
+        }
+      ]
+    },
+    {
+      "key": "ie",
+      "coords": { "lat": 53.7, "lng": -5.0 },
+      "interconnectors": [
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": -980.0,
+          "key": "EWIC",
+          "coords": { "lat": 53.227222, "lng": -3.072778 }
+        },
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 0.0,
+          "key": "MOYL",
+          "coords": { "lat": 54.65, "lng": -4.9 }
+        }
+      ]
+    },
+    {
+      "key": "nl",
+      "coords": { "lat": 51.5, "lng": 3.0 },
+      "interconnectors": [
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 106.0,
+          "key": "BRTN",
+          "coords": { "lat": 51.44298, "lng": 0.70782 }
+        }
+      ]
+    },
+    {
+      "key": "no",
+      "coords": { "lat": 55.6, "lng": 0.5 },
+      "interconnectors": [
+        {
+          "bids": 0.0,
+          "offers": 0.0,
+          "cp": 0.0,
+          "ac": 792.0,
+          "key": "NSL1",
+          "coords": { "lat": 55.145, "lng": -1.521 }
+        }
+      ]
+    }
+  ],
+  "balancing_totals": { "bids": 221.0, "offers": 350.0 }
+}

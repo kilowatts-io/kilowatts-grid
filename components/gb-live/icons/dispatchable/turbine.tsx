@@ -1,30 +1,31 @@
+import React from "react";
 import {
-  SharedValue,
   useDerivedValue,
   useSharedValue,
   withRepeat,
-  withTiming,
+  withTiming
 } from "react-native-reanimated";
-import React from "react";
 import { Circle, Rect, useClock } from "@shopify/react-native-skia";
+
 import { MapContext } from "../../svg-map/context";
-import * as c from "./constants";
-import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../list-icons";
 import { CanvasPoint } from "../../svg-map/types";
+import { ICON_LIST_HEIGHT, LIST_ICON_CX, LIST_ICON_CY } from "../list-icons";
+
+import * as c from "./constants";
 
 export type TurbineWheelProps = {
   point: CanvasPoint;
-  height: SharedValue<number>;
-  cycleSeconds: SharedValue<number>;
+  height: number;
+  cycleSeconds: number;
   backgroundColor: string;
   opacity: number;
 };
 
 export type TurbineSpokeMapProps = {
   centerPoint: CanvasPoint;
-  length: SharedValue<number>;
-  width: SharedValue<number>;
-  cycleSeconds: SharedValue<number>;
+  length: number;
+  width: number;
+  cycleSeconds: number;
   offsetAngleDegrees: number;
   opacity: number;
 };
@@ -35,18 +36,18 @@ const TurbineSpokeMap: React.FC<TurbineSpokeMapProps> = ({
   width,
   cycleSeconds,
   offsetAngleDegrees,
-  opacity,
+  opacity
 }) => {
   const t = useClock();
   const gestureMode = React.useContext(MapContext).gestureMode;
-  const x = useDerivedValue(() => centerPoint.x - width.value / 2);
-  const y = useDerivedValue(() => centerPoint.y - length.value);
+  const x = useDerivedValue(() => centerPoint.x - width / 2);
+  const y = useDerivedValue(() => centerPoint.y - length);
 
   const transform = useDerivedValue(() => {
     if (gestureMode.value != "none")
       return [{ rotate: offsetAngleDegrees * (Math.PI / 180) }];
     const timeInSeconds = t.value / 1000;
-    const rotationFraction = timeInSeconds / cycleSeconds.value;
+    const rotationFraction = timeInSeconds / cycleSeconds;
     const anglePreOffsetRadians = rotationFraction * Math.PI * 2;
     const offsetAngleRadians = offsetAngleDegrees * (Math.PI / 180);
     const rotateRadians = anglePreOffsetRadians + offsetAngleRadians;
@@ -72,28 +73,22 @@ export const TurbineWheelMap: React.FC<TurbineWheelProps> = ({
   height,
   cycleSeconds,
   backgroundColor,
-  opacity,
+  opacity
 }) => {
   const rotation = useSharedValue(0);
   const { gestureMode } = React.useContext(MapContext);
 
   React.useEffect(() => {
     rotation.value = withRepeat(
-      withTiming(360, { duration: cycleSeconds.value * 1000 }),
+      withTiming(360, { duration: cycleSeconds * 1000 }),
       -1,
       false
     );
   }, [cycleSeconds, gestureMode]);
 
-  const r = useDerivedValue(() => {
-    return height.value / 2;
-  });
-  const turbineLength = useDerivedValue(() => {
-    return (height.value / 2) * 0.8;
-  });
-  const turbineWidth = useDerivedValue(() => {
-    return height.value / 2 / 20;
-  });
+  const r = height / 2;
+  const turbineLength = (height / 2) * 0.8;
+  const turbineWidth = height / 2 / 20;
 
   return (
     <>
@@ -126,7 +121,7 @@ export type TurbineSpokeListProps = {
 
 const TurbineSpokeList: React.FC<TurbineSpokeListProps> = ({
   cycleSeconds,
-  offsetAngleDegrees,
+  offsetAngleDegrees
 }) => {
   const t = useClock();
   const transform = useDerivedValue(() => {
@@ -149,7 +144,7 @@ const TurbineSpokeList: React.FC<TurbineSpokeListProps> = ({
       color={c.TURBINE_WHEEEL_COLOR}
       origin={{
         x: LIST_ICON_CX,
-        y: LIST_ICON_CY,
+        y: LIST_ICON_CY
       }}
       transform={transform}
     />
@@ -163,7 +158,7 @@ type TurbineWheelListProps = {
 
 export const TurbineWheelList: React.FC<TurbineWheelListProps> = ({
   cycleSeconds,
-  backgroundColor,
+  backgroundColor
 }) => {
   return (
     <>

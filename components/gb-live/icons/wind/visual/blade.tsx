@@ -1,14 +1,25 @@
-import { RoundedRect } from "@shopify/react-native-skia";
 import React from "react";
 import { SharedValue } from "react-native-reanimated";
-import { MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO, ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO, WIND_TURBINE_COLOR } from "./constants";
+import { RoundedRect } from "@shopify/react-native-skia";
+
 import { CanvasPoint } from "../../../svg-map/types";
-import { ICON_LIST_HEIGHT, ICON_LIST_WIDTH, LIST_ICON_CX, LIST_ICON_CY } from "../../list-icons";
+import {
+  ICON_LIST_HEIGHT,
+  ICON_LIST_WIDTH,
+  LIST_ICON_CX,
+  LIST_ICON_CY
+} from "../../list-icons";
+
+import {
+  MAST_AND_BLADE_WIDTH_TO_OVERALL_HEIGHT_RATIO,
+  ROUNDEDNESS_TO_OVERALL_HEIGHT_RATIO,
+  WIND_TURBINE_COLOR
+} from "./constants";
 
 type BladeProps = {
-  r: SharedValue<number>;
-  width: SharedValue<number>;
-  height: SharedValue<number>;
+  r: number;
+  width: number;
+  height: number;
   hubAttachmentPoint: CanvasPoint;
   transform: Readonly<
     SharedValue<
@@ -24,7 +35,7 @@ export const WindTurbineBladeMap: React.FC<BladeProps> = ({
   width,
   height,
   hubAttachmentPoint,
-  transform,
+  transform
 }) => (
   <RoundedRect
     x={hubAttachmentPoint.x}
@@ -39,9 +50,6 @@ export const WindTurbineBladeMap: React.FC<BladeProps> = ({
 );
 
 type BladeIconProps = {
-  // r: SharedValue<number>;
-  // width: SharedValue<number>;
-  // height: SharedValue<number>;
   transform: Readonly<
     SharedValue<
       {
@@ -51,9 +59,8 @@ type BladeIconProps = {
   >;
 };
 
-
 export const WindTurbineBladeListItem: React.FC<BladeIconProps> = ({
-  transform,
+  transform
 }) => (
   <RoundedRect
     x={LIST_ICON_CX}

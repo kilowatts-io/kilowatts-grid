@@ -1,14 +1,13 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { DeltaVolumeView, DeltaVolumeViewEmpty } from "./delta-volume";
-import { OutputVolumeView, OutputVolumeViewEmpty } from "./output-text";
-import { BalancingVolumeView } from "./balancing-volume";
-import { LiveItemName } from "./name";
-import { IconView, IconViewEmpty } from "./icon";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useDispatch } from "react-redux";
-import { selectors } from "../../../../state/gb/live";
+import { StyleSheet, View } from "react-native";
+
 import { ErrorBoundaryBlank } from "../../error-boundary";
+
+import { BalancingVolumeView } from "./balancing-volume";
+import { DeltaVolumeView, DeltaVolumeViewEmpty } from "./delta-volume";
+import { IconView, IconViewEmpty } from "./icon";
+import { LiveItemName } from "./name";
+import { OutputVolumeView, OutputVolumeViewEmpty } from "./output-text";
 
 interface GbLiveListItemProps {
   type:
@@ -17,8 +16,9 @@ interface GbLiveListItemProps {
     | "nuclear"
     | "wind"
     | "coal"
+    | "oil"
     | "battery"
-    | "interconnectors"
+    | "interconnector"
     | "solar"
     | "biomass";
   name: string;
@@ -29,17 +29,14 @@ interface GbLiveListItemProps {
   balancingDirection: "offer" | "bid" | "none";
   capacityFactor: number;
   selected: boolean;
-  onPress?: () => void;
+  cycleSeconds: number | null;
 }
 
-const Blank = () => <></>;
-
 export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
-  <TouchableOpacity
-    onPress={p.onPress}
+  <View
     style={{
       ...styles.itemWrapper,
-      ...(p.selected ? styles.selectedItemWrapper : {}),
+      ...(p.selected ? styles.selectedItemWrapper : {})
     }}
   >
     <View style={styles.left}>
@@ -48,16 +45,20 @@ export const GbLiveListItem: React.FC<GbLiveListItemProps> = (p) => (
           type={p.type}
           capacityFactor={p.capacityFactor}
           balancingDirection={p.balancingDirection}
+          cycleSeconds={p.cycleSeconds}
         />
       </ErrorBoundaryBlank>
       <LiveItemName name={p.name} />
     </View>
     <View style={styles.right}>
       <BalancingVolumeView balancingVolume={p.balancingVolume} />
-      <OutputVolumeView capacity={p.capacity} output={p.output} />
+      <OutputVolumeView
+        capacity={p.capacity}
+        output={p.output}
+      />
       <DeltaVolumeView delta={p.delta} />
     </View>
-  </TouchableOpacity>
+  </View>
 );
 
 export const GbLiveListItemBalancingTotal: React.FC<{
@@ -79,25 +80,26 @@ export const GbLiveListItemBalancingTotal: React.FC<{
 
 export const styles = StyleSheet.create({
   itemWrapper: {
-    height: 35,
-    display: "flex",
-    justifyContent: "flex-start",
-    flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    padding: 5,
-  },
-  selectedItemWrapper: { backgroundColor: "rgba(0, 0, 0, 0.1)" },
-  left: {
-    justifyContent: "flex-start",
+    display: "flex",
     flexDirection: "row",
     gap: 10,
+    height: 35,
+    justifyContent: "flex-start",
+    padding: 5
+  },
+  left: {
+    flexDirection: "row",
     flex: 1,
+    gap: 10,
+    justifyContent: "flex-start"
   },
   right: {
-    justifyContent: "flex-end",
-    gap: 3,
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
+    gap: 3,
+    justifyContent: "flex-end"
   },
+  // eslint-disable-next-line react-native/no-color-literals
+  selectedItemWrapper: { backgroundColor: "rgba(0, 0, 0, 0.1)" }
 });

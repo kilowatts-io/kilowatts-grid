@@ -1,35 +1,49 @@
 import React, { useCallback, useRef } from "react";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { useSelector } from "react-redux";
 import {
   BottomSheetModal,
-  BottomSheetModalProvider,
+  BottomSheetModalProvider
 } from "@gorhom/bottom-sheet";
-import { selectors, setSelectedUnitGroupCode } from "../../state/gb/live";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useGbSummaryOutputQuery } from "../../state/apis/cloudfront/api";
+import { selectors } from "../../state/gb/live";
+
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
-import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptance";
 import SvgMap from "./svg-map/svg-map";
-import { useGbLive } from "../../state/gb/hooks";
+import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptance";
 
 const SNAP_POINTS = ["10%", "20%", "30%", "40%", "50%", "75%", "90%"];
-const INITIAL_SNAP_POINT_INDEX = 2
+const INITIAL_SNAP_POINT_INDEX = 2;
 
-export const GbLiveWrapped = () => {
+export const GbLiveWrapped: React.FC = () => {
   const screen = useWindowDimensions();
-  const dispatch = useDispatch();
-  const isLoaded = useSelector(selectors.initialLoadComplete);
+  // const dispatch = useDispatch();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const [currentSnapPointIndex, setCurrentSnapPointIndex] = React.useState(INITIAL_SNAP_POINT_INDEX);
-  const usableHeight = React.useMemo(() => screen.height * (1 - currentSnapPointIndex / SNAP_POINTS.length), [currentSnapPointIndex, screen.height]);
+  const selectedUnitGroup = useSelector(selectors.selectedUnitGroupCode);
+  const [currentSnapPointIndex, setCurrentSnapPointIndex] = React.useState(
+    INITIAL_SNAP_POINT_INDEX
+  );
+  const usableHeight = React.useMemo(
+    () => screen.height * (1 - currentSnapPointIndex / SNAP_POINTS.length),
+    [currentSnapPointIndex, screen.height]
+  );
 
   React.useEffect(() => {
-    if (isLoaded) bottomSheetModalRef.current?.present();
-  }, [isLoaded]);
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   const handleSheetChanges = useCallback((index: number) => {
     setCurrentSnapPointIndex(index);
-    if(index<=INITIAL_SNAP_POINT_INDEX) dispatch(setSelectedUnitGroupCode(null))
+    // if (index == 0) dispatch(setSelectedUnitGroupCode(null));
   }, []);
+
+  React.useEffect(() => {
+    if (selectedUnitGroup) {
+      bottomSheetModalRef.current?.snapToIndex(1);
+      setCurrentSnapPointIndex(1);
+    }
+  }, [selectedUnitGroup]);
 
   return (
     <View style={styles.mapContainer}>
@@ -42,30 +56,30 @@ export const GbLiveWrapped = () => {
           onChange={handleSheetChanges}
           enablePanDownToClose={false}
         >
-          <GbLiveBottomSheetTabs 
-            usableHeight={usableHeight}
-          />
+          <GbLiveBottomSheetTabs usableHeight={usableHeight} />
         </BottomSheetModal>
       </BottomSheetModalProvider>
     </View>
   );
 };
 
-export const GbLive = () => {
-  useGbLive();
+const GbLive = () => {
+  const query = useGbSummaryOutputQuery();
+  React.useEffect(() => {
+    query.refetch();
+  }, []);
+
   return (
     <WithTermsAndConditionsAccepted>
       <GbLiveWrapped />
     </WithTermsAndConditionsAccepted>
   );
-}
+};
 
 const styles = StyleSheet.create({
   mapContainer: {
-    flex: 1,
-  },
-  tabTitleStyle: {
-    fontSize: 10,
-  },
-  contentContainer: {},
+    flex: 1
+  }
 });
+
+export default GbLive;

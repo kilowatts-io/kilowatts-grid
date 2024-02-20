@@ -1,15 +1,16 @@
 import React from "react";
-import { Circle, useClock } from "@shopify/react-native-skia";
 import { useDerivedValue } from "react-native-reanimated";
+import { Circle, useClock } from "@shopify/react-native-skia";
+
 import { BALANCING_COLORS } from "../../../../utils/colors";
 import {
   LIST_ICON_BALANCING_LIGHT_R,
   LIST_ICON_CX,
-  LIST_ICON_CY,
+  LIST_ICON_CY
 } from "../list-icons";
 
 export type BalancingDirectionLightListProps = {
-  balancing: "bid" | "offer"
+  balancing: "bid" | "offer";
 };
 
 export const BalancingDirectionLightList: React.FC<

@@ -1,32 +1,46 @@
-import { useSelector } from "react-redux";
-import { selectors } from "../../../../../state/gb/live";
-import { GbLiveListItemBalancingTotal } from "../../live-list-item/live-list-item";
 import { StyleSheet, View } from "react-native";
+import { Text } from "@rneui/themed";
+
+import { useGbSummaryOutputQuery } from "../../../../../state/apis/cloudfront/api";
+import { londonTimeHHMMSS } from "../../../../../utils/dateTime";
+import { GbLiveListItemBalancingTotal } from "../../live-list-item/live-list-item";
 
 export const GbBalancingTotals = () => {
-  const initialLoadComplete = useSelector(selectors.initialLoadComplete);
-  const bid = useSelector(selectors.balancingTotalsBid);
-  const offer = useSelector(selectors.balancingTotalsOffer);
+  const { data } = useGbSummaryOutputQuery(undefined, {
+    pollingInterval: 1000 * 15
+  });
+
+  if (!data) return null;
+
   return (
-    <View style={styles.totals}>
-      {initialLoadComplete && (
+    <>
+      <View style={styles.totals}>
         <>
           <GbLiveListItemBalancingTotal
             name="Total Bid Acceptances"
-            balancingVolume={bid}
+            balancingVolume={data && -data.balancing_totals.bids}
           />
           <GbLiveListItemBalancingTotal
             name="Total Offer Acceptances"
-            balancingVolume={offer}
+            balancingVolume={data && data.balancing_totals.offers}
           />
         </>
-      )}
-    </View>
+      </View>
+      <View style={styles.center}>
+        <Text>
+          {data && `Valid for ${londonTimeHHMMSS(new Date(data.dt))}`}
+        </Text>
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  totals: {
-    paddingTop: 15,
+  center: {
+    alignItems: "center",
+    paddingTop: 15
   },
+  totals: {
+    paddingTop: 15
+  }
 });

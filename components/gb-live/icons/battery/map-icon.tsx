@@ -1,70 +1,40 @@
-import { Group, RoundedRect } from "@shopify/react-native-skia";
 import React from "react";
-import { SharedValue, useDerivedValue } from "react-native-reanimated";
+import { RoundedRect } from "@shopify/react-native-skia";
+
+import { calculateBatteryColor } from "./calcs";
 import {
   BATTERY_BASE_WIDTH_FRACTION,
   BATTERY_R_TO_HEIGHT_RATIO,
   BATTERY_STROKE_WIDTH_TO_HEIGHT_RATIO,
   BATTERY_TERMINAL_WIDTH_FRACTION,
   BATTERY_TERMINAL_WIDTH_TO_HEIGHT_RATIO,
-  calculateBatteryTerminalTop,
+  calculateBatteryTerminalTop
 } from "./constants";
-import { calculateBatteryColor } from "./calcs";
 
 interface BatteryMapIconProps {
   point: { x: number; y: number };
-  maxSizePx: SharedValue<number>;
-  capacityFactor: SharedValue<number>;
-  cycleSeconds: SharedValue<number>;
+  maxSizePx: number;
+  capacityFactor: number;
+  cycleSeconds: number;
 }
 
 export const BatteryMapIcon: React.FC<BatteryMapIconProps> = ({
   point,
   maxSizePx,
-  cycleSeconds,
+  cycleSeconds
 }) => {
-  const color = React.useMemo(
-    () => calculateBatteryColor(cycleSeconds.value),
-    [cycleSeconds.value]
-  );
-  const batteryWidth = useDerivedValue(
-    () => BATTERY_BASE_WIDTH_FRACTION * maxSizePx.value,
-    [maxSizePx]
-  );
-  const batteryTerminalHeight = useDerivedValue(
-    () => maxSizePx.value * BATTERY_TERMINAL_WIDTH_TO_HEIGHT_RATIO,
-    [maxSizePx]
-  );
-  const terminalWidth = useDerivedValue(
-    () => BATTERY_TERMINAL_WIDTH_FRACTION * batteryWidth.value,
-    [maxSizePx]
-  );
-  const topLeftX = useDerivedValue(
-    () => point.x - maxSizePx.value * (3 / 8),
-    [maxSizePx]
-  );
-  const topLeftY = useDerivedValue(
-    () => point.y - maxSizePx.value / 2,
-    [maxSizePx]
-  );
-  const batteryRoundedness = useDerivedValue(
-    () => maxSizePx.value * BATTERY_R_TO_HEIGHT_RATIO,
-    [maxSizePx]
-  );
-  const batteryStrokeWidth = useDerivedValue(
-    () => maxSizePx.value * BATTERY_STROKE_WIDTH_TO_HEIGHT_RATIO,
-    [maxSizePx]
-  );
-  const batteryTerminalTop = useDerivedValue(
-    () =>
-      topLeftY.value +
-      calculateBatteryTerminalTop(maxSizePx.value, batteryTerminalHeight.value),
-    [maxSizePx, batteryTerminalHeight]
-  );
-  const topLeftTerminalX = useDerivedValue(
-    () => batteryWidth.value + topLeftX.value,
-    [terminalWidth]
-  );
+  const color = calculateBatteryColor(cycleSeconds);
+  const batteryWidth = BATTERY_BASE_WIDTH_FRACTION * maxSizePx;
+  const batteryTerminalHeight =
+    maxSizePx * BATTERY_TERMINAL_WIDTH_TO_HEIGHT_RATIO;
+  const terminalWidth = BATTERY_TERMINAL_WIDTH_FRACTION * batteryWidth;
+  const topLeftX = point.x - maxSizePx * (3 / 8);
+  const topLeftY = point.y - maxSizePx / 2;
+  const batteryRoundedness = maxSizePx * BATTERY_R_TO_HEIGHT_RATIO;
+  const batteryStrokeWidth = maxSizePx * BATTERY_STROKE_WIDTH_TO_HEIGHT_RATIO;
+  const batteryTerminalTop =
+    topLeftY + calculateBatteryTerminalTop(maxSizePx, batteryTerminalHeight);
+  const topLeftTerminalX = batteryWidth + topLeftX;
 
   return (
     <>

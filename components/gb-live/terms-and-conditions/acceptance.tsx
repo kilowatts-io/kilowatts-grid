@@ -1,16 +1,21 @@
-import { Linking } from "react-native";
-import { Dialog, Text } from "@rneui/themed";
 import React from "react";
+import { Linking } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { Dialog, Text } from "@rneui/themed";
+
 import { acceptLicense, getTermsAccepted } from "../../../state/terms";
-import { getCurrentYear } from "./utils";
+
 import { urls } from "./urls";
+import { getCurrentYear } from "./utils";
 
 const TermsAndConditionsAcceptanceModal: React.FC = () => {
   const dispatch = useDispatch();
   const acceptTerms = () => dispatch(acceptLicense());
   return (
-    <Dialog testID="consent-dialog" isVisible={true}>
+    <Dialog
+      testID="consent-dialog"
+      isVisible={true}
+    >
       <Dialog.Title title="kilowatts.io" />
       <Text>
         This app is provided without any warranty. Use at your own risk.
@@ -37,7 +42,7 @@ const TermsAndConditionsAcceptanceModal: React.FC = () => {
 export const WithTermsAndConditionsAccepted = (props: {
   children: JSX.Element;
 }) => {
-  const accepted = useSelector(getTermsAccepted) || __DEV__
+  const accepted = useSelector(getTermsAccepted) || __DEV__;
   if (!accepted) {
     return <TermsAndConditionsAcceptanceModal />;
   }
