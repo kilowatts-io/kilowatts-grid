@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Text } from "@rneui/themed";
+import { WithSkiaWeb } from "@shopify/react-native-skia/lib/module/web";
 
 import { useGbLive } from "../../state/gb/hooks";
 
@@ -32,11 +33,18 @@ const NativeAppDownloadLinks: React.FC = () => {
 };
 
 export const GbLive = () => {
-  useGbLive();
+  const refetch = useGbLive();
   return (
     <WithTermsAndConditionsAccepted>
       <>
-        <NativeAppDownloadLinks />
+        <WithSkiaWeb
+          // getComponent={() => import("./svg-map/skia-test")}
+          getComponent={async () => {
+            const SvgMap = (await import("./svg-map/svg-map")).default;
+            return { default: () => <SvgMap refetch={refetch} /> };
+          }}
+          fallback={<span>Loading Map...</span>}
+        />
         <GbLiveBottomSheetTabs />
       </>
     </WithTermsAndConditionsAccepted>
