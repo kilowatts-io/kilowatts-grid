@@ -13,7 +13,7 @@
     "test:e2e": "jest -c jest.config.e2e.js",
     "storybook-generate": "sb-rn-get-stories",
     "storybook-watch": "sb-rn-watcher",
-    "build:web": "expo build:web --mode production"
+    "build:web": "npx expo export:web"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
