@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.benjaminwatts.kilowatts",
@@ -32,7 +30,7 @@
       "versionCode": 5
     },
     "web": {
-      "bundler": "metro",
+      "bundler": "webpack",
       "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
