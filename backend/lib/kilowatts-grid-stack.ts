@@ -12,9 +12,20 @@ export class KilowattsGridStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const bucket = new s3.Bucket(this, "KilowattsGridBucket", {});
+    const bucket = new s3.Bucket(this, "KilowattsGridBucket", {
+      cors: [
+        {
+          allowedOrigins: [
+            "https://gb.kilowatts.io",
+            "https://gb-preview.kilowatts.io",
+            "http://localhost:19006"
+          ],
+          allowedMethods: [s3.HttpMethods.GET],
+          allowedHeaders: ["*"]
+        }
+      ]
+    });
 
-    // output the name of the bucket
     new cdk.CfnOutput(this, "KilowattsGridBucketName", {
       value: bucket.bucketName
     });
@@ -34,8 +45,17 @@ export class KilowattsGridStack extends cdk.Stack {
         defaultBehavior: {
           origin: new origins.S3Origin(bucket),
           viewerProtocolPolicy:
-            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS // Enforce HTTPS
+            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          originRequestPolicy: new cloudfront.OriginRequestPolicy(
+            this,
+            "KilowattsGridDistributionRequestPolicy",
+            {
+              headerBehavior:
+                cloudfront.OriginRequestHeaderBehavior.allowList("Origin")
+            }
+          )
         },
+
         domainNames: [cdnDomainName],
         certificate: acm.Certificate.fromCertificateArn(
           this,
