@@ -84,8 +84,8 @@ class Bm(BaseModel):
         df["dl"] = df["boalf_delta"].fillna(df["pn_delta"]).fillna(0)
 
         df["bv"] = df["ac"] - df["pn_level"]
-        df["bids"] = df["bv"].apply(lambda x: x if x > 0 else 0)
-        df["offers"] = df["bv"].apply(lambda x: -x if x < 0 else 0)
+        df["offers"] = df["bv"].apply(lambda x: x if x > 0 else 0)
+        df["bids"] = df["bv"].apply(lambda x: -x if x < 0 else 0)
 
         df = df[["ac", "bids", "offers", "cp", "dl"]]
         df = df.sort_values(["ac", "cp"])
