@@ -11,8 +11,9 @@ import { checkUpdatesRequireStateRefresh } from "./utils/version";
 
 export default function RootApp() {
   React.useEffect(() => {
-    if (__DEV__ && Platform.OS !== "web") {
-      // require("./utils/reactotron").initReactotron();
+    if (__DEV__) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require("./utils/reactotron").initReactotron();
     }
   }, []);
 
