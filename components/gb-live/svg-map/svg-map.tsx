@@ -18,6 +18,7 @@ import { ForeignFlag } from "../icons/cables/foreign-market-cable";
 import { calculateSizePx } from "../icons/calcs";
 import { DISPATCHABLE_ICON_COLOURS } from "../icons/dispatchable/constants";
 import { DispatchableMapIcon } from "../icons/dispatchable/map-icon";
+import SolarMapIcon from "../icons/solar/map-icon";
 import { WindMapIcon } from "../icons/wind/map-icon";
 
 import calculateMinScale from "./calcs/min-scale";
@@ -206,6 +207,18 @@ export const SvgMap: React.FC = () => {
                               cycleSeconds={cycleSeconds}
                               capacityFactor={capacityFactor}
                               key={`batt-${key}`}
+                            />
+                          );
+
+                        case "solar":
+                          return (
+                            <SolarMapIcon
+                              point={point}
+                              sizePx={sizePx}
+                              cycleSeconds={cycleSeconds}
+                              capacityFactor={capacityFactor}
+                              key={`batt-${key}`}
+                              balancing={balancing}
                             />
                           );
                         default:
