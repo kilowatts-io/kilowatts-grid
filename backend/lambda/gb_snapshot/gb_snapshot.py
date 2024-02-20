@@ -27,18 +27,8 @@ def gb_snapshot():
     kwargs = request_params.model_dump()
     logging.info(f"getting bm")
     bm = Bm(**kwargs).run()
+    embedded = Embedded(**kwargs).run()
 
-    try:
-        logging.info(f"getting embedded")
-        embedded = Embedded(**kwargs).run()
-        logging.info(f"got embedded data successfully!")
-    except Exception as e:
-        logging.info(f"failed to get embedded: {e} => using default values")
-        embedded = EmbeddedSnapshot(
-            dt=request_params.dt,
-            wind={"capacity": 0, "generation": 0},
-            solar={"capacity": 0, "generation": 0},
-        )
     logging.info(f"combining generation totals from bm and embedded")
     gen_unit_groups, gen_totals = GenerationTotals(
         bm=bm.copy(), embedded=embedded

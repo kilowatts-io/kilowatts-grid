@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import List
 from .bm.generation import Coords, FuelType
 from .bm.interconnector import ForeignMarketKey
-from .bm.ptypes import InterpolatedValue
+from .interpolate.ptypes import InterpolatedValue
 
 
 class RequestParams(BaseModel):
@@ -18,7 +18,7 @@ class GbGridSnapshot(BaseModel):
 
 class EmbeddedGeneration(BaseModel):
     capacity: float
-    generation: float
+    generation: InterpolatedValue
 
 
 class EmbeddedSnapshot(BaseModel):

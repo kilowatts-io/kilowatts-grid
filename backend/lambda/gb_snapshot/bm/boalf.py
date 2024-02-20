@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from datetime import datetime, date
 from typing import List, Optional
+from ..interpolate.interpolate import interpolate_dt
 from .ptypes import FromToParams
 from .api import get_api_response
 import pandas as pd
@@ -67,7 +68,7 @@ class BoalfRequest(BaseElexonRequest, BaseModel):
             ).groupby("acceptanceNumber"):
                 levels = self._get_levels(levels)
                 if self._covers_relevant_period(levels):
-                    value = self._interpolate_dt(levels)
+                    value = interpolate_dt(self.dt, levels)
                     output[bmUnit] = value.model_dump()
         logging.info(
             f"parsed boalf data for {self.params} - returned {len(output)} records"

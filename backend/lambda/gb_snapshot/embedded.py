@@ -1,8 +1,8 @@
-from pytz import utc
 from .ptypes import RequestParams, EmbeddedSnapshot, EmbeddedGeneration
 import logging, requests, pandas as pd
 from pydantic import BaseModel
 from typing import List
+from .interpolate.interpolate import interpolate_dt
 
 BASE_URL = "https://api.nationalgrideso.com/api/3/action/datastore_search?resource_id=db6c038f-98af-4570-ab60-24d71ebd0ae5&limit=3"
 
@@ -53,16 +53,18 @@ class Embedded(RequestParams):
         df = df.drop(
             columns=["DATE_GMT", "TIME_GMT", "SETTLEMENT_DATE", "SETTLEMENT_PERIOD"]
         )
-        df.loc[dt] = None
-        df = df.sort_index().interpolate(method="time")
+
+        def interpolate(series: pd.Series) -> pd.Series:
+            return interpolate_dt(dt, series)
+
         return EmbeddedSnapshot(
             dt=dt,
             wind=EmbeddedGeneration(
-                capacity=df.EMBEDDED_WIND_CAPACITY[dt],
-                generation=df.EMBEDDED_WIND_FORECAST[dt],
+                capacity=interpolate(df.EMBEDDED_WIND_CAPACITY).level,
+                generation=interpolate(df.EMBEDDED_WIND_FORECAST),
             ),
             solar=EmbeddedGeneration(
-                capacity=df.EMBEDDED_SOLAR_CAPACITY[dt],
-                generation=df.EMBEDDED_SOLAR_FORECAST[dt],
+                capacity=interpolate(df.EMBEDDED_SOLAR_CAPACITY).level,
+                generation=interpolate(df.EMBEDDED_SOLAR_FORECAST),
             ),
         )

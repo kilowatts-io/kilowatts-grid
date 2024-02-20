@@ -13,8 +13,3 @@ class FromToParams(BaseModel):
 
     def model_dump(self):
         return {"from": self.from_.isoformat(), "to": self.to.isoformat()}
-
-
-class InterpolatedValue(BaseModel):
-    level: float
-    delta: float

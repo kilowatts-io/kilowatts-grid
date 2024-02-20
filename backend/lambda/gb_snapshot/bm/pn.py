@@ -5,6 +5,7 @@ from .ptypes import SettlementPeriodParams
 from .api import get_api_response
 import pandas as pd
 from .base import BaseElexonRequest
+from ..interpolate.interpolate import interpolate_dt
 import logging
 
 
@@ -49,7 +50,7 @@ class PnRequest(BaseElexonRequest, BaseModel):
             group = group.sort_values("timeFrom")
             levels = self._get_levels(group)
             if self._covers_relevant_period(levels):
-                output[bmUnit] = self._interpolate_dt(levels).model_dump()
+                output[bmUnit] = interpolate_dt(self.dt, levels).model_dump()
         logging.info(
             f"parsed pn data for {self.params} -- returned {len(output)} records"
         )

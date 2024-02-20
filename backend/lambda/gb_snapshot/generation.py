@@ -36,11 +36,14 @@ class GenerationTotals(BaseModel):
     def _add_embedded(self, bm_fuel_types: pd.DataFrame):
         for attr in ["solar", "wind"]:
             if attr in bm_fuel_types.index:
-                bm_fuel_types.loc[attr, "ac"] += getattr(self.embedded, attr).generation
-                bm_fuel_types.loc[attr, "cp"] += getattr(self.embedded, attr).capacity
+                emb = getattr(self.embedded, attr)
+                bm_fuel_types.loc[attr, "ac"] += emb.generation.level
+                bm_fuel_types.loc[attr, "dl"] += emb.generation.delta
+                bm_fuel_types.loc[attr, "cp"] += emb.capacity
             else:
                 bm_fuel_types.loc[attr] = {
-                    "ac": getattr(self.embedded, attr).generation,
+                    "ac": getattr(self.embedded, attr).generation.level,
+                    "dl": getattr(self.embedded, attr).generation.delta,
                     "cp": getattr(self.embedded, attr).capacity,
                 }
         return bm_fuel_types

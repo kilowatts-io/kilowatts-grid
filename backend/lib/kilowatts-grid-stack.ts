@@ -34,6 +34,14 @@ export class KilowattsGridStack extends cdk.Stack {
       value: distribution.distributionDomainName
     });
 
+    const sentryDsn = process.env.SENTRY_DSN;
+    if (!sentryDsn)
+      throw new Error("SENTRY_DSN environment variable is required");
+
+    const sentryEnvironment = process.env.SENTRY_ENVIRONMENT;
+    if (!sentryEnvironment)
+      throw new Error("SENTRY_ENVIRONMENT environment variable is required");
+
     const handler = new lambda.Function(this, "GbSnapshotHandler", {
       runtime: lambda.Runtime.PYTHON_3_11,
       functionName: "gb-snapshot",
@@ -42,7 +50,9 @@ export class KilowattsGridStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(45),
       memorySize: 512,
       environment: {
-        BUCKET_NAME: bucket.bucketName
+        BUCKET_NAME: bucket.bucketName,
+        SENTRY_DSN: sentryDsn,
+        SENTRY_ENVIRONMENT: sentryEnvironment
       },
       layers: [
         lambda.LayerVersion.fromLayerVersionArn(
@@ -59,6 +69,11 @@ export class KilowattsGridStack extends cdk.Stack {
           this,
           "GbSnapshotRequestsLayer",
           "arn:aws:lambda:eu-west-2:770693421928:layer:Klayers-p311-requests:5"
+        ),
+        lambda.LayerVersion.fromLayerVersionArn(
+          this,
+          "GbSnapshotSentryLayer",
+          "arn:aws:lambda:eu-west-2:943013980633:layer:SentryPythonServerlessSDK:93"
         )
       ]
     });
