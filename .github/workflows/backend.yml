@@ -20,9 +20,11 @@ jobs:
 
     - name: Install Dependencies
       run: yarn install
+      working-directory: backend
 
     - name: Install AWS CDK
       run: yarn global add aws-cdk
+      working-directory: backend
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -33,6 +35,7 @@ jobs:
 
     - name: Deploy CDK App
       run: cdk deploy --require-approval never
+      working-directory: backend
       env:
         SENTRY_ENVIRONMENT: ${{ secrets.SENTRY_ENVIRONMENT }}
         SENTRY_DSN: ${{ secrets.SENTRY_DSN }}

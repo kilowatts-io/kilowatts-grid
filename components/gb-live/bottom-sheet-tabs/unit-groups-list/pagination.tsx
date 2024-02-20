@@ -14,7 +14,7 @@ const Pagination: React.FC<PaginationProps> = (p) => {
       <Button
         title="Previous"
         onPress={p.onPrevious}
-        disabled={p.currentPage <= 1}
+        disabled={p.currentPage <= 0}
         buttonStyle={styles.button}
       />
       <Text>
