@@ -2,6 +2,7 @@
 *.aab
 *.ipa
 *.apk
+*.env
 
 # dependencies
 node_modules/

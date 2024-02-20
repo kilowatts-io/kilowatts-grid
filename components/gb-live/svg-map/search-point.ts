@@ -3,22 +3,12 @@ import { store } from "../../../state/reducer";
 
 import { CanvasPoint } from "./types";
 
-// export const generatorMapPoints = unitGroups.map((ug) => ({
-//   code: ug.details.code,
-//   point: calculatePoint(ug.details.coords)
-// }));
-
-// export const unitGroupMapPointDict = {};
-// for (const point of generatorMapPoints) {
-//   unitGroupMapPointDict[point.code] = point.point;
-// }
-
 const MAX_DISTANCE = 10;
 
 const searchPoint = async (
   point: CanvasPoint,
   generatorMapPoints: {
-    key: string;
+    code: string;
     point: { x: number; y: number };
   }[]
 ) => {
@@ -30,9 +20,9 @@ const searchPoint = async (
     .sort((a, b) => a.dist - b.dist);
   if (distances.length === 0) return;
   for (const found of distances) {
-    if (!found.key) continue;
+    if (!found.code) continue;
     if (found.dist > MAX_DISTANCE) break;
-    store.dispatch(setSelectedUnitGroupCode(found.key));
+    store.dispatch(setSelectedUnitGroupCode(found.code));
     await new Promise((resolve) => setTimeout(resolve, 100));
     return null;
   }

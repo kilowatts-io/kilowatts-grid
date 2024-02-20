@@ -13,8 +13,6 @@ import {
   calculateCycleSeconds
 } from "../../../state/utils";
 import { BatteryMapIcon } from "../icons/battery/map-icon";
-import { Cable } from "../icons/cables/cable";
-import { ForeignFlag } from "../icons/cables/foreign-market-cable";
 import { calculateSizePx } from "../icons/calcs";
 import { DISPATCHABLE_ICON_COLOURS } from "../icons/dispatchable/constants";
 import { DispatchableMapIcon } from "../icons/dispatchable/map-icon";
@@ -26,6 +24,7 @@ import calculatePoint from "./calcs/point";
 import * as c from "./constants";
 import { PINCH_DAMPENING_FACTOR } from "./constants";
 import { initialMapContext, MapContext } from "./context";
+import { ForeignMarket } from "./foreign-markets";
 import * as h from "./hooks";
 import GvSvgPath from "./path";
 import searchPoint from "./search-point";
@@ -42,7 +41,7 @@ export const SvgMap: React.FC = () => {
   const generatorMapPoints = React.useMemo(() => {
     if (!data || !data.generators) return [];
     return data.generators.map((g) => ({
-      key: g.key,
+      code: g.code,
       point: calculatePoint(g.coords),
       fuel_type: g.fuel_type,
       sizePx: calculateSizePx(g.cp),
@@ -54,14 +53,14 @@ export const SvgMap: React.FC = () => {
   const selectedUnitGroupPoint = React.useMemo(() => {
     if (!selectedUnitGroupCode) return;
     const match = generatorMapPoints.find(
-      (p) => p.key === selectedUnitGroupCode
+      (p) => p.code === selectedUnitGroupCode
     );
     return match ? match.point : undefined;
   }, [selectedUnitGroupCode]);
 
   React.useEffect(() => {
     const unitGroup = generatorMapPoints.find(
-      (p) => p.key === selectedUnitGroupCode
+      (p) => p.code === selectedUnitGroupCode
     );
     if (!unitGroup) return;
     if (!context.zoomPan) return;
@@ -146,37 +145,16 @@ export const SvgMap: React.FC = () => {
                   color={"lightgrey"}
                 />
               )}
+              {data &&
+                data.foreign_markets.map((f) => (
+                  <ForeignMarket
+                    key={`fm-${f.code}`}
+                    {...f}
+                  />
+                ))}
+
               {data && (
                 <>
-                  {data.foreign_markets.map((f) => {
-                    const foreignPoint = calculatePoint(f.coords);
-                    return (
-                      <>
-                        <ForeignFlag
-                          point={foreignPoint}
-                          code={f.key}
-                          key={`foreign-flag-${f.key}`}
-                        />
-                        <>
-                          {f.interconnectors.map((i) => {
-                            const cycleSeconds = calculateCycleSeconds(i);
-                            const width = calculateSizePx(i.cp);
-                            const from = calculatePoint(i.coords);
-                            return (
-                              <Cable
-                                from={from}
-                                to={foreignPoint}
-                                cycleSeconds={cycleSeconds}
-                                width={width}
-                                isExport={i.ac > 0}
-                                key={`cable-${i.key}`}
-                              />
-                            );
-                          })}
-                        </>
-                      </>
-                    );
-                  })}
                   {generatorMapPoints.map(
                     ({
                       point,
@@ -185,7 +163,7 @@ export const SvgMap: React.FC = () => {
                       cycleSeconds,
                       capacityFactor,
                       fuel_type,
-                      key
+                      code
                     }) => {
                       switch (fuel_type) {
                         case "wind":
@@ -195,7 +173,7 @@ export const SvgMap: React.FC = () => {
                               point={point}
                               sizePx={sizePx}
                               cycleSeconds={cycleSeconds}
-                              key={`wind-${key}`}
+                              key={`wind-${code}`}
                             />
                           );
 
@@ -206,7 +184,7 @@ export const SvgMap: React.FC = () => {
                               maxSizePx={sizePx}
                               cycleSeconds={cycleSeconds}
                               capacityFactor={capacityFactor}
-                              key={`batt-${key}`}
+                              key={`batt-${code}`}
                             />
                           );
 
@@ -217,7 +195,7 @@ export const SvgMap: React.FC = () => {
                               sizePx={sizePx}
                               cycleSeconds={cycleSeconds}
                               capacityFactor={capacityFactor}
-                              key={`batt-${key}`}
+                              key={`batt-${code}`}
                               balancing={balancing}
                             />
                           );
@@ -232,7 +210,7 @@ export const SvgMap: React.FC = () => {
                                 DISPATCHABLE_ICON_COLOURS[fuel_type]
                               }
                               cycleSeconds={cycleSeconds}
-                              key={`dispatchable-${fuel_type}-${key}`}
+                              key={`dispatchable-${fuel_type}-${code}`}
                             />
                           );
                       }

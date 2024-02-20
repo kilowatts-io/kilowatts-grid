@@ -26,8 +26,8 @@ export const GbTotalsList: React.FC = () => {
       onRefresh={() => refetch()}
       renderItem={({ item }) => (
         <GbLiveListItem
-          type={item.key}
-          key={`gb-totals-list-item-${item.key}`}
+          type={item.code}
+          key={`gb-totals-list-item-${item.code}`}
           name={capitalise(item.name)}
           capacity={item.cp}
           output={item.ac}

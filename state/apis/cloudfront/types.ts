@@ -20,7 +20,7 @@ interface GbSummaryBaseValues {
   ac: number;
   dl: number;
   name: string;
-  key: string;
+  code: string;
 }
 
 export interface GbSummaryOutputGenerator extends GbSummaryBaseValues {
@@ -33,13 +33,13 @@ interface GbSummaryOutputInterconnector extends GbSummaryBaseValues {
 
 interface GbSummaryOutputTotal extends GbSummaryBaseValues {
   name: string;
-  key: FuelType;
+  code: FuelType;
 }
 
 export type GbSummaryForeignMarketKey = "fr" | "be" | "nl" | "dk" | "no" | "ie";
 
-interface GbSummaryOutputForeignMarket {
-  key: GbSummaryForeignMarketKey;
+export interface GbSummaryOutputForeignMarket {
+  code: GbSummaryForeignMarketKey;
   coords: Coords;
   interconnectors: GbSummaryOutputInterconnector[];
 }

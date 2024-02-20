@@ -24,7 +24,7 @@ export const GbUnitGroupsList: React.FC = () => {
   React.useEffect(() => {
     if (!selectedUnitGroupCode) return;
     const index = data.generators.findIndex(
-      (g) => g.key === selectedUnitGroupCode
+      (g) => g.code === selectedUnitGroupCode
     );
     if (index < 0) return undefined;
     // make this item the top of the list
@@ -37,12 +37,12 @@ export const GbUnitGroupsList: React.FC = () => {
       data={data && data.generators}
       refreshing={isLoading}
       onRefresh={() => refetch()}
-      keyExtractor={(x) => x.key}
+      keyExtractor={(x) => x.code}
       estimatedItemSize={30}
       renderItem={({ item }) => (
         <UnitGroupsListLiveItem
           {...item}
-          code={item.key}
+          code={item.code}
         />
       )}
       ListFooterComponent={<View style={styles.footer} />}
@@ -69,7 +69,7 @@ const UnitGroupsListLiveItem: React.FC<
       onPress={() => dispatch(setSelectedUnitGroupCode(item.code))}
     >
       <GbLiveListItem
-        key={item.key}
+        key={item.code}
         cycleSeconds={calculateCycleSeconds(item)}
         name={item.name}
         type={item.fuel_type}
