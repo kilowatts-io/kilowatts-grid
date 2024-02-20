@@ -79,23 +79,23 @@ class FuelType(str, Enum):
 
 class UnitGroupSnapshot(Snapshot):
     name: str
-    key: str = Field(description="code")
+    code: str = Field(description="code")
     fuel_type: FuelType
     coords: Coords
 
 
 class TotalsSnapshot(Snapshot):
     name: str
-    key: FuelType
+    code: FuelType
 
 
 class InterconnectorSnapshot(Snapshot):
-    key: str
+    code: str
     coords: Coords
 
 
 class ForeignMarketSnapshot(BaseModel):
-    key: ForeignMarketKey
+    code: ForeignMarketKey
     coords: Coords
     interconnectors: List[InterconnectorSnapshot]
 

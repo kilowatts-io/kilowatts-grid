@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from typing import List
 from .interpolate.interpolate import interpolate_dt
 
-BASE_URL = "https://api.nationalgrideso.com/api/3/action/datastore_search?resource_id=db6c038f-98af-4570-ab60-24d71ebd0ae5&limit=3"
+BASE_URL = "https://api.nationalgrideso.com/api/3/action/datastore_search?resource_id=db6c038f-98af-4570-ab60-24d71ebd0ae5"
 
 
 class RawEmbeddedResponseRecord(BaseModel):

@@ -31,7 +31,7 @@ class ForeignMarketTotals(BaseModel):
                 i = INTERCONNECTORS[interconnector]
                 interconnectors.append(
                     InterconnectorSnapshot(
-                        key=interconnector,
+                        code=interconnector,
                         coords=i.coords.model_dump(),
                         **idf.sum().to_dict(),
                         cp=i.capacity
@@ -40,13 +40,15 @@ class ForeignMarketTotals(BaseModel):
             f_coords = FOREIGN_MARKET_COORDS[foreign_market]
             foreign_markets.append(
                 ForeignMarketSnapshot(
-                    key=foreign_market, coords=f_coords, interconnectors=interconnectors
+                    code=foreign_market,
+                    coords=f_coords,
+                    interconnectors=interconnectors,
                 )
             )
 
         totals = TotalsSnapshot(
             name="Interconnectors",
-            key="interconnector",
+            code="interconnector",
             **self.bm[["ac", "bids", "offers", "cp", "dl"]].sum().to_dict()
         )
         return foreign_markets, totals

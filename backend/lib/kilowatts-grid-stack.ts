@@ -1,4 +1,5 @@
 import * as cdk from "aws-cdk-lib";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as events from "aws-cdk-lib/aws-events";
@@ -18,6 +19,14 @@ export class KilowattsGridStack extends cdk.Stack {
       value: bucket.bucketName
     });
 
+    const certificateArn = process.env.ACM_CERTIFICATE_ARN;
+    if (!certificateArn)
+      throw new Error("ACM_CERTIFICATE_ARN environment variable is required");
+
+    const cdnDomainName = process.env.CDN_DOMAIN_NAME;
+    if (!cdnDomainName)
+      throw new Error("CDN_DOMAIN_NAME environment variable is required");
+
     const distribution = new cloudfront.Distribution(
       this,
       "KilowattsGridDistribution",
@@ -26,7 +35,13 @@ export class KilowattsGridStack extends cdk.Stack {
           origin: new origins.S3Origin(bucket),
           viewerProtocolPolicy:
             cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS // Enforce HTTPS
-        }
+        },
+        domainNames: [cdnDomainName],
+        certificate: acm.Certificate.fromCertificateArn(
+          this,
+          "KilowattsGridCertificate",
+          certificateArn
+        )
       }
     );
 

@@ -58,7 +58,7 @@ class GenerationTotals(BaseModel):
         return [
             UnitGroupSnapshot(
                 name=UNITGROUP_NAMES[unit_group],
-                key=unit_group,
+                code=unit_group,
                 fuel_type=UNITGROUP_FUELTYPE[unit_group],
                 coords=self._get_coords(unit_group),
                 **row.to_dict(),
@@ -72,6 +72,6 @@ class GenerationTotals(BaseModel):
 
     def _serialize_fuel_types(self, df: pd.DataFrame) -> List[TotalsSnapshot]:
         return [
-            TotalsSnapshot(name=fuel_type, key=fuel_type, **row)
+            TotalsSnapshot(name=fuel_type, code=fuel_type, **row)
             for fuel_type, row in df.round(1).iterrows()
         ]
