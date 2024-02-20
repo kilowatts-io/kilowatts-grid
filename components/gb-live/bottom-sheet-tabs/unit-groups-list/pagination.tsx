@@ -18,7 +18,7 @@ const Pagination: React.FC<PaginationProps> = (p) => {
         buttonStyle={styles.button}
       />
       <Text>
-        Page {p.currentPage} of {p.totalPages}
+        Page {p.currentPage + 1} of {Math.trunc(p.totalPages + 1)}
       </Text>
       <Button
         title="Next"
