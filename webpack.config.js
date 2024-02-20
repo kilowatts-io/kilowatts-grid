@@ -27,14 +27,14 @@ module.exports = async function (env, argv) {
           },
           "og:image": {
             property: "og:image",
-            content: "https://kilowatts.io/logo.svg"
+            content: "https://kilowatts.io/grid-screenshot.png"
           },
           "twitter:card": "app",
           "twitter:site": "@KilowattsIo",
           "twitter:title": "Kilowatts grid",
           "twitter:description":
             "Second by second visualisation of the GB grid with live generation from hundreds of wind, gas, interconnector, solar, nuclear and hydro sources.",
-          "twitter:image": "https://kilowatts.io/logo.svg"
+          "twitter:image": "https://kilowatts.io/grid-screenshot.png"
         }
       });
     }
