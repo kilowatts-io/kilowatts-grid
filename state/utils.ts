@@ -6,7 +6,7 @@ export const calculateBalancingDirection = ({
   bids,
   offers
 }: WithBalancingVolumes): "none" | "bid" | "offer" => {
-  const net = bids - offers;
+  const net = offers - bids;
   if (net === 0) return "none";
   if (net > 0) {
     return "offer";
