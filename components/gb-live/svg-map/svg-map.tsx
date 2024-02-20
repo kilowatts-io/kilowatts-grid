@@ -1,43 +1,75 @@
 import React from "react";
-import {
-  ActivityIndicator,
-  StyleSheet,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
 import { useSelector } from "react-redux";
-import { Button } from "@rneui/base";
-import { Card, Divider, Icon, Text } from "@rneui/themed";
-import { Canvas, Group } from "@shopify/react-native-skia";
+import { Canvas, Circle, Group } from "@shopify/react-native-skia";
 
+import { useGbSummaryOutputQuery } from "../../../state/apis/cloudfront/api";
 import { selectors } from "../../../state/gb/live";
+import {
+  calculateBalancingDirection,
+  calculateCapacityFactor,
+  calculateCycleSeconds
+} from "../../../state/utils";
+import { BatteryMapIcon } from "../icons/battery/map-icon";
+import { calculateSizePx } from "../icons/calcs";
+import { DISPATCHABLE_ICON_COLOURS } from "../icons/dispatchable/constants";
+import { DispatchableMapIcon } from "../icons/dispatchable/map-icon";
+import SolarMapIcon from "../icons/solar/map-icon";
+import { WindMapIcon } from "../icons/wind/map-icon";
 
 import calculateMinScale from "./calcs/min-scale";
+import calculatePoint from "./calcs/point";
 import * as c from "./constants";
 import { PINCH_DAMPENING_FACTOR } from "./constants";
 import { initialMapContext, MapContext } from "./context";
+import { ForeignMarket } from "./foreign-markets";
 import * as h from "./hooks";
-import GeneratorIcons from "./icons";
 import GvSvgPath from "./path";
-import searchPoint, { unitGroupMapPointDict } from "./search-point";
+import searchPoint from "./search-point";
 
-export const SvgMapLoaded: React.FC = () => {
+export const SvgMap: React.FC = () => {
+  const { data } = useGbSummaryOutputQuery(undefined, {
+    pollingInterval: 60 * 1000
+  });
   const selectedUnitGroupCode = useSelector(selectors.selectedUnitGroupCode);
   const screen = useWindowDimensions();
   const context = initialMapContext(screen);
   const { zoomPan } = context;
   const transformD = h.useTransformD(context);
+  const generatorMapPoints = React.useMemo(() => {
+    if (!data || !data.generators) return [];
+    return data.generators.map((g) => ({
+      code: g.code,
+      point: calculatePoint(g.coords),
+      fuel_type: g.fuel_type,
+      sizePx: calculateSizePx(g.cp),
+      cycleSeconds: calculateCycleSeconds(g),
+      capacityFactor: calculateCapacityFactor(g),
+      balancing: calculateBalancingDirection(g)
+    }));
+  }, [data]);
+  const selectedUnitGroupPoint = React.useMemo(() => {
+    if (!selectedUnitGroupCode) return;
+    const match = generatorMapPoints.find(
+      (p) => p.code === selectedUnitGroupCode
+    );
+    return match ? match.point : undefined;
+  }, [selectedUnitGroupCode]);
 
   React.useEffect(() => {
-    const point = unitGroupMapPointDict[selectedUnitGroupCode];
-    if (!point) return;
+    const unitGroup = generatorMapPoints.find(
+      (p) => p.code === selectedUnitGroupCode
+    );
+    if (!unitGroup) return;
     if (!context.zoomPan) return;
     context.zoomPan.value = {
       scale: context.zoomPan.value.scale,
-      translateX: screen.width / 2 - point.x * context.zoomPan.value.scale,
-      translateY: screen.height / 2 - point.y * context.zoomPan.value.scale,
+      translateX:
+        screen.width / 2 - unitGroup.point.x * context.zoomPan.value.scale,
+      translateY:
+        screen.height / 2 - unitGroup.point.y * context.zoomPan.value.scale
     };
   }, [selectedUnitGroupCode]);
 
@@ -65,7 +97,7 @@ export const SvgMapLoaded: React.FC = () => {
         zoomPan.value = {
           scale: newScale,
           translateX,
-          translateY,
+          translateY
         };
       }),
     Gesture.Pan()
@@ -81,17 +113,20 @@ export const SvgMapLoaded: React.FC = () => {
         zoomPan.value = {
           translateX,
           translateY,
-          scale,
+          scale
         };
       }),
     Gesture.Tap()
       .numberOfTaps(1)
       .onEnd(({ x, y }) =>
-        runOnJS(searchPoint)({
-          x: (x - zoomPan.value.translateX) / zoomPan.value.scale,
-          y: (y - zoomPan.value.translateY) / zoomPan.value.scale,
-        }),
-      ),
+        runOnJS(searchPoint)(
+          {
+            x: (x - zoomPan.value.translateX) / zoomPan.value.scale,
+            y: (y - zoomPan.value.translateY) / zoomPan.value.scale
+          },
+          generatorMapPoints
+        )
+      )
   );
 
   return (
@@ -101,7 +136,88 @@ export const SvgMapLoaded: React.FC = () => {
           <Group transform={transformD}>
             <GvSvgPath />
             <MapContext.Provider value={context}>
-              {GeneratorIcons}
+              {selectedUnitGroupPoint && (
+                <Circle
+                  cx={selectedUnitGroupPoint.x}
+                  cy={selectedUnitGroupPoint.y}
+                  r={10}
+                  opacity={0.4}
+                  color={"lightgrey"}
+                />
+              )}
+              {data &&
+                data.foreign_markets.map((f) => (
+                  <ForeignMarket
+                    key={`fm-${f.code}`}
+                    {...f}
+                  />
+                ))}
+
+              {data && (
+                <>
+                  {generatorMapPoints.map(
+                    ({
+                      point,
+                      sizePx,
+                      balancing,
+                      cycleSeconds,
+                      capacityFactor,
+                      fuel_type,
+                      code
+                    }) => {
+                      switch (fuel_type) {
+                        case "wind":
+                          return (
+                            <WindMapIcon
+                              balancing={balancing}
+                              point={point}
+                              sizePx={sizePx}
+                              cycleSeconds={cycleSeconds}
+                              key={`wind-${code}`}
+                            />
+                          );
+
+                        case "battery":
+                          return (
+                            <BatteryMapIcon
+                              point={point}
+                              maxSizePx={sizePx}
+                              cycleSeconds={cycleSeconds}
+                              capacityFactor={capacityFactor}
+                              key={`batt-${code}`}
+                            />
+                          );
+
+                        case "solar":
+                          return (
+                            <SolarMapIcon
+                              point={point}
+                              sizePx={sizePx}
+                              cycleSeconds={cycleSeconds}
+                              capacityFactor={capacityFactor}
+                              key={`batt-${code}`}
+                              balancing={balancing}
+                            />
+                          );
+                        default:
+                          return (
+                            <DispatchableMapIcon
+                              sizePx={sizePx}
+                              capacityFactor={capacityFactor}
+                              point={point}
+                              balancing={balancing}
+                              backgroundColor={
+                                DISPATCHABLE_ICON_COLOURS[fuel_type]
+                              }
+                              cycleSeconds={cycleSeconds}
+                              key={`dispatchable-${fuel_type}-${code}`}
+                            />
+                          );
+                      }
+                    }
+                  )}
+                </>
+              )}
             </MapContext.Provider>
           </Group>
         </Canvas>
@@ -109,62 +225,10 @@ export const SvgMapLoaded: React.FC = () => {
     </View>
   );
 };
-interface SvgMapLoadingViewProps {
-  refetch: () => void;
-}
-
-const Spacer = () => <View style={{ height: 10 }} />;
-const SvgMapLoadingView: React.FC<SvgMapLoadingViewProps> = ({ refetch }) => (
-  <View style={styles.loadingView}>
-    <Card>
-      <Card.Title>Loading</Card.Title>
-
-      <Text>
-        Downloading and updating cache of hundreds of power sources around GB,
-        including wind, gas, solar, hydro and interconnectors.
-      </Text>
-      <Spacer />
-      <ActivityIndicator size="large" color="grey" />
-      <Spacer />
-
-      <Text>
-        This can take a while, especially for the first time, on older devices
-        and with a poor internet connection.
-      </Text>
-      <Spacer />
-
-      <Button
-        onPress={refetch}
-        title="Retry"
-        iconPosition="right"
-        icon={<Icon name="refresh" color="white" />}
-      />
-    </Card>
-  </View>
-);
-
-interface SvgMapProps {
-  refetch: () => void;
-}
-const SvgMap: React.FC<SvgMapProps> = ({ refetch }) => {
-  const initialLoadComplete = useSelector(selectors.initialLoadComplete);
-  return !initialLoadComplete ? (
-    <SvgMapLoadingView refetch={refetch} />
-  ) : (
-    <SvgMapLoaded />
-  );
-};
 
 export default SvgMap;
 
 const styles = StyleSheet.create({
   canvas: { backgroundColor: c.BACKGROUND_COLOR, flex: 1 },
-  loadingView: {
-    alignItems: "center",
-    backgroundColor: c.BACKGROUND_COLOR,
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-  },
-  mapView: { display: "flex", flex: 1, width: "100%" },
+  mapView: { display: "flex", flex: 1, width: "100%" }
 });

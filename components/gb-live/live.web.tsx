@@ -1,65 +1,57 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { Button, Card, Text } from "@rneui/themed";
-import { WithSkiaWeb } from "@shopify/react-native-skia/lib/module/web";
+import { StyleSheet } from "react-native";
+import { Tab } from "@rneui/themed";
 
-import { useGbLive } from "../../state/gb/hooks";
+import { GbTotalsList } from "./bottom-sheet-tabs/totals-list/totals-list";
+import { GbUnitGroupsList } from "./bottom-sheet-tabs/unit-groups-list/unit-groups-list";
+import SvgMap from "./svg-map/svg-map";
+import NativeAppDownloadLinks from "./native-app-download-links";
 
-import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
-import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptance";
-import { urls } from "./terms-and-conditions/urls";
-
-const NativeAppDownloadLinks: React.FC = () => {
+const MapTab: React.FC = () => {
   return (
-    <Card containerStyle={styles.cardContainer}>
-      <Text>
-        To view our map visualisation, you need to download the app, currently
-        available in beta/preview for testing.
-      </Text>
-      <View style={styles.buttonRow}>
-        <Button
-          title="iOS/Mac"
-          size="sm"
-          onPress={() => window.location.replace(urls.testLinks.ios)}
-        />
-        <Button
-          title="Android"
-          size="sm"
-          onPress={() => window.location.replace(urls.testLinks.android)}
-        />
-      </View>
-    </Card>
-  );
-};
-
-export const GbLive = () => {
-  const refetch = useGbLive();
-  return (
-    <WithTermsAndConditionsAccepted>
-      <>
-        <WithSkiaWeb
-          // getComponent={() => import("./svg-map/skia-test")}
-          getComponent={async () => {
-            const SvgMap = (await import("./svg-map/svg-map")).default;
-            return { default: () => <SvgMap refetch={refetch} /> };
-          }}
-          fallback={<span>Loading Map...</span>}
-        />
-        <GbLiveBottomSheetTabs />
-      </>
-    </WithTermsAndConditionsAccepted>
+    <div style={styles.container}>
+      <SvgMap />
+    </div>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20
-  },
-  cardContainer: {
-    alignItems: "center",
+  container: {
     display: "flex",
-    flexDirection: "column"
+    flex: 1,
+    flexDirection: "row",
+    height: "100%"
+  },
+  listWrapper: {
+    flex: 1,
+    height: 300
   }
 });
+
+const Live: React.FC = () => {
+  const [currentTab, setCurrentTab] = React.useState(0);
+  return (
+    <>
+      <Tab
+        value={currentTab}
+        onChange={setCurrentTab}
+        dense
+      >
+        <Tab.Item>Map</Tab.Item>
+        <Tab.Item>Totals</Tab.Item>
+        <Tab.Item>List</Tab.Item>
+        <Tab.Item>App</Tab.Item>
+      </Tab>
+      {currentTab === 0 && <MapTab />}
+      {currentTab === 1 && <GbTotalsList />}
+      {currentTab === 2 && (
+        <div style={styles.listWrapper}>
+          <GbUnitGroupsList />
+        </div>
+      )}
+      {currentTab === 3 && <NativeAppDownloadLinks />}
+    </>
+  );
+};
+
+export default Live;

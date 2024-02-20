@@ -4,5 +4,4 @@ export type DispatchableFuelType =
   | "coal"
   | "nuclear"
   | "hydro"
-  | "wind"
   | "biomass";

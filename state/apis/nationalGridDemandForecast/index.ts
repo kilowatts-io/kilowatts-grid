@@ -1,1 +1,0 @@
-export { nationalGridDemandForeastApi } from "./api";

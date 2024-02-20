@@ -13,7 +13,6 @@ This first-of-its kind, open source React Native app (for web and ios/android) p
 Deployment Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/afd64ebf-87f9-4810-bbd3-989aed2e4e06/deploy-status)](https://app.netlify.com/sites/kilowatts/deploys)
 
 
-
 ## React Native
 
 <div class="image-container" style="display: flex;">
@@ -26,6 +25,12 @@ Tests can either be run:
 
 1. `yarn test` - on a unit basis -- TBC
 2. `yarn e2e` - on an end to end basis -- TBC
+
+
+## Local Development
+
+In order to run the app locally, create a `.env` file with the environment variable `EXPO_PUBLIC_CDN_DOMAIN_NAME=gridcdn.kilowatts.io` - this informs react where to look for backend data.
+
 
 ## Building for Devices
 

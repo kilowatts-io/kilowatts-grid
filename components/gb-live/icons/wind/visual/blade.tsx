@@ -17,9 +17,9 @@ import {
 } from "./constants";
 
 type BladeProps = {
-  r: SharedValue<number>;
-  width: SharedValue<number>;
-  height: SharedValue<number>;
+  r: number;
+  width: number;
+  height: number;
   hubAttachmentPoint: CanvasPoint;
   transform: Readonly<
     SharedValue<
@@ -50,9 +50,6 @@ export const WindTurbineBladeMap: React.FC<BladeProps> = ({
 );
 
 type BladeIconProps = {
-  // r: SharedValue<number>;
-  // width: SharedValue<number>;
-  // height: SharedValue<number>;
   transform: Readonly<
     SharedValue<
       {

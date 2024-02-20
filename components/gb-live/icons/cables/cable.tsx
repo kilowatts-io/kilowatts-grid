@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { SharedValue, useDerivedValue } from "react-native-reanimated";
+import { useDerivedValue } from "react-native-reanimated";
 import { Circle, Line, useClock } from "@shopify/react-native-skia";
 
 import { MapContext } from "../../svg-map/context";
@@ -16,8 +16,9 @@ import {
 type CableProps = {
   from: CanvasPoint;
   to: CanvasPoint;
-  cycleSeconds: SharedValue<number>;
+  cycleSeconds: number;
   width: number;
+  isExport: boolean;
 };
 
 export const Cable: React.FC<CableProps> = ({
@@ -31,11 +32,11 @@ export const Cable: React.FC<CableProps> = ({
   const dims = calculateDims(from, to);
   const cableLength = calculateCableLength(dims);
   const progress = useDerivedValue(() => {
-    if (gestureMode.value !== "none" || cycleSeconds.value == null) return 0;
+    if (gestureMode.value !== "none" || cycleSeconds == null) return 0;
     const rotationFraction =
       t.value /
       1000 /
-      (Math.abs(cycleSeconds.value) *
+      (Math.abs(cycleSeconds) *
         cableLength *
         CABLE_LENGTH_TO_CYCLE_SECONDS_RATIO);
     const modulusRotationFraction = rotationFraction % 1;
@@ -43,8 +44,8 @@ export const Cable: React.FC<CableProps> = ({
   });
 
   const isExport = React.useMemo(
-    () => cycleSeconds.value !== null && cycleSeconds.value < 0,
-    [cycleSeconds.value]
+    () => cycleSeconds !== null && cycleSeconds < 0,
+    [cycleSeconds]
   );
   const cx = useDerivedValue(() =>
     isExport ? from.x + dims.x * progress.value : to.x - dims.x * progress.value
@@ -52,7 +53,6 @@ export const Cable: React.FC<CableProps> = ({
   const cy = useDerivedValue(() =>
     isExport ? from.y + dims.y * progress.value : to.y - dims.y * progress.value
   );
-
   return (
     <>
       <Line

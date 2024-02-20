@@ -11,10 +11,9 @@ export const TURBINE_WHEEEL_COLOR = "black";
 export const DISPATCHABLE_ICON_COLOURS: Record<DispatchableFuelType, string> = {
   gas: "orange",
   oil: "brown",
-  coal: "brown",
+  coal: "grey",
   nuclear: "violet",
   hydro: "turquoise",
-  wind: "turquoise",
   biomass: "limegreen"
 };
 

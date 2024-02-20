@@ -12,7 +12,8 @@
     "test:unit": "yarn jest -c jest.config.unit.js",
     "test:e2e": "jest -c jest.config.e2e.js",
     "storybook-generate": "sb-rn-get-stories",
-    "storybook-watch": "sb-rn-watcher"
+    "storybook-watch": "sb-rn-watcher",
+    "build:web": "expo build:web --mode production"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -41,6 +42,7 @@
     "react-dom": "18.2.0",
     "react-native": "0.72.6",
     "react-native-device-info": "^10.12.0",
+    "react-native-dotenv": "^3.4.10",
     "react-native-error-boundary": "^1.2.4",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-level-fs": "^3.0.1",

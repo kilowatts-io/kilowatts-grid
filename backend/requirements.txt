@@ -1,0 +1,4 @@
+pydantic==2.6.0
+pandas==2.2.0
+requests==2.26.0
+sentry_sdk==1.4.3
