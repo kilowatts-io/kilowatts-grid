@@ -7,7 +7,7 @@ import { ErrorBoundaryWithRecovery } from "./components/gb-live/error-boundary";
 import GbLive from "./components/gb-live/live";
 import { store } from "./state/reducer";
 import { initSentry } from "./utils/sentry";
-import { checkUpdatesRequireStateRefresh } from "./utils/version";
+// import { checkUpdatesRequireStateRefresh } from "./utils/version";
 
 export default function RootApp() {
   React.useEffect(() => {
@@ -17,9 +17,9 @@ export default function RootApp() {
     }
   }, []);
 
-  React.useEffect(() => {
-    checkUpdatesRequireStateRefresh();
-  }, []);
+  // React.useEffect(() => {
+  //   checkUpdatesRequireStateRefresh();
+  // }, []);
 
   React.useEffect(() => {
     if (Platform.OS == "ios" || Platform.OS == "android") {
