@@ -34,7 +34,8 @@ module.exports = async function (env, argv) {
           "twitter:title": "Kilowatts grid",
           "twitter:description":
             "Second by second visualisation of the GB grid with live generation from hundreds of wind, gas, interconnector, solar, nuclear and hydro sources.",
-          "twitter:image": "https://kilowatts.io/grid-screenshot.png"
+          "twitter:image": "https://kilowatts.io/grid-screenshot.png",
+          "apple-itunes-app": "app-id=6474467753"
         }
       });
     }
