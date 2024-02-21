@@ -64,10 +64,18 @@ export const GbLiveWrapped: React.FC = () => {
 };
 
 const GbLive = () => {
-  const query = useGbSummaryOutputQuery();
-  React.useEffect(() => {
-    query.refetch();
-  }, []);
+  useGbSummaryOutputQuery();
+  // React.useEffect(() => {
+  //   query.refetch();
+  // }, []);
+  // React.useEffect(() => {
+  //   const listener = AppState.addEventListener("change", (nextAppState) => {
+  //     if (nextAppState === "active") {
+  //       query.refetch();
+  //     }
+  //   });
+  //   return () => listener.remove();
+  // }, []);
 
   return (
     <WithTermsAndConditionsAccepted>

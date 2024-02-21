@@ -5,6 +5,7 @@ This first-of-its kind, open source React Native app (for web and ios/android) p
 
 [Android Beta]('https://play.google.com/store/apps/details?id=com.benjaminwatts.kilowatts')
 [iOS Beta](https://testflight.apple.com/join/ZRfgNtsL')
+[iOS Appstore](https://apps.apple.com/us/app/kilowatts-grid/id6474467753)
 
 
 ## Website
