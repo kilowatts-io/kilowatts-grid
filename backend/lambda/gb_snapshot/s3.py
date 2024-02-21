@@ -22,6 +22,6 @@ def write_summary_output(summary_output: SummaryOutput):
         Body=Body,
         Bucket=bucket,
         Key="gb/summary_output.json",
-        CacheControl="max-age=60, no-cache, no-store, must-revalidate",
+        CacheControl="max-age=300, must-revalidate",
     )
     logging.info("wrote summary output to s3")
