@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { AppState, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSelector } from "react-redux";
 import {
   BottomSheetModal,
@@ -67,6 +67,14 @@ const GbLive = () => {
   const query = useGbSummaryOutputQuery();
   React.useEffect(() => {
     query.refetch();
+  }, []);
+  React.useEffect(() => {
+    const listener = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        query.refetch();
+      }
+    });
+    return () => listener.remove();
   }, []);
 
   return (
