@@ -20,7 +20,7 @@ export class KilowattsGridStack extends cdk.Stack {
             "https://gb-preview.kilowatts.io",
             "http://localhost:19006"
           ],
-          allowedMethods: [s3.HttpMethods.GET],
+          allowedMethods: [s3.HttpMethods.GET, s3.HttpMethods.HEAD],
           allowedHeaders: ["*"]
         }
       ]
@@ -46,6 +46,8 @@ export class KilowattsGridStack extends cdk.Stack {
           origin: new origins.S3Origin(bucket),
           viewerProtocolPolicy:
             cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
           originRequestPolicy: new cloudfront.OriginRequestPolicy(
             this,
             "KilowattsGridDistributionRequestPolicy",
@@ -53,7 +55,11 @@ export class KilowattsGridStack extends cdk.Stack {
               headerBehavior:
                 cloudfront.OriginRequestHeaderBehavior.allowList("Origin")
             }
-          )
+          ),
+          cachePolicy: new cloudfront.CachePolicy(this, "CachePolicy", {
+            cachePolicyName: "CorsCachePolicy",
+            headerBehavior: cloudfront.CacheHeaderBehavior.allowList("Origin")
+          })
         },
 
         domainNames: [cdnDomainName],
