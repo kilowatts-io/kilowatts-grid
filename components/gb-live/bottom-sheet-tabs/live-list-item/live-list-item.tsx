@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     gap: 10,
-    height: 35,
+    height: 40,
     justifyContent: "flex-start",
     padding: 5
   },

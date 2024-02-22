@@ -1,5 +1,6 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
+import { Button, Card, Icon, Text } from "@rneui/themed";
 
 import { useGbSummaryOutputQuery } from "../../../../state/apis/cloudfront/api";
 import {
@@ -7,6 +8,7 @@ import {
   calculateCapacityFactor,
   calculateCycleSeconds
 } from "../../../../state/utils";
+import { ErrorDataRetryCard } from "../../error-data-retry-card";
 import { GbLiveListItem } from "../live-list-item/live-list-item";
 
 import { GbBalancingTotals } from "./balancing-totals/balancing-totals";
@@ -14,10 +16,17 @@ import { GbBalancingTotals } from "./balancing-totals/balancing-totals";
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export const GbTotalsList: React.FC = () => {
-  const { data, isLoading, refetch } = useGbSummaryOutputQuery(undefined, {
-    pollingInterval: 1000 * 15,
-    refetchOnReconnect: true
-  });
+  const { data, isLoading, refetch, isError } = useGbSummaryOutputQuery(
+    undefined,
+    {
+      pollingInterval: 1000 * 15,
+      refetchOnReconnect: true
+    }
+  );
+
+  if (isError && !data) {
+    return <ErrorDataRetryCard refetch={refetch} />;
+  }
 
   return (
     <FlatList
