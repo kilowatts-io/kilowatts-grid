@@ -1,5 +1,9 @@
 name: update
-on: push
+
+on:
+  push:
+    branches:
+      - production  # This specifies that the workflow should only run on pushes to the production branch.
 
 jobs:
   update:
@@ -32,4 +36,4 @@ jobs:
         run: yarn install
 
       - name: Publish update
-        run: eas update --auto
+        run: eas update --auto --channel production  # Here we specify the production channel for the update.
