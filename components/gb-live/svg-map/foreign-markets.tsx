@@ -28,7 +28,7 @@ export const ForeignMarket: React.FC<GbSummaryOutputForeignMarket> = (f) => {
               to={foreignPoint}
               cycleSeconds={cycleSeconds}
               width={width}
-              isExport={i.ac > 0}
+              isExport={i.ac < 0}
               key={`cable-${i.code}`}
             />
           );
