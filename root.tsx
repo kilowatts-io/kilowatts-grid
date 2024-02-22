@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  AppState,
-  Platform,
-  StyleSheet,
-  View
-} from "react-native";
+import { Alert, AppState, Platform, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
 import { captureException } from "@sentry/react-native";
+import * as Updates from "expo-updates";
 
 import { ErrorBoundaryWithRecovery } from "./components/gb-live/error-boundary";
 import GbLive from "./components/gb-live/live";
@@ -17,6 +11,28 @@ import { useGbSummaryOutputQuery } from "./state/apis/cloudfront/api";
 import { store } from "./state/reducer";
 import { initSentry } from "./utils/sentry";
 // import { checkUpdatesRequireStateRefresh } from "./utils/version";
+
+const checkUpdates = () => {
+  if (__DEV__) return;
+
+  Updates.checkForUpdateAsync().then((update) => {
+    if (update.isAvailable) {
+      Alert.alert(
+        "App update",
+        "A new version of the app is available. App must reload.",
+        [
+          {
+            text: "OK",
+            onPress: () =>
+              Updates.fetchUpdateAsync().then(() => {
+                Updates.reloadAsync();
+              })
+          }
+        ]
+      );
+    }
+  });
+};
 
 export default function RootApp() {
   React.useEffect(() => {
@@ -26,12 +42,12 @@ export default function RootApp() {
     }
   }, []);
 
-  // React.useEffect(() => {
-  //   checkUpdatesRequireStateRefresh();
-  // }, []);
+  React.useEffect(() => {
+    // check for updates on launch
+    checkUpdates();
+  }, []);
 
   // watch app state and set background
-
   React.useEffect(() => {
     if (Platform.OS == "ios" || Platform.OS == "android") {
       initSentry();
@@ -50,7 +66,7 @@ export default function RootApp() {
 }
 
 const WithFromBackgroundRefresh = () => {
-  const [reloading, setReloading] = React.useState(false);
+  // const [reloading, setReloading] = React.useState(false);
   const { refetch } = useGbSummaryOutputQuery();
   const [background, setBackground] = React.useState(false);
 
@@ -58,16 +74,17 @@ const WithFromBackgroundRefresh = () => {
     if (Platform.OS !== "ios" && Platform.OS !== "android") return;
     const handleAppStateChange = async (nextAppState: string) => {
       if (nextAppState === "active" && background) {
+        checkUpdates();
         // console.log("App has come to the foreground - refetching data");
         try {
-          setReloading(true);
+          // setReloading(true);
           await refetch();
           // console.log("Data refetched");
         } catch (e) {
           captureException(e);
         } finally {
           // console.log("Done refetching data");
-          setReloading(false);
+          // setReloading(false);
         }
         setBackground(false);
       } else {
@@ -79,22 +96,10 @@ const WithFromBackgroundRefresh = () => {
       listener.remove();
     };
   }, [refetch, background]);
-  if (reloading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
   return <GbLive />;
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center"
-  },
   gestureRootView: {
     flex: 1
   }

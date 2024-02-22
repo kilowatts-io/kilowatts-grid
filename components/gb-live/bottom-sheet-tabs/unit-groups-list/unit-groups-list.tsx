@@ -12,6 +12,7 @@ import {
   calculateCapacityFactor,
   calculateCycleSeconds
 } from "../../../../state/utils";
+import { ErrorDataRetryCard } from "../../error-data-retry-card";
 import { GbLiveListItem } from "../live-list-item/live-list-item";
 
 import Pagination from "./pagination";
@@ -19,10 +20,13 @@ import Pagination from "./pagination";
 const WEB_PAGE_SIZE = 15;
 
 export const GbUnitGroupsList: React.FC = () => {
-  const { data, isLoading, refetch } = useGbSummaryOutputQuery(undefined, {
-    pollingInterval: 1000 * 15,
-    refetchOnReconnect: true
-  });
+  const { data, isLoading, refetch, isError } = useGbSummaryOutputQuery(
+    undefined,
+    {
+      pollingInterval: 1000 * 15,
+      refetchOnReconnect: true
+    }
+  );
   const [webPage, setWebPage] = React.useState(0);
   const list = React.useRef<FlashList<{ GbSummaryOutputGenerator }>>(null);
 
@@ -48,6 +52,10 @@ export const GbUnitGroupsList: React.FC = () => {
       return data.generators;
     }
   }, [data, webPage]);
+
+  if (isError && !data) {
+    return <ErrorDataRetryCard refetch={refetch} />;
+  }
 
   return (
     <FlashList
