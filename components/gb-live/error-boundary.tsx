@@ -9,10 +9,7 @@ interface FallbackComponentProps {
 
 const Spacer = () => <View style={styles.spacer} />;
 
-const FallbackComponent: React.FC<FallbackComponentProps> = ({
-  error,
-  resetError
-}) => {
+const FallbackComponent: React.FC<FallbackComponentProps> = (p) => {
   return (
     <View style={styles.container}>
       <Card>
@@ -21,11 +18,10 @@ const FallbackComponent: React.FC<FallbackComponentProps> = ({
           Sorry but the app encountered an error and needs to refresh.
         </Text>
         <Spacer />
-        <Text>{error.message}</Text>
         <Spacer />
         <Divider />
         <Button
-          onPress={() => resetError()}
+          onPress={() => p.resetError()}
           title="Refresh"
         />
       </Card>
@@ -39,10 +35,10 @@ interface ErrorBoundaryWithRecoveryProps {
 
 export const ErrorBoundaryWithRecovery: React.FC<
   ErrorBoundaryWithRecoveryProps
-> = ({ children }) => {
+> = (p) => {
   return (
     <ErrorBoundary FallbackComponent={FallbackComponent}>
-      {children}
+      {p.children}
     </ErrorBoundary>
   );
 };
@@ -50,8 +46,8 @@ export const ErrorBoundaryWithRecovery: React.FC<
 const Blank = () => <></>;
 export const ErrorBoundaryBlank: React.FC<{
   children: JSX.Element;
-}> = ({ children }) => {
-  return <ErrorBoundary FallbackComponent={Blank}>{children}</ErrorBoundary>;
+}> = (p) => {
+  return <ErrorBoundary FallbackComponent={Blank}>{p.children}</ErrorBoundary>;
 };
 
 const styles = StyleSheet.create({
