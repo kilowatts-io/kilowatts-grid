@@ -2,7 +2,7 @@
   "expo": {
     "name": "kilowatts",
     "slug": "kilowatts",
-    "version": "1.1.23",
+    "version": "1.1.24",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -19,7 +19,7 @@
       "config": {
         "usesNonExemptEncryption": false
       },
-      "buildNumber": "1.1.23"
+      "buildNumber": "1.1.24"
     },
     "android": {
       "adaptiveIcon": {
@@ -46,7 +46,7 @@
         "projectId": "06a9e672-4ff0-4f7d-9373-6c4c8dcbdf91"
       }
     },
-    "runtimeVersion": "1.1.23",
+    "runtimeVersion": "1.1.24",
     "updates": {
       "url": "https://u.expo.dev/06a9e672-4ff0-4f7d-9373-6c4c8dcbdf91",
       "enabled": true,
