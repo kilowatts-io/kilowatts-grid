@@ -25,7 +25,8 @@ export const Cable: React.FC<CableProps> = ({
   from,
   to,
   width,
-  cycleSeconds
+  cycleSeconds,
+  isExport
 }) => {
   const { gestureMode } = useContext(MapContext);
   const t = useClock();
@@ -43,10 +44,6 @@ export const Cable: React.FC<CableProps> = ({
     return modulusRotationFraction;
   });
 
-  const isExport = React.useMemo(
-    () => cycleSeconds !== null && cycleSeconds < 0,
-    [cycleSeconds]
-  );
   const cx = useDerivedValue(() =>
     isExport ? from.x + dims.x * progress.value : to.x - dims.x * progress.value
   );
