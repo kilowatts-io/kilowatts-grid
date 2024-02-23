@@ -10,11 +10,11 @@ jobs:
     name: EAS Update
     runs-on: ubuntu-latest
     steps:
-      
+
       - name: Check for CDN_DOMAIN_NAME
         run: |
           if [ -z "${{ secrets.CDN_DOMAIN_NAME }}" ]; then
-            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+            echo "You must provide an CDN_DOMAIN_NAME secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
             exit 1
           fi
 
@@ -44,4 +44,6 @@ jobs:
         run: yarn install
 
       - name: Publish update
-        run: eas update --auto --channel production  # Here we specify the production channel for the update.
+        run: eas update --auto --channel production
+        env:
+          EXPO_PUBLIC_CDN_DOMAIN_NAME: ${{ secrets.CDN_DOMAIN_NAME }}
