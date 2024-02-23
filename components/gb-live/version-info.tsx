@@ -16,7 +16,7 @@ const VersionInfo: React.FC = () => {
   return (
     <View style={styles.view}>
       <Text>
-        {`Release ${Updates.releaseChannel} v${Updates.runtimeVersion} ${Updates.isEmbeddedLaunch ? "Original" : `Updated ${Updates.createdAt.toLocaleString()}`} `}
+        {`App Version ${Updates.runtimeVersion} ${Updates.isEmbeddedLaunch ? "" : `${Updates.createdAt.toLocaleString()}`}`}
       </Text>
     </View>
   );
