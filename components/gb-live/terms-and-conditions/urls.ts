@@ -5,7 +5,8 @@ export const urls = {
   testLinks: {
     // ios: "https://testflight.apple.com/join/ZRfgNtsL",
     ios: "https://apps.apple.com/us/app/kilowatts-grid/id6474467753",
-    // android: 'https://play.google.com/store/apps/details?id=com.benjaminwatts.kilowatts'
-    android: "https://appdistribution.firebase.dev/i/ac9baac6ed8aaa33"
+    android:
+      "https://play.google.com/store/apps/details?id=com.benjaminwatts.kilowatts"
+    // android: "https://appdistribution.firebase.dev/i/ac9baac6ed8aaa33"
   }
 };
