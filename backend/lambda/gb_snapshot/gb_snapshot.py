@@ -5,10 +5,10 @@ from .s3 import write_summary_output
 from .ptypes import (
     BalancingTotals,
     EmbeddedSnapshot,
+    ForeignMarketSnapshot,
     NationalGridGspSnapshot,
     SummaryOutput,
     TotalsSnapshot,
-    UnitGroupSnapshot,
 )
 from .generation import GenerationTotals
 from .foreign_markets import ForeignMarketTotals
@@ -17,7 +17,7 @@ from .embedded import Embedded
 from .bm import Bm
 
 
-def combine_totals(gen_totals: List[UnitGroupSnapshot], fm_totals: TotalsSnapshot):
+def combine_totals(gen_totals: List[TotalsSnapshot], fm_totals: ForeignMarketSnapshot):
     totals = gen_totals + [fm_totals]
     totals.sort(key=lambda x: x.ac, reverse=True)
     return totals
