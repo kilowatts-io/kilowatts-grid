@@ -84,6 +84,14 @@ class UnitGroupSnapshot(Snapshot):
     coords: Coords
 
 
+class SheffieldGspSnapshot(UnitGroupSnapshot):
+    pass
+
+
+class NationalGridGspSnapshot(UnitGroupSnapshot):
+    pass
+
+
 class TotalsSnapshot(Snapshot):
     name: str
     code: FuelType
