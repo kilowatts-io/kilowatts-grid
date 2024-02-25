@@ -100,7 +100,7 @@ class NationalGridDistributionNetwork(BaseModel):
     url: str
 
     def run(self):
-        logging.debug(f"running NationalGridDistributionNetwork for {self.name}...")
+        logging.info(f"running NationalGridDistributionNetwork for {self.name}...")
 
         resp = requests.get(self.url, headers={})
         lines = resp.text.split("\r\n")
@@ -108,7 +108,9 @@ class NationalGridDistributionNetwork(BaseModel):
         rows = [line.split(",") for line in lines[1:-1]]
         data = []
         for row in rows:
-            data.append(dict(zip(columns, row)))
+            float_values = [float(x) if x != "" else None for x in row[1:]]
+            as_dict = dict(zip(columns[1:], float_values))
+            data.append({"Timestamp": row[0], **as_dict})
         df = pd.DataFrame(data)
         # set Timestamp as index
         df.set_index("Timestamp", inplace=True)
