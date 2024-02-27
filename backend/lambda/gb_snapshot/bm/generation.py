@@ -1016,11 +1016,7 @@ unit_groups_dict = [
             "coords": {"lat": 57.5373, "lng": -3.363},
             "fuel_type": "wind",
         },
-        "units": [
-            {"unit": "2_PPGEN001"},
-            {"unit": "2_PPGEN001"},
-            {"unit": "2__PSTAT001"},
-        ],
+        "units": [{"unit": "2_PPGEN001"}, {"unit": "2__PSTAT001"}],
     },
     {
         "details": {
@@ -2634,6 +2630,317 @@ unit_groups_dict = [
             "fuel_type": "gas",
         },
         "units": [{"unit": "E_BRIDGWTR"}],
+    },
+    {
+        "details": {
+            "code": "ASTAT",
+            "name": "Pelham",
+            "coords": {"lat": 51.9379, "lng": 0.1198},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__ASTAT005"}],
+    },
+    {
+        "details": {
+            "code": "BBPGM",
+            "name": "Packington",
+            "coords": {"lat": 52.7242, "lng": -1.4477},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__BBPGM001"}],
+    },
+    {
+        "details": {
+            "code": "BFLEX",
+            "name": "Breach Farm",
+            "coords": {"lat": 52.7671, "lng": -1.6102},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__BFLEX002"}, {"unit": "2__BFLEX001"}],
+    },
+    {
+        "details": {
+            "code": "BFSEN",
+            "name": "Enderby (GRID)",
+            "coords": {"lat": 52.5988, "lng": -1.2233},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__BFSEN005"}],
+    },
+    {
+        "details": {
+            "code": "CMRCY",
+            "name": "Emirates",
+            "coords": {"lat": 51.5563, "lng": -0.1074},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__CMRCY001"}],
+    },
+    {
+        "details": {
+            "code": "EBHOLB",
+            "name": "Holes Bay",
+            "coords": {"lat": 50.7264, "lng": -1.9901},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "E_BHOLB-1"}],
+    },
+    {
+        "details": {
+            "code": "EBRETB",
+            "name": "Brentwood",
+            "coords": {"lat": 51.6399, "lng": 0.0362},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "E_BRETB-1"}],
+    },
+    {
+        "details": {
+            "code": "EBROXES",
+            "name": "Broxburn",
+            "coords": {"lat": 55.9193, "lng": -3.4563},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "E_BROXES-1"}],
+    },
+    {
+        "details": {
+            "code": "EFLEX",
+            "name": "Larport",
+            "coords": {"lat": 52.0548, "lng": -2.6218},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__EFLEX001"}],
+    },
+    {
+        "details": {
+            "code": "ENEWTB",
+            "name": "Newton Wood",
+            "coords": {"lat": 53.1393, "lng": -1.3223},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "E_NEWTB-1"}],
+    },
+    {
+        "details": {
+            "code": "EWNCHB",
+            "name": "Winchester",
+            "coords": {"lat": 51.0401, "lng": -1.3697},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "E_WNCHB-1"}],
+    },
+    {
+        "details": {
+            "code": "FFSEN",
+            "name": "Tynemouth",
+            "coords": {"lat": 55.0251, "lng": -1.5028},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__FFSEN005"}],
+    },
+    {
+        "details": {
+            "code": "GLOND",
+            "name": "Hulley Road",
+            "coords": {"lat": 53.2719, "lng": -2.1123},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__GLOND001"}, {"unit": "2__GLOND002"}],
+    },
+    {
+        "details": {
+            "code": "GSTAT",
+            "name": "Oldham",
+            "coords": {"lat": 53.5307, "lng": -2.1659},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__GSTAT005"}],
+    },
+    {
+        "details": {
+            "code": "HANGE",
+            "name": "Fareham 1",
+            "coords": {"lat": 50.8329, "lng": -1.1913},
+            "fuel_type": "battery",
+        },
+        "units": [
+            {"unit": "2__HANGE002"},
+            {"unit": "2__HANGE001"},
+            {"unit": "2__HANGE004"},
+            {"unit": "2__HANGE003"},
+        ],
+    },
+    {
+        "details": {
+            "code": "HIMPO",
+            "name": "Salisbury",
+            "coords": {"lat": 51.0827, "lng": -1.8443},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__HIMPO002"}],
+    },
+    {
+        "details": {
+            "code": "HLOND",
+            "name": "Mannington",
+            "coords": {"lat": 51.552, "lng": -1.8153},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__HLOND001"}],
+    },
+    {
+        "details": {
+            "code": "HSTAT",
+            "name": "Minety South 1",
+            "coords": {"lat": 51.6078, "lng": -1.9986},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__HSTAT001"}, {"unit": "2__HSTAT002"}],
+    },
+    {
+        "details": {
+            "code": "JSTAT",
+            "name": "Milton Court",
+            "coords": {"lat": 51.2307, "lng": -0.3548},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__JSTAT002"}],
+    },
+    {
+        "details": {
+            "code": "LANGE",
+            "name": "Fideoak Mill",
+            "coords": {"lat": 51.0164, "lng": -3.1574},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__LANGE002"}, {"unit": "2__LANGE001"}],
+    },
+    {
+        "details": {
+            "code": "LFLEX",
+            "name": "Feeder Road",
+            "coords": {"lat": 51.4475, "lng": -2.5649},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__LFLEX001"}],
+    },
+    {
+        "details": {
+            "code": "MFLEX",
+            "name": "Thurcroft",
+            "coords": {"lat": 53.4037, "lng": -1.2689},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__MFLEX002"}],
+    },
+    {
+        "details": {
+            "code": "MSTAT",
+            "name": "Creyke Beck",
+            "coords": {"lat": 53.7975, "lng": -0.4192},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__MSTAT001"}],
+    },
+    {
+        "details": {
+            "code": "NFLEX",
+            "name": "Redhouse",
+            "coords": {"lat": 56.146, "lng": -3.1428},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__NFLEX001"}],
+    },
+    {
+        "details": {
+            "code": "NFSEN",
+            "name": "Byers Brae",
+            "coords": {"lat": 55.9072, "lng": -3.588},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__NFSEN007"}],
+    },
+    {
+        "details": {
+            "code": "PFLEX",
+            "name": "West Gourdie",
+            "coords": {"lat": 56.4778, "lng": -3.0495},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__PFLEX001"}],
+    },
+    {
+        "details": {
+            "code": "PLOND",
+            "name": "Dunsinane",
+            "coords": {"lat": 56.4803, "lng": -3.0122},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "2__PLOND001"}],
+    },
+    {
+        "details": {
+            "code": "VAHABI",
+            "name": "Wickham Market",
+            "coords": {"lat": 52.1876, "lng": 1.3658},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "V__AHABI003"}],
+    },
+    {
+        "details": {
+            "code": "VAZENO",
+            "name": "Claredown",
+            "coords": {"lat": 52.0706, "lng": 0.6081},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "V__AZENO002"}],
+    },
+    {
+        "details": {
+            "code": "VBCEND",
+            "name": "Back Lane",
+            "coords": {"lat": 53.2239, "lng": -1.3749},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "V__BCEND004"}],
+    },
+    {
+        "details": {
+            "code": "VGHABI",
+            "name": "Gipsy Lane",
+            "coords": {"lat": 53.5972, "lng": -2.1798},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "V__GHABI002"}, {"unit": "V__GHABI001"}],
+    },
+    {
+        "details": {
+            "code": "VHBRIN",
+            "name": "Brindley",
+            "coords": {"lat": 51.574, "lng": -1.815},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "V__HBRIN003"}],
+    },
+    {
+        "details": {
+            "code": "VHHABI",
+            "name": "Roundponds",
+            "coords": {"lat": 51.3765, "lng": -2.1552},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "V__HHABI001"}],
+    },
+    {
+        "details": {
+            "code": "VJZENO",
+            "name": "Aylesford",
+            "coords": {"lat": 51.315, "lng": 0.4624},
+            "fuel_type": "battery",
+        },
+        "units": [{"unit": "V__JZENO001"}],
     },
 ]
 
