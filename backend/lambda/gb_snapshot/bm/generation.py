@@ -171,7 +171,7 @@ unit_groups_dict = [
         "details": {
             "code": "WLNYO",
             "name": "Walney",
-            "coords": {"lat": 54.0394, "lng": 3.5158},
+            "coords": {"lat": 54.0755, "lng": -3.6275},
             "fuel_type": "wind",
         },
         "units": [
