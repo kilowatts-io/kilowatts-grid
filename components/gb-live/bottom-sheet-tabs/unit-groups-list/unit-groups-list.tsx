@@ -24,7 +24,7 @@ export const GbUnitGroupsList: React.FC = () => {
   const { data, isLoading, refetch, isError } = useGbSummaryOutputQuery(
     undefined,
     {
-      pollingInterval: 1000 * 15,
+      pollingInterval: 1000 * 60,
       refetchOnReconnect: true
     }
   );

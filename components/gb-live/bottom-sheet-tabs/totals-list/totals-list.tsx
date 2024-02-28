@@ -1,6 +1,5 @@
 import React from "react";
-import { FlatList, Platform, StyleSheet, View } from "react-native";
-import { Button, Card, Icon, Text } from "@rneui/themed";
+import { FlatList, Platform } from "react-native";
 
 import { useGbSummaryOutputQuery } from "../../../../state/apis/cloudfront/api";
 import {
@@ -20,7 +19,7 @@ export const GbTotalsList: React.FC = () => {
   const { data, isLoading, refetch, isError } = useGbSummaryOutputQuery(
     undefined,
     {
-      pollingInterval: 1000 * 15,
+      pollingInterval: 1000 * 60,
       refetchOnReconnect: true
     }
   );
