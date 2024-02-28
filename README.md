@@ -1,5 +1,5 @@
 # kilowatts open source, live balancing market app
-This first-of-its kind, open source React Native app (for web and ios/android) provides live, second-by-second information on the output of different generators on the UK grid. 
+This first-of-its kind, open source React Native app (for web and ios/android) provides live, minute-by-minute information on the output of different generators on the UK grid. 
 
 ## Mobile Apps
 
