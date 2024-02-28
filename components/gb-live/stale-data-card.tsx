@@ -10,7 +10,6 @@ interface StaleDataCardProps {}
 const THRESHOLD_MINUTES = 10;
 
 const determineIfDataIsStale = (data: GbSummaryOutputResponse) => {
-  return true;
   if (!data) return false;
   const lastUpdated = new Date(data.dt);
   const now = new Date();
