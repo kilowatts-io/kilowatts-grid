@@ -6,6 +6,7 @@ import { GbTotalsList } from "./bottom-sheet-tabs/totals-list/totals-list";
 import { GbUnitGroupsList } from "./bottom-sheet-tabs/unit-groups-list/unit-groups-list";
 import SvgMap from "./svg-map/svg-map";
 import NativeAppDownloadLinks from "./native-app-download-links";
+import StaleDataCard from "./stale-data-card";
 
 const MapTab: React.FC = () => {
   return (
@@ -42,14 +43,17 @@ const Live: React.FC = () => {
         <Tab.Item>List</Tab.Item>
         <Tab.Item>App</Tab.Item>
       </Tab>
-      {currentTab === 0 && <MapTab />}
-      {currentTab === 1 && <GbTotalsList />}
-      {currentTab === 2 && (
-        <div style={styles.listWrapper}>
-          <GbUnitGroupsList />
-        </div>
-      )}
-      {currentTab === 3 && <NativeAppDownloadLinks />}
+      <>
+        <StaleDataCard />
+        {currentTab === 0 && <MapTab />}
+        {currentTab === 1 && <GbTotalsList />}
+        {currentTab === 2 && (
+          <div style={styles.listWrapper}>
+            <GbUnitGroupsList />
+          </div>
+        )}
+        {currentTab === 3 && <NativeAppDownloadLinks />}
+      </>
     </>
   );
 };

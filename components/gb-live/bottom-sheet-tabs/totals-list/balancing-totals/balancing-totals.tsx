@@ -8,7 +8,7 @@ import { GbLiveListItemBalancingTotal } from "../../live-list-item/live-list-ite
 
 export const GbBalancingTotals = () => {
   const { data } = useGbSummaryOutputQuery(undefined, {
-    pollingInterval: 1000 * 15
+    pollingInterval: 1000 * 60
   });
 
   return (
