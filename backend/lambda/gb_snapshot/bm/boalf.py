@@ -58,8 +58,13 @@ class BoalfRequest(BaseElexonRequest, BaseModel):
         logging.info(
             f"parsing {len(raw.data)} pn records for {self.params.model_dump_json()}..."
         )
+        data = [r.model_dump() for r in raw.data]
+        if len(data) == 0:
+            logging.info(f"no boalf data for {self.params}")
+            output = {}
+            return pd.DataFrame(columns=["level", "delta"], index=output.keys())
 
-        df = pd.DataFrame([r.model_dump() for r in raw.data])
+        df = pd.DataFrame(data)
         df = df.dropna(subset=["bmUnit"])
         output = {}
         for bmUnit, group in df.groupby("bmUnit"):
