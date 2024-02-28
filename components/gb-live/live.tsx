@@ -12,6 +12,7 @@ import { selectors } from "../../state/gb/live";
 import { GbLiveBottomSheetTabs } from "./bottom-sheet-tabs/tabs";
 import SvgMap from "./svg-map/svg-map";
 import { WithTermsAndConditionsAccepted } from "./terms-and-conditions/acceptance";
+import StaleDataCard from "./stale-data-card";
 
 const SNAP_POINTS = ["10%", "20%", "30%", "40%", "50%", "75%", "90%"];
 const INITIAL_SNAP_POINT_INDEX = 2;

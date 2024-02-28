@@ -8,7 +8,7 @@ import { GbSummaryOutputResponse } from "./types";
 export const kilowattsCloudfront = createApi({
   reducerPath: "kilowattsCloudfront",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://${EXPO_PUBLIC_CDN_DOMAIN_NAME}`
+    baseUrl: `https://gridcdn.kilowatts.io`
   }),
   endpoints: (builder) => ({
     gbSummaryOutput: builder.query<GbSummaryOutputResponse, void>({

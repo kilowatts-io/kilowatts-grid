@@ -7,10 +7,11 @@ import { GbSummaryOutputResponse } from "../../state/apis/cloudfront/types";
 
 interface StaleDataCardProps {}
 
-const THRESHOLD_MINUTES = 5;
+const THRESHOLD_MINUTES = 10;
 
 const determineIfDataIsStale = (data: GbSummaryOutputResponse) => {
-  if (!data) return true;
+  return true;
+  if (!data) return false;
   const lastUpdated = new Date(data.dt);
   const now = new Date();
   const diff = now.getTime() - lastUpdated.getTime();

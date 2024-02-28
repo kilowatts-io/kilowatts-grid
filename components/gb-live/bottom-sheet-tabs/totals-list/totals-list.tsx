@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, Platform, StyleSheet, View } from "react-native";
 import { Button, Card, Icon, Text } from "@rneui/themed";
 
 import { useGbSummaryOutputQuery } from "../../../../state/apis/cloudfront/api";
@@ -9,6 +9,7 @@ import {
   calculateCycleSeconds
 } from "../../../../state/utils";
 import { ErrorDataRetryCard } from "../../error-data-retry-card";
+import StaleDataCard from "../../stale-data-card";
 import { GbLiveListItem } from "../live-list-item/live-list-item";
 
 import { GbBalancingTotals } from "./balancing-totals/balancing-totals";
@@ -33,6 +34,7 @@ export const GbTotalsList: React.FC = () => {
       data={data && data.totals}
       refreshing={isLoading}
       onRefresh={() => refetch()}
+      ListHeaderComponent={Platform.OS !== "web" && StaleDataCard}
       renderItem={({ item }) => (
         <GbLiveListItem
           type={item.code}
