@@ -13,6 +13,7 @@ import {
   calculateCycleSeconds
 } from "../../../../state/utils";
 import { ErrorDataRetryCard } from "../../error-data-retry-card";
+import StaleDataCard from "../../stale-data-card";
 import { GbLiveListItem } from "../live-list-item/live-list-item";
 
 import Pagination from "./pagination";
@@ -23,7 +24,7 @@ export const GbUnitGroupsList: React.FC = () => {
   const { data, isLoading, refetch, isError } = useGbSummaryOutputQuery(
     undefined,
     {
-      pollingInterval: 1000 * 15,
+      pollingInterval: 1000 * 60,
       refetchOnReconnect: true
     }
   );
@@ -72,6 +73,7 @@ export const GbUnitGroupsList: React.FC = () => {
           code={item.code}
         />
       )}
+      ListHeaderComponent={Platform.OS !== "web" && StaleDataCard}
       ListFooterComponent={
         Platform.OS === "web" ? (
           <Pagination

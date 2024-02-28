@@ -43,7 +43,13 @@ class PnRequest(BaseElexonRequest, BaseModel):
         logging.info(
             f"parsing {len(raw.data)} pn records for {self.params.model_dump_json()}..."
         )
-        df = pd.DataFrame([r.model_dump() for r in raw.data])
+
+        data = [r.model_dump() for r in raw.data]
+        if len(data) == 0:
+            raise Exception(
+                "no data returned from mels request. Likely a problem with the API."
+            )
+        df = pd.DataFrame(data)
         df = df.dropna(subset=["bmUnit"])
         output = {}
         for bmUnit, group in df.groupby("bmUnit"):

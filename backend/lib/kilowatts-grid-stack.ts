@@ -88,7 +88,7 @@ export class KilowattsGridStack extends cdk.Stack {
       functionName: "gb-snapshot",
       code: lambda.Code.fromAsset("lambda"),
       handler: "gb_snapshot.handler.handler",
-      timeout: cdk.Duration.seconds(60),
+      timeout: cdk.Duration.seconds(90),
       memorySize: 512,
       environment: {
         BUCKET_NAME: bucket.bucketName,
