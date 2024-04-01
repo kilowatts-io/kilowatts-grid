@@ -40,6 +40,7 @@ def gb_snapshot():
     kwargs = request_params.model_dump()
     logging.info(f"getting bm")
     bm = Bm(**kwargs).run()
+
     embedded = Embedded(**kwargs).run()
 
     logging.info(f"combining generation totals from bm and embedded")

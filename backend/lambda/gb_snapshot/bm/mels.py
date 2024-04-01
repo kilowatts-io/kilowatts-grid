@@ -59,4 +59,10 @@ class MelsRequest(BaseElexonRequest, BaseModel):
                 if self._covers_relevant_period(levels):
                     output[bmUnit] = levels[levels.index <= self.dt].iloc[-1]
         logging.info(f"parsed mels data for {self.dt} - returned {len(output)} records")
-        return pd.Series(output)
+        series = pd.Series(output)
+        if series.empty:
+            raise Exception(
+                f"no data returned from mels request for {self.params.model_dump_json()}"
+            )
+
+        return series

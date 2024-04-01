@@ -56,7 +56,7 @@ class BoalfRequest(BaseElexonRequest, BaseModel):
     def _parse_raw_data(self, raw: RawBoalfResponse) -> pd.DataFrame:
         """get the most recent value at self.dt for each BMU"""
         logging.info(
-            f"parsing {len(raw.data)} pn records for {self.params.model_dump_json()}..."
+            f"parsing {len(raw.data)} boalf records for {self.params.model_dump_json()}..."
         )
         data = [r.model_dump() for r in raw.data]
         if len(data) == 0:

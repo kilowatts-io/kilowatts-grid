@@ -45,9 +45,10 @@ class PnRequest(BaseElexonRequest, BaseModel):
         )
 
         data = [r.model_dump() for r in raw.data]
+
         if len(data) == 0:
             raise Exception(
-                "no data returned from mels request. Likely a problem with the API."
+                "no data returned from pn request. Likely a problem with the API."
             )
         df = pd.DataFrame(data)
         df = df.dropna(subset=["bmUnit"])
@@ -60,6 +61,11 @@ class PnRequest(BaseElexonRequest, BaseModel):
         logging.info(
             f"parsed pn data for {self.params} -- returned {len(output)} records"
         )
-        return pd.DataFrame(
+        df = pd.DataFrame(
             data=output.values(), index=output.keys(), columns=["level", "delta"]
         )
+
+        if len(df) == 0:
+            raise Exception(f"no data returned from pn request")
+
+        return df
