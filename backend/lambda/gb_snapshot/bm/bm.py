@@ -1,7 +1,9 @@
 import asyncio
 from typing import Union
+
+import pytz
 from .ptypes import SettlementPeriodParams, FromToParams
-from datetime import timedelta
+from datetime import timedelta, timezone
 import pandas as pd
 from .boalf import BoalfRequest
 from .pn import PnRequest
@@ -38,13 +40,22 @@ class Bm(BaseModel):
         else:
             return self.dt.replace(minute=0)
 
+    def _most_recent_midnight(self, dt: datetime):
+        """get the most recent midnight in london. dt is in utc"""
+        london_time = dt.astimezone(pytz.timezone("Europe/London"))
+        london_midnight = london_time.replace(hour=0, minute=0, second=0, microsecond=0)
+        midnight_in_utc = london_midnight.astimezone(pytz.utc)
+        return midnight_in_utc
+
     def _get_settlement_period_params(self) -> SettlementPeriodParams:
         start = self._get_start_settlement_period()
-        midnight = start.replace(hour=0, minute=0)
+        midnight = self._most_recent_midnight(start)
+        settlementPeriod = int((start - midnight) / timedelta(minutes=30) + 1)
+
         return SettlementPeriodParams(
             dt=self.dt,
             settlementDate=start.date(),
-            settlementPeriod=(start - midnight) / timedelta(minutes=30) + 1,
+            settlementPeriod=settlementPeriod,
         )
 
     def _get_data(self) -> Union[pd.Series, pd.Series, pd.Series]:
