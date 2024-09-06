@@ -4,15 +4,19 @@ import { store } from "../state";
 import { Provider as ReduxProvider } from "react-redux";
 import ErrorBoundary from "../components/error-boundary";
 import { Stack } from "expo-router";
+import { initialise } from "../utils/sentry";
 
 const Layout: React.FC = () => {
+  React.useEffect(() => {
+    initialise();
+  }, []);
   return (
     <ErrorBoundary>
       <ReduxProvider store={store}>
-        <Stack 
-            screenOptions={{
-                headerShown: false,
-            }}
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
         />
       </ReduxProvider>
     </ErrorBoundary>
