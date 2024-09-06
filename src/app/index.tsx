@@ -1,13 +1,13 @@
 // create a hello world page
 
 import React from "react";
-import { Text, StyleSheet, View } from "react-native";
-import SkiaExampleComponent from "../components/skia-example";
+import { StyleSheet, View } from "react-native";
+import GbLiveWrapped from "../components/gb-live/live";
 
-const HelloWorld: React.FC = () => {
+const App: React.FC = () => {
   return (
     <View style={styles.container}>
-      <SkiaExampleComponent/>
+      <GbLiveWrapped />
     </View>
   );
 };
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export default HelloWorld;
+export default App;

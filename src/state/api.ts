@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { EXPO_PUBLIC_DATA_ENDPOINT } from "@env";
+const EXPO_PUBLIC_DATA_ENDPOINT = process.env.EXPO_PUBLIC_DATA_ENDPOINT
 
 export const kilowattsApi = createApi({
   reducerPath: "kilowattsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://${EXPO_PUBLIC_DATA_ENDPOINT}`
+    baseUrl: `${EXPO_PUBLIC_DATA_ENDPOINT}`,
   }),
   endpoints: (builder) => ({
     now: builder.query<GbPointInTime, void>({
-      query: () => ''
-    })
-  })
+      query: () => "",
+    }),
+  }),
 });
-
+export default kilowattsApi;
 export const { useNowQuery } = kilowattsApi;

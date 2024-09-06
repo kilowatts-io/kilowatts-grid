@@ -5,7 +5,7 @@ type TermsState = {
 };
 
 const initialState: TermsState = {
-  licenseAccepted: false
+  licenseAccepted: false,
 };
 
 export const termsSlice = createSlice({
@@ -14,15 +14,15 @@ export const termsSlice = createSlice({
   reducers: {
     acceptLicense: (state) => {
       state.licenseAccepted = true;
-    }
+    },
   },
   selectors: {
     getTermsAccepted: (state) => {
       return state.licenseAccepted;
-    }
-  }
+    },
+  },
 });
-export default termsSlice
+export default termsSlice;
 
 export const { acceptLicense } = termsSlice.actions;
 export const { getTermsAccepted } = termsSlice.selectors;

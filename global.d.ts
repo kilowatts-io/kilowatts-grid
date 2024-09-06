@@ -8,29 +8,52 @@ interface Coords {
   lng: number;
 }
 
-interface UnitGroup {
+interface UnitGroupPointInTime {
+  code: string;
+  name: string;
   output: Output;
   capacity: number;
   coords: Coords;
+  balancing_volume: number;
+  fuel_type: FuelType
 }
 
-interface FuelType {
+type FuelType = "gas"
+    | "hydro"
+    | "nuclear"
+    | "wind"
+    | "coal"
+    | "oil"
+    | "battery"
+    | "interconnector"
+    | "solar"
+    | "biomass";
+
+interface FuelTypePointInTime {
+  code: FuelType;
   output: Output;
   capacity: number;
+  balancing_volume: number;
 }
 
-interface Interconnector {
+interface InterconnectorPointInTime {
   output: Output;
-  capacity: number;
-  code: string;
-}
-
-interface ForeignMarket {
-  code: string;
-  output: Output;
-  capacity: number;
-  interconnectors: Interconnector[];
   coords: Coords;
+  capacity: number;
+  code: string;
+  balancing_volume: number;
+}
+
+type ForeignMarketKey = "fr" | "be" | "nl" | "dk" | "no" | "ie";
+
+interface ForeignMarketPointInTime {
+  code: ForeignMarketKey;
+  coords: Coords;
+  output: Output;
+  capacity: number;
+  interconnectors: InterconnectorPointInTime[];
+  coords: Coords;
+  balancing_volume: number;
 }
 
 interface BalancingTotals {
@@ -40,8 +63,8 @@ interface BalancingTotals {
 
 interface GbPointInTime {
   dt: string;
-  unit_groups: Record<string, UnitGroup>;
-  fuel_types: FuelType[];
-  foreign_markets: ForeignMarket[];
+  unit_groups: UnitGroupPointInTime[]
+  fuel_types: FuelTypePointInTime[];
+  foreign_markets: ForeignMarketPointInTime[];
   balancing_totals: BalancingTotals;
 }

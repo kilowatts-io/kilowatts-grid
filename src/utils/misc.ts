@@ -1,12 +1,5 @@
-interface WithBalancingVolumes {
-  bids: number;
-  offers: number;
-}
-export const calculateBalancingDirection = ({
-  bids,
-  offers
-}: WithBalancingVolumes): "none" | "bid" | "offer" => {
-  const net = offers - bids;
+
+export const calculateBalancingDirection = (net: number): "none" | "bid" | "offer" => {
   if (net === 0) return "none";
   if (net > 0) {
     return "offer";
@@ -15,17 +8,18 @@ export const calculateBalancingDirection = ({
 };
 
 interface WithCapacityFactor {
-  ac: number;
-  cp: number;
+  output: Output;
+  capacity: number
 }
 
-export const calculateCapacityFactor = ({ ac, cp }: WithCapacityFactor) => {
-  if (cp === 0) return 0;
+export const calculateCapacityFactor = ({ output, capacity }: WithCapacityFactor) => {
+  if (capacity === 0) return 0;
+  const ac = output.level;
   if (ac === 0) return 0;
   if (ac > 0) {
-    return Math.min(1, ac / cp);
+    return Math.min(1, ac / capacity);
   }
-  return Math.max(-1, ac / cp);
+  return Math.max(-1, ac / capacity);
 };
 
 const CYCLE_MILISECONDS_AT_FULL_CAPACITY = 2;
