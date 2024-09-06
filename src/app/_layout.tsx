@@ -5,9 +5,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import ErrorBoundary from "../components/error-boundary";
 import { Stack } from "expo-router";
 
-const Layout: React.FC<{
-  children: React.ReactNode;
-}> = ({ children }) => {
+const Layout: React.FC = () => {
   return (
     <ErrorBoundary>
       <ReduxProvider store={store}>
