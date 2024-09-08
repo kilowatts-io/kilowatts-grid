@@ -2,12 +2,17 @@
 
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import GbLiveWrapped from "../components/gb-live/live";
+import { WithAppData } from "../contexts/data";
+import { UnitGroupsList } from "../components/icon-list-item";
 
 const App: React.FC = () => {
   return (
     <View style={styles.container}>
-      <GbLiveWrapped />
+      <WithAppData>
+
+        <UnitGroupsList/>
+
+      </WithAppData>
     </View>
   );
 };

@@ -1,6 +1,5 @@
 
 import { store } from "@/src/state";
-import { CanvasPoint } from "./types";
 import { setSelectedUnitGroupCode } from "@/src/state/live";
 
 const MAX_DISTANCE = 10;

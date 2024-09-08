@@ -1,5 +1,4 @@
 import { GB_SVG_DIMS } from "../path";
-import { CanvasPoint, Coords } from "../types";
 
 const bounds = GB_SVG_DIMS.bounds.land;
 

@@ -1,7 +1,4 @@
 import { ScaledSize } from "react-native";
-
-import { ZoomPanSharedValueState } from "../context";
-
 import calculateMinScale from "./min-scale";
 import calculateSvgDims from "./svg-dims";
 

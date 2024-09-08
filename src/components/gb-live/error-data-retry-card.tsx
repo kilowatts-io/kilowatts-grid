@@ -17,7 +17,6 @@ export const ErrorDataRetryCard: React.FC<ErrorDataRetryCardProps> = (p) => {
         </Text>
       </View>
       <Button
-        // title="Retry"
         onPress={() => p.refetch()}
         iconPosition="right"
         icon={<Icon name="refresh" type="material" size={15} color="white" />}

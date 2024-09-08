@@ -8,52 +8,55 @@ interface Coords {
   lng: number;
 }
 
-interface UnitGroupPointInTime {
+interface PointInTime {
+  output: Output;
+  capacity: number;
+  coords: Coords;
+  balancing_volume: number;
+}
+
+interface UnitGroupPointInTime extends PointInTime {
   code: string;
   name: string;
-  output: Output;
-  capacity: number;
-  coords: Coords;
-  balancing_volume: number;
-  fuel_type: FuelType
+  fuel_type: FuelType;
 }
 
-type FuelType = "gas"
-    | "hydro"
-    | "nuclear"
-    | "wind"
-    | "coal"
-    | "oil"
-    | "battery"
-    | "interconnector"
-    | "solar"
-    | "biomass";
+type DispatchableFuelType =
+  | "gas"
+  | "oil"
+  | "coal"
+  | "nuclear"
+  | "hydro"
+  | "biomass";
 
-interface FuelTypePointInTime {
+type FuelType =
+  | "gas"
+  | "hydro"
+  | "nuclear"
+  | "wind"
+  | "coal"
+  | "oil"
+  | "battery"
+  | "interconnector"
+  | "solar"
+  | "biomass"
+  
+
+interface FuelTypePointInTime extends PointInTime {
   code: FuelType;
-  output: Output;
-  capacity: number;
-  balancing_volume: number;
+  // fuel_type: FuelType;
 }
 
-interface InterconnectorPointInTime {
-  output: Output;
-  coords: Coords;
-  capacity: number;
+interface InterconnectorPointInTime extends PointInTime {
   code: string;
-  balancing_volume: number;
 }
 
 type ForeignMarketKey = "fr" | "be" | "nl" | "dk" | "no" | "ie";
 
-interface ForeignMarketPointInTime {
+interface ForeignMarketPointInTime extends PointInTime {
+  coords: Coords;
   code: ForeignMarketKey;
-  coords: Coords;
-  output: Output;
-  capacity: number;
   interconnectors: InterconnectorPointInTime[];
-  coords: Coords;
-  balancing_volume: number;
 }
 
 interface BalancingTotals {
@@ -61,10 +64,106 @@ interface BalancingTotals {
   offers: number;
 }
 
-interface GbPointInTime {
+interface BackendData {
   dt: string;
-  unit_groups: UnitGroupPointInTime[]
+  unit_groups: UnitGroupPointInTime[];
   fuel_types: FuelTypePointInTime[];
   foreign_markets: ForeignMarketPointInTime[];
   balancing_totals: BalancingTotals;
 }
+
+
+// processed, dervived data types for use in the app
+
+interface CanvasPoint {
+  x: number;
+  y: number;
+}
+
+interface MapGeneratorIconProps extends PointInTime {
+  code: string;
+  fuel_type: FuelType;
+  point: CanvasPoint;
+  sizePx: SharedValue<number>;
+  capacityFactor: SharedValue<number>;
+  cycleSeconds: SharedValue<number>;
+}
+
+
+interface MapCableProps extends MapGeneratorIconProps {
+  foreignMarket: MapGeneratorIconProps;
+  isExport: boolean;
+}
+
+interface MapForeignMarketProps {
+  code: ForeignMarketKey;
+  point: CanvasPoint;
+  cables: MapCableProps[];
+}
+
+interface AppListIconProps extends PointInTime {
+  code: string;
+  name: string;
+  fuel_type: FuelType;
+  capacityFactor: SharedValue<number>;
+  cycleSeconds: SharedValue<number>;
+  selected?: boolean;
+}
+
+interface AppData {
+  dt: string;
+  map: {
+    unit_groups: MapGeneratorIconProps[];
+    foreign_markets: MapForeignMarketProps[]
+  }
+  lists: {
+    fuel_types: AppListIconProps[];
+    unit_groups: AppListIconProps[];
+    balancing_totals: BalancingTotals
+  }
+}
+
+interface DataContext {
+  data: AppData;
+  isLoading: boolean;
+  refetch: () => void;
+  onRefresh: () => void;
+  refreshing: boolean;
+}
+
+type BalancingDirection = "bid" | "offer" | "none";
+
+interface WithBalancingDirection {
+  direction: BalancingDirection;
+}
+
+
+interface DispatchableMapGeneratorIconProps extends MapGeneratorIconProps {
+  fuel_type: DispatchableFuelType;
+}
+
+// interface ListIconProps extends PointInTime {
+//   cycleSeconds: SharedValue<number>;
+// }
+
+// interface DispatchableListIconProps extends ListIconProps {
+//   fuel_type: DispatchableFuelType;
+// }
+
+// map and gesture context
+
+type GestureMode = "none" | "pan" | "pinch";
+type GestureModeSharedValue = SharedValue<GestureMode>;
+interface ZoomPanSharedValueState {
+  translateX: number;
+  translateY: number;
+  scale: number;
+};
+
+type ZoomPanSharedValue = SharedValue<ZoomPanSharedValueState>;
+
+interface MapContextState  {
+  screen: ScaledSize;
+  zoomPan?: ZoomPanSharedValue;
+  gestureMode: GestureModeSharedValue;
+};

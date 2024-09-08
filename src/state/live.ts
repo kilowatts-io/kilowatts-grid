@@ -51,7 +51,7 @@ export interface SetOutputTotalBmActionPayload
 }
 
 export const gbLiveSlice = createSlice({
-  name: "gbLive",
+  name: "live",
   initialState,
   reducers: {
     setSelectedUnitGroupCode: (
@@ -67,6 +67,8 @@ export const gbLiveSlice = createSlice({
 export default gbLiveSlice;
 
 // selectors
+
+export const selectUnitGroupCode = (state: RootState) => state.live.selectedUnitGroupCode
 
 export const selectors = {
   // unit groups

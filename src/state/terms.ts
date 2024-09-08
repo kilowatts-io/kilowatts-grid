@@ -9,7 +9,7 @@ const initialState: TermsState = {
 };
 
 export const termsSlice = createSlice({
-  name: "termsSlice",
+  name: "terms",
   initialState,
   reducers: {
     acceptLicense: (state) => {

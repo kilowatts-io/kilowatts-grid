@@ -4,6 +4,7 @@
     "slug": "kilowattsgrid",
     "version": "1.0.0",
     "orientation": "portrait",
+    "scheme": "kilowattsgrid",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

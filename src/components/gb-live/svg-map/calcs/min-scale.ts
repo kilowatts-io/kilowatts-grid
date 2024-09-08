@@ -1,8 +1,13 @@
 import { ScaledSize } from "react-native";
-
 import { GB_SVG_DIMS } from "../path";
+import * as c from "@/src/constants";
 
-import getUsableScreenSize from "./usable-screen-size";
+const getUsableScreenSize = (screen: ScaledSize) => {
+  "worklet";
+  const width = screen.width - c.SCREEN_MARGIN_PIXELS;
+  const height = screen.height - c.SCREEN_MARGIN_PIXELS;
+  return { width, height };
+};
 
 /* calculate the most zoomed out scale possible - that when the entire UK is visible on the screen*/
 const calculateMinScale = (screen: ScaledSize) => {

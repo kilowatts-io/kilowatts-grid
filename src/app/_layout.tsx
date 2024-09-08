@@ -5,6 +5,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import ErrorBoundary from "../components/error-boundary";
 import { Stack } from "expo-router";
 import { initialise } from "../utils/sentry";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Layout: React.FC = () => {
   React.useEffect(() => {
@@ -12,6 +13,7 @@ const Layout: React.FC = () => {
   }, []);
   return (
     <ErrorBoundary>
+      <GestureHandlerRootView>
       <ReduxProvider store={store}>
         <Stack
           screenOptions={{
@@ -19,6 +21,7 @@ const Layout: React.FC = () => {
           }}
         />
       </ReduxProvider>
+      </GestureHandlerRootView>
     </ErrorBoundary>
   );
 };

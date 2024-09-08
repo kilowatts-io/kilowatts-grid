@@ -1,24 +1,21 @@
 import React from "react";
 import { Linking, View } from "react-native";
 import { Button, Card, Text } from "@rneui/themed";
-import { useNowQuery } from "../../state/api";
+import { useDataContext } from "@/src/contexts/data";
+import { STALE_THRESHOLD_MINUTES } from "@/src/constants";
 
-interface StaleDataCardProps {}
 
-const THRESHOLD_MINUTES = 10;
-
-const determineIfDataIsStale = (data: GbPointInTime) => {
+const determineIfDataIsStale = (data: BackendData) => {
   if (!data) return false;
   const lastUpdated = new Date(data.dt);
   const now = new Date();
   const diff = now.getTime() - lastUpdated.getTime();
-  return diff > THRESHOLD_MINUTES * 60 * 1000;
+  return diff > STALE_THRESHOLD_MINUTES * 60 * 1000;
 };
 
-const StaleDataCard: React.FC<StaleDataCardProps> = () => {
-  const data = useNowQuery();
-  if (!data.currentData) return undefined;
-  const isStale = determineIfDataIsStale(data.currentData);
+const StaleDataCard: React.FC = () => {
+  const { data, refetch } = useDataContext();
+  const isStale = determineIfDataIsStale(data);
   if (!isStale) return undefined;
   return (
     <View style={{ paddingBottom: 10 }}>
@@ -26,7 +23,7 @@ const StaleDataCard: React.FC<StaleDataCardProps> = () => {
         <Card.Title>Data Error</Card.Title>
         <Text>
           {`Data shown is from ${new Date(
-            Date.parse(data.currentData.dt)
+            Date.parse(data.dt)
           ).toLocaleString()} and is stale/out-of-date. There may be an outage affecting Elexon/BMRS data, our data pipeline, or your internet connection. `}
         </Text>
         <View style={{ height: 20 }} />
@@ -43,7 +40,7 @@ const StaleDataCard: React.FC<StaleDataCardProps> = () => {
 
         <View style={{ height: 10 }} />
 
-        <Button size="sm" onPress={() => data.refetch()}>
+        <Button size="sm" onPress={refetch}>
           Retry
         </Button>
       </Card>

@@ -4,5 +4,8 @@ export const BALANCING_COLORS = {
   none: "grey"
 };
 
-export const getBalancingColor = (balancing: "bid" | "offer" | "none") =>
-  BALANCING_COLORS[balancing];
+export const getBalancingDirection = (balancing_volume: number): BalancingDirection => 
+  balancing_volume > 0 ? "bid" : balancing_volume < 0 ? "offer" : "none";
+
+export const getBalancingColor = (balancing_volume: number) =>
+  BALANCING_COLORS[getBalancingDirection(balancing_volume)];

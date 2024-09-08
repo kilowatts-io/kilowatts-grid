@@ -1,5 +1,4 @@
 import { GB_SVG_DIMS } from "../path";
-import { CanvasPoint } from "../types";
 
 /* given a point on the map, use the Mercator projection to calculate the corresponding coords */
 const calculateCoords = (point: CanvasPoint) => {
