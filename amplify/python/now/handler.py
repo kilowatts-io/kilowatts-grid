@@ -359,14 +359,22 @@ class GbPointInTimeRequest(BaseModel):
         return t.BalancingTotals(bids=bids, offers=offers).model_dump()
 
 def handler(event=None, context=None):
-    # init_sentry()
-    resp = GbPointInTimeRequest().run()
-    logging.info(f"Got response - now serializing")
-    return {
-        "statusCode": 200,
-        "body": resp.model_dump_json(),
-        "headers": {"Content-Type": "application/json"},
-    }
+    try:
+        resp = GbPointInTimeRequest().run()
+        logging.info(f"Got response - now serializing")
+        return {
+            "statusCode": 200,
+            "body": resp.model_dump_json(),
+            "headers": {"Content-Type": "application/json"},
+        }
+    except Exception as e:
+        logging.error(f"Error occurred: {str(e)}")
+        return {
+            "statusCode": 500,
+            "body": json.dumps({"error": str(e)}),
+            "headers": {"Content-Type": "application/json"},
+            "cache-control": "no-store",
+        }
 
 
 if __name__ == "__main__":

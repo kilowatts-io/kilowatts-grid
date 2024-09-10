@@ -4,7 +4,7 @@ from datetime import datetime
 from .logs import logging
 
 
-def interpolate_values(values: List[LevelPair], dt: datetime) -> UnitOutput:
+def interpolate_values(values: List[LevelPair], dt: datetime, fallback_first: bool = False) -> UnitOutput:
     """Interpolate the values to the target datetime, measured in MW per minute.
 
     The function performs linear interpolation if the target datetime
@@ -46,12 +46,15 @@ def interpolate_values(values: List[LevelPair], dt: datetime) -> UnitOutput:
             interpolated_value = v1.x + mw_per_minute * dt_diff_minutes
 
             return UnitOutput(level=interpolated_value, delta=mw_per_minute)
+        
+    if fallback_first:
+        return UnitOutput(level=values[0].x, delta=0.0)
 
     # In case of an unexpected condition (this should not be reached)
     raise ValueError(f"Could not interpolate the value for datetime {dt}")
 
 
-def get_mels_value(values: List[LevelPair], dt: datetime) -> float:
+def get_mels_value(values: List[LevelPair], dt: datetime, fallback_first: bool = False) -> float:
     """for mels, get the latest value at the time of the target datetime"""
     value = None
     for v in values:
@@ -59,6 +62,9 @@ def get_mels_value(values: List[LevelPair], dt: datetime) -> float:
             value = v.x
     if value:
         return value
+    
+    if fallback_first:
+        return values[0].x
 
     return 0.0
 

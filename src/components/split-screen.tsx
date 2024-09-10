@@ -1,123 +1,25 @@
 // split screen components that combine the map at the top with a scrollable list of icons at the bottom
 import React from "react";
-import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
+import {StyleSheet, useWindowDimensions, View } from "react-native";
 import SvgMap from "./svg-map";
+import {Icon} from 'react-native-paper'
 import { FuelTypesList, UnitGroupsList } from "./icon-list-item";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useDataContext } from "../contexts/data";
 import UnitGroupCard from "./unit-group-card";
-import { useNavigation, useRouter } from "expo-router";
-import { Button } from "react-native-paper";
 import { londonTimeHHMMSS } from "../utils/dateTime";
-import { useSharedValue } from "react-native-reanimated";
+import { Stack, useRouter } from "expo-router";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-const HeaderBar: React.FC<{
-  title: string;
-  backUrl?: string;
-}> = (p) => {
-  const nav = useNavigation();
-  const router = useRouter();
-  React.useEffect(() => {
-    nav.setOptions({
-      headerTitle: capitalise(p.title),
-    });
-  }, [p.title]);
-  React.useEffect(() => {
-    if (!p.backUrl) {
-      nav.setOptions({ headerLeft: () => null });
-    } else {
-      nav.setOptions({
-        headerLeft: () => (
-          <Button
-            icon="chevron-left"
-            onPress={() => router.replace(p.backUrl as any)}
-          >
-            <></>
-          </Button>
-        ),
-      });
-    }
-  }, [p.backUrl, nav, router]);
-  return <></>;
-};
+const Title: React.FC<{ title: string }> = ({ title }) => (
+  <Stack.Screen options={{ title: capitalise(title) }} />
+);
 
 interface SplitScreenComponentProps {
-  top: AppMapData & { initialCenter?: Coords };
-  bottom: React.ReactNode;
+  svgMap: AppMapData & { initialCenter?: Coords; zoom?: number; onTapIcon?: (index: number) => void };
+  list: React.ReactNode;
 }
-
-/**
- * On devices without a touch screen, fix the screen 50/50
- */
-const NonTouchScreen: React.FC<SplitScreenComponentProps> = ({
-  top,
-  bottom,
-}) => {
-  const dims = useWindowDimensions();
-  return (
-    <View style={styles.wholeScreen}>
-      <View style={styles.top}>
-        <SvgMap
-          {...top}
-          size={{ height: dims.height / 2, width: dims.width }}
-        />
-      </View>
-      <View style={styles.bottom}>{bottom}</View>
-    </View>
-  );
-};
-
-const SNAP_POINTS = Array.from({ length: 100 }, (_, i) => `${(i + 1) * 1}%`);
-
-const INITIAL_SNAP_POINT = 50;
-const TOP_BOTTOM_MARGIN = 60;
-
-/**
- * On touch screen devices, render a bottom view scrollable component
- */
-const TouchScreen: React.FC<SplitScreenComponentProps> = ({ top, bottom }) => {
-  const bottomSheetRef = React.useRef<BottomSheet>(null);
-  const snapIndex = useSharedValue(INITIAL_SNAP_POINT);
-  const usableHeight = useWindowDimensions().height - TOP_BOTTOM_MARGIN;
-
-  return (
-    <View style={styles.wholeScreen}>
-      <BottomSheet
-        ref={bottomSheetRef}
-        snapPoints={SNAP_POINTS}
-        index={snapIndex.value}
-        style={{ zIndex: 1 }}
-      >
-        <BottomSheetView>{bottom}</BottomSheetView>
-      </BottomSheet>
-
-      <SvgMap
-        {...top}
-        size={{ height: usableHeight, width: useWindowDimensions().width }}
-        />
-    </View>
-  );
-};
-
-const useIsTouchScreen = () => {
-  const [isTouchScreen, setIsTouchScreen] = React.useState(false);
-  React.useEffect(() => {
-    if (Platform.OS === "ios" || Platform.OS === "android") {
-      setIsTouchScreen(true);
-    } else {
-      const handleTouchStart = () => {
-        setIsTouchScreen(true);
-      };
-      document.addEventListener("touchstart", handleTouchStart);
-      return () => {
-        document.removeEventListener("touchstart", handleTouchStart);
-      };
-    }
-  }, []);
-  return isTouchScreen;
-};
 
 const SPLIT_SCREEN_WIDTH_BREAKPOINT = 800;
 
@@ -126,32 +28,57 @@ export const useNarrowScreen = () => {
   return width < SPLIT_SCREEN_WIDTH_BREAKPOINT;
 };
 
+/**every integer from 0 - 100 */
+const START_SNAP = 15;
+const END_SNAP = 85;
+const SNAP_POINTS = Array.from(
+  { length: END_SNAP - START_SNAP },
+  (_, i) => i + START_SNAP
+).map((x) => `${x}%`);
+const INITIAL_SNAP_POINT = Math.trunc(SNAP_POINTS.length / 6);
+
+const Tab = createBottomTabNavigator();
+
+
+
 /**
  * A component that switches between touch and non-touch screen components based on the device's capabilities
  */
-const SplitScreen: React.FC<SplitScreenComponentProps> = ({ top, bottom }) => {
-  const isNarrowScreen = useNarrowScreen();
-  const isTouchScreen = useIsTouchScreen();
+const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
+  const isSmallScreen = useNarrowScreen();
   const dims = useWindowDimensions();
-  if (!isNarrowScreen) {
+  const svgMap = <SvgMap {...p.svgMap} size={dims} />;
+
+  if (!isSmallScreen) {
     return (
       <View style={styles.wide}>
-                <View style={styles.right}>{bottom}</View>
-
-        <View style={styles.left}>
-          <SvgMap {...top} size={{ 
-            height: dims.height, 
-            width: dims.width / 2
-           }} />
-
-        </View>
+        <View style={styles.right}>{p.list}</View>
+        <View style={styles.left}>{svgMap}</View>
       </View>
     );
   }
-  return isTouchScreen ? (
-    <TouchScreen top={top} bottom={bottom} />
-  ) : (
-    <NonTouchScreen top={top} bottom={bottom} />
+
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+      }}
+    >
+      <Tab.Screen name="List" getComponent={() => () => p.list} 
+          // add icon
+          options={{
+            tabBarIcon: (p) => <Icon source='clipboard-list' {...p} />,
+          }}
+        />
+      <Tab.Screen name="Map" getComponent={() => () => svgMap} 
+          // add icon
+          options={{
+            
+            tabBarIcon: p => <Icon source='map' {...p}/>,
+          }}
+        />
+    </Tab.Navigator>
   );
 };
 
@@ -160,12 +87,17 @@ const SplitScreen: React.FC<SplitScreenComponentProps> = ({ top, bottom }) => {
  */
 export const HomeScreen: React.FC = () => {
   const { data } = useDataContext();
+  const router = useRouter()
   return (
     <>
-      <HeaderBar title={`Grid at ${londonTimeHHMMSS(new Date(data.dt))}`} />
+      <Title title={`Grid at ${londonTimeHHMMSS(new Date(data.dt))}`} />
       <SplitScreen
-        top={data.map}
-        bottom={<FuelTypesList data={data.lists.fuel_types} />}
+        svgMap={{
+          ...data.map,
+          onTapIcon: (index) => router.push(`/unit_group/${data.map.unit_groups[index].code.toLowerCase()}`),
+
+        }}
+        list={<FuelTypesList data={data.lists.fuel_types} />}
       />
     </>
   );
@@ -177,6 +109,7 @@ export const HomeScreen: React.FC = () => {
 export const FuelTypeScreen: React.FC<{
   fuel_type: FuelType;
 }> = (p) => {
+  const router = useRouter()
   const { data } = useDataContext();
   const map_icons = data.map.unit_groups.filter(
     (x) => x.fuel_type.toLowerCase() === p.fuel_type.toLowerCase()
@@ -184,18 +117,19 @@ export const FuelTypeScreen: React.FC<{
   const list_data = data.lists.unit_groups.filter(
     (x) => x.fuel_type.toLowerCase() === p.fuel_type.toLowerCase()
   );
-  if(!map_icons || !list_data) {
+  if (!map_icons || !list_data) {
     return <></>;
   }
   return (
     <>
-      <HeaderBar title={p.fuel_type} backUrl={`/`} />
+      <Title title={p.fuel_type} />
       <SplitScreen
-        top={{
+        svgMap={{
           unit_groups: map_icons,
-          foreign_markets: []
+          foreign_markets: [],
+          onTapIcon: (index) => router.push(`/unit_group/${list_data[index].code.toLowerCase()}`),
         }}
-        bottom={<UnitGroupsList data={list_data} />}
+        list={<UnitGroupsList data={list_data} />}
       />
     </>
   );
@@ -221,22 +155,18 @@ export const UnitGroupScreen: React.FC<{
     return <></>;
   }
 
-
   return (
     <>
-      <HeaderBar
-        title={list_data.name}
-        backUrl={`fuel_type/${list_data.fuel_type}`}
-      />
+      <Title title={list_data.name} />
       <SplitScreen
-        top={
-          {
-            unit_groups: [map_icon],
-            foreign_markets: [],
-            initialCenter: map_icon.coords
-          }
-        }
-        bottom={<UnitGroupCard {...list_data} />}
+        svgMap={{
+          unit_groups: [map_icon],
+          foreign_markets: [],
+          initialCenter: map_icon.coords,
+          zoom: 1.5,
+
+        }}
+        list={<UnitGroupCard {...list_data} />}
       />
     </>
   );

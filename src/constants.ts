@@ -33,7 +33,7 @@ export const CYCLE_SECONDS = 1 / 300;
 // map
 
 export const ICON_SIZE_PX_TO_CAPACITY_MW = 1 / 100;
-export const FOREIGN_MARKET_ICON_SCALER = 0.3;
+export const FOREIGN_MARKET_ICON_SCALER = 1
 
 export const MAP_BACKGROUND_COLOR = "lightblue";
 export const MAX_SCALE = 16.0;

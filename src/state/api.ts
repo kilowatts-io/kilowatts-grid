@@ -167,7 +167,7 @@ const mapForeignMarket = (
       ...i,
       fuel_type: "interconnector",
       point: point(i),
-      sizePx: sizePx.mapIcon(p, c.FOREIGN_MARKET_ICON_SCALER),
+      sizePx: sizePx.mapIcon(i, c.FOREIGN_MARKET_ICON_SCALER),
       capacityFactor: capacityFactor(p),
       cycleSeconds: cycleSeconds(p),
       foreignMarket,

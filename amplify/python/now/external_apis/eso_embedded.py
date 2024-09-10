@@ -32,6 +32,7 @@ class EsoEmbedded(BaseModel):
         response.raise_for_status()  # Raise an error for bad HTTP status
         raw = t.EsoRawEmbeddedResponse(**response.json())
         parsed = self._parse(raw)
+        logging.info(f"validated newly received embedded forecast - writing to S3")
         self._write_s3(parsed)
         return parsed
     
@@ -83,29 +84,23 @@ class EsoEmbedded(BaseModel):
             logging.error("No data in ESO API response")
             raise ValueError("No data in ESO API response")
 
-        wind_generation = [
-            t.LevelPair(d=x.dt, x=x.wind_generation) for x in parsed.values
-        ]
-
+        wind_generation = [t.LevelPair(d=x.dt, x=x.wind_generation) for x in parsed.values]
         wind_capacity = [t.LevelPair(d=x.dt, x=x.wind_capacity) for x in parsed.values]
+        solar_generation = [t.LevelPair(d=x.dt, x=x.solar_generation) for x in parsed.values]
+        solar_capacity = [t.LevelPair(d=x.dt, x=x.solar_capacity) for x in parsed.values]
 
-        solar_generation = [
-            t.LevelPair(d=x.dt, x=x.solar_generation) for x in parsed.values
-        ]
-
-        solar_capacity = [
-            t.LevelPair(d=x.dt, x=x.solar_capacity) for x in parsed.values
-        ]
+        interpolated_wind_generation = interpolate_values(wind_generation, self.dt, fallback_first=True)
+        interpolated_wind_capacity = get_mels_value(wind_capacity, self.dt, fallback_first=True)
+        interpolated_solar_generation = interpolate_values(solar_generation, self.dt, fallback_first=True)
+        interpolated_solar_capacity = get_mels_value(solar_capacity, self.dt, fallback_first=True)
 
         return t.EmbeddedSnapshot(
-            **{
-                "wind": {
-                    "generation": interpolate_values(wind_generation, self.dt),
-                    "capacity": get_mels_value(wind_capacity, self.dt),
-                },
-                "solar": {
-                    "generation": interpolate_values(solar_generation, self.dt),
-                    "capacity": get_mels_value(solar_capacity, self.dt),
-                },
-            }
+            wind=t.EmbeddedGeneration(
+                generation= interpolated_wind_generation,
+                capacity=interpolated_wind_capacity,
+            ),
+            solar=t.EmbeddedGeneration(
+                generation= interpolated_solar_generation,
+                capacity=interpolated_solar_capacity,
+            )
         )

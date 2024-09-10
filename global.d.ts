@@ -204,4 +204,5 @@ interface SvgMapProps extends AppMapData {
     height: number;
     width: number;
   };
+  onTapIcon?: (index: number) => void;
 }
