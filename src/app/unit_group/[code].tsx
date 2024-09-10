@@ -9,11 +9,6 @@ const FuelTypeScreen: React.FC = () => {
   const code = useLocalSearchParams().code as string;
   return (
     <WithAppData>
-      <Stack.Screen
-        options={{
-          title: "Loading",
-        }}
-      />
       <Screen code={code} />
     </WithAppData>
   );
