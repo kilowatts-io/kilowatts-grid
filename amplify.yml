@@ -24,8 +24,7 @@ frontend:
                   fi
         build:
             commands:
-                - 'expo export -p web'
-                - 'cp public/* dist/'
+                - 'npm run build:web'
     
     artifacts:
         baseDirectory: dist
