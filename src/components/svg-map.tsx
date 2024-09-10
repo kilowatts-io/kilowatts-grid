@@ -137,9 +137,41 @@ const searchPoint = (pressed: CanvasPoint, coords: Coords[]) => {
 
 const DEFAULT_ZOOM = 0.65;
 
+const useScrollGestureWeb = (
+  onZoomIn: () => void,
+  onZoomOut: () => void
+) => {
+  const handleScroll = (event: WheelEvent) => {
+    if (event.deltaY > 0) {
+      // Zoom out logic
+      onZoomOut();
+    } else if (event.deltaY < 0) {
+      // Zoom in logic
+      onZoomIn();
+    }
+  };
+
+  React.useEffect(() => {
+    // if not on web, return
+    if (typeof window === "undefined") return;
+    window.addEventListener("wheel", handleScroll);
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+    };
+  }, []);
+}
+
 export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const svgMap = p.svgMap || GB_SVG_MAP;
   const zoom = useSharedValue(p.zoom || DEFAULT_ZOOM);
+  useScrollGestureWeb(
+    () => {
+      zoom.value += 0.05;
+    },
+    () => {
+      zoom.value -= 0.05;
+    }
+  )
 
   const initialCenter = p.initialCenter || mapCenter(svgMap);
   const centerLat = useSharedValue(initialCenter.lat);
