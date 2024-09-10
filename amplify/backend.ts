@@ -47,7 +47,7 @@ const s3Bucket = new s3.Bucket(stack, "GbSnapshotBucket")
 const gbPointInTime = new lambda.Function(stack, "GbNow", {
   code,
   runtime: lambda.Runtime.PYTHON_3_11,
-  functionName: 'gb-now-snapshot',
+  // functionName: 'gb-now-snapshot',
   environment: {
     // SENTRY_DSN: sentryDsn,
     // SENTRY_ENVIRONMENT: sentryEnvironment,
