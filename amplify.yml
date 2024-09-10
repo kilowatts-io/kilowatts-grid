@@ -17,7 +17,7 @@ frontend:
         build:
             commands:
                 - 'mkdir ./dist && touch ./dist/index.html'
-                - 'expo export -p web'
+                - 'npx expo export -p web'
     artifacts:
         baseDirectory: dist
         files:
