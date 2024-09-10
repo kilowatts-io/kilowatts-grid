@@ -11,7 +11,8 @@
     "build:web": "expo export -p web",
     "serve": "npm run build:web && npx serve dist",
     "precommit": "lint-staged && jest",
-    "format": "prettier --write 'src'"
+    "format": "prettier --write 'src'",
+    "postinstall": "npx setup-skia-web && cp public/_expo/static/js/web/canvaskit.wasm public/canvaskit.wasm"
   },
   "dependencies": {
     "@aws-amplify/react-native": "^1.1.5",
