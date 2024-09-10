@@ -12,7 +12,6 @@
     "serve": "npm run build:web && npx serve dist",
     "precommit": "lint-staged && jest",
     "format": "prettier --write 'src'",
-    "postinstall": "npx setup-skia-web",
     "build:android": "eas build -p android --local",
     "build:ios": "eas build -p ios --local"
   },
