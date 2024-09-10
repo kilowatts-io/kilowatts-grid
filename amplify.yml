@@ -25,6 +25,7 @@ frontend:
         build:
             commands:
                 - 'expo export -p web'
+                - 'cp public/* dist/'
     
     artifacts:
         baseDirectory: dist
