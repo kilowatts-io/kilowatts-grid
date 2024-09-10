@@ -1,0 +1,26 @@
+version: 1
+backend:
+    phases:
+        build:
+            commands:
+                - 'npm ci --cache .npm --prefer-offline'
+                - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
+frontend:
+    phases:
+        preBuild:
+            commands:
+                - 'nvm use 10'
+                - 'npm install --silent --global expo-cli'
+                - "if [ -f yarn.lock ]; then\n yarn\nelif [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then\n npm ci --cache .npm --prefer-offline\nelse\n npm install\nfi"
+        build:
+            commands:
+                - 'mkdir ./dist && touch ./dist/index.html'
+                - 'expo export -p web'
+    artifacts:
+        baseDirectory: dist
+        files:
+            - '**/*'
+    cache:
+        paths:
+            - '.npm/**/*'
+            - '$(npm root --global)/**/*'
