@@ -365,7 +365,12 @@ def handler(event=None, context=None):
         return {
             "statusCode": 200,
             "body": resp.model_dump_json(),
-            "headers": {"Content-Type": "application/json"},
+            
+            "headers": {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*', 
+                'Access-Control-Allow-Headers': 'Content-Type'
+            },
         }
     except Exception as e:
         logging.error(f"Error occurred: {str(e)}")
