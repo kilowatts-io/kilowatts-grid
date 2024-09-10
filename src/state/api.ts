@@ -109,7 +109,7 @@ const point = (p: { coords: Coords }): CanvasPoint => calculatePoint(p.coords);
  */
 const capacityFactor = (p: PointInTime): number => {
   if (p.capacity === undefined) return 0;
-  return Math.max(0,  Math.min(1, p.output.level / p.capacity))
+  return Math.max(0, Math.min(1, p.output.level / p.capacity));
 };
 
 /**
@@ -200,8 +200,8 @@ const fuelTypeIcon = (p: FuelTypePointInTime): AppListIconProps =>
 const unitGroupIcon = (p: UnitGroupPointInTime): AppListIconProps =>
   listProps(p);
 
-
-const filterZero = (p: PointInTime): boolean => p.output.level !== 0 || p.balancing_volume !== 0;
+const filterZero = (p: PointInTime): boolean =>
+  p.output.level !== 0 || p.balancing_volume !== 0;
 /**
  * For Lists, sort in descending order, first by level, then by capacity
  * @param a PointInTime
@@ -212,20 +212,20 @@ const sortDescending = (a: PointInTime, b: PointInTime) => {
   return b.output.level - a.output.level;
 };
 
-
-
 const getBaseUrl = () => {
-  const amplify_exports = require("../../amplify_outputs.json");
-  if(amplify_exports){
-    return amplify_exports.custom.API.kilowattsGridApi.endpoint
+  try {
+    const amplify_exports = require("../../amplify_outputs.json");
+    if (amplify_exports) {
+      return amplify_exports.custom.API.kilowattsGridApi.endpoint;
+    }
+  } catch (e) {
+    const fromEnv = process.env.EXPO_PUBLIC_API_URL;
+    if (!fromEnv) {
+      throw new Error("No API URL found");
+    }
+    return fromEnv;
   }
-  const fromEnv = process.env.EXPO_PUBLIC_API_URL
-  if(!fromEnv){
-    throw new Error("No API URL found")
-  }
-  return fromEnv
-}
-
+};
 
 export const api = createApi({
   reducerPath: "api",
@@ -244,10 +244,13 @@ export const api = createApi({
           },
           lists: {
             fuel_types: data.fuel_types.map(fuelTypeIcon).sort(sortDescending),
-            unit_groups: data.unit_groups.map(unitGroupIcon).filter(filterZero).sort(sortDescending),
+            unit_groups: data.unit_groups
+              .map(unitGroupIcon)
+              .filter(filterZero)
+              .sort(sortDescending),
             balancing_totals: data.balancing_totals,
           },
-        }
+        };
         return Promise.resolve(output);
       },
     }),

@@ -46,3 +46,8 @@ amplifyconfiguration*
 __pycache__/
 *.py[cod]
 *$py.class
+
+*.aab
+*.ipa
+
+*.pyc

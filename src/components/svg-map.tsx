@@ -1,20 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import {
-  Canvas,
-  Circle,
-  Group,
-  Path,
-} from "@shopify/react-native-skia";
+import { Canvas, Circle, Group, Path } from "@shopify/react-native-skia";
 import { ForeignFlag } from "@/src/atoms/flags";
 import * as i from "@/src/components/icons";
 import * as c from "@/src/constants";
-import {
-  useDerivedValue,
-  useSharedValue,
-} from "react-native-reanimated";
-import {Button} from 'react-native-paper'
+import { useDerivedValue, useSharedValue } from "react-native-reanimated";
+import { Button } from "react-native-paper";
 
 export const GB_SVG_MAP: SvgMap = {
   dims: {
@@ -131,7 +123,7 @@ const searchPoint = (pressed: CanvasPoint, coords: Coords[]) => {
       dist: Math.sqrt((x - pressed.x) ** 2 + (y - pressed.y) ** 2),
     }))
     .sort((a, b) => a.dist - b.dist);
-  const first = distances[0]
+  const first = distances[0];
   if (first.dist < 50) return first.index;
 };
 
@@ -159,22 +151,18 @@ const useScrollGestureWeb = (
       window.removeEventListener("wheel", handleScroll);
     };
   }, []);
-}
+};
 
 export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const svgMap = p.svgMap || GB_SVG_MAP;
   const zoom = useSharedValue(p.zoom || DEFAULT_ZOOM);
-  
-  const zoomIn = () => zoom.value = Math.min(zoom.value + 0.05, 2);
-  const zoomOut = () => zoom.value = Math.max(zoom.value - 0.05, 0.1);
+
+  const zoomIn = () => (zoom.value = Math.min(zoom.value + 0.05, 2));
+  const zoomOut = () => (zoom.value = Math.max(zoom.value - 0.05, 0.1));
 
   const [cursorHovered, setCursorHovered] = React.useState(false);
 
-  useScrollGestureWeb(
-    cursorHovered,
-    zoomIn,
-    zoomOut
-  )
+  useScrollGestureWeb(cursorHovered, zoomIn, zoomOut);
 
   const initialCenter = p.initialCenter || mapCenter(svgMap);
   const centerLat = useSharedValue(initialCenter.lat);
@@ -194,7 +182,9 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const translationY = useSharedValue(0);
 
   const gesture = Gesture.Race(
-    Gesture.Hover().onBegin(() => setCursorHovered(true)).onEnd(() => setCursorHovered(false)),
+    Gesture.Hover()
+      .onBegin(() => setCursorHovered(true))
+      .onEnd(() => setCursorHovered(false)),
     Gesture.Pan()
       .onChange((e) => {
         translationX.value += e.changeX;
@@ -213,14 +203,20 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         translationY.value = 0;
       }),
 
-    Gesture.Tap().onEnd(({ x, y }) => {
-      const point = { x, y };
-      console.log(`Tapped at ${point.x}, ${point.y}`);
-      const index = searchPoint(point, p.unit_groups.map((ug) => ug.coords));
-      console.log(`Found index ${index}`);
-      if(!index) return;
-      if (p.onTapIcon) p.onTapIcon(index);
-    })
+    Gesture.Tap()
+      .numberOfTaps(2)
+      .onEnd((e) => {
+        const { x, y } = e;
+        const point = { x, y };
+        console.log(`Tapped at ${point.x}, ${point.y}`);
+        const index = searchPoint(
+          point,
+          p.unit_groups.map((ug) => ug.coords)
+        );
+        console.log(`Found index ${index}`);
+        if (!index) return;
+        if (p.onTapIcon) p.onTapIcon(index);
+      })
   );
 
   const svgCenter = mapCanvasCenter(svgMap);
@@ -240,71 +236,67 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
   return (
     <>
       <View style={styles.buttonRow}>
-      <Button
-        style={styles.button}
-        onPress={zoomIn}>
+        <Button style={styles.button} onPress={zoomIn}>
           +
-      </Button>
-      <Button
-        style={styles.button}
-        onPress={zoomOut}>
+        </Button>
+        <Button style={styles.button} onPress={zoomOut}>
           -
-      </Button>
+        </Button>
       </View>
 
-    <GestureDetector gesture={gesture}>
-      <Canvas
-        style={{
-          ...styles.canvas,
-          height: p.size.height,
-        }}
-      >
-        <Group transform={transform}>
-          <Path path={svgMap.path} color="white" />
+      <GestureDetector gesture={gesture}>
+        <Canvas
+          style={{
+            ...styles.canvas,
+            height: p.size.height,
+          }}
+        >
+          <Group transform={transform}>
+            <Path path={svgMap.path} color="white" />
 
-          {p.highlighted && (
-            <Circle
-              cx={p.highlighted.point.x}
-              cy={p.highlighted.point.y}
-              r={c.SELECTED_UNIT_GROUP_HIGHLIGHT_CIRCLE_RADIUS}
-              opacity={c.SELECTED_UNIT_GROUP_CIRCLE_OPACITY}
-              color={"lightgrey"}
-            />
-          )}
+            {p.highlighted && (
+              <Circle
+                cx={p.highlighted.point.x}
+                cy={p.highlighted.point.y}
+                r={c.SELECTED_UNIT_GROUP_HIGHLIGHT_CIRCLE_RADIUS}
+                opacity={c.SELECTED_UNIT_GROUP_CIRCLE_OPACITY}
+                color={"lightgrey"}
+              />
+            )}
 
-          {p.unit_groups.map((ug, index) => {
-            switch (ug.fuel_type) {
-              case "wind":
-                return <i.WindMapIcon key={`wind-${index}`} {...ug} />;
-              case "battery":
-                return <i.BatteryMapIcon key={`battery-${index}`} {...ug} />;
-              case "solar":
-                return <i.SolarMapIcon key={`solar-${index}`} {...ug} />;
-              case "interconnector":
-                return null;
-              default:
-                return (
-                  <i.DispatchableMapIcon
-                    key={`dispatchable-${index}`}
-                    {...(ug as DispatchableMapGeneratorIconProps)}
-                  />
-                );
-            }
-          })}
+            {p.unit_groups.map((ug, index) => {
+              switch (ug.fuel_type) {
+                case "wind":
+                  return <i.WindMapIcon key={`wind-${index}`} {...ug} />;
+                case "battery":
+                  return <i.BatteryMapIcon key={`battery-${index}`} {...ug} />;
+                case "solar":
+                  return <i.SolarMapIcon key={`solar-${index}`} {...ug} />;
+                case "interconnector":
+                  return null;
+                default:
+                  return (
+                    <i.DispatchableMapIcon
+                      key={`dispatchable-${index}`}
+                      {...(ug as DispatchableMapGeneratorIconProps)}
+                    />
+                  );
+              }
+            })}
 
-          {p.foreign_markets.map((fm) => (
-            <ForeignFlag key={`flag-${fm.code}`} {...fm} />
-          ))}
-
-          {p.foreign_markets
-            .map(({ cables }) => cables)
-            .flat()
-            .map((c) => (
-              <i.CableMapIcon key={`cable-${c.code}`} {...c} />
+            {p.foreign_markets.map((fm) => (
+              <ForeignFlag key={`flag-${fm.code}`} {...fm} />
             ))}
-        </Group>
-      </Canvas>
-    </GestureDetector>
+
+            {p.foreign_markets
+              .map(({ cables }) => cables)
+              .flat()
+              .map((c) => (
+                <i.CableMapIcon key={`cable-${c.code}`} {...c} />
+              ))}
+          </Group>
+        </Canvas>
+      </GestureDetector>
     </>
   );
 };
@@ -331,6 +323,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     width: "100%",
-    backgroundColor: c.MAP_BACKGROUND_COLOR
-  }
+    backgroundColor: c.MAP_BACKGROUND_COLOR,
+  },
 });

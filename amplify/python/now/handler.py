@@ -240,7 +240,7 @@ class GbPointInTimeRequest(BaseModel):
             else:
                 print(f"no output for {unit_group}")
                 pass
-
+                      
         return fuel_type_outputs
 
     def _combine_fuel_types(self, bm_fuel_types: t.UnitGroupsPointInTime, embedded: t.EmbeddedSnapshot) -> List[t.FuelTypePointInTime]:
