@@ -138,15 +138,15 @@ const searchPoint = (pressed: CanvasPoint, coords: Coords[]) => {
 const DEFAULT_ZOOM = 0.65;
 
 const useScrollGestureWeb = (
+  cursorHovered: boolean,
   onZoomIn: () => void,
   onZoomOut: () => void
 ) => {
   const handleScroll = (event: WheelEvent) => {
+    if (!cursorHovered) return;
     if (event.deltaY > 0) {
-      // Zoom out logic
       onZoomOut();
     } else if (event.deltaY < 0) {
-      // Zoom in logic
       onZoomIn();
     }
   };
@@ -168,7 +168,10 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const zoomIn = () => zoom.value = Math.min(zoom.value + 0.05, 2);
   const zoomOut = () => zoom.value = Math.max(zoom.value - 0.05, 0.1);
 
+  const [cursorHovered, setCursorHovered] = React.useState(false);
+
   useScrollGestureWeb(
+    cursorHovered,
     zoomIn,
     zoomOut
   )
@@ -191,6 +194,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const translationY = useSharedValue(0);
 
   const gesture = Gesture.Race(
+    Gesture.Hover().onBegin(() => setCursorHovered(true)).onEnd(() => setCursorHovered(false)),
     Gesture.Pan()
       .onChange((e) => {
         translationX.value += e.changeX;
