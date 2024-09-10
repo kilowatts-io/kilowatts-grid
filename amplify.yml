@@ -27,13 +27,13 @@ frontend:
             - 'public/favicon.ico'
             - 'public/icon-192.png'
 
-    redirects:
-        - source: '/fuel_type/*'
-          target: '/index.html'
-          status: 200
-        - source: '/unit_group/*'
-          target: '/index.html'
-          status: 200
+    # redirects:
+    #     - source: '/fuel_type/*'
+    #       target: '/index.html'
+    #       status: 200
+    #     - source: '/unit_group/*'
+    #       target: '/index.html'
+    #       status: 200
 
     cache:
         paths:
