@@ -23,6 +23,10 @@ frontend:
         baseDirectory: dist
         files:
             - '**/*'
+            - 'public/icon.png'
+            - 'public/favicon.ico'
+            - 'public/icon-192.png'
+
     cache:
         paths:
             - '.npm/**/*'
