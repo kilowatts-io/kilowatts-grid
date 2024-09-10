@@ -213,10 +213,9 @@ const sortDescending = (a: PointInTime, b: PointInTime) => {
 };
 
 
-const amplify_exports = require("../../amplify_exports.json");
 
 const getBaseUrl = () => {
-  // try to import amplify_exports.json
+  const amplify_exports = require("../../amplify_outputs.json");
   if(amplify_exports){
     return amplify_exports.custom.API.kilowattsGridApi.endpoint
   }
