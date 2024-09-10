@@ -110,12 +110,14 @@ interface AppListIconProps extends PointInTime {
   selected?: boolean;
 }
 
+interface AppMapData {
+  unit_groups: MapGeneratorIconProps[];
+  foreign_markets: MapForeignMarketProps[]
+}
+
 interface AppData {
   dt: string;
-  map: {
-    unit_groups: MapGeneratorIconProps[];
-    foreign_markets: MapForeignMarketProps[]
-  }
+  map: AppMapData;
   lists: {
     fuel_types: AppListIconProps[];
     unit_groups: AppListIconProps[];
@@ -163,7 +165,43 @@ interface ZoomPanSharedValueState {
 type ZoomPanSharedValue = SharedValue<ZoomPanSharedValueState>;
 
 interface MapContextState  {
-  screen: ScaledSize;
-  zoomPan?: ZoomPanSharedValue;
-  gestureMode: GestureModeSharedValue;
+  s: ScaledSize;
+  zP: ZoomPanSharedValue;
+  gM: GestureModeSharedValue;
 };
+
+
+interface ScreenContextState {
+  topHeightPx: number;
+  bottomHeightPx: number;
+}
+
+interface SvgMap {
+  dims: {
+    width: number;
+    height: number;
+  };
+  bounds: {
+    west: number;
+    east: number;
+    south: number;
+    north: number;
+  };
+  path: string;
+}
+
+interface Dims {
+  height: SharedValue<number>;
+  width: SharedValue<number>;
+}
+
+interface SvgMapProps extends AppMapData {
+  highlighted?: { point: CanvasPoint };
+  svgMap?: SvgMap;
+  initialCenter?: Coords;
+  zoom?: number;
+  size: {
+    height: number;
+    width: number;
+  };
+}

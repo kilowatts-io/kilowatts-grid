@@ -1,11 +1,11 @@
 import React from "react";
 import { Linking, View } from "react-native";
 import { Button, Card, Text } from "@rneui/themed";
-import { useDataContext } from "@/src/contexts/data";
 import { STALE_THRESHOLD_MINUTES } from "@/src/constants";
+import { useDataContext } from "@/src/contexts/data";
 
 
-const determineIfDataIsStale = (data: BackendData) => {
+const determineIfDataIsStale = (data: AppData) => {
   if (!data) return false;
   const lastUpdated = new Date(data.dt);
   const now = new Date();

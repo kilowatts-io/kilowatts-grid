@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 import amplify_config from "../../amplify_outputs.json";
-import { CYCLE_SECONDS } from "../constants";
+import * as c from "@/src/constants";
 
 import { z } from "zod";
-import calculatePoint from "../components/gb-live/svg-map/calcs/point";
+import { calculatePoint } from "../components/svg-map";
 
 const OutputSchema = z.object({
   level: z.number(),
@@ -94,7 +93,6 @@ export const validateData = (backendData: BackendData): boolean => {
     console.log("Data is valid");
     return true;
   } else {
-    console.error("Data is invalid", result.error);
     return false;
   }
 };
@@ -102,10 +100,7 @@ export const validateData = (backendData: BackendData): boolean => {
 /**
  * Calculate point on canvas
  */
-const point = (p: { coords: Coords }): CanvasPoint => {
-  const coords = p.coords;
-  return calculatePoint(coords);
-};
+const point = (p: { coords: Coords }): CanvasPoint => calculatePoint(p.coords);
 
 /**
  * Calculate capacity factor
@@ -113,7 +108,7 @@ const point = (p: { coords: Coords }): CanvasPoint => {
  */
 const capacityFactor = (p: PointInTime): number => {
   if (p.capacity === undefined) return 0;
-  return p.output.level / p.capacity;
+  return Math.max(0,  Math.min(1, p.output.level / p.capacity))
 };
 
 /**
@@ -124,7 +119,10 @@ const capacityFactor = (p: PointInTime): number => {
 const cycleSeconds = (p: PointInTime): number | null => {
   const cF = capacityFactor(p);
   if (cF === 0) return null;
-  return Math.round(CYCLE_SECONDS / cF);
+  // if the capacity factor is 1, then return 3 seconds
+  if (cF === 1) return 3;
+  // OTHERWISE return a value between 3 and 10 seconds, so it takes longer if the capacity factor is lower
+  return 3 + (1 - cF) * 5;
 };
 
 /**
@@ -133,8 +131,8 @@ const cycleSeconds = (p: PointInTime): number | null => {
  * @returns number
  */
 const sizePx = {
-  mapIcon: (p: PointInTime): number => {
-    return Math.max(p.capacity, 3);
+  mapIcon: (p: PointInTime, scaler?: number): number => {
+    return p.capacity * c.ICON_SIZE_PX_TO_CAPACITY_MW * (scaler || 1);
   },
 };
 
@@ -157,7 +155,7 @@ const mapForeignMarket = (
   const foreignMarket: MapGeneratorIconProps = {
     ...p,
     point: point(p),
-    sizePx: sizePx.mapIcon(p),
+    sizePx: sizePx.mapIcon(p, c.FOREIGN_MARKET_ICON_SCALER),
     capacityFactor: capacityFactor(p),
     cycleSeconds: cycleSeconds(p),
     fuel_type: "interconnector",
@@ -169,7 +167,7 @@ const mapForeignMarket = (
       ...i,
       fuel_type: "interconnector",
       point: point(i),
-      sizePx: sizePx.mapIcon(p),
+      sizePx: sizePx.mapIcon(p, c.FOREIGN_MARKET_ICON_SCALER),
       capacityFactor: capacityFactor(p),
       cycleSeconds: cycleSeconds(p),
       foreignMarket,
@@ -201,6 +199,8 @@ const fuelTypeIcon = (p: FuelTypePointInTime): AppListIconProps =>
 const unitGroupIcon = (p: UnitGroupPointInTime): AppListIconProps =>
   listProps(p);
 
+
+const filterZero = (p: PointInTime): boolean => p.output.level !== 0 || p.balancing_volume !== 0;
 /**
  * For Lists, sort in descending order, first by level, then by capacity
  * @param a PointInTime
@@ -221,9 +221,8 @@ export const api = createApi({
   endpoints: (builder) => ({
     now: builder.query<AppData, void>({
       query: () => "now",
-      transformResponse: (data: BackendData): AppData => {
-        validateData(data);
-        return {
+      transformResponse: (data: BackendData): Promise<AppData> => {
+        const output = {
           dt: data.dt,
           map: {
             unit_groups: data.unit_groups.map(mapUnitGroupIcon),
@@ -231,10 +230,11 @@ export const api = createApi({
           },
           lists: {
             fuel_types: data.fuel_types.map(fuelTypeIcon).sort(sortDescending),
-            unit_groups: data.unit_groups.map(unitGroupIcon).sort(sortDescending),
+            unit_groups: data.unit_groups.map(unitGroupIcon).filter(filterZero).sort(sortDescending),
             balancing_totals: data.balancing_totals,
           },
         }
+        return Promise.resolve(output);
       },
     }),
   }),

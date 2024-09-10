@@ -90,9 +90,12 @@ class GbPointInTimeRequest(BaseModel):
                 self._calculate_balancing_totals, boalf
             )
             
+            non_zero_unit_groups = [v for v in future_unit_groups.result().values() if v.output.level != 0 or v.output.delta != 0 or v.balancing_volume != 0]
+            sorted_unit_groups = sorted(non_zero_unit_groups, key=lambda x: x.output.level, reverse=True)
+
             output = t.GbPointInTime(
                 dt=self.dt,
-                unit_groups=future_unit_groups.result().values(),
+                unit_groups=sorted_unit_groups,
                 fuel_types=future_fuel_types.result(),
                 foreign_markets=future_foreign_markets.result(),
                 balancing_totals=future_balancing_totals.result(),
@@ -155,18 +158,17 @@ class GbPointInTimeRequest(BaseModel):
             output = {}
             for future in concurrent.futures.as_completed(future_interpolations):
                 unit_key = future_interpolations[future]
-                try:
-                    output[unit_key] = future.result()
-                except Exception as e:
-                    logging.error(f"Interpolation failed for {unit_key}: {e}")
-
-        logging.info(f"Completed interpolation in {datetime.now() - started}")
+                value = future.result()
+                output[unit_key] = value
+                
+        logging.debug(f"Completed interpolation in {datetime.now() - started}")
         return output
 
     def _group_by_unitgroup(
         self, unit_outputs: t.UnitsPointInTime
     ) -> t.UnitGroupsPointInTime:
         """Group the output by unit group."""
+                
         started = datetime.now()
 
         from .external_apis.bm.units import UNIT_GROUPS, UNIT_UNITGROUP
@@ -182,13 +184,14 @@ class GbPointInTimeRequest(BaseModel):
                 output={"level": 0, "delta": 0},
                 capacity=0,
                 balancing_volume=0,
+                fuel_type=k.details.fuel_type,
             )
             for k in UNIT_GROUPS
         }
 
         for unit, output in unit_outputs.items():
 
-            if not unit in group_outputs.keys():
+            if not unit in UNIT_UNITGROUP.keys():
                 continue
 
             group = UNIT_UNITGROUP[unit]
@@ -199,7 +202,7 @@ class GbPointInTimeRequest(BaseModel):
 
             group_outputs[group].balancing_volume += output.balancing_volume
 
-        logging.info(f"Completed grouping by unit group in {datetime.now() - started}")
+        logging.debug(f"Completed grouping by unit group in {datetime.now() - started}")
 
         return group_outputs
 
@@ -357,9 +360,11 @@ class GbPointInTimeRequest(BaseModel):
 
 def handler(event=None, context=None):
     # init_sentry()
+    resp = GbPointInTimeRequest().run()
+    logging.info(f"Got response - now serializing")
     return {
         "statusCode": 200,
-        "body": GbPointInTimeRequest().run().model_dump_json(),
+        "body": resp.model_dump_json(),
         "headers": {"Content-Type": "application/json"},
     }
 

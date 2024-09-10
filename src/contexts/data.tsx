@@ -4,7 +4,7 @@ import { DATA_REFRESH_INTERVAL_MS } from "../constants";
 import LoadingScreen from "../atoms/loading";
 import { AppErrorScreen } from "@/src/components/error-boundary";
 
-const data: AppData = {
+const nullData: AppData = {
   dt: new Date().toISOString(),
   map: {
     unit_groups: [],
@@ -21,7 +21,7 @@ const data: AppData = {
 };
 
 const DataContext = React.createContext<DataContext>({
-  data,
+  data: nullData,
   isLoading: false,
   refetch: () => {},
   onRefresh: () => {},
@@ -35,15 +35,20 @@ export const WithAppData: React.FC<{
     pollingInterval: DATA_REFRESH_INTERVAL_MS,
   });
 
-  if (!data) return <LoadingScreen refetch={refetch} />;
 
-  if (error)
+  if (error) {
+    console.log("Error", error);
     return (
       <AppErrorScreen
         error={Error(`Did not correctly fetch data from API.`)}
         resetError={refetch}
       />
     );
+  }
+
+  if (!data) {
+    return <LoadingScreen refetch={refetch} />;
+  }
 
   const ctx: DataContext = {
     data,

@@ -1057,6 +1057,26 @@ unit_groups_dict = [
             "fuel_type": "hydro",
         },
         "units": [{"unit": "M_CAS-KIL01"}],
+        
+    },
+    {
+        "details": {
+            "code": "DBAWO",
+            "name": "Dogger Bank",
+            "coords": {"lat": 54.1, "lng": 2.5},
+            "fuel_type": "wind",
+        },
+        "units": [{"unit": "T_DBAWO-1"}, {"unit": "T_DBAWO-2"}, {"unit": "T_DBAWO-3"}, {"unit": "T_DBAWO-4"}, {"unit": "T_DBAWO-5"}],
+    },
+    {
+        "details": {
+            "code": "VKNGW",
+            "name": "Viking (Shetland)",
+            "coords": {"lat": 60.45, "lng": -1.25},
+            "fuel_type": "wind",
+        },
+        "units": [{"unit": "T_VKNGW-1"}, {"unit": "T_VKNGW-2"}, {"unit": "T_VKNGW-3"}, {"unit": "T_VKNGW-4"}],
+    
     },
     {
         "details": {

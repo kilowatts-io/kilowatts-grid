@@ -22,15 +22,15 @@ class EsoEmbedded(BaseModel):
         
     def _get_data(self) -> t.EmbeddedSnapshot:
         try:
-            data = self._get_fresh_data()
-            logging.info("Fetched fresh data from ESO API")
+            return self._get_fresh_data()
         except Exception as e:
-            data = self._read_s3()
-            logging.info(f"Error fetching fresh data, reading from S3: {e}")
-        return data
+            return self._read_s3()
         
     def _get_fresh_data(self) -> t.EmbeddedSnapshot:
-        raw = self._get_raw_data()
+        logging.info(f"trying to get fresh embedded forecast")
+        response = requests.get(BASE_URL, timeout=5)
+        response.raise_for_status()  # Raise an error for bad HTTP status
+        raw = t.EsoRawEmbeddedResponse(**response.json())
         parsed = self._parse(raw)
         self._write_s3(parsed)
         return parsed
@@ -39,18 +39,10 @@ class EsoEmbedded(BaseModel):
         s3.write_to_s3(s.model_dump_json(), KEY)
         
     def _read_s3(self) -> t.EmbeddedSnapshot:
-        return t.EmbeddedSnapshot(**s3.read_from_s3(KEY))
-
-    def _get_raw_data(self) -> t.EsoRawEmbeddedResponse:
-        """Fetch raw data from the ESO API."""
-        logging.debug(f"Fetching data from {BASE_URL}")
-        try:
-            response = requests.get(BASE_URL, timeout=20)
-            response.raise_for_status()  # Raise an error for bad HTTP status
-            return t.EsoRawEmbeddedResponse(**response.json())
-        except requests.RequestException as e:
-            logging.error(f"Error fetching ESO API data: {e}")
-            raise
+        logging.info(f"Reading Embedded forecast from S3")
+        as_dict = s3.read_from_s3(KEY)
+        logging.info(f'validating cached forecast')
+        return t.EmbeddedSnapshot(**as_dict)
 
     def _parse(self, raw: t.EsoRawEmbeddedResponse) -> t.EsoEmbeddedForecast:
         """Convert the response to a more structured forecast."""

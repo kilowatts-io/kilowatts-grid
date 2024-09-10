@@ -8,10 +8,13 @@ def get_bucket():
 def write_to_s3(body:str, key):
     s3 = boto3.client("s3")
     bucket = get_bucket()
+    if not bucket:
+        return "BUCKET environment variable not set"
     s3.put_object(Bucket=bucket, Key=key, Body=body)
     
 def read_from_s3(key):
     s3 = boto3.client("s3")
     bucket = get_bucket()
+    
     response = s3.get_object(Bucket=bucket, Key=key)
     return json.loads(response["Body"].read().decode("utf-8"))

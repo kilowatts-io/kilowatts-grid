@@ -298,6 +298,7 @@ class UnitGroupPointInTime(UnitPointInTime):
     name: str
     code: str
     coords: Coords
+    fuel_type: str
 
 
 class InterconnectorPointInTime(UnitPointInTime, BaseModel):
@@ -340,7 +341,7 @@ class EmbeddedForecastValue(BaseModel):
 
 class EsoEmbeddedForecast(BaseModel):
     obtained: datetime
-    values: List[EmbeddedForecastValue]
+    values: List[EmbeddedForecastValue] = Field(description="forecast values", min_length=10)
 
 
 class BalancingTotals(BaseModel):

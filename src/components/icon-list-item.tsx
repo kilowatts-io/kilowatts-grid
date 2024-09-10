@@ -3,15 +3,14 @@ import { Canvas } from "@shopify/react-native-skia";
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { LIST_ICON_DIMS } from "../constants";
-// need to consolidate these
 import { getBalancingColor } from "../utils/colors";
-import { londonTimeHHMMSS } from "../utils/dateTime";
 import { useDataContext } from "../contexts/data";
 import VersionInfo from "./version-info/version-info";
 import { EU } from "@/src/atoms/flags";
-import { selectUnitGroupCode } from "@/src/state/live";
-import { useAppSelector } from "@/src/state";
 import * as i from "@/src/components/icons";
+import { Button } from "react-native-paper";
+import { Link } from "expo-router";
+import { ErrorBoundaryBlank } from "./error-boundary";
 
 export const formatMW = (mw: number) => {
   if (mw >= 1000) {
@@ -22,91 +21,84 @@ export const formatMW = (mw: number) => {
 };
 
 const balancingSymbol = (balancingVolume: number) =>
-  balancingVolume > 0 ? "↑" : "↓";
+  balancingVolume < 0 ? "↓" : "↑";
 
-const renderBalancingText = (balancingVolume: number) =>
-  balancingVolume > 0 ? "↑" : "↓";
+const renderDeltaText = (delta: number) => (delta > 0 ? "↑" : "↓");
 
-const IconListItem: React.FC<AppListIconProps> = (p) => {
+const IconListItem: React.FC<
+  AppListIconProps & {
+    href: string;
+    hideIcon?: boolean;
+  }
+> = (p) => {
   const ft = p.fuel_type;
-  // const { symbol, color } = deltaSymbolColor(p.output.delta);
+
   return (
-    <View
-      style={{
-        ...styles.itemWrapper,
-        ...(p.selected ? styles.selectedItemWrapper : {}),
-      }}
-    >
-      <View style={styles.left}>
-        <View style={styles.icon}>
-          <Canvas style={styles.icon}>
-            {ft === "wind" && <i.WindListIcon {...p} />}
-            {ft === "battery" && <i.BatteryListIcon {...p} />}
-            {ft === "solar" && <i.SolarListIcon {...p} />}
-            {ft === "interconnector" && <EU />}
-            {(ft === "gas" ||
-              ft === "oil" ||
-              ft === "biomass" ||
-              ft === "coal" ||
-              ft === "nuclear" ||
-              ft === "hydro") && <i.DispatchableListIcon {...p} />}
-          </Canvas>
+    <Link href={p.href as any}>
+      <View
+        style={{
+          ...styles.itemWrapper,
+          ...(p.selected ? styles.selectedItemWrapper : {}),
+        }}
+      >
+        <View style={styles.left}>
+          <ErrorBoundaryBlank>
+            {!p.hideIcon && (
+
+<Canvas style={styles.icon}>
+{ft === "wind" && <i.WindListIcon {...p} />}
+{ft === "battery" && <i.BatteryListIcon {...p} />}
+{ft === "solar" && <i.SolarListIcon {...p} />}
+{ft === "interconnector" && <EU />}
+{(ft === "gas" ||
+  ft === "oil" ||
+  ft === "biomass" ||
+  ft === "coal" ||
+  ft === "nuclear" ||
+  ft === "hydro") && <i.DispatchableListIcon {...p} />}
+</Canvas>
+            )}
+          </ErrorBoundaryBlank>
+
+          <View style={styles.name}>
+            <Text>{p.name}</Text>
+          </View>
         </View>
-        <View style={styles.name}>
-          <Text>{p.name}</Text>
-        </View>
-      </View>
-      <View style={styles.right}>
-        <View
-          style={{
-            ...styles.balancing,
-            backgroundColor: getBalancingColor(p.balancing_volume),
-          }}
-        >
-          <Text style={styles.balancingText}>
-            {renderBalancingText(p.balancing_volume)}
-          </Text>
-        </View>
-        <View style={styles.output}>
-          <Text style={styles.outputText}>
-            {`${formatMW(p.output.level)} / ${formatMW(p.capacity)}`}
-          </Text>
-        </View>
-        <View style={styles.delta}>
-          <Text
+        <View style={styles.right}>
+          <View
             style={{
-              ...styles.deltaText,
-              color: getBalancingColor(p.balancing_volume),
+              ...styles.balancing,
+              ...(p.balancing_volume
+                ? { backgroundColor: getBalancingColor(p.balancing_volume) }
+                : {}),
             }}
           >
-            {balancingSymbol(p.balancing_volume)}
-          </Text>
+            {p.balancing_volume !== 0 && (
+              <Text style={styles.balancingText}>
+                {balancingSymbol(p.balancing_volume)}
+              </Text>
+            )}
+          </View>
+          <View style={styles.output}>
+            <Text style={styles.outputText}>
+              {`${formatMW(p.output.level)} / ${formatMW(p.capacity)}`}
+            </Text>
+          </View>
+          <View style={styles.delta}>
+            {p.output.delta !== 0 && (
+              <Text style={styles.deltaText}>
+                {renderDeltaText(p.output.delta)}
+              </Text>
+            )}
+          </View>
+          <View style={styles.chevron}>
+            <Button icon="chevron-right">
+              <></>
+            </Button>
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
-
-export const UnitGroupsList: React.FC = () => {
-  const list = React.useRef<FlashList<AppListIconProps>>(null);
-  const selectedCode = useAppSelector(selectUnitGroupCode);
-
-  React.useEffect(() => {
-    if (!selectedCode) return;
-    const index = data.findIndex(({ code }) => code === selectedCode);
-    if (!index || index < 0) return undefined;
-    list.current?.scrollToIndex({ index, animated: false });
-  }, [selectedCode]);
-
-  const data = useDataContext().data.lists.unit_groups;
-  return (
-    <FlashList
-      ref={list}
-      data={data}
-      renderItem={({ item }) => (
-        <IconListItem {...item} selected={selectedCode === item.code} />
-      )}
-    />
+    </Link>
   );
 };
 
@@ -130,7 +122,7 @@ const BalancingTotalItem: React.FC<{
 );
 
 export const GbBalancingTotals = () => {
-  const { dt, lists } = useDataContext().data;
+  const { lists } = useDataContext().data;
   const { bids, offers } = lists.balancing_totals;
   return (
     <>
@@ -140,31 +132,66 @@ export const GbBalancingTotals = () => {
           <BalancingTotalItem name="Total Offer Acceptances" value={offers} />
         </>
       </View>
-      <View style={styles.center}>
-        <Text>{`Valid for ${londonTimeHHMMSS(new Date(dt))}`}</Text>
-      </View>
       <VersionInfo />
     </>
   );
 };
 
-export const FuelTypesList: React.FC = () => (
-  <FlashList
-    data={useDataContext().data.lists.fuel_types}
-    renderItem={({ item }) => <IconListItem {...item} />}
-    ListFooterComponent={GbBalancingTotals}
-  />
-);
+const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+export const UnitGroupsList: React.FC<{
+  data: AppListIconProps[];
+}> = ({ data }) => {
+  return (
+    <FlashList
+      estimatedItemSize={40}
+      data={data}
+
+      renderItem={({ item }) => (
+        <IconListItem
+          {...item}
+          hideIcon={true}
+          href={`/unit_group/${item.code.toLowerCase()}`}
+        />
+      )}
+    />
+  );
+};
+
+export const FuelTypesList: React.FC<{
+  data: AppListIconProps[];
+}> = ({ data }) => {
+  return (
+    <FlashList
+      estimatedItemSize={40}
+      data={data}
+      renderItem={({ item }) => (
+        <IconListItem
+          {...item}
+          name={capitalise(item.fuel_type)}
+          href={`/fuel_type/${item.fuel_type.toLowerCase()}`}
+        />
+      )}
+      ListFooterComponent={GbBalancingTotals}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
+  list: {
+    display: "flex",
+  },
   itemWrapper: {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: 10,
-    height: 40,
     justifyContent: "flex-start",
-    padding: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    backgroundColor: "white",
+    borderBottomWidth: 1,
+    borderColor: "rgba(0, 0, 0, 0.1)",
   },
   icon: {
     ...LIST_ICON_DIMS,
@@ -191,6 +218,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 3,
     justifyContent: "flex-end",
+  },
+  chevron: {
+    width: 15,
   },
   // eslint-disable-next-line react-native/no-color-literals
   selectedItemWrapper: { backgroundColor: "rgba(0, 0, 0, 0.1)" },

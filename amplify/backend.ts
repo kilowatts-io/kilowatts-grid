@@ -11,15 +11,15 @@ const backend = defineBackend({});
 
 const stack = backend.createStack("KilowattsGridStack");
 
-const sentryDsn = process.env.SENTRY_DSN;
-if (!sentryDsn) {
-  throw new Error("SENTRY_DSN environment variable is required");
-}
+// const sentryDsn = process.env.SENTRY_DSN;
+// if (!sentryDsn) {
+//   throw new Error("SENTRY_DSN environment variable is required");
+// }
 
-const sentryEnvironment = process.env.SENTRY_ENVIRONMENT;
-if (!sentryEnvironment) {
-  throw new Error("SENTRY_ENVIRONMENT environment variable is required");
-}
+// const sentryEnvironment = process.env.SENTRY_ENVIRONMENT;
+// if (!sentryEnvironment) {
+//   throw new Error("SENTRY_ENVIRONMENT environment variable is required");
+// }
 
 const layers = {
   pydantic: lambda.LayerVersion.fromLayerVersionArn(
@@ -47,9 +47,10 @@ const s3Bucket = new s3.Bucket(stack, "GbSnapshotBucket")
 const gbPointInTime = new lambda.Function(stack, "GbNow", {
   code,
   runtime: lambda.Runtime.PYTHON_3_11,
+  functionName: 'gb-now-snapshot',
   environment: {
-    SENTRY_DSN: sentryDsn,
-    SENTRY_ENVIRONMENT: sentryEnvironment,
+    // SENTRY_DSN: sentryDsn,
+    // SENTRY_ENVIRONMENT: sentryEnvironment,
     BUCKET: s3Bucket.bucketName
   },
   // functionName: "gb-now",

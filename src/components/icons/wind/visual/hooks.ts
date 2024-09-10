@@ -1,6 +1,5 @@
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
 import { PI_TIMES_2 } from "@/src/constants";
-import { useSvgMapContext } from "@/src/contexts/svg-map";
 
 type CycleSeconds = SharedValue<number | null>;
 
@@ -9,12 +8,10 @@ export const useGetBladeTransformMap = (
   cycleSeconds: CycleSeconds,
   t: SharedValue<number>,
 ) => {
-  const { gestureMode } = useSvgMapContext();
   return useDerivedValue(
     () =>
       !cycleSeconds.value ||
-      cycleSeconds.value == 0 ||
-      gestureMode.value != "none"
+      cycleSeconds.value == 0
         ? [{ rotate: offsetAngleRadians }]
         : [
             {

@@ -7,7 +7,6 @@ import {
 } from "react-native-reanimated";
 import { Circle, Rect, useClock } from "@shopify/react-native-skia";
 import * as c from "@/src/constants";
-import { useSvgMapContext } from "@/src/contexts/svg-map";
 
 export type TurbineWheelProps = {
   point: CanvasPoint;
@@ -35,12 +34,11 @@ const TurbineSpokeMap: React.FC<TurbineSpokeMapProps> = ({
   opacity,
 }) => {
   const t = useClock();
-  const {gestureMode} = useSvgMapContext();
   const x = useDerivedValue(() => centerPoint.x - width / 2);
   const y = useDerivedValue(() => centerPoint.y - length);
 
   const transform = useDerivedValue(() => {
-    if (gestureMode.value != "none" || cycleSeconds === null || cycleSeconds === 0)
+    if (cycleSeconds === null || cycleSeconds === 0)
       return [{ rotate: offsetAngleDegrees * (Math.PI / 180) }];
     const timeInSeconds = t.value / 1000;
     const rotationFraction = timeInSeconds / cycleSeconds;
@@ -67,7 +65,6 @@ const TurbineSpokeMap: React.FC<TurbineSpokeMapProps> = ({
 export const TurbineWheelMap: React.FC<TurbineWheelProps> = (p) => {
   const opacity = 0.3 + 0.7 * p.capacityFactor;
   const rotation = useSharedValue(0);
-  const { gestureMode } =  useSvgMapContext();
 
   React.useEffect(() => {
     if(!p.cycleSeconds) return
@@ -76,7 +73,7 @@ export const TurbineWheelMap: React.FC<TurbineWheelProps> = (p) => {
       -1,
       false,
     );
-  }, [p.cycleSeconds, gestureMode]);
+  }, [p.cycleSeconds]);
 
   const r = p.height / 2;
   const turbineLength = (p.height / 2) * 0.8;
@@ -93,7 +90,7 @@ export const TurbineWheelMap: React.FC<TurbineWheelProps> = (p) => {
       />
       {c.TURBINE_WHEEL_OFFSET_ANGLE_DEGREES.map((offsetAngleDegrees) => (
         <TurbineSpokeMap
-          key={offsetAngleDegrees}
+          key={`wind-${p.point.x}-${p.point.y}-${offsetAngleDegrees}`}
           centerPoint={p.point}
           length={turbineLength}
           width={turbineWidth}
@@ -163,7 +160,7 @@ export const TurbineWheelList: React.FC<TurbineWheelListProps> = ({
       />
       {c.TURBINE_WHEEL_OFFSET_ANGLE_DEGREES.map((offsetAngleDegrees) => (
         <TurbineSpokeList
-          key={offsetAngleDegrees}
+          key={`turbine-list-${offsetAngleDegrees}`}
           cycleSeconds={cycleSeconds}
           offsetAngleDegrees={offsetAngleDegrees}
         />

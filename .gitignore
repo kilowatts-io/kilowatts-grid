@@ -2,7 +2,7 @@
 *.envrc
 # dependencies
 node_modules/
-
+data
 # Expo
 .expo/
 dist/
