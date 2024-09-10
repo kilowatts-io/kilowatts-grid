@@ -88,6 +88,12 @@ class EsoEmbedded(BaseModel):
         wind_capacity = [t.LevelPair(d=x.dt, x=x.wind_capacity) for x in parsed.values]
         solar_generation = [t.LevelPair(d=x.dt, x=x.solar_generation) for x in parsed.values]
         solar_capacity = [t.LevelPair(d=x.dt, x=x.solar_capacity) for x in parsed.values]
+        
+        # if any has no data, throw an error
+        for items in [wind_generation, wind_capacity, solar_generation, solar_capacity]:
+            if len(items) == 0:
+                logging.error("No data in ESO API response")
+                raise ValueError("No data in ESO API response")
 
         interpolated_wind_generation = interpolate_values(wind_generation, self.dt, fallback_first=True)
         interpolated_wind_capacity = get_mels_value(wind_capacity, self.dt, fallback_first=True)
