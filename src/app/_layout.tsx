@@ -33,6 +33,7 @@ const Layout: React.FC = () => {
           <GestureHandlerRootView>
             <Stack
               screenOptions={{
+                headerShown: false,
                 // header: (props) => <CustomNavigationBar {...props} />,
               }}
             />
