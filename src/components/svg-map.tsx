@@ -213,7 +213,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         translationY.value = 0;
       }),
 
-    Gesture.Tap().onBegin(({ x, y }) => {
+    Gesture.Tap().onEnd(({ x, y }) => {
       const point = { x, y };
       console.log(`Tapped at ${point.x}, ${point.y}`);
       const index = searchPoint(point, p.unit_groups.map((ug) => ug.coords));
