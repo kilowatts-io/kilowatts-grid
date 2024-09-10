@@ -13,9 +13,10 @@ import { getHeaderTitle } from "@react-navigation/elements";
 
 const CustomNavigationBar: React.FC<NativeStackHeaderProps> = (p) => {
   const title = getHeaderTitle(p.options, p.route.name);
+  const canGoBack = p.navigation.canGoBack();
   return (
     <Appbar.Header>
-      <Appbar.BackAction onPress={p.navigation.goBack} />
+      {canGoBack && <Appbar.BackAction onPress={p.navigation.goBack} />}
       <Appbar.Content title={title} />
     </Appbar.Header>
   );

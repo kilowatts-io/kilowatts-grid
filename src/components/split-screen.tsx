@@ -1,14 +1,28 @@
 // split screen components that combine the map at the top with a scrollable list of icons at the bottom
 import React from "react";
-import {StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import SvgMap from "./svg-map";
-import {Icon} from 'react-native-paper'
+import { Icon } from "react-native-paper";
 import { FuelTypesList, UnitGroupsList } from "./icon-list-item";
 import { useDataContext } from "../contexts/data";
 import UnitGroupCard from "./unit-group-card";
 import { londonTimeHHMMSS } from "../utils/dateTime";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useNavigation, useRouter } from "expo-router";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const useBackUrl = (backUrl?: string) => {
+  const router = useRouter();
+  const navigation = useNavigation();
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      e.preventDefault();
+      if(backUrl) {
+        router.push(backUrl);
+      }
+    });
+    return unsubscribe;
+  }, [navigation, router, backUrl]);
+};
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -17,7 +31,11 @@ const Title: React.FC<{ title: string }> = ({ title }) => (
 );
 
 interface SplitScreenComponentProps {
-  svgMap: AppMapData & { initialCenter?: Coords; zoom?: number; onTapIcon?: (index: number) => void };
+  svgMap: AppMapData & {
+    initialCenter?: Coords;
+    zoom?: number;
+    onTapIcon?: (index: number) => void;
+  };
   list: React.ReactNode;
 }
 
@@ -38,8 +56,6 @@ const SNAP_POINTS = Array.from(
 const INITIAL_SNAP_POINT = Math.trunc(SNAP_POINTS.length / 6);
 
 const Tab = createBottomTabNavigator();
-
-
 
 /**
  * A component that switches between touch and non-touch screen components based on the device's capabilities
@@ -65,19 +81,22 @@ const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
         tabBarShowLabel: false,
       }}
     >
-      <Tab.Screen name="List" getComponent={() => () => p.list} 
-          // add icon
-          options={{
-            tabBarIcon: (p) => <Icon source='clipboard-list' {...p} />,
-          }}
-        />
-      <Tab.Screen name="Map" getComponent={() => () => svgMap} 
-          // add icon
-          options={{
-            
-            tabBarIcon: p => <Icon source='map' {...p}/>,
-          }}
-        />
+      <Tab.Screen
+        name="List"
+        getComponent={() => () => p.list}
+        // add icon
+        options={{
+          tabBarIcon: (p) => <Icon source="clipboard-list" {...p} />,
+        }}
+      />
+      <Tab.Screen
+        name="Map"
+        getComponent={() => () => svgMap}
+        // add icon
+        options={{
+          tabBarIcon: (p) => <Icon source="map" {...p} />,
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -87,15 +106,17 @@ const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
  */
 export const HomeScreen: React.FC = () => {
   const { data } = useDataContext();
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       <Title title={`Grid at ${londonTimeHHMMSS(new Date(data.dt))}`} />
       <SplitScreen
         svgMap={{
           ...data.map,
-          onTapIcon: (index) => router.push(`/unit_group/${data.map.unit_groups[index].code.toLowerCase()}`),
-
+          onTapIcon: (index) =>
+            router.push(
+              `/unit_group/${data.map.unit_groups[index].code.toLowerCase()}`
+            ),
         }}
         list={<FuelTypesList data={data.lists.fuel_types} />}
       />
@@ -109,7 +130,9 @@ export const HomeScreen: React.FC = () => {
 export const FuelTypeScreen: React.FC<{
   fuel_type: FuelType;
 }> = (p) => {
-  const router = useRouter()
+  useBackUrl("/");
+
+  const router = useRouter();
   const { data } = useDataContext();
   const map_icons = data.map.unit_groups.filter(
     (x) => x.fuel_type.toLowerCase() === p.fuel_type.toLowerCase()
@@ -117,6 +140,7 @@ export const FuelTypeScreen: React.FC<{
   const list_data = data.lists.unit_groups.filter(
     (x) => x.fuel_type.toLowerCase() === p.fuel_type.toLowerCase()
   );
+
   if (!map_icons || !list_data) {
     return <></>;
   }
@@ -127,7 +151,8 @@ export const FuelTypeScreen: React.FC<{
         svgMap={{
           unit_groups: map_icons,
           foreign_markets: [],
-          onTapIcon: (index) => router.push(`/unit_group/${list_data[index].code.toLowerCase()}`),
+          onTapIcon: (index) =>
+            router.push(`/unit_group/${list_data[index].code.toLowerCase()}`),
         }}
         list={<UnitGroupsList data={list_data} />}
       />
@@ -146,6 +171,9 @@ export const UnitGroupScreen: React.FC<{
   const map_icon = data.map.unit_groups.find(
     (x) => x.code.toLowerCase() === p.code.toLowerCase()
   );
+
+  useBackUrl(map_icon && `/fuel_type/${map_icon.fuel_type.toLowerCase()}`);
+
   const list_data = data.lists.unit_groups.find(
     (x) => x.code.toLowerCase() === p.code.toLowerCase()
   );
@@ -164,7 +192,6 @@ export const UnitGroupScreen: React.FC<{
           foreign_markets: [],
           initialCenter: map_icon.coords,
           zoom: 1.5,
-
         }}
         list={<UnitGroupCard {...list_data} />}
       />
