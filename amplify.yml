@@ -30,7 +30,12 @@ frontend:
         baseDirectory: dist
         files:
             - '**/*'
-            # - '!public/.htaccess'
+            # ensure logo.png is included in the build output
+            - 'public/favicon.ico'
+            - 'public/logo.png'
+            - 'public/logo-192.png'
+            - 'public/manifest.json'
+            - 'public/canvaskit.wasm'
     cache:
         paths:
             - '.npm/**/*'
