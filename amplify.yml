@@ -3,12 +3,14 @@ backend:
     phases:
         build:
             commands:
+                - 'nvm install 22'
                 - 'npm ci --cache .npm --prefer-offline'
                 - 'npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID'
 frontend:
     phases:
         preBuild:
             commands:
+                - 'nvm install 22'
                 - 'nvm use 22'
                 - 'npm install --silent --global expo-cli'
                 - "if [ -f yarn.lock ]; then\n yarn\nelif [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then\n npm ci --cache .npm --prefer-offline\nelse\n npm install\nfi"
