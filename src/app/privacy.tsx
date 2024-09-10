@@ -1,9 +1,11 @@
+import { Stack } from "expo-router";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 const Privacy: React.FC = () => {
     return (
-        <View>
+        <ScrollView>
+            <Stack.Screen name="Privacy"/>
             <Text>Privacy Policy</Text>
             <Text>Last updated: December 16, 2023</Text>
             <Text>
@@ -336,7 +338,7 @@ const Privacy: React.FC = () => {
                 If you have any questions about this Privacy Policy, You can contact us:
                 ben@kilowatts.io
             </Text>
-        </View>
+        </ScrollView>
     );
 };
 
