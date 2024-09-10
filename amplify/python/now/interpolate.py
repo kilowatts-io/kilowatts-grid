@@ -89,9 +89,6 @@ def planned_output(
         output = UnitOutput(level=0, delta=0)
 
     capacity = get_mels_value(ur.mels, dt)
-    # # if capacity < output increase capacity to output
-    # if capacity < output.level:
-    #     capacity = output.level
 
     if boalf:
         balancing_volume = boalf.level - pn.level

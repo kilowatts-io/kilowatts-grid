@@ -102,7 +102,7 @@ class EsoEmbedded(BaseModel):
 
         return t.EmbeddedSnapshot(
             wind=t.EmbeddedGeneration(
-                generation= interpolated_wind_generation,
+                generation=interpolated_wind_generation,
                 capacity=interpolated_wind_capacity,
             ),
             solar=t.EmbeddedGeneration(
