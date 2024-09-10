@@ -13,7 +13,7 @@
     "precommit": "lint-staged && jest",
     "format": "prettier --write 'src'",
     "postinstall": "npx setup-skia-web",
-    "preweb": "cp public/canvaskit.wasm public/_expo/static/js/web/canvaskit.wasm",
+    "preweb": "cp public/canvaskit.wasm public/_expo/static/js/web/canvaskit.wasm"
   },
   "dependencies": {
     "@aws-amplify/react-native": "^1.1.5",
