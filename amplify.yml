@@ -17,7 +17,7 @@ frontend:
                 - 'npm install'
         build:
             commands:
-                - 'npx expo export:web'
+                - 'npx expo export -p web'
     
     artifacts:
         baseDirectory: dist
