@@ -39,3 +39,10 @@ yarn-error.*
 .amplify
 amplify_outputs*
 amplifyconfiguration*
+
+#python
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

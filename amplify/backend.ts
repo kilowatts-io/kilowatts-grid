@@ -66,15 +66,14 @@ s3Bucket.grantReadWrite(gbPointInTime)
 const kilowattsGridApi = new RestApi(stack, "KilowattsGridRestApi", {
   restApiName: "kilowattsGridApi",
   deployOptions: {
-    cacheClusterEnabled: true, // Enable cache for the stage
-    cacheClusterSize: "0.5", // 0.5 GB Cache
-    cacheTtl: cdk.Duration.seconds(60) // Cache TTL set to 60 seconds,
+    cacheClusterEnabled: true, 
+    cacheClusterSize: "0.5",
+    cacheTtl: cdk.Duration.seconds(60) 
   },
   defaultCorsPreflightOptions: {
-    allowOrigins: Cors.ALL_ORIGINS, // Restrict this to domains you trust
-    allowMethods: Cors.ALL_METHODS, // Specify only the methods you need to allow
-    allowHeaders: Cors.DEFAULT_HEADERS, // Specify only the headers you need to allow
-
+    allowOrigins: ["*"],
+    allowMethods: Cors.ALL_METHODS,
+    allowHeaders: Cors.DEFAULT_HEADERS, 
   },
 });
 
@@ -98,17 +97,14 @@ const fetcher = new lambda.Function(stack, "Fetcher", {
   layers: [layers.requests]
 });
 
-// add event rule that triggers the fetcher every minute
 const rule = new events.Rule(stack, "FetcherTriggerRule", {
   schedule: events.Schedule.rate(cdk.Duration.minutes(1))
 });
 
-// Bind the CloudWatch event rule to the Fetcher Lambda function
 rule.addTarget(new targets.LambdaFunction(fetcher));
 
 backend.addOutput({
   custom: {
-    // nowUrl,
     API: {
       [kilowattsGridApi.restApiName]: {
         endpoint: kilowattsGridApi.url,
