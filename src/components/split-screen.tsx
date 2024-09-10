@@ -9,19 +9,21 @@ import UnitGroupCard from "./unit-group-card";
 import { londonTimeHHMMSS } from "../utils/dateTime";
 import { Stack, useNavigation, useRouter } from "expo-router";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Appbar } from "react-native-paper";
 
-const useBackUrl = (backUrl?: string) => {
+const HeaderBar: React.FC<{ title: string; backUrl?: string }> = ({
+  title,
+  backUrl,
+}) => {
   const router = useRouter();
-  const navigation = useNavigation();
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener("beforeRemove", (e) => {
-      e.preventDefault();
-      if(backUrl) {
-        router.push(backUrl);
-      }
-    });
-    return unsubscribe;
-  }, [navigation, router, backUrl]);
+  return (
+    <Appbar.Header>
+      {backUrl && (
+        <Appbar.BackAction onPress={() => router.push(backUrl as any)} />
+      )}
+      <Appbar.Content title={title} />
+    </Appbar.Header>
+  );
 };
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -105,12 +107,12 @@ const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
  * A component that renders all generator and foreign market icons on the map with totals for each fuel type in the bottom panel.
  */
 export const HomeScreen: React.FC = () => {
-  useBackUrl();
   const { data } = useDataContext();
   const router = useRouter();
   return (
     <>
-      <Title title={`Grid at ${londonTimeHHMMSS(new Date(data.dt))}`} />
+      <HeaderBar title={`Grid at ${londonTimeHHMMSS(new Date(data.dt))}`} />
+
       <SplitScreen
         svgMap={{
           ...data.map,
@@ -131,8 +133,6 @@ export const HomeScreen: React.FC = () => {
 export const FuelTypeScreen: React.FC<{
   fuel_type: FuelType;
 }> = (p) => {
-  useBackUrl("/");
-
   const router = useRouter();
   const { data } = useDataContext();
   const map_icons = data.map.unit_groups.filter(
@@ -147,7 +147,7 @@ export const FuelTypeScreen: React.FC<{
   }
   return (
     <>
-      <Title title={p.fuel_type} />
+      <HeaderBar title={capitalise(p.fuel_type)} backUrl="/" />
       <SplitScreen
         svgMap={{
           unit_groups: map_icons,
@@ -173,8 +173,6 @@ export const UnitGroupScreen: React.FC<{
     (x) => x.code.toLowerCase() === p.code.toLowerCase()
   );
 
-  useBackUrl(map_icon && `/fuel_type/${map_icon.fuel_type.toLowerCase()}`);
-
   const list_data = data.lists.unit_groups.find(
     (x) => x.code.toLowerCase() === p.code.toLowerCase()
   );
@@ -186,7 +184,11 @@ export const UnitGroupScreen: React.FC<{
 
   return (
     <>
-      <Title title={list_data.name} />
+      <HeaderBar
+        title={capitalise(list_data.name)}
+        backUrl={`/fuel_type/${map_icon.fuel_type.toLowerCase()}`}
+      />
+
       <SplitScreen
         svgMap={{
           unit_groups: [map_icon],

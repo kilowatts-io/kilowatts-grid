@@ -11,16 +11,16 @@ import { Appbar } from "react-native-paper";
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { getHeaderTitle } from "@react-navigation/elements";
 
-const CustomNavigationBar: React.FC<NativeStackHeaderProps> = (p) => {
-  const title = getHeaderTitle(p.options, p.route.name);
-  const canGoBack = p.navigation.canGoBack();
-  return (
-    <Appbar.Header>
-      {canGoBack && <Appbar.BackAction onPress={p.navigation.goBack} />}
-      <Appbar.Content title={title} />
-    </Appbar.Header>
-  );
-};
+// const CustomNavigationBar: React.FC<NativeStackHeaderProps> = (p) => {
+//   const title = getHeaderTitle(p.options, p.route.name);
+//   const canGoBack = p.navigation.canGoBack();
+//   return (
+//     <Appbar.Header>
+//       {canGoBack && <Appbar.BackAction onPress={p.navigation.goBack} />}
+//       <Appbar.Content title={title} />
+//     </Appbar.Header>
+//   );
+// };
 
 const Layout: React.FC = () => {
   React.useEffect(() => {
@@ -33,7 +33,7 @@ const Layout: React.FC = () => {
           <GestureHandlerRootView>
             <Stack
               screenOptions={{
-                header: (props) => <CustomNavigationBar {...props} />,
+                // header: (props) => <CustomNavigationBar {...props} />,
               }}
             />
           </GestureHandlerRootView>
