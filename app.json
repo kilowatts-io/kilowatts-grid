@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "kilowattsgrid",
+    "name": "Kilowatts grid",
     "slug": "kilowattsgrid",
     "version": "6.0.0",
     "orientation": "portrait",
@@ -30,7 +30,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "description": "Live electricity data and map for Great Britain for hundreds of generators and interconnectors.",
+      "name": "Kilowatts grid",
+      "shortName": "Kilowatts grid",
+      "lang": "en-GB",
+      "orientation": "portrait-primary",
+      "startUrl": "/",
+      "backgroundColor": "lightblue",
+      "themeColor": "lightblue"
     },
     "plugins": [
       "expo-router"
