@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import amplify_config from "../../amplify_outputs.json";
+// import amplify_config from "../../amplify_outputs.json";
 import * as c from "@/src/constants";
 
 import { z } from "zod";
 import { calculatePoint } from "../components/svg-map";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const OutputSchema = z.object({
   level: z.number(),
@@ -207,16 +208,30 @@ const filterZero = (p: PointInTime): boolean => p.output.level !== 0 || p.balanc
  * @param b PointInTime
  */
 const sortDescending = (a: PointInTime, b: PointInTime) => {
-  if (a.output.level === b.output.level) {
-    return b.capacity - a.capacity;
-  }
+  if (a.output.level === b.output.level) return b.capacity - a.capacity;
   return b.output.level - a.output.level;
 };
+
+
+const amplify_exports = require("../../amplify_exports.json");
+
+const getBaseUrl = () => {
+  // try to import amplify_exports.json
+  if(amplify_exports){
+    return amplify_exports.custom.API.kilowattsGridApi.endpoint
+  }
+  const fromEnv = process.env.EXPO_PUBLIC_API_URL
+  if(!fromEnv){
+    throw new Error("No API URL found")
+  }
+  return fromEnv
+}
+
 
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: amplify_config.custom.API.kilowattsGridApi.endpoint,
+    baseUrl: getBaseUrl(),
   }),
   endpoints: (builder) => ({
     now: builder.query<AppData, void>({

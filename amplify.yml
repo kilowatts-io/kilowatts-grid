@@ -24,17 +24,13 @@ frontend:
                   fi
         build:
             commands:
-                - 'npm run build:web'
+                - 'expo export -p web'
     
     artifacts:
-        # The baseDirectory should point to where your build output is located
         baseDirectory: dist
-
-        # Include all files including wasm, js, css, and html from the dist folder and public assets
         files:
             - '**/*'
-            - '!public/.htaccess'
-
+            # - '!public/.htaccess'
     cache:
         paths:
             - '.npm/**/*'

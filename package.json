@@ -5,15 +5,17 @@
   "scheme": "kilowattsgrid",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "build:web": "expo export -p web",
     "serve": "npm run build:web && npx serve dist",
     "precommit": "lint-staged && jest",
     "format": "prettier --write 'src'",
     "postinstall": "npx setup-skia-web",
-    "preweb": "cp public/canvaskit.wasm public/_expo/static/js/web/canvaskit.wasm"
+    "preweb": "cp public/canvaskit.wasm public/_expo/static/js/web/canvaskit.wasm",
+    "build:android": "eas build -p android --local",
+    "build:ios": "eas build -p ios --local"
   },
   "dependencies": {
     "@aws-amplify/react-native": "^1.1.5",
@@ -43,7 +45,8 @@
     "react-native-web": "~0.19.10",
     "react-redux": "^9.1.2",
     "redux-persist": "^6.0.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "expo-system-ui": "~3.0.7"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.2.1",

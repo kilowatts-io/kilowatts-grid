@@ -108,7 +108,7 @@ rule.addTarget(new targets.LambdaFunction(fetcher));
 
 backend.addOutput({
   custom: {
-    nowUrl,
+    // nowUrl,
     API: {
       [kilowattsGridApi.restApiName]: {
         endpoint: kilowattsGridApi.url,
