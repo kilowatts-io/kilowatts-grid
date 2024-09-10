@@ -105,6 +105,7 @@ const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
  * A component that renders all generator and foreign market icons on the map with totals for each fuel type in the bottom panel.
  */
 export const HomeScreen: React.FC = () => {
+  useBackUrl();
   const { data } = useDataContext();
   const router = useRouter();
   return (

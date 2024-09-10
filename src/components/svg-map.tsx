@@ -164,13 +164,13 @@ const useScrollGestureWeb = (
 export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const svgMap = p.svgMap || GB_SVG_MAP;
   const zoom = useSharedValue(p.zoom || DEFAULT_ZOOM);
+  
+  const zoomIn = () => zoom.value = Math.min(zoom.value + 0.05, 2);
+  const zoomOut = () => zoom.value = Math.max(zoom.value - 0.05, 0.1);
+
   useScrollGestureWeb(
-    () => {
-      zoom.value += 0.05;
-    },
-    () => {
-      zoom.value -= 0.05;
-    }
+    zoomIn,
+    zoomOut
   )
 
   const initialCenter = p.initialCenter || mapCenter(svgMap);
@@ -238,16 +238,12 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
       <View style={styles.buttonRow}>
       <Button
         style={styles.button}
-        onPress={() => {
-          zoom.value += 0.05;
-        }}>
+        onPress={zoomIn}>
           +
       </Button>
       <Button
         style={styles.button}
-        onPress={() => {
-          zoom.value -= 0.05;
-        }}>
+        onPress={zoomOut}>
           -
       </Button>
       </View>
