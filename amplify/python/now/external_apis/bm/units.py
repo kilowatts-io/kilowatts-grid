@@ -200,22 +200,22 @@ unit_groups_dict = [
             {"unit": "T_CNQPS-4"},
         ],
     },
-    {
-        "details": {
-            "code": "RATS",
-            "name": "Ratcliffe",
-            "coords": {"lat": 52.866945, "lng": -1.256635},
-            "fuel_type": "coal",
-        },
-        "units": [
-            {"unit": "T_RATS-1"},
-            {"unit": "T_RATS-2"},
-            {"unit": "T_RATS-3"},
-            {"unit": "T_RATS-4"},
-            {"unit": "T_RATSGT-2"},
-            {"unit": "T_RATSGT-4"},
-        ],
-    },
+    # {
+    #     "details": {
+    #         "code": "RATS",
+    #         "name": "Ratcliffe",
+    #         "coords": {"lat": 52.866945, "lng": -1.256635},
+    #         "fuel_type": "coal",
+    #     },
+    #     "units": [
+    #         {"unit": "T_RATS-1"},
+    #         {"unit": "T_RATS-2"},
+    #         {"unit": "T_RATS-3"},
+    #         {"unit": "T_RATS-4"},
+    #         {"unit": "T_RATSGT-2"},
+    #         {"unit": "T_RATSGT-4"},
+    #     ],
+    # },
     {
         "details": {
             "code": "ROCK",
