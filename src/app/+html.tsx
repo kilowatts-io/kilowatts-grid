@@ -6,8 +6,9 @@ const url = `https://${domain}`;
 const title = "Kilowatts Grid (Great Britain)";
 const icon = `https://${domain}/icon.png`;
 const icon192 = `https://${domain}/icon-192.png`;
-const iosUrl = "" // "https://apps.apple.com/app/cost-of-work/id6670214363";
-const googleUrl = "" //"https://play.google.com/store/apps/details?id=com.benjaminwatts.CostOfWork";
+const appleAppId = "6474467753"
+const iosUrl =  `https://apps.apple.com/gb/app/kilowatts-grid/id${appleAppId}`;
+const googleUrl = "https://play.google.com/store/apps/details?id=com.benjaminwatts.kilowatts";
 
 const description =
   "Live electricity data and map for Great Britain for hundreds of generators and interconnectors.";
@@ -71,7 +72,7 @@ export default function Root({ children }: PropsWithChildren) {
             }),
           }}
         />
-        <meta name="apple-itunes-app" content={`app-id=${6670214363}`} />
+        <meta name="apple-itunes-app" content={`app-id=${appleAppId}`} />
 
         <link rel="stylesheet" href="smartbanner.css" />
         <script src="smartbanner.js" />
