@@ -8,9 +8,14 @@ import React from "react";
 const FuelTypeScreen: React.FC = () => {
   const code = useLocalSearchParams().code as string;
   return (
-    <WithAppData>
-      <Screen code={code} />
-    </WithAppData>
+    <>
+    <Stack.Screen options={{
+      title: `Loading ${code}...`,
+    }} />
+      <WithAppData>
+        <Screen code={code} />
+      </WithAppData>
+    </>
   );
 };
 
