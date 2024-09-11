@@ -21,6 +21,8 @@
     "@react-native-async-storage/async-storage": "^2.0.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@rneui/themed": "^4.0.0-rc.8",
+    "@sentry/react": "^8.30.0",
+    "@sentry/react-native": "^5.31.1",
     "@shopify/flash-list": "^1.6.4",
     "@shopify/react-native-skia": "1.2.3",
     "aws-amplify": "^6.6.0",
@@ -29,6 +31,7 @@
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.23",
     "expo-status-bar": "~1.12.1",
+    "expo-system-ui": "~3.0.7",
     "expo-updates": "^0.25.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -43,8 +46,7 @@
     "react-native-web": "~0.19.10",
     "react-redux": "^9.1.2",
     "redux-persist": "^6.0.0",
-    "zod": "^3.23.8",
-    "expo-system-ui": "~3.0.7"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.2.1",
