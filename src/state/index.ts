@@ -4,8 +4,8 @@ import api from "./api";
 import live from "./live";
 import { useDispatch, useSelector } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { persistReducer, persistStore } from "redux-persist";
+import storage from "@react-native-async-storage/async-storage"
 
 // 1. Setup persist configuration
 const persistConfig = {
