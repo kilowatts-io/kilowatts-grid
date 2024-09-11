@@ -18,12 +18,7 @@ const Layout: React.FC = () => {
       <ReduxProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <GestureHandlerRootView>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                // header: (props) => <CustomNavigationBar {...props} />,
-              }}
-            />
+            <Stack/>
           </GestureHandlerRootView>
         </PersistGate>
       </ReduxProvider>

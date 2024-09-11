@@ -2,13 +2,17 @@
 
 import React from "react";
 import { WithAppData } from "../contexts/data";
-import { HomeScreen } from "../components/split-screen";
+import { HeaderBar, HomeScreen } from "../components/split-screen";
 import { Stack } from "expo-router";
 
 const App: React.FC = () => {
   return (
     <>
-      <Stack.Screen options={{ title: "Kilowatts grid" }} />
+      <Stack.Screen
+        options={{
+          header: (props) => <HeaderBar title="Kilowatts Grid" {...props} />,
+        }}
+      />
       <WithAppData>
         <HomeScreen />
       </WithAppData>

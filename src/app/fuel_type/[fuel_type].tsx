@@ -1,6 +1,9 @@
 // create a hello world page
 
-import { FuelTypeScreen as Screen } from "@/src/components/split-screen";
+import {
+  HeaderBar,
+  FuelTypeScreen as Screen,
+} from "@/src/components/split-screen";
 import { WithAppData } from "@/src/contexts/data";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -14,7 +17,10 @@ const FuelTypeScreen: React.FC = () => {
     <>
       <Stack.Screen
         options={{
-          title: capitalise(fuel_type),
+          header: (props) => (
+            <HeaderBar title={capitalise(fuel_type)} {...props} backUrl="/"
+            />
+          ),
         }}
       />
       <WithAppData>

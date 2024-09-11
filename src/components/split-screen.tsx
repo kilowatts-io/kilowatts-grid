@@ -6,12 +6,11 @@ import { Icon } from "react-native-paper";
 import { FuelTypesList, UnitGroupsList } from "./icon-list-item";
 import { useDataContext } from "../contexts/data";
 import UnitGroupCard from "./unit-group-card";
-import { londonTimeHHMMSS } from "../utils/dateTime";
-import { Stack, useNavigation, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Appbar } from "react-native-paper";
 
-const HeaderBar: React.FC<{ title: string; backUrl?: string }> = ({
+export const HeaderBar: React.FC<{ title: string; backUrl?: string }> = ({
   title,
   backUrl,
 }) => {
@@ -28,9 +27,6 @@ const HeaderBar: React.FC<{ title: string; backUrl?: string }> = ({
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-const Title: React.FC<{ title: string }> = ({ title }) => (
-  <Stack.Screen options={{ title: capitalise(title) }} />
-);
 
 interface SplitScreenComponentProps {
   svgMap: AppMapData & {
@@ -47,15 +43,6 @@ export const useNarrowScreen = () => {
   const { width } = useWindowDimensions();
   return width < SPLIT_SCREEN_WIDTH_BREAKPOINT;
 };
-
-/**every integer from 0 - 100 */
-const START_SNAP = 15;
-const END_SNAP = 85;
-const SNAP_POINTS = Array.from(
-  { length: END_SNAP - START_SNAP },
-  (_, i) => i + START_SNAP
-).map((x) => `${x}%`);
-const INITIAL_SNAP_POINT = Math.trunc(SNAP_POINTS.length / 6);
 
 const Tab = createBottomTabNavigator();
 
@@ -86,7 +73,6 @@ const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
       <Tab.Screen
         name="List"
         getComponent={() => () => p.list}
-        // add icon
         options={{
           tabBarIcon: (p) => <Icon source="clipboard-list" {...p} />,
         }}
@@ -111,8 +97,6 @@ export const HomeScreen: React.FC = () => {
   const router = useRouter();
   return (
     <>
-      <HeaderBar title={`Grid at ${londonTimeHHMMSS(new Date(data.dt))}`} />
-
       <SplitScreen
         svgMap={{
           ...data.map,
@@ -147,7 +131,6 @@ export const FuelTypeScreen: React.FC<{
   }
   return (
     <>
-      <HeaderBar title={capitalise(p.fuel_type)} backUrl="/" />
       <SplitScreen
         svgMap={{
           unit_groups: map_icons,
@@ -167,6 +150,8 @@ export const FuelTypeScreen: React.FC<{
  */
 export const UnitGroupScreen: React.FC<{
   code: string;
+  setTitle: (title: string) => void;
+  setBackUrl: (url: string) => void;
 }> = (p) => {
   const { data } = useDataContext();
   const map_icon = data.map.unit_groups.find(
@@ -182,13 +167,19 @@ export const UnitGroupScreen: React.FC<{
     return <></>;
   }
 
+  const name = capitalise(list_data.name)
+  const backUrl = `/fuel_type/${map_icon.fuel_type.toLowerCase()}`
+
+  React.useEffect(() => {
+    p.setTitle(name);
+  }, [name])
+
+  React.useEffect(() => {
+    p.setBackUrl(backUrl);
+  }, [backUrl])
+
   return (
     <>
-      <HeaderBar
-        title={capitalise(list_data.name)}
-        backUrl={`/fuel_type/${map_icon.fuel_type.toLowerCase()}`}
-      />
-
       <SplitScreen
         svgMap={{
           unit_groups: [map_icon],

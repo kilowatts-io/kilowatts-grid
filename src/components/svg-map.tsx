@@ -7,6 +7,7 @@ import * as i from "@/src/components/icons";
 import * as c from "@/src/constants";
 import { useDerivedValue, useSharedValue } from "react-native-reanimated";
 import { Button } from "react-native-paper";
+import { useScrollGestureWeb } from "../hooks/scroll-gesture";
 
 export const GB_SVG_MAP: SvgMap = {
   dims: {
@@ -129,29 +130,7 @@ const searchPoint = (pressed: CanvasPoint, coords: Coords[]) => {
 
 const DEFAULT_ZOOM = 0.65;
 
-const useScrollGestureWeb = (
-  cursorHovered: boolean,
-  onZoomIn: () => void,
-  onZoomOut: () => void
-) => {
-  const handleScroll = (event: WheelEvent) => {
-    if (!cursorHovered) return;
-    if (event.deltaY > 0) {
-      onZoomOut();
-    } else if (event.deltaY < 0) {
-      onZoomIn();
-    }
-  };
 
-  React.useEffect(() => {
-    // if not on web, return
-    if (typeof window === "undefined") return;
-    window.addEventListener("wheel", handleScroll);
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, []);
-};
 
 export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const svgMap = p.svgMap || GB_SVG_MAP;
