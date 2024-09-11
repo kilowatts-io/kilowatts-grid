@@ -1,4 +1,5 @@
-import json
+import json, os
+from . s3 import write_to_s3
 from typing import List, Union
 from pydantic import BaseModel, Field
 from datetime import UTC
@@ -359,31 +360,11 @@ class GbPointInTimeRequest(BaseModel):
         return t.BalancingTotals(bids=bids, offers=offers).model_dump()
 
 def handler(event=None, context=None):
-    try:
-        resp = GbPointInTimeRequest().run()
-        logging.info(f"Got response - now serializing")
-        return {
-            "statusCode": 200,
-            "body": resp.model_dump_json(),
-            
-            "headers": {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*', 
-                'Access-Control-Allow-Headers': 'Content-Type'
-            },
-        }
-    except Exception as e:
-        logging.error(f"Error occurred: {str(e)}")
-        return {
-            "statusCode": 500,
-            "body": json.dumps({"error": str(e)}),
-            "headers": {"Content-Type": "application/json"},
-            "cache-control": "no-store",
-        }
-
+    init_sentry()
+    resp = GbPointInTimeRequest().run()
+    key = os.getenv("NOW_KEY")
+    write_to_s3(resp.model_dump_json(), key)
 
 if __name__ == "__main__":
-    x = handler()
-    content = json.loads(x["body"])
-    with open("data/example.json", "w") as f:
-        json.dump(content, f, indent=4)
+    handler()
+

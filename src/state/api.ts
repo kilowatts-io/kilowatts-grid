@@ -216,7 +216,7 @@ const getBaseUrl = () => {
   try {
     const amplify_exports = require("../../amplify_outputs.json");
     if (amplify_exports) {
-      return amplify_exports.custom.API.kilowattsGridApi.endpoint;
+      return amplify_exports.custom.nowUrl
     }
   } catch (e) {
     const fromEnv = process.env.EXPO_PUBLIC_API_URL;
@@ -234,7 +234,7 @@ export const api = createApi({
   }),
   endpoints: (builder) => ({
     now: builder.query<AppData, void>({
-      query: () => "now",
+      query: () => "",
       transformResponse: (data: BackendData): Promise<AppData> => {
         const output = {
           dt: data.dt,

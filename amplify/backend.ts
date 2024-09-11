@@ -1,5 +1,4 @@
 import * as cdk from "aws-cdk-lib";
-import { Cors, LambdaIntegration, MockIntegration, PassthroughBehavior, RestApi } from "aws-cdk-lib/aws-apigateway";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import { defineBackend } from "@aws-amplify/backend";
@@ -8,18 +7,17 @@ import * as targets from "aws-cdk-lib/aws-events-targets";
 
 
 const backend = defineBackend({});
-
 const stack = backend.createStack("KilowattsGridStack");
 
-// const sentryDsn = process.env.SENTRY_DSN;
-// if (!sentryDsn) {
-//   throw new Error("SENTRY_DSN environment variable is required");
-// }
+const sentryDsn = process.env.SENTRY_BACKEND_DSN;
+if (!sentryDsn) {
+  throw new Error("SENTRY_DSN environment variable is required");
+}
 
-// const sentryEnvironment = process.env.SENTRY_ENVIRONMENT;
-// if (!sentryEnvironment) {
-//   throw new Error("SENTRY_ENVIRONMENT environment variable is required");
-// }
+const sentryEnvironment = process.env.SENTRY_ENVIRONMENT;
+if (!sentryEnvironment) {
+  throw new Error("SENTRY_BACKEND_DSN environment variable is required");
+}
 
 const layers = {
   pydantic: lambda.LayerVersion.fromLayerVersionArn(
@@ -41,19 +39,42 @@ const layers = {
 
 const code = lambda.Code.fromAsset("amplify/python")
 
-const s3Bucket = new s3.Bucket(stack, "GbSnapshotBucket")
+// Unable to build the Amplify backend definition.
+// Caused By: Error: Cannot use 'publicReadAccess' property on a bucket without allowing bucket-level public access through 'blockPublicAccess' property.
+//     at new Bucket (/Users/ben/kilowattsgrid/node_modules/aws-cdk-lib/aws-s3/lib/bucket.js:1:23551)
+
+const s3Bucket = new s3.Bucket(stack, "GbSnapshotBucket", {
+  publicReadAccess: true,
+  blockPublicAccess: s3.BlockPublicAccess.BLOCK_ACLS, // Disable public access block to allow public read access
+  removalPolicy: cdk.RemovalPolicy.DESTROY,
+  autoDeleteObjects: true,
+  lifecycleRules: [
+    {
+      expiration: cdk.Duration.days(1), // Objects will be deleted after 24 hours
+    },
+  ],
+  cors: [
+    {
+      allowedMethods: [s3.HttpMethods.GET], // Allow GET requests
+      allowedOrigins: ['*'], // Allow access from any origin
+      allowedHeaders: ['*'], // Allow any headers
+    },
+  ],
+});
+
+const nowKey = `now.json`;
+const nowUrl = `https://${s3Bucket.bucketRegionalDomainName}/${nowKey}`;
 
 // Define the Lambda function
 const gbPointInTime = new lambda.Function(stack, "GbNow", {
   code,
   runtime: lambda.Runtime.PYTHON_3_11,
-  // functionName: 'gb-now-snapshot',
   environment: {
-    // SENTRY_DSN: sentryDsn,
-    // SENTRY_ENVIRONMENT: sentryEnvironment,
-    BUCKET: s3Bucket.bucketName
+    SENTRY_DSN: sentryDsn,
+    SENTRY_ENVIRONMENT: sentryEnvironment,
+    BUCKET: s3Bucket.bucketName,
+    NOW_KEY: nowKey,
   },
-  // functionName: "gb-now",
   handler: "now.handler.handler",
   layers: [layers.pydantic, layers.requests, layers.sentry],
   memorySize: 1000,
@@ -62,54 +83,20 @@ const gbPointInTime = new lambda.Function(stack, "GbNow", {
 
 s3Bucket.grantReadWrite(gbPointInTime)
 
-// Create a new REST API
-const kilowattsGridApi = new RestApi(stack, "KilowattsGridRestApi", {
-  restApiName: "kilowattsGridApi",
-  deployOptions: {
-    cacheClusterEnabled: true, 
-    cacheClusterSize: "0.5",
-    cacheTtl: cdk.Duration.seconds(60) 
-  },
-  defaultCorsPreflightOptions: {
-    allowOrigins: ["*"],
-    allowMethods: Cors.ALL_METHODS,
-    allowHeaders: Cors.DEFAULT_HEADERS, 
-  },
-});
-
-const nowPath = kilowattsGridApi.root.addResource("now");
-nowPath.addMethod("GET", new LambdaIntegration(gbPointInTime));
-
-const nowUrl = kilowattsGridApi.url + nowPath.path;
 
 new cdk.CfnOutput(stack, "NowUrl", {
   value:nowUrl
 })
 
-const fetcher = new lambda.Function(stack, "Fetcher", {
-  runtime: lambda.Runtime.PYTHON_3_11,
-  code,
-  timeout: cdk.Duration.seconds(20),
-  handler: "fetchers.now.handler",
-  environment: {
-    URL: nowUrl
-  },
-  layers: [layers.requests]
-});
 
 const rule = new events.Rule(stack, "FetcherTriggerRule", {
   schedule: events.Schedule.rate(cdk.Duration.minutes(1))
 });
 
-rule.addTarget(new targets.LambdaFunction(fetcher));
+rule.addTarget(new targets.LambdaFunction(gbPointInTime));
 
 backend.addOutput({
   custom: {
-    API: {
-      [kilowattsGridApi.restApiName]: {
-        endpoint: kilowattsGridApi.url,
-        region: cdk.Stack.of(kilowattsGridApi).region,
-      },
-    },
+    nowUrl
   },
 });
