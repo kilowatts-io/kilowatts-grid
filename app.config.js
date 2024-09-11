@@ -2,7 +2,7 @@ module.exports = {
   expo: {
     name: "Kilowatts grid",
     slug: "kilowattsgrid",
-    version: "6.0.0",
+    version: "6.0.1",
     orientation: "portrait",
     scheme: "kilowattsgrid",
     icon: "./assets/icon.png",
@@ -16,9 +16,10 @@ module.exports = {
       supportsTablet: true,
       bundleIdentifier: "com.benjaminwatts.kilowatts",
       config: {
-        usesNonExemptEncryption: false
+        usesNonExemptEncryption: false,
+        
       },
-      buildNumber: "6.0.0"
+      buildNumber: "6.0.1"
     },
     android: {
       adaptiveIcon: {
