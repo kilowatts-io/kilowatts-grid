@@ -6,8 +6,9 @@ import { ForeignFlag } from "@/src/atoms/flags";
 import * as i from "@/src/components/icons";
 import * as c from "@/src/constants";
 import { useDerivedValue, useSharedValue } from "react-native-reanimated";
-import { Button } from "react-native-paper";
-import { useScrollGestureWeb } from "../hooks/scroll-gesture";
+import { IconButton } from "react-native-paper";
+import { CustomAppbarHeader } from "../contexts/screen";
+import useMousePinchAndScrollGesture from "../hooks/scroll-gesture";
 
 export const GB_SVG_MAP: SvgMap = {
   dims: {
@@ -129,19 +130,43 @@ const searchPoint = (pressed: CanvasPoint, coords: Coords[]) => {
 };
 
 const DEFAULT_ZOOM = 0.65;
+const MAX_ZOOM = 2;
+const ZOOM_INC = 0.05;
+const MIN_ZOOM = 0.5;
 
+interface ZoomButtonProps {
+  zoomIn: () => void;
+  zoomOut: () => void;
+}
 
+const ICON_BUTTON_SIZE = 20;
+
+const ZoomButtons: React.FC<ZoomButtonProps> = (p) => (
+  <View style={styles.buttonWrapper}>
+    <IconButton
+      size={ICON_BUTTON_SIZE}
+      icon="magnify-minus"
+      onPress={p.zoomOut}
+    />
+    <IconButton
+      size={ICON_BUTTON_SIZE}
+      icon="magnify-plus"
+      onPress={p.zoomIn}
+    />
+  </View>
+);
 
 export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const svgMap = p.svgMap || GB_SVG_MAP;
   const zoom = useSharedValue(p.zoom || DEFAULT_ZOOM);
 
-  const zoomIn = () => (zoom.value = Math.min(zoom.value + 0.05, 2));
-  const zoomOut = () => (zoom.value = Math.max(zoom.value - 0.05, 0.1));
+  const zoomIn = () => (zoom.value = Math.min(zoom.value + ZOOM_INC, MAX_ZOOM));
+  const zoomOut = () =>
+    (zoom.value = Math.max(zoom.value - ZOOM_INC, MIN_ZOOM));
 
   const [cursorHovered, setCursorHovered] = React.useState(false);
 
-  useScrollGestureWeb(cursorHovered, zoomIn, zoomOut);
+  useMousePinchAndScrollGesture(cursorHovered, zoomIn, zoomOut);
 
   const initialCenter = p.initialCenter || mapCenter(svgMap);
   const centerLat = useSharedValue(initialCenter.lat);
@@ -169,7 +194,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         translationX.value += e.changeX;
         translationY.value += e.changeY;
       })
-      .onEnd((e) => {
+      .onEnd(() => {
         const newCoords = calculateCoords({
           x: centerX.value - translationX.value,
           y: centerY.value - translationY.value,
@@ -181,7 +206,6 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         translationX.value = 0;
         translationY.value = 0;
       }),
-
     Gesture.Tap()
       .numberOfTaps(2)
       .onEnd((e) => {
@@ -195,87 +219,92 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         console.log(`Found index ${index}`);
         if (!index) return;
         if (p.onTapIcon) p.onTapIcon(index);
-      })
+      }),
+    Gesture.Pinch().onChange((e) => {
+      zoom.value = Math.min(Math.max(zoom.value * e.scale, MIN_ZOOM), MAX_ZOOM);
+    })
   );
 
   const svgCenter = mapCanvasCenter(svgMap);
 
   const transform = useDerivedValue(() => {
-    const scaleValue = zoom.value; // * scaleFraction.value;
+    const scaleValue = zoom.value; //* zoomChange.value
     const translateY = svgCenter.y - centerY.value * scaleValue;
     return [
       { translateX: svgCenter.x - centerX.value * scaleValue },
-      { translateY }, // Adjusted translateY for top alignment
+      { translateY }, 
       { scale: scaleValue },
       { translateX: translationX.value },
-      { translateY: translationY.value }, // Apply any additional Y translation
+      { translateY: translationY.value }, 
     ];
   }, [translationX, translationY, zoom, centerX, centerY]);
 
   return (
     <>
-      <View style={styles.buttonRow}>
-        <Button style={styles.button} onPress={zoomIn}>
-          +
-        </Button>
-        <Button style={styles.button} onPress={zoomOut}>
-          -
-        </Button>
-      </View>
+      <CustomAppbarHeader
+        title={p.header.title}
+        headerRight={<ZoomButtons zoomIn={zoomIn} zoomOut={zoomOut} />}
+      />
 
-      <GestureDetector gesture={gesture}>
-        <Canvas
-          style={{
-            ...styles.canvas,
-            height: p.size.height,
-          }}
-        >
-          <Group transform={transform}>
-            <Path path={svgMap.path} color="white" />
+      <View style={styles.container}>
+        {p.listLeft && <View style={styles.left}>{p.listLeft}</View>}
 
-            {p.highlighted && (
-              <Circle
-                cx={p.highlighted.point.x}
-                cy={p.highlighted.point.y}
-                r={c.SELECTED_UNIT_GROUP_HIGHLIGHT_CIRCLE_RADIUS}
-                opacity={c.SELECTED_UNIT_GROUP_CIRCLE_OPACITY}
-                color={"lightgrey"}
-              />
-            )}
+        <GestureDetector gesture={gesture}>
+          <Canvas
+            style={{
+              ...styles.canvas,
+              height: p.size.height,
+            }}
+          >
+            <Group transform={transform}>
+              <Path path={svgMap.path} color="white" />
 
-            {p.unit_groups.map((ug, index) => {
-              switch (ug.fuel_type) {
-                case "wind":
-                  return <i.WindMapIcon key={`wind-${index}`} {...ug} />;
-                case "battery":
-                  return <i.BatteryMapIcon key={`battery-${index}`} {...ug} />;
-                case "solar":
-                  return <i.SolarMapIcon key={`solar-${index}`} {...ug} />;
-                case "interconnector":
-                  return null;
-                default:
-                  return (
-                    <i.DispatchableMapIcon
-                      key={`dispatchable-${index}`}
-                      {...(ug as DispatchableMapGeneratorIconProps)}
-                    />
-                  );
-              }
-            })}
+              {p.highlighted && (
+                <Circle
+                  cx={p.highlighted.point.x}
+                  cy={p.highlighted.point.y}
+                  r={c.SELECTED_UNIT_GROUP_HIGHLIGHT_CIRCLE_RADIUS}
+                  opacity={c.SELECTED_UNIT_GROUP_CIRCLE_OPACITY}
+                  color={"lightgrey"}
+                />
+              )}
 
-            {p.foreign_markets.map((fm) => (
-              <ForeignFlag key={`flag-${fm.code}`} {...fm} />
-            ))}
+              {p.unit_groups.map((ug, index) => {
+                switch (ug.fuel_type) {
+                  case "wind":
+                    return <i.WindMapIcon key={`wind-${index}`} {...ug} />;
+                  case "battery":
+                    return (
+                      <i.BatteryMapIcon key={`battery-${index}`} {...ug} />
+                    );
+                  case "solar":
+                    return <i.SolarMapIcon key={`solar-${index}`} {...ug} />;
+                  case "interconnector":
+                    return null;
+                  default:
+                    return (
+                      <i.DispatchableMapIcon
+                        key={`dispatchable-${index}`}
+                        {...(ug as DispatchableMapGeneratorIconProps)}
+                      />
+                    );
+                }
+              })}
 
-            {p.foreign_markets
-              .map(({ cables }) => cables)
-              .flat()
-              .map((c) => (
-                <i.CableMapIcon key={`cable-${c.code}`} {...c} />
+              {p.foreign_markets.map((fm) => (
+                <ForeignFlag key={`flag-${fm.code}`} {...fm} />
               ))}
-          </Group>
-        </Canvas>
-      </GestureDetector>
+
+              {p.foreign_markets
+                .map(({ cables }) => cables)
+                .flat()
+                .map((c) => (
+                  <i.CableMapIcon key={`cable-${c.code}`} {...c} />
+                ))}
+            </Group>
+          </Canvas>
+        </GestureDetector>
+      </View>
     </>
   );
 };
@@ -289,19 +318,27 @@ const styles = StyleSheet.create({
     backgroundColor: c.MAP_BACKGROUND_COLOR,
     width: "100%",
   },
+  left: {
+    minWidth: 300,
+  },
   container: {
-    flexDirection: "column",
-    position: "absolute",
-    bottom: 50,
-    right: 10,
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+  },
+  buttonText: {
+    color: "black",
   },
   button: {
     width: 25,
-  },
-  buttonRow: {
-    flexDirection: "row",
+    height: 25,
+    borderColor: "darkgrey",
+    borderWidth: 1,
+    borderRadius: 0,
     justifyContent: "center",
-    width: "100%",
-    backgroundColor: c.MAP_BACKGROUND_COLOR,
+    alignItems: "center",
+  },
+  buttonWrapper: {
+    flexDirection: "row",
   },
 });

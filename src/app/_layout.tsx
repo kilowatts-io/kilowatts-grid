@@ -7,7 +7,7 @@ import { Stack } from "expo-router";
 import { initialise } from "../utils/sentry";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PersistGate } from "redux-persist/integration/react"; // Import PersistGate
-
+import { ScreenContext } from "../contexts/screen";
 
 const Layout: React.FC = () => {
   React.useEffect(() => {
@@ -17,9 +17,15 @@ const Layout: React.FC = () => {
     <ErrorBoundary>
       <ReduxProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <GestureHandlerRootView>
-            <Stack/>
-          </GestureHandlerRootView>
+          <ScreenContext.Provider value={null}>
+            <GestureHandlerRootView>
+              <Stack 
+                screenOptions={{
+                  headerShown: false,
+                }}
+              />
+            </GestureHandlerRootView>
+          </ScreenContext.Provider>
         </PersistGate>
       </ReduxProvider>
     </ErrorBoundary>

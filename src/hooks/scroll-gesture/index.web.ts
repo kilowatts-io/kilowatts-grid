@@ -1,25 +1,38 @@
 import React from "react";
 
-export const useScrollGestureWeb = (
-    cursorHovered: boolean,
-    onZoomIn: () => void,
-    onZoomOut: () => void
-  ) => {
-    const handleScroll = (event: WheelEvent) => {
+const useMousePinchAndScrollGesture = (
+  cursorHovered: boolean,
+  onZoomIn: () => void,
+  onZoomOut: () => void
+) => {
+  React.useEffect(() => {
+    const handleWheel = (event: WheelEvent) => {
       if (!cursorHovered) return;
-      if (event.deltaY > 0) {
-        onZoomOut();
-      } else if (event.deltaY < 0) {
-        onZoomIn();
+
+      if (event.ctrlKey) {
+        // Handle pinch gesture
+        if (event.deltaY < 0) {
+          onZoomIn();
+        } else {
+          onZoomOut();
+        }
+      } else {
+        // Handle scroll gesture
+        if (event.deltaY > 0) {
+          onZoomOut();
+        } else if (event.deltaY < 0) {
+          onZoomIn();
+        }
       }
     };
-  
-    React.useEffect(() => {
-      // if not on web, return
-      if (typeof window === "undefined") return;
-      window.addEventListener("wheel", handleScroll);
-      return () => {
-        window.removeEventListener("wheel", handleScroll);
-      };
-    }, []);
-  };
+
+    window.addEventListener("wheel", handleWheel);
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [cursorHovered, onZoomIn, onZoomOut]);
+
+  return null;
+};
+
+export default useMousePinchAndScrollGesture;

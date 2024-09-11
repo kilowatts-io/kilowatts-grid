@@ -12,11 +12,7 @@ const UnitGroupAccordion: React.FC<UnitGroupAccordionProps> = ({
   title,
   content,
 }) => {
-  return (
-    <List.Accordion title={title} expanded={true}>
-      <List.Item title={content} />
-    </List.Accordion>
-  );
+  return <List.Item title={title} description={content.toString()} />;
 };
 
 /**
@@ -30,8 +26,8 @@ const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export const UnitGroupCard: React.FC<AppListIconProps> = (p) => {
   return (
     <ScrollView>
-      <Card>
-        <Card.Content>
+      {/* <Card>
+        <Card.Content> */}
           <List.Section>
             <UnitGroupAccordion
               title="Type"
@@ -62,8 +58,8 @@ export const UnitGroupCard: React.FC<AppListIconProps> = (p) => {
               content={formatMW(p.balancing_volume)}
             />
           </List.Section>
-        </Card.Content>
-      </Card>
+        {/* </Card.Content>
+      </Card> */}
     </ScrollView>
   );
 };

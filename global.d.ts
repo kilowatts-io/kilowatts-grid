@@ -205,4 +205,12 @@ interface SvgMapProps extends AppMapData {
     width: number;
   };
   onTapIcon?: (index: number) => void;
+  header: ScreenHeaderContext;
+  listLeft?: React.ReactNode;
+}
+
+interface ScreenHeaderContext {
+  title: string; // the title of the screen
+  backUrl?: string; // the url to go back to - if not provided, the back button will not be shown
+  headerRight?: React.ReactNode; // the right side of the header - e.g. map +/i zoom buttons
 }

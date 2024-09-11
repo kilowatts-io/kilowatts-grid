@@ -19,7 +19,8 @@ export const formatMW = (mw: number) => {
   return `${Math.round(mw)}MW`;
 };
 
-const renderDeltaText = (delta: number) => delta === 0 ? '': (delta > 0 ? "↑" : "↓")
+const renderDeltaText = (delta: number) =>
+  delta === 0 ? "" : delta > 0 ? "↑" : "↓";
 
 const IconListItem: React.FC<
   AppListIconProps & {
@@ -29,24 +30,23 @@ const IconListItem: React.FC<
 > = (p) => {
   const ft = p.fuel_type;
 
-  const ot = ` ${formatMW(p.output.level)} / ${formatMW(p.capacity)}`
-  const dt = renderDeltaText(p.output.delta)
+  const ot = ` ${formatMW(p.output.level)} / ${formatMW(p.capacity)}`;
+  const dt = renderDeltaText(p.output.delta);
 
-  const description = `${dt}${ot}`
+  const description = `${dt}${ot}`;
 
-  const color = getBalancingColor(p.balancing_volume)
+  const color = getBalancingColor(p.balancing_volume);
 
   return (
     <Link href={p.href as any}>
       <List.Item
-      
-      style={styles.listItem}
+        style={styles.listItem}
         title={p.name}
         left={() => (
           <ErrorBoundaryBlank>
             {!p.hideIcon && (
-             <View style={styles.iconWrapper}>
-               <Canvas style={styles.iconCanvas}>
+              <View style={styles.canvasWrapper}>
+                <Canvas style={styles.iconCanvas}>
                 {ft === "wind" && <i.WindListIcon {...p} />}
                 {ft === "battery" && <i.BatteryListIcon {...p} />}
                 {ft === "solar" && <i.SolarListIcon {...p} />}
@@ -58,7 +58,7 @@ const IconListItem: React.FC<
                   ft === "nuclear" ||
                   ft === "hydro") && <i.DispatchableListIcon {...p} />}
               </Canvas>
-             </View>
+              </View>
             )}
           </ErrorBoundaryBlank>
         )}
@@ -73,18 +73,7 @@ const IconListItem: React.FC<
 const BalancingTotalItem: React.FC<{
   name: string;
   value: number;
-}> = (p) => (
-  <List.Item
-    title={p.name}
-    right={() => (
-      <View style={styles.description}>
-        <View style={styles.output}>
-          <Text style={styles.outputText}>{formatMW(p.value)}</Text>
-        </View>
-      </View>
-    )}
-  />
-);
+}> = (p) => <List.Item title={p.name} description={formatMW(p.value)} />;
 
 export const GbBalancingTotals = () => {
   const { lists } = useDataContext().data;
@@ -142,30 +131,18 @@ export const FuelTypesList: React.FC<{
 };
 
 const styles = StyleSheet.create({
-  iconWrapper: {
-    width: 30,
+  canvasWrapper: {
     height: 30,
-    display: "flex",
+    width: 35,
     justifyContent: "center",
     alignItems: "center",
+    // backgroundColor: "grey",
   },
   iconCanvas: {
     ...LIST_ICON_DIMS,
   },
   listItem: {
-    width: '100%',
-    // height: 50,
-    // paddingHorizontal: 5,
-    // backgroundColor: 'white',
-    // display: 'flex',
-    // alignItems: 'center',
-  },
-  description: {
-    // flexDirection: "row",
-    // gap: 3,
-    // justifyContent: "flex-end",
-    // alignItems: 'center',
-    // flex: 1,
+    width: "100%",
   },
   balancing: {
     alignItems: "flex-end",

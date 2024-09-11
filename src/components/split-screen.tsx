@@ -1,14 +1,15 @@
 // split screen components that combine the map at the top with a scrollable list of icons at the bottom
 import React from "react";
-import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import SvgMap from "./svg-map";
 import { Icon } from "react-native-paper";
 import { FuelTypesList, UnitGroupsList } from "./icon-list-item";
 import { useDataContext } from "../contexts/data";
 import UnitGroupCard from "./unit-group-card";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Appbar } from "react-native-paper";
+import { CustomAppbarHeader } from "../contexts/screen";
 
 export const HeaderBar: React.FC<{ title: string; backUrl?: string }> = ({
   title,
@@ -27,7 +28,6 @@ export const HeaderBar: React.FC<{ title: string; backUrl?: string }> = ({
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-
 interface SplitScreenComponentProps {
   svgMap: AppMapData & {
     initialCenter?: Coords;
@@ -35,6 +35,7 @@ interface SplitScreenComponentProps {
     onTapIcon?: (index: number) => void;
   };
   list: React.ReactNode;
+  header: ScreenHeaderContext;
 }
 
 const SPLIT_SCREEN_WIDTH_BREAKPOINT = 800;
@@ -46,22 +47,14 @@ export const useNarrowScreen = () => {
 
 const Tab = createBottomTabNavigator();
 
-/**
- * A component that switches between touch and non-touch screen components based on the device's capabilities
- */
+
+// SplitScreen component with separate map and list views
 const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
   const isSmallScreen = useNarrowScreen();
-  const dims = useWindowDimensions();
-  const svgMap = <SvgMap {...p.svgMap} size={dims} />;
+  const size = useWindowDimensions();  
+  const mapProps = {...p.svgMap, size, header: p.header};
 
-  if (!isSmallScreen) {
-    return (
-      <View style={styles.wide}>
-        <View style={styles.right}>{p.list}</View>
-        <View style={styles.left}>{svgMap}</View>
-      </View>
-    );
-  }
+  if (!isSmallScreen) return <SvgMap {...mapProps} listLeft={p.list} />;
 
   return (
     <Tab.Navigator
@@ -72,22 +65,25 @@ const SplitScreen: React.FC<SplitScreenComponentProps> = (p) => {
     >
       <Tab.Screen
         name="List"
-        getComponent={() => () => p.list}
         options={{
+          header: () => <CustomAppbarHeader {...p.header} />,
           tabBarIcon: (p) => <Icon source="clipboard-list" {...p} />,
         }}
+        children={() => p.list}
       />
       <Tab.Screen
         name="Map"
-        getComponent={() => () => svgMap}
-        // add icon
         options={{
+          headerShown: false,
           tabBarIcon: (p) => <Icon source="map" {...p} />,
         }}
+        children={() => <SvgMap {...mapProps} />} 
       />
     </Tab.Navigator>
   );
 };
+
+
 
 /**
  * A component that renders all generator and foreign market icons on the map with totals for each fuel type in the bottom panel.
@@ -106,6 +102,7 @@ export const HomeScreen: React.FC = () => {
             ),
         }}
         list={<FuelTypesList data={data.lists.fuel_types} />}
+        header={{ title: "Kilowatts Grid" }}
       />
     </>
   );
@@ -139,6 +136,7 @@ export const FuelTypeScreen: React.FC<{
             router.push(`/unit_group/${list_data[index].code.toLowerCase()}`),
         }}
         list={<UnitGroupsList data={list_data} />}
+        header={{ title: capitalise(p.fuel_type), backUrl: '/' }}
       />
     </>
   );
@@ -150,8 +148,6 @@ export const FuelTypeScreen: React.FC<{
  */
 export const UnitGroupScreen: React.FC<{
   code: string;
-  setTitle: (title: string) => void;
-  setBackUrl: (url: string) => void;
 }> = (p) => {
   const { data } = useDataContext();
   const map_icon = data.map.unit_groups.find(
@@ -166,17 +162,8 @@ export const UnitGroupScreen: React.FC<{
     console.log("No data found for unit group", p.code);
     return <></>;
   }
-
-  const name = capitalise(list_data.name)
-  const backUrl = `/fuel_type/${map_icon.fuel_type.toLowerCase()}`
-
-  React.useEffect(() => {
-    p.setTitle(name);
-  }, [name])
-
-  React.useEffect(() => {
-    p.setBackUrl(backUrl);
-  }, [backUrl])
+  const title = capitalise(list_data.name);
+  const backUrl = `/fuel_type/${map_icon.fuel_type.toLowerCase()}`;
 
   return (
     <>
@@ -188,6 +175,7 @@ export const UnitGroupScreen: React.FC<{
           zoom: 1.5,
         }}
         list={<UnitGroupCard {...list_data} />}
+        header={{ title, backUrl }}
       />
     </>
   );
