@@ -17,9 +17,11 @@ module.exports = {
       bundleIdentifier: "com.benjaminwatts.kilowatts",
       config: {
         usesNonExemptEncryption: false,
-        
       },
-      buildNumber: "6.0.1"
+      buildNumber: "6.0.1",
+      infoPlist: {
+        "CFBundleDisplayName": "Grid"
+      }
     },
     android: {
       adaptiveIcon: {
@@ -27,7 +29,8 @@ module.exports = {
         backgroundColor: "#ffffff"
       },
       package: "com.benjaminwatts.kilowatts",
-      versionCode: 6
+      versionCode: 6,
+      appName: "Grid"
     },
     web: {
       favicon: "./assets/favicon.png",
