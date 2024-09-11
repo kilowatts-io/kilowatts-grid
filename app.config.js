@@ -21,6 +21,9 @@ module.exports = {
       buildNumber: "6.0.1",
       infoPlist: {
         "CFBundleDisplayName": "Grid"
+      },
+      entitlements: {
+        "aps-environment": null 
       }
     },
     android: {
