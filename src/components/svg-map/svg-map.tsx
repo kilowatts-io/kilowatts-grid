@@ -8,6 +8,7 @@ import Animated, { useDerivedValue } from "react-native-reanimated";
 import GB_SVG_MAP from "@/src/atoms/svg-map";
 import { MIN_ZOOM, MAX_ZOOM, useSvgMapContext } from "@/src/contexts/svg-map";
 import { useScreen } from "@/src/hooks/screen";
+import useMousePinchGesture from "@/src/hooks/scroll-gesture";
 
 const mapCanvasCenter = (m: SvgMap) => ({
   x: m.dims.width / 2,
@@ -194,6 +195,13 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
       { translateY: ctx.translationY.value },
     ];
   }, [ctx.translationX, ctx.translationY, ctx.zoom, centerX, centerY]);
+
+
+  useMousePinchGesture(ctx.cursorHovered.value, () => {
+    ctx.zoom.value = Math.min(ctx.zoom.value + 0.1, MAX_ZOOM);
+  }, () => {
+    ctx.zoom.value = Math.max(ctx.zoom.value - 0.1, MIN_ZOOM);
+  });
 
   return (
     <Animated.View

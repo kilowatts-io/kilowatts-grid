@@ -8,7 +8,6 @@ const useMousePinchAndScrollGesture = (
   React.useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
       if (!cursorHovered) return;
-
       if (event.ctrlKey) {
         // Handle pinch gesture
         if (event.deltaY < 0) {

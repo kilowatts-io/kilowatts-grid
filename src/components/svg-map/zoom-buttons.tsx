@@ -1,4 +1,6 @@
+import { GB_MAP_CENTER } from "@/src/atoms/svg-map";
 import {
+  DEFAULT_ZOOM,
   MAX_ZOOM,
   MIN_ZOOM,
   useSvgMapContext,
@@ -15,18 +17,27 @@ const SvgZoomMapButtons: React.FC = () => {
   return (
     <View style={styles.buttonWrapper}>
       <IconButton
-        size={ICON_BUTTON_SIZE}
-        icon="magnify-minus"
-        onPress={() =>
-          (ctx.zoom.value = Math.max(ctx.zoom.value - ZOOM_INC, MIN_ZOOM))
-        }
+      size={ICON_BUTTON_SIZE}
+      icon="refresh"
+      onPress={() => {
+        ctx.zoom.value = DEFAULT_ZOOM
+        ctx.centerLat.value = GB_MAP_CENTER.lat
+        ctx.centerLng.value = GB_MAP_CENTER.lng
+      }}
       />
       <IconButton
-        size={ICON_BUTTON_SIZE}
-        icon="magnify-plus"
-        onPress={() =>
-          (ctx.zoom.value = Math.min(ctx.zoom.value + ZOOM_INC, MAX_ZOOM))
-        }
+      size={ICON_BUTTON_SIZE}
+      icon="magnify-minus"
+      onPress={() =>
+        (ctx.zoom.value = Math.max(ctx.zoom.value - ZOOM_INC, MIN_ZOOM))
+      }
+      />
+      <IconButton
+      size={ICON_BUTTON_SIZE}
+      icon="magnify-plus"
+      onPress={() =>
+        (ctx.zoom.value = Math.min(ctx.zoom.value + ZOOM_INC, MAX_ZOOM))
+      }
       />
     </View>
   );
