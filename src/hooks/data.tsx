@@ -29,15 +29,13 @@ const smallestIcon = (map_icons: MapGeneratorIconProps[]) =>  {
   return smallest
 }
 
-const SMALLEST_ICON_RESCALE = 0.1
+const SMALLEST_ICON_SIZE = 15
 
 const rescaleMapIcons = (map_icons: MapGeneratorIconProps[]) => {
-  const smallest = smallestIcon(map_icons);
-  const rescaleFactor = Math.max(1, SMALLEST_ICON_RESCALE / smallest);
   return map_icons.map((x) => {
     const rescaled = {
       ...x,
-      sizePx: x.sizePx * rescaleFactor,
+      sizePx: Math.max(SMALLEST_ICON_SIZE, x.sizePx),
     }
     return rescaled
   });
