@@ -37,13 +37,15 @@ module.exports = {
     },
     web: {
       favicon: "./assets/favicon.png",
+      shortName: 'Grid',
+      title: 'Kilowatts Grid',
       bundler: "metro",
       description: "Live electricity data and map for Great Britain for hundreds of generators and interconnectors.",
       name: "Kilowatts grid - Live electricity data and map for Great Britain for hundreds of generators and interconnectors.",
-      shortName: "Kilowatts grid",
       lang: "en-GB",
       orientation: "portrait-primary",
       startUrl: "/",
+      output: 'static',
       backgroundColor: "lightblue",
       themeColor: "lightblue"
     },
