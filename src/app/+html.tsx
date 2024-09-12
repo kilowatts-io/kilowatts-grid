@@ -52,7 +52,7 @@ export default function Root({ children }: PropsWithChildren) {
         />
         <meta name="twitter:image" content={icon} />
 
-        <link rel="manifest" href="/manifest.json" />
+        {/* <link rel="manifest" href="/manifest.json" /> */}
 
         {/* Structured Data for Rich Snippets */}
         <script

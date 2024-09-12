@@ -30,39 +30,48 @@ export const FuelTypeMapScreen: React.FC = () => {
     const title = nav.useFuelTypeTitle();
     const data = hooks.useFuelType(nav.useFuelType());
     if (!data) return null;
-    return <FuelTypeMap title={title} data={data} />;
+    return (
+      <>
+        <nav.FuelTypeMapHelmet />
+        <FuelTypeMap title={title} data={data} />
+      </>
+    );
 };
 
 export const FuelTypeSmallScreen: React.FC = () => {
-    const fuel_type = nav.useFuelType();
-    const data = hooks.useFuelType(fuel_type);
-    const title = capitalise(fuel_type);
+  const fuel_type = nav.useFuelType();
+  const data = hooks.useFuelType(fuel_type);
+  const title = capitalise(fuel_type);
 
-    if (data.list_data.length === 0) return <Redirect href={nav.home as any} />;
+  if (data.list_data.length === 0) return <Redirect href={nav.home as any} />;
 
-    return (
+  return (
+    <>
+      <nav.FuelTypeHelmet fuel_type={fuel_type} />
       <FuelTypeList
         title={title}
         data={data}
         mapUrl={nav.fuel_type_map(fuel_type)}
       />
-    );
+    </>
+  );
 };
 
 export const FuelTypeLargeScreen: React.FC = () => {
-    const fuel_type = nav.useFuelType();
-    const data = hooks.useFuelType(fuel_type);
-    const title = capitalise(fuel_type);
+  const fuel_type = nav.useFuelType();
+  const data = hooks.useFuelType(fuel_type);
+  const title = capitalise(fuel_type);
 
-    if (data.list_data.length === 0) return <Redirect href={nav.home as any} />;
+  if (data.list_data.length === 0) return <Redirect href={nav.home as any} />;
 
-    return (
-        <SvgMapContext.Provider value={useSvgMapContextValue({})}>
-            <MapScreenHeaderBar title={title} backUrl={nav.home} />
-            <LargeScreen
-                left={<UnitGroupsList data={data.list_data} />}
-                right={<SvgMap unit_groups={data.map_icons} foreign_markets={[]} />}
-            />
-        </SvgMapContext.Provider>
-    );
+  return (
+    <SvgMapContext.Provider value={useSvgMapContextValue({})}>
+      <nav.FuelTypeHelmet fuel_type={fuel_type} />
+      <MapScreenHeaderBar title={title} backUrl={nav.home} />
+      <LargeScreen
+        left={<UnitGroupsList data={data.list_data} />}
+        right={<SvgMap unit_groups={data.map_icons} foreign_markets={[]} />}
+      />
+    </SvgMapContext.Provider>
+  );
 };

@@ -48,6 +48,7 @@ export const UnitGroupLargeScreen: React.FC = () => {
         title={title(list_data)}
         backUrl={backUrl(map_icon)}
       />
+      <nav.UnitGroupHelmet unit_group={list_data} />
       <SvgMapProvider map_icon={map_icon}>
         <LargeScreen
           left={<UnitGroupCard {...list_data} />}
@@ -71,6 +72,7 @@ export const UnitGroupSmallScreen: React.FC = () => {
         backUrl={backUrl(data.map_icon)}
         mapUrl={nav.unit_group_map(nav.useUnitCode())}
       />
+      <nav.UnitGroupHelmet unit_group={list_data} />
       <UnitGroupCard {...list_data} />
     </>
   );
@@ -89,6 +91,7 @@ export const UnitGroupMapScreen: React.FC = () => {
         title={capitalise(list_data.name)}
         backUrl={useBackUrl()}
       />
+      <nav.UnitGroupHelmetMap unit_group={list_data} />
       <SvgMapProvider map_icon={map_icon}>
         <SvgMap unit_groups={[map_icon]} foreign_markets={[]} />
       </SvgMapProvider>
