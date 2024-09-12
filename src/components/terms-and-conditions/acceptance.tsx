@@ -45,7 +45,8 @@ export const WithTermsAndConditionsAccepted = (props: {
   const accepted = useSelector(getTermsAccepted)
   return (
     <>
-      <TermsAndConditionsAcceptanceModal visible={!accepted} />;{props.children}
+      <TermsAndConditionsAcceptanceModal visible={!accepted} />
+      {props.children}
     </>
   );
 };
