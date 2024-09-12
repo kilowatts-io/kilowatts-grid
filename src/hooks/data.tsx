@@ -9,12 +9,11 @@ export const useHome = () => {
   return {
     map: fuel_type
       ? {
-        ...data.map,
         foreign_markets: [],
-        unit_groups: data.map.unit_groups.filter(
+        unit_groups: rescaleMapIcons(data.map.unit_groups.filter(
           (x) => x.fuel_type.toLowerCase() === fuel_type.toLowerCase()
-        ),
-      }
+        )),
+      }as AppMapData
       : data.map,
     fuel_types: data.lists.fuel_types,
   };
@@ -25,10 +24,32 @@ export const useHome = () => {
 const filterFuelType = (x: { fuel_type: FuelType }, f: FuelType) =>
   x.fuel_type.toLowerCase() === f.toLowerCase();
 
+const smallestIcon = (map_icons: MapGeneratorIconProps[]) =>  {
+  const smallest =  map_icons.map(x => x.sizePx).filter(x => x > 0).reduce((a, b) => Math.min(a, b), Infinity)
+  return smallest
+}
+
+const SMALLEST_ICON_RESCALE = 0.1
+
+const rescaleMapIcons = (map_icons: MapGeneratorIconProps[]) => {
+  const smallest = smallestIcon(map_icons);
+  const rescaleFactor = Math.max(1, SMALLEST_ICON_RESCALE / smallest);
+  return map_icons.map((x) => {
+    const rescaled = {
+      ...x,
+      sizePx: x.sizePx * rescaleFactor,
+    }
+    console.log(rescaled)
+    return rescaled
+  });
+}
+
+
 export const useFuelType = (fuel_type: FuelType) => {
   const { data } = useDataContext();
+  const map_icons = rescaleMapIcons(data.map.unit_groups.filter((x) => filterFuelType(x, fuel_type)))
   return {
-    map_icons: data.map.unit_groups.filter((x) => filterFuelType(x, fuel_type)),
+    map_icons,
     list_data: data.lists.unit_groups.filter((x) =>
       filterFuelType(x, fuel_type)
     ),

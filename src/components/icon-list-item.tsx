@@ -62,7 +62,13 @@ const IconListItem: React.FC<
   };
 
   return (
-    <Link href={href as any}>
+    <Link
+      href={href as any}
+      style={{
+        ...styles.listItem,
+        // backgroundColor: 'red'
+      }}
+    >
       <List.Item
         style={styles.listItem}
         title={capitalise(name)}
@@ -77,7 +83,7 @@ const IconListItem: React.FC<
         }
         description={description}
         descriptionStyle={{ color }}
-        right={() => <List.Icon icon="chevron-right" />}
+        right={(p) => <List.Icon {...p} icon="chevron-right" />}
       />
     </Link>
   );
@@ -140,6 +146,7 @@ const UnitGroupsList: React.FC<{ data: AppListIconProps[] }> = ({ data }) => {
       ListFooterComponent={EmbeddedResiduaCard}
       renderItem={({ item }) => (
         <View
+          style={styles.listItem}
           onPointerEnter={() => {
             ctx.zoom.value = withTiming(3);
             ctx.centerLat.value = withTiming(item.coords.lat);
@@ -172,12 +179,9 @@ const FuelTypesList: React.FC<{ data: AppListIconProps[] }> = ({ data }) => {
       data={data}
       renderItem={({ item }) => (
         <View
-          onPointerEnter={() => {
-            dispatch(setFuelType(item.fuel_type));
-          }}
-          onPointerLeave={() => {
-            dispatch(setFuelType());
-          }}
+          style={styles.listItem}
+          onPointerEnter={() => dispatch(setFuelType(item.fuel_type))}
+          onPointerLeave={() => dispatch(setFuelType())}
         >
           <IconListItem
             {...item}

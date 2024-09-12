@@ -6,7 +6,7 @@ const WithSmallScreen = () => {
   const backUrl = useBackUrl();
   return (
     <LargeScreenRedirect redirectUrl={backUrl}>
-      <UnitGroupMapScreen />;
+      <UnitGroupMapScreen />
     </LargeScreenRedirect>
   );
 };

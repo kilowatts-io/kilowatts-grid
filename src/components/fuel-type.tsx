@@ -52,7 +52,13 @@ export const FuelTypeSmallScreen: React.FC = () => {
 
     if (data.list_data.length === 0) return <Redirect href={nav.home as any} />;
 
-    return <FuelTypeList title={title} data={data} mapUrl={nav.fuel_type_map(fuel_type)} />;
+    return (
+      <FuelTypeList
+        title={title}
+        data={data}
+        mapUrl={nav.fuel_type_map(fuel_type)}
+      />
+    );
 };
 
 export const FuelTypeLargeScreen: React.FC = () => {

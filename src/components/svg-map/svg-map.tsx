@@ -209,8 +209,8 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
   }, () => {
     ctx.zoom.value = Math.max(ctx.zoom.value - 0.1, MIN_ZOOM);
   });
-  
 
+  
   return (
     <Animated.View
       style={{
@@ -241,6 +241,9 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
                 case "interconnector":
                   return null;
                 default:
+                  if(ug.fuel_type === 'biomass') {
+                    console.log(ug)
+                  }
                   return (
                     <i.DispatchableMapIcon
                       key={`dispatchable-${index}`}

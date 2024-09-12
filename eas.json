@@ -20,7 +20,7 @@
     "production": {
       "autoIncrement": true,
       "env": {
-        "EXPO_PUBLIC_API_URL": ""
+        "EXPO_PUBLIC_API_URL": "https://amplify-d3kpo1q71vois2-ma-gbsnapshotbucket6d42655b-oggrheoaovhu.s3.eu-west-2.amazonaws.com/now.json"
       }
     }
   },
