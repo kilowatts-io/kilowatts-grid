@@ -1,4 +1,5 @@
 import { GB_MAP_CENTER } from "@/src/atoms/svg-map";
+import { useDataContext } from "@/src/contexts/data";
 import {
   DEFAULT_ZOOM,
   MAX_ZOOM,
@@ -13,6 +14,7 @@ import { IconButton } from "react-native-paper";
 const ICON_BUTTON_SIZE = 20;
 
 const SvgZoomMapButtons: React.FC = () => {
+  const d = useDataContext();
   const ctx = useSvgMapContext();
   return (
     <View style={styles.buttonWrapper}>
@@ -20,6 +22,7 @@ const SvgZoomMapButtons: React.FC = () => {
       size={ICON_BUTTON_SIZE}
       icon="refresh"
       onPress={() => {
+        d.refetch();
         ctx.zoom.value = DEFAULT_ZOOM
         ctx.centerLat.value = GB_MAP_CENTER.lat
         ctx.centerLng.value = GB_MAP_CENTER.lng

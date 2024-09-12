@@ -11,6 +11,7 @@ import * as i from "@/src/components/icons";
 import { Card, Icon, List } from "react-native-paper";
 import { Link } from "expo-router";
 import { ErrorBoundaryBlank } from "./error-boundary";
+import EmbeddedResiduaCard from "./embedded-total-card";
 
 export const formatMW = (mw: number) => {
   if (mw >= 1000) {
@@ -110,6 +111,7 @@ export const UnitGroupsList: React.FC<{
       estimatedItemSize={40}
       data={data}
       ListEmptyComponent={EmptyCard}
+      ListFooterComponent={EmbeddedResiduaCard}
       renderItem={({ item }) => (
         <IconListItem
           {...item}

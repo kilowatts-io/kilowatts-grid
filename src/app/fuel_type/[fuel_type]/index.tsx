@@ -10,9 +10,10 @@ import { useDataContext } from "@/src/contexts/data";
 import { SvgMapContext } from "@/src/contexts/svg-map";
 import { useScreen } from "@/src/hooks/screen";
 import { capitalise } from "@/src/utils/misc";
-import { useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { useSharedValue } from "react-native-reanimated";
+
 
 const filter = (x: { fuel_type: FuelType }, f: FuelType) =>
   x.fuel_type.toLowerCase() === f.toLowerCase();
@@ -31,6 +32,9 @@ const FuelTypeSmallScreen: React.FC = () => {
   const fuel_type = useLocalSearchParams().fuel_type as FuelType;
   const data = useData(fuel_type);
   const title = capitalise(fuel_type);
+
+  if(data.list_data.length === 0) return <Redirect href={backUrl as any} />;
+
   return (
     <>
       <ListScreenHeaderBar
@@ -47,6 +51,9 @@ const FuelTypeLargeScreen: React.FC = () => {
   const fuel_type = useLocalSearchParams().fuel_type as FuelType;
   const data = useData(fuel_type);
   const title = capitalise(fuel_type);
+
+  if(data.list_data.length === 0) return <Redirect href={backUrl as any} />;
+
   return (
     <SvgMapContext.Provider
       value={{
