@@ -29,7 +29,7 @@ const smallestIcon = (map_icons: MapGeneratorIconProps[]) =>  {
   return smallest
 }
 
-const SMALLEST_ICON_SIZE = 15
+const SMALLEST_ICON_SIZE = 10
 
 const rescaleMapIcons = (map_icons: MapGeneratorIconProps[]) => {
   return map_icons.map((x) => {
