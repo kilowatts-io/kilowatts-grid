@@ -187,7 +187,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
       }),
     Gesture.Pinch().onChange((e) => {
       ctx.zoom.value = Math.min(
-        Math.max(ctx.zoom.value * e.scale, MIN_ZOOM),
+        Math.max(ctx.zoom.value * e.scaleChange, MIN_ZOOM),
         MAX_ZOOM
       );
     }),

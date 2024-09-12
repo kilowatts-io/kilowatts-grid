@@ -16,6 +16,7 @@
     "update:preview": "eas update --branch preview --channel preview",
     "update:production": "eas update --branch main --channel production",
     "build:android": "eas build -p android -e production --local --output production.aab",
+    "build:androidapk": "eas build -p android -e production --local --output production.apk",
     "build:ios": "eas build -p ios -e production --local --output production.ipa",
     "build:ios:preview": "eas build -p ios -e preview --local --output preview.ipa",
     "build:android:preview": "eas build -p android -e preview --local --output preview.apk"
@@ -23,7 +24,7 @@
   "dependencies": {
     "@aws-amplify/react-native": "^1.1.5",
     "@react-native-async-storage/async-storage": "^1.23.1",
-    "@react-native-community/netinfo": "^11.3.2",
+    "@react-native-community/netinfo": "11.3.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@rneui/themed": "^4.0.0-rc.8",
     "@sentry/react": "^8.30.0",

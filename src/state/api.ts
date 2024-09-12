@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import amplify_config from "../../amplify_outputs.json";
 import * as c from "@/src/constants";
 import { z } from "zod";
-import { calculatePoint } from "../components/svg-map/svg-map";
+import { calculatePoint } from "../components/svg-map";
 import GB_SVG_MAP from "../atoms/svg-map";
 
 const OutputSchema = z.object({

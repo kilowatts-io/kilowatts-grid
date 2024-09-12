@@ -1,28 +1,16 @@
-import { GB_MAP_CENTER } from "@/src/atoms/svg-map";
 import {
     ListScreenHeaderBar,
     MapScreenHeaderBar,
 } from "@/src/components/header-bar";
-import SvgMap from "@/src/components/svg-map/svg-map";
-import { DEFAULT_HIGHIGHT_OPACITY, SvgMapContext } from "@/src/contexts/svg-map";
+import { SvgMapContext, useSvgMapContextValue } from "@/src/contexts/svg-map";
 import React from "react";
-import { useSharedValue } from "react-native-reanimated";
 import * as hooks from "@/src/hooks/data";
 import * as nav from "@/src/utils/nav";
 import { Redirect } from "expo-router";
 import LargeScreen from "../atoms/large-screen-layout";
 import { capitalise } from "../utils/misc";
 import { UnitGroupsList } from "./icon-list-item";
-
-const useSvgMapContextValue = () => ({
-    zoom: useSharedValue(1),
-    centerLat: useSharedValue(GB_MAP_CENTER.lat),
-    centerLng: useSharedValue(GB_MAP_CENTER.lng),
-    translationX: useSharedValue(0),
-    translationY: useSharedValue(0),
-    cursorHovered: useSharedValue(false),
-    highlightOpacity: useSharedValue(DEFAULT_HIGHIGHT_OPACITY),
-});
+import SvgMap from "./svg-map";
 
 const FuelTypeMap: React.FC<{ title: string; data: any }> = ({ title, data }) => (
     <SvgMapContext.Provider value={useSvgMapContextValue()}>

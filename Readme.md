@@ -28,6 +28,15 @@ npx expo run:ios --device "iPhone 14 Pro Max"
 # 5.5 inch display - runs on iOS 16.4
 xcrun simctl boot "iPhone 8 Plus"
 
+# Ios
+Install and run .ipa on connected device
+
+`ios-deploy --justlaunch --bundle production.ipa`
+
+# Android
+
+Install and run aab on connected device 
+`adb install-multiple production.apk`
 
 # Batteries to find
 Hawthorn
