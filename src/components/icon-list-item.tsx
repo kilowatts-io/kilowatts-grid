@@ -1,7 +1,7 @@
 import { FlashList } from "@shopify/flash-list";
 import { Canvas } from "@shopify/react-native-skia";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { LIST_ICON_DIMS } from "../constants";
 import { getBalancingColor } from "../utils/colors";
 import { useDataContext } from "../contexts/data";
@@ -47,17 +47,17 @@ const IconListItem: React.FC<
             {!p.hideIcon && (
               <View style={styles.canvasWrapper}>
                 <Canvas style={styles.iconCanvas}>
-                {ft === "wind" && <i.WindListIcon {...p} />}
-                {ft === "battery" && <i.BatteryListIcon {...p} />}
-                {ft === "solar" && <i.SolarListIcon {...p} />}
-                {ft === "interconnector" && <EU />}
-                {(ft === "gas" ||
-                  ft === "oil" ||
-                  ft === "biomass" ||
-                  ft === "coal" ||
-                  ft === "nuclear" ||
-                  ft === "hydro") && <i.DispatchableListIcon {...p} />}
-              </Canvas>
+                  {ft === "wind" && <i.WindListIcon {...p} />}
+                  {ft === "battery" && <i.BatteryListIcon {...p} />}
+                  {ft === "solar" && <i.SolarListIcon {...p} />}
+                  {ft === "interconnector" && <EU />}
+                  {(ft === "gas" ||
+                    ft === "oil" ||
+                    ft === "biomass" ||
+                    ft === "coal" ||
+                    ft === "nuclear" ||
+                    ft === "hydro") && <i.DispatchableListIcon {...p} />}
+                </Canvas>
               </View>
             )}
           </ErrorBoundaryBlank>
@@ -73,29 +73,34 @@ const IconListItem: React.FC<
 const BalancingTotalItem: React.FC<{
   name: string;
   value: number;
-}> = (p) => <List.Item title={p.name} description={formatMW(p.value)} />;
+}> = (p) => (
+  <List.Item
+    title={p.name}
+    description={formatMW(p.value)}
+    style={Platform.OS === "web" ? { cursor: 'not-allowed' } as any : {}}
+    />
+    
+);
 
 export const GbBalancingTotals = () => {
   const { lists } = useDataContext().data;
   const { bids, offers } = lists.balancing_totals;
   return (
-    <>
-      <View style={styles.totals}>
-        <>
-          <BalancingTotalItem name="Total Bid Acceptances" value={bids} />
-          <BalancingTotalItem name="Total Offer Acceptances" value={offers} />
-        </>
-      </View>
+    <View style={styles.totals}>
+      <BalancingTotalItem name="Bid Acceptances" value={bids} />
+      <BalancingTotalItem name="Offer Acceptances" value={offers} />
       <VersionInfo />
-    </>
+    </View>
   );
 };
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-const EmptyCard: React.FC = () => <>
-  <Card.Title title="No generation online"/>
-</>
+const EmptyCard: React.FC = () => (
+  <>
+    <Card.Title title="No generation online" />
+  </>
+);
 
 export const UnitGroupsList: React.FC<{
   data: AppListIconProps[];
