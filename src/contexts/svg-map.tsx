@@ -55,7 +55,7 @@ const useDefaultFullScreenZoom = () => {
   const zoomY = screenDims.height / mapDims.height;
   const zoom = Math.min(zoomX, zoomY);
 
-   return  zoom - ZOOM_INC
+   return  zoom - ZOOM_INC * 2
 };
 
 /**
