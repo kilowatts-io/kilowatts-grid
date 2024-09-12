@@ -3,6 +3,9 @@ import { useNowQuery } from "@/src/state/api";
 import { DATA_REFRESH_INTERVAL_MS } from "../constants";
 import LoadingScreen from "../atoms/loading";
 import { AppErrorScreen } from "@/src/components/error-boundary";
+import NetInfo from "@react-native-community/netinfo";
+
+const useInternetConnection = () => NetInfo.useNetInfo().isInternetReachable;
 
 const nullData: AppData = {
   dt: new Date().toISOString(),
@@ -31,10 +34,20 @@ const DataContext = React.createContext<DataContext>({
 export const WithAppData: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const internet = useInternetConnection();
 
   const { data, refetch, isLoading, error } = useNowQuery(undefined, {
     pollingInterval: DATA_REFRESH_INTERVAL_MS,
   });
+
+  if (!internet) {
+    return (
+      <AppErrorScreen
+        error={Error(`No internet connection. Check your WiFi/mobile signal and try again!`)}
+        resetError={refetch}
+      />
+    );
+  }
 
   if (error) {
     console.log("Error", error);

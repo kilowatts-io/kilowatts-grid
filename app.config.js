@@ -59,5 +59,9 @@ module.exports = {
         EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL
       }
     }
-  }
+  },
+  updates: {
+    "url": "https://u.expo.dev/717a98a5-3e9e-4dc5-830e-4d3fc30335ab"
+  },
+  runtimeVersion: "6.0.1"
 };

@@ -1,18 +1,30 @@
 import React from "react";
 import RnErrorBoundary from "react-native-error-boundary";
 import { errorHandler } from "../../utils/sentry";
-import { View, Text, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Card, Text, Button } from "react-native-paper";
 
-export const AppErrorScreen = (props: {
-  error: Error;
-  resetError: () => void;
-}) => (
-  <View>
-    <Text>App Error</Text>
-    <Text>{props.error.toString()}</Text>
-    <Button onPress={props.resetError} title={"Try again"} />
+export const AppErrorScreen = (props: { error: Error; resetError: () => void }) => (
+  <View style={styles.container}>
+    <Card>
+      <Card.Title title="App Error" />
+      <Card.Content>
+        <Text>{props.error.toString()}</Text>
+      </Card.Content>
+      <Button onPress={props.resetError}>Retry</Button>
+    </Card>
   </View>
 );
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 
 const BlankComponent: React.FC = () => <></>;
