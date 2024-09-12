@@ -6,20 +6,31 @@ interface HeaderBarProps {
   title: string;
   backUrl?: string;
   children?: React.ReactNode;
+  hidePrivacy?: boolean;
 }
 
 export const HeaderBar: React.FC<HeaderBarProps> = ({
   title,
   backUrl,
   children,
+  hidePrivacy
 }) => {
   const router = useRouter();
   return (
     <Appbar.Header>
+
       {backUrl && (
         <Appbar.BackAction onPress={() => router.push(backUrl as any)} />
       )}
       <Appbar.Content title={title} />
+      {
+        !hidePrivacy && (
+          <Appbar.Action
+            icon="information-outline"
+            onPress={() => router.push("/privacy")}
+          />
+        )
+      }
       {children}
     </Appbar.Header>
   );
