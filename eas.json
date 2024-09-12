@@ -8,19 +8,19 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://amplify-kilowattsgrid-ben-gbsnapshotbucket6d42655b-joo7n02mtey7.s3.eu-west-2.amazonaws.com/now.json"
+        "EXPO_PUBLIC_API_URL": ""
       }
     },
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://amplify-kilowattsgrid-ben-gbsnapshotbucket6d42655b-joo7n02mtey7.s3.eu-west-2.amazonaws.com/now.json"
+        "EXPO_PUBLIC_API_URL": ""
       }
     },
     "production": {
       "autoIncrement": true,
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://amplify-kilowattsgrid-ben-gbsnapshotbucket6d42655b-joo7n02mtey7.s3.eu-west-2.amazonaws.com/now.json"
+        "EXPO_PUBLIC_API_URL": ""
       }
     }
   },

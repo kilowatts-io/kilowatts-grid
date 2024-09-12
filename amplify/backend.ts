@@ -4,7 +4,9 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import { defineBackend } from "@aws-amplify/backend";
 import * as events from "aws-cdk-lib/aws-events";
 import * as targets from "aws-cdk-lib/aws-events-targets";
+import dotenv from "dotenv";
 
+dotenv.config();
 
 const backend = defineBackend({});
 const stack = backend.createStack("KilowattsGridStack");
