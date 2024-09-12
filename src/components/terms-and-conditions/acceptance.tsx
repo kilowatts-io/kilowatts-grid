@@ -10,11 +10,12 @@ export const getCurrentYear = () => {
   return date.getFullYear();
 };
 
-const TermsAndConditionsAcceptanceModal: React.FC = () => {
+const TermsAndConditionsAcceptanceModal: React.FC<{
+  visible: boolean;
+}> = ({ visible }) => {
   const dispatch = useDispatch();
-  const acceptTerms = () => dispatch(acceptLicense());
   return (
-    <Dialog testID="consent-dialog" isVisible={true}>
+    <Dialog testID="consent-dialog" isVisible={visible}>
       <Dialog.Title title="kilowatts.io" />
       <Text>
         This app is provided without any warranty. Use at your own risk.
@@ -26,7 +27,7 @@ const TermsAndConditionsAcceptanceModal: React.FC = () => {
       <Dialog.Actions>
         <Dialog.Button
           title="I agree"
-          onPress={acceptTerms}
+          onPress={() => dispatch(acceptLicense())}
           testID="consent-dialog-accept-button"
         />
         <Dialog.Button
@@ -42,8 +43,11 @@ export const WithTermsAndConditionsAccepted = (props: {
   children: JSX.Element;
 }) => {
   const accepted = useSelector(getTermsAccepted)
-  if (!accepted) return <TermsAndConditionsAcceptanceModal />;
-  return props.children;
+  return (
+    <>
+      <TermsAndConditionsAcceptanceModal visible={!accepted} />;{props.children}
+    </>
+  );
 };
 
 export default TermsAndConditionsAcceptanceModal;

@@ -6,6 +6,10 @@ export const initialise = () => {
 };
 
 export const errorHandler = (error: Error, stackTrace: string) => {
-  if(__DEV__) return;
+  if (__DEV__) {
+    // log out the full error and stack trace
+    console.error(error);
+    console.error(stackTrace);
+  }
   Sentry.captureException(error);
 };
