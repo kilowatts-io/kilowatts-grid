@@ -241,9 +241,6 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
                 case "interconnector":
                   return null;
                 default:
-                  if(ug.fuel_type === 'biomass') {
-                    console.log(ug)
-                  }
                   return (
                     <i.DispatchableMapIcon
                       key={`dispatchable-${index}`}

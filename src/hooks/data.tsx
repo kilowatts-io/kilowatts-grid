@@ -39,7 +39,6 @@ const rescaleMapIcons = (map_icons: MapGeneratorIconProps[]) => {
       ...x,
       sizePx: x.sizePx * rescaleFactor,
     }
-    console.log(rescaled)
     return rescaled
   });
 }
