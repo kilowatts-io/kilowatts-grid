@@ -1,14 +1,14 @@
 import { FlashList } from "@shopify/flash-list";
 import { Canvas } from "@shopify/react-native-skia";
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { LIST_ICON_DIMS } from "../constants";
 import { getBalancingColor } from "../utils/colors";
 import { useDataContext } from "../contexts/data";
 import VersionInfo from "./version-info/version-info";
 import { EU } from "@/src/atoms/flags";
 import * as i from "@/src/components/icons";
-import { Button, List, Avatar } from "react-native-paper";
+import { Card, Icon, List } from "react-native-paper";
 import { Link } from "expo-router";
 import { ErrorBoundaryBlank } from "./error-boundary";
 
@@ -41,7 +41,7 @@ const IconListItem: React.FC<
     <Link href={p.href as any}>
       <List.Item
         style={styles.listItem}
-        title={p.name}
+        title={capitalise(p.name)}
         left={() => (
           <ErrorBoundaryBlank>
             {!p.hideIcon && (
@@ -93,6 +93,10 @@ export const GbBalancingTotals = () => {
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
+const EmptyCard: React.FC = () => <>
+  <Card.Title title="No generation online"/>
+</>
+
 export const UnitGroupsList: React.FC<{
   data: AppListIconProps[];
 }> = ({ data }) => {
@@ -100,6 +104,7 @@ export const UnitGroupsList: React.FC<{
     <FlashList
       estimatedItemSize={40}
       data={data}
+      ListEmptyComponent={EmptyCard}
       renderItem={({ item }) => (
         <IconListItem
           {...item}

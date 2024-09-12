@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import amplify_config from "../../amplify_outputs.json";
 import * as c from "@/src/constants";
-
 import { z } from "zod";
-import { calculatePoint } from "../components/svg-map";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { calculatePoint } from "../components/svg-map/svg-map";
+import GB_SVG_MAP from "../atoms/svg-map";
 
 const OutputSchema = z.object({
   level: z.number(),
@@ -101,7 +100,7 @@ export const validateData = (backendData: BackendData): boolean => {
 /**
  * Calculate point on canvas
  */
-const point = (p: { coords: Coords }): CanvasPoint => calculatePoint(p.coords);
+const point = (p: { coords: Coords }): CanvasPoint => calculatePoint(p.coords, GB_SVG_MAP);
 
 /**
  * Calculate capacity factor

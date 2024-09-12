@@ -190,27 +190,16 @@ interface SvgMap {
   path: string;
 }
 
-interface Dims {
-  height: SharedValue<number>;
-  width: SharedValue<number>;
-}
-
 interface SvgMapProps extends AppMapData {
-  highlighted?: { point: CanvasPoint };
-  svgMap?: SvgMap;
-  initialCenter?: Coords;
-  zoom?: number;
-  size: {
-    height: number;
-    width: number;
-  };
+  // size: {
+  //   height: number;
+  //   width: number;
+  // };
   onTapIcon?: (index: number) => void;
-  header: ScreenHeaderContext;
-  listLeft?: React.ReactNode;
 }
 
-interface ScreenHeaderContext {
-  title: string; // the title of the screen
-  backUrl?: string; // the url to go back to - if not provided, the back button will not be shown
-  headerRight?: React.ReactNode; // the right side of the header - e.g. map +/i zoom buttons
-}
+// interface ScreenHeaderContext {
+//   title: string; // the title of the screen
+//   backUrl?: string; // the url to go back to - if not provided, the back button will not be shown
+//   headerRight?: React.ReactNode; // the right side of the header - e.g. map +/i zoom buttons
+// }

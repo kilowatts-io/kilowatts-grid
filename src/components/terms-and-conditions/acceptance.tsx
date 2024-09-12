@@ -2,8 +2,8 @@ import React from "react";
 import { Linking } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Text } from "@rneui/themed";
-import { urls } from "./urls";
 import { acceptLicense, getTermsAccepted } from "@/src/state/terms";
+import { urls } from "./urls";
 
 export const getCurrentYear = () => {
   const date = new Date();
@@ -41,10 +41,8 @@ const TermsAndConditionsAcceptanceModal: React.FC = () => {
 export const WithTermsAndConditionsAccepted = (props: {
   children: JSX.Element;
 }) => {
-  const accepted = useSelector(getTermsAccepted) || __DEV__;
-  if (!accepted) {
-    return <TermsAndConditionsAcceptanceModal />;
-  }
+  const accepted = useSelector(getTermsAccepted)
+  if (!accepted) return <TermsAndConditionsAcceptanceModal />;
   return props.children;
 };
 

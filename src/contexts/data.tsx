@@ -31,19 +31,10 @@ const DataContext = React.createContext<DataContext>({
 export const WithAppData: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  // const [displayedData, setDisplayedData] = React.useState<AppData>(nullData);
 
   const { data, refetch, isLoading, error } = useNowQuery(undefined, {
     pollingInterval: DATA_REFRESH_INTERVAL_MS,
-   
   });
-
-  // React.useEffect(() => {
-  //   if(data) {
-  //     setDisplayedData(data);
-  //   }
-  // }, [data]);
-
 
   if (error) {
     console.log("Error", error);

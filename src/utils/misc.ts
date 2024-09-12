@@ -29,3 +29,5 @@ export const calculateCycleSeconds = (x: WithCapacityFactor) => {
   if (cf === 0) return null;
   return CYCLE_MILISECONDS_AT_FULL_CAPACITY / Math.abs(cf);
 };
+
+export const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
