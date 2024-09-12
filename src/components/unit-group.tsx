@@ -26,11 +26,11 @@ const SvgMapProvider: React.FC<{
 }> = ({ map_icon, children }) => (
   <SvgMapContext.Provider
     value={
-      useSvgMapContextValue(
-        3,
-        map_icon.coords.lat,
-        map_icon.coords.lng
-      )
+      useSvgMapContextValue({
+        centerLat: map_icon.coords.lat,
+        centerLng: map_icon.coords.lng,
+        zoom:  3
+      })
     }
   >
     {children}

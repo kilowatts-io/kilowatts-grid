@@ -17,8 +17,10 @@ export const GB_SVG_MAP: SvgMap = {
   // const mapCenter = (m: SvgMap) => calculateCoords(mapCanvasCenter(m), m);
 
 export const GB_MAP_CENTER = {
-  lat: 53.5,
-  lng: -2,
+  lat: GB_SVG_MAP.bounds.north + (GB_SVG_MAP.bounds.south - GB_SVG_MAP.bounds.north) / 2,
+  lng: GB_SVG_MAP.bounds.east + (GB_SVG_MAP.bounds.west - GB_SVG_MAP.bounds.east) / 2,
+  // lat: 53.5,
+  // lng: -2,
 }
 
 export default GB_SVG_MAP;

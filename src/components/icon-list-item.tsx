@@ -148,13 +148,11 @@ const UnitGroupsList: React.FC<{ data: AppListIconProps[] }> = ({ data }) => {
         <View
           style={styles.listItem}
           onPointerEnter={() => {
-            ctx.zoom.value = withTiming(3);
             ctx.centerLat.value = withTiming(item.coords.lat);
             ctx.centerLng.value = withTiming(item.coords.lng);
             ctx.highlightOpacity.value = withTiming(1);
           }}
           onPointerLeave={() => {
-            ctx.zoom.value = withTiming(DEFAULT_ZOOM);
             ctx.centerLat.value = withTiming(GB_MAP_CENTER.lat);
             ctx.centerLng.value = withTiming(GB_MAP_CENTER.lng);
             ctx.highlightOpacity.value = withTiming(DEFAULT_HIGHIGHT_OPACITY);

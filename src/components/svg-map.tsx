@@ -1,19 +1,12 @@
 import React from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import {
-  Canvas,
-  Circle,
-  Group,
-  Paint,
-  Path,
-  Skia,
-} from "@shopify/react-native-skia";
+import { Canvas, Circle, Group, Path } from "@shopify/react-native-skia";
 import { ForeignFlag } from "@/src/atoms/flags";
 import * as i from "@/src/components/icons";
 import * as c from "@/src/constants";
 import Animated, { runOnJS, useDerivedValue } from "react-native-reanimated";
 import GB_SVG_MAP from "@/src/atoms/svg-map";
-import { MIN_ZOOM, MAX_ZOOM, useSvgMapContext } from "@/src/contexts/svg-map";
+import { MIN_ZOOM, MAX_ZOOM, useSvgMapContext, ZOOM_INC } from "@/src/contexts/svg-map";
 import { useScreen } from "@/src/hooks/screen";
 import useMousePinchGesture from "@/src/hooks/scroll-gesture";
 import { useRouter } from "expo-router";
@@ -106,31 +99,6 @@ export const calculateCoords = (point: CanvasPoint, svgMap: SvgMap) => {
   return coords;
 };
 
-/**
- * Search for the closest point to the pressed point on a map
- * @param pressed The point that was pressed
- * @param generatorMapPoints The points to search for
- * @returns The index of the found point
- */
-const searchPoint = (
-  pressed: CanvasPoint,
-  coords: Coords[],
-  svgMap: SvgMap,
-  zoom: number
-) => {
-  if (coords.length === 0) throw new Error("No points to search for");
-  const distances = coords
-    .map((p, index) => ({
-      index,
-      distance: Math.sqrt(
-        Math.pow(pressed.x - calculatePointX(p.lng, svgMap), 2) +
-          Math.pow(pressed.y - calculatePointY(p.lat, svgMap), 2)
-      ),
-    }))
-    .sort((a, b) => a.distance - b.distance);
-  const closest = distances[0];
-  return closest.index;
-};
 
 /**
  * Measure the distance in km between two points
@@ -202,8 +170,8 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
       }))
       .sort((a, b) => a.distance - b.distance)[0];
 
-    const DISTANCE_THRESHOLD = 10;
-    if (closest.distance > DISTANCE_THRESHOLD) {
+    const DISTANCE_THRESHOLD_KM = 10;
+    if (closest.distance > DISTANCE_THRESHOLD_KM) {
       console.log("Closest point is too far away");
       return;
     }
@@ -249,9 +217,9 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
 
 
   useMousePinchGesture(ctx.cursorHovered.value, () => {
-    ctx.zoom.value = Math.min(ctx.zoom.value + 0.1, MAX_ZOOM);
+    ctx.zoom.value = Math.min(ctx.zoom.value + ZOOM_INC, MAX_ZOOM);
   }, () => {
-    ctx.zoom.value = Math.max(ctx.zoom.value - 0.1, MIN_ZOOM);
+    ctx.zoom.value = Math.max(ctx.zoom.value - ZOOM_INC, MIN_ZOOM);
   });
 
   

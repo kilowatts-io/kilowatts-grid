@@ -16,7 +16,7 @@ const SvgMapProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
   <SvgMapContext.Provider
-    value={useSvgMapContextValue()}
+    value={useSvgMapContextValue({})}
   >
     {children}
   </SvgMapContext.Provider>

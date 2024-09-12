@@ -13,7 +13,7 @@ import { UnitGroupsList } from "./icon-list-item";
 import SvgMap from "./svg-map";
 
 const FuelTypeMap: React.FC<{ title: string; data: any }> = ({ title, data }) => (
-    <SvgMapContext.Provider value={useSvgMapContextValue()}>
+    <SvgMapContext.Provider value={useSvgMapContextValue({})}>
         <MapScreenHeaderBar title={title} backUrl={nav.home} />
         <SvgMap unit_groups={data.map_icons} foreign_markets={[]} />
     </SvgMapContext.Provider>
@@ -57,7 +57,7 @@ export const FuelTypeLargeScreen: React.FC = () => {
     if (data.list_data.length === 0) return <Redirect href={nav.home as any} />;
 
     return (
-        <SvgMapContext.Provider value={useSvgMapContextValue()}>
+        <SvgMapContext.Provider value={useSvgMapContextValue({})}>
             <MapScreenHeaderBar title={title} backUrl={nav.home} />
             <LargeScreen
                 left={<UnitGroupsList data={data.list_data} />}
