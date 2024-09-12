@@ -7,8 +7,8 @@ export const home = '/'
 export const home_map = '/map'
 export const fuel_type = (fuel_type: FuelType) => `/fuel_type/${fuel_type}`
 export const fuel_type_map = (fuel_type: FuelType) => `/fuel_type/${fuel_type}/map`
-export const unit_group = (unit_group: string) => `/unit_group/${unit_group}`
-export const unit_group_map = (unit_group: string) => `/unit_group/${unit_group}/map`
+export const unit_group = (unit_group: string) => `/unit_group/${unit_group.toLowerCase()}`
+export const unit_group_map = (unit_group: string) => `/unit_group/${unit_group.toLowerCase()}/map`
 
 
 // functions to extract a parameter from a url

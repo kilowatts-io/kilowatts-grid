@@ -11,11 +11,13 @@ import {
 import { ForeignFlag } from "@/src/atoms/flags";
 import * as i from "@/src/components/icons";
 import * as c from "@/src/constants";
-import Animated, { useDerivedValue } from "react-native-reanimated";
+import Animated, { runOnJS, useDerivedValue } from "react-native-reanimated";
 import GB_SVG_MAP from "@/src/atoms/svg-map";
 import { MIN_ZOOM, MAX_ZOOM, useSvgMapContext } from "@/src/contexts/svg-map";
 import { useScreen } from "@/src/hooks/screen";
 import useMousePinchGesture from "@/src/hooks/scroll-gesture";
+import { useRouter } from "expo-router";
+import * as nav from "@/src/utils/nav";
 
 const mapCanvasCenter = (m: SvgMap) => ({
   x: m.dims.width / 2,
@@ -113,7 +115,8 @@ export const calculateCoords = (point: CanvasPoint, svgMap: SvgMap) => {
 const searchPoint = (
   pressed: CanvasPoint,
   coords: Coords[],
-  svgMap: SvgMap
+  svgMap: SvgMap,
+  zoom: number
 ) => {
   if (coords.length === 0) throw new Error("No points to search for");
   const distances = coords
@@ -126,11 +129,11 @@ const searchPoint = (
     }))
     .sort((a, b) => a.distance - b.distance);
   const closest = distances[0];
-  if (closest.distance > 30) return null;
-  return distances[0].index;
+  return closest.index;
 };
 
 export const SvgMap: React.FC<SvgMapProps> = (p) => {
+  const router = useRouter();
   const screen = useScreen();
   const ctx = useSvgMapContext();
   const svgMap = GB_SVG_MAP;
@@ -143,6 +146,20 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
     () => calculatePointY(ctx.centerLat.value, svgMap),
     [ctx.centerLat]
   );
+
+  const onTap = (point: { x: number; y: number }) => {
+    const index = searchPoint(
+      point,
+      p.unit_groups.map((ug) => ug.coords),
+      svgMap,
+      ctx.zoom.value
+    );
+    if (!index) return;
+
+    const unit = p.unit_groups[index];
+    const url = nav.unit_group(unit.code);
+    router.navigate(url);
+  };
 
   const gesture = Gesture.Race(
     Gesture.Hover()
@@ -168,19 +185,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         ctx.translationX.value = 0;
         ctx.translationY.value = 0;
       }),
-    Gesture.Tap()
-      .numberOfTaps(2)
-      .onEnd((e) => {
-        const { x, y } = e;
-        const point = { x, y };
-        const index = searchPoint(
-          point,
-          p.unit_groups.map((ug) => ug.coords),
-          svgMap
-        );
-        if (!index) return;
-        if (p.onTapIcon) p.onTapIcon(index);
-      }),
+    Gesture.Tap().onBegin(runOnJS(onTap)),
     Gesture.Pinch().onChange((e) => {
       ctx.zoom.value = Math.min(
         Math.max(ctx.zoom.value * e.scale, MIN_ZOOM),
