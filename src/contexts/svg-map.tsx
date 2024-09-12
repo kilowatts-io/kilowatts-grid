@@ -38,6 +38,10 @@ interface SvgMapContextValueProps {
   zoom?: number;
   centerLat?: number;
   centerLng?: number;
+  initialTranslations?: {
+    x: number;
+    y: number;
+  }
 }
 
 const useScreenDims = () => {
@@ -78,14 +82,14 @@ const useCalculateTransactions = (
 
 export const useSvgMapContextValue = (options: SvgMapContextValueProps) => {
   const zoom = options.zoom || useDefaultFullScreenZoom();
-  const { translationX, translationY } = useCalculateTransactions(zoom);
+  const calcTranslations = useCalculateTransactions(zoom);
 
   return {
     zoom: useSharedValue(zoom),
     centerLat: useSharedValue(options.centerLat || GB_MAP_CENTER.lat),
     centerLng: useSharedValue(options.centerLng || GB_MAP_CENTER.lng),
-    translationX: useSharedValue(translationX),
-    translationY: useSharedValue(translationY),
+    translationX: useSharedValue(options.initialTranslations ? options.initialTranslations.x : calcTranslations.translationX),
+    translationY: useSharedValue(options.initialTranslations ? options.initialTranslations.y : calcTranslations.translationY),
     cursorHovered: useSharedValue(false),
     highlightOpacity: useSharedValue(DEFAULT_HIGHIGHT_OPACITY),
   };

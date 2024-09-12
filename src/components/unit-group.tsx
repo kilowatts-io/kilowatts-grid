@@ -29,7 +29,8 @@ const SvgMapProvider: React.FC<{
       useSvgMapContextValue({
         centerLat: map_icon.coords.lat,
         centerLng: map_icon.coords.lng,
-        zoom:  3
+        zoom:  3,
+        initialTranslations: { x: 0, y: 0 }
       })
     }
   >
@@ -81,9 +82,13 @@ export const UnitGroupSmallScreen: React.FC = () => {
 export const useBackUrl = () => nav.unit_group(nav.useUnitCode());
 
 export const UnitGroupMapScreen: React.FC = () => {
+  console.log('UnitGroupMapScreen')
   const data = useUnitGroupData();
+  console.log(data)
+
   if (!data) return null;
   const { map_icon, list_data } = data;
+
 
   return (
     <>

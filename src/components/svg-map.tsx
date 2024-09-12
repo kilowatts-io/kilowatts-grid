@@ -170,7 +170,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
       }))
       .sort((a, b) => a.distance - b.distance)[0];
 
-    const DISTANCE_THRESHOLD_KM = 10;
+    const DISTANCE_THRESHOLD_KM = 30;
     if (closest.distance > DISTANCE_THRESHOLD_KM) {
       console.log("Closest point is too far away");
       return;

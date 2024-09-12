@@ -24,11 +24,6 @@ export const useHome = () => {
 const filterFuelType = (x: { fuel_type: FuelType }, f: FuelType) =>
   x.fuel_type.toLowerCase() === f.toLowerCase();
 
-const smallestIcon = (map_icons: MapGeneratorIconProps[]) =>  {
-  const smallest =  map_icons.map(x => x.sizePx).filter(x => x > 0).reduce((a, b) => Math.min(a, b), Infinity)
-  return smallest
-}
-
 const SMALLEST_ICON_SIZE = 10
 
 const rescaleMapIcons = (map_icons: MapGeneratorIconProps[]) => {
