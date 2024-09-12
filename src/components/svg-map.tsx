@@ -132,6 +132,23 @@ const searchPoint = (
   return closest.index;
 };
 
+/**
+ * Measure the distance in km between two points
+ */
+const calculateDistance = (a:Coords, b:Coords) => {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (b.lat - a.lat) * (Math.PI / 180); // deg2rad below
+  const dLon = (b.lng - a.lng) * (Math.PI / 180);
+  const A =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(a.lat * (Math.PI / 180)) *
+      Math.cos(b.lat * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const C = 2 * Math.atan2(Math.sqrt(A), Math.sqrt(1 - A));
+  return R * C; // Distance in km
+}
+
 export const SvgMap: React.FC<SvgMapProps> = (p) => {
   const router = useRouter();
   const screen = useScreen();
@@ -147,17 +164,51 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
     [ctx.centerLat]
   );
 
-  const onTap = (point: { x: number; y: number }) => {
-    const index = searchPoint(
-      point,
-      p.unit_groups.map((ug) => ug.coords),
-      svgMap,
-      ctx.zoom.value
-    );
-    if (!index) return;
+  const svgCenter = mapCanvasCenter(svgMap);
 
-    const unit = p.unit_groups[index];
-    const url = nav.unit_group(unit.code);
+  const transform = useDerivedValue(() => {
+    const scaleValue = ctx.zoom.value; //* zoomChange.value
+    const translateY = svgCenter.y - centerY.value * scaleValue;
+    return [
+      { translateX: svgCenter.x - centerX.value * scaleValue },
+      { translateY },
+      { scale: scaleValue },
+      { translateX: ctx.translationX.value },
+      { translateY: ctx.translationY.value },
+    ];
+  }, [ctx.translationX, ctx.translationY, ctx.zoom, centerX, centerY]);
+
+  const onTap = (point: { x: number; y: number }) => {
+    console.log("Tapped at", point);
+
+    if (p.unit_groups.length === 0) return;
+
+    const untranslateX = point.x - ctx.translationX.value;
+    const untranslateY = point.y - ctx.translationY.value;
+
+    // Step 2: Reverse scaling
+    const unscaleX =
+      (untranslateX - svgCenter.x) / ctx.zoom.value + centerX.value;
+    const unscaleY =
+      (untranslateY - svgCenter.y) / ctx.zoom.value + centerY.value;
+
+    const coords = calculateCoords({ x: unscaleX, y: unscaleY }, svgMap);
+
+    const closest = p.unit_groups
+      .map((ug, index) => ({
+        ug,
+        index,
+        distance: calculateDistance(coords, ug.coords),
+      }))
+      .sort((a, b) => a.distance - b.distance)[0];
+
+    const DISTANCE_THRESHOLD = 10;
+    if (closest.distance > DISTANCE_THRESHOLD) {
+      console.log("Closest point is too far away");
+      return;
+    }
+
+    const url = nav.unit_group(closest.ug.code);
     router.navigate(url);
   };
 
@@ -194,19 +245,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
     Gesture.Tap().onEnd(runOnJS(onTap))
   );
 
-  const svgCenter = mapCanvasCenter(svgMap);
 
-  const transform = useDerivedValue(() => {
-    const scaleValue = ctx.zoom.value; //* zoomChange.value
-    const translateY = svgCenter.y - centerY.value * scaleValue;
-    return [
-      { translateX: svgCenter.x - centerX.value * scaleValue },
-      { translateY },
-      { scale: scaleValue },
-      { translateX: ctx.translationX.value },
-      { translateY: ctx.translationY.value },
-    ];
-  }, [ctx.translationX, ctx.translationY, ctx.zoom, centerX, centerY]);
 
 
   useMousePinchGesture(ctx.cursorHovered.value, () => {
