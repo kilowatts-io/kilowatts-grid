@@ -15,7 +15,7 @@ import { ErrorBoundaryBlank } from "./error-boundary";
 import EmbeddedResiduaCard from "./embedded-total-card";
 import UnitGroupSearch from "./unit-group-search";
 import { renderDeltaText, formatMW, capitalise } from "../utils/misc";
-import { DEFAULT_ZOOM, useSvgMapContext } from "../contexts/svg-map";
+import { DEFAULT_HIGHIGHT_OPACITY, DEFAULT_ZOOM, useSvgMapContext } from "../contexts/svg-map";
 import { GB_MAP_CENTER } from "../atoms/svg-map";
 import { withTiming } from "react-native-reanimated";
 import search from "../state/search";
@@ -134,11 +134,6 @@ const UnitGroupsList: React.FC<{ data: AppListIconProps[] }> = ({ data }) => {
   return (
     <FlashList
       estimatedItemSize={40}
-      onPointerLeave={() => {
-        ctx.zoom.value = withTiming(DEFAULT_ZOOM);
-        ctx.centerLat.value = withTiming(GB_MAP_CENTER.lat);
-        ctx.centerLng.value = withTiming(GB_MAP_CENTER.lng);
-      }}
       data={filteredData}
       ListHeaderComponent={UnitGroupSearch}
       ListEmptyComponent={EmptyCard}
@@ -149,6 +144,13 @@ const UnitGroupsList: React.FC<{ data: AppListIconProps[] }> = ({ data }) => {
             ctx.zoom.value = withTiming(3);
             ctx.centerLat.value = withTiming(item.coords.lat);
             ctx.centerLng.value = withTiming(item.coords.lng);
+            ctx.highlightOpacity.value = withTiming(1);
+          }}
+          onPointerLeave={() => {
+            ctx.zoom.value = withTiming(DEFAULT_ZOOM);
+            ctx.centerLat.value = withTiming(GB_MAP_CENTER.lat);
+            ctx.centerLng.value = withTiming(GB_MAP_CENTER.lng);
+            ctx.highlightOpacity.value = withTiming(DEFAULT_HIGHIGHT_OPACITY);
           }}
         >
           <IconListItem

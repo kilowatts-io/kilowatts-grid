@@ -4,7 +4,7 @@ import {
     MapScreenHeaderBar,
 } from "@/src/components/header-bar";
 import SvgMap from "@/src/components/svg-map/svg-map";
-import { SvgMapContext } from "@/src/contexts/svg-map";
+import { DEFAULT_HIGHIGHT_OPACITY, SvgMapContext } from "@/src/contexts/svg-map";
 import React from "react";
 import { useSharedValue } from "react-native-reanimated";
 import * as hooks from "@/src/hooks/data";
@@ -21,6 +21,7 @@ const useSvgMapContextValue = () => ({
     translationX: useSharedValue(0),
     translationY: useSharedValue(0),
     cursorHovered: useSharedValue(false),
+    highlightOpacity: useSharedValue(DEFAULT_HIGHIGHT_OPACITY),
 });
 
 const FuelTypeMap: React.FC<{ title: string; data: any }> = ({ title, data }) => (

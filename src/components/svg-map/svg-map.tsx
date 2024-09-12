@@ -1,6 +1,13 @@
 import React from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { Canvas, Group, Path } from "@shopify/react-native-skia";
+import {
+  Canvas,
+  Circle,
+  Group,
+  Paint,
+  Path,
+  Skia,
+} from "@shopify/react-native-skia";
 import { ForeignFlag } from "@/src/atoms/flags";
 import * as i from "@/src/components/icons";
 import * as c from "@/src/constants";
@@ -202,6 +209,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
   }, () => {
     ctx.zoom.value = Math.max(ctx.zoom.value - 0.1, MIN_ZOOM);
   });
+  
 
   return (
     <Animated.View
@@ -215,9 +223,11 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         <Canvas
           style={{
             backgroundColor: c.MAP_BACKGROUND_COLOR,
-            flex:1 
+            flex: 1,
           }}
         >
+          {/* a circle that highlights a particular spot on the map */}
+
           <Group transform={transform}>
             <Path path={svgMap.path} color="white" />
             {p.unit_groups.map((ug, index) => {
@@ -250,6 +260,16 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
               .map((c) => (
                 <i.CableMapIcon key={`cable-${c.code}`} {...c} />
               ))}
+
+            <Circle
+              r={c.HIGHLIGHT_CIRCLE_RADIUS}
+              cx={centerX}
+              cy={centerY}
+              color="black" // This is the color of the stroke
+              strokeWidth={2} // Set the stroke width
+              style="stroke" // Set the style to stroke only (no fill)
+              opacity={ctx.highlightOpacity} // Optional: control opacity
+            />
           </Group>
         </Canvas>
       </GestureDetector>

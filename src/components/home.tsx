@@ -7,7 +7,7 @@ import {
 import { FuelTypesList } from "../components/icon-list-item";
 import SvgMap from "../components/svg-map/svg-map";
 import { GB_MAP_CENTER } from "../atoms/svg-map";
-import { SvgMapContext } from "../contexts/svg-map";
+import { DEFAULT_HIGHIGHT_OPACITY, SvgMapContext } from "../contexts/svg-map";
 import LargeScreen from "../atoms/large-screen-layout";
 import { useHome } from "../hooks/data";
 import * as nav from "../utils/nav";
@@ -23,6 +23,8 @@ const SvgMapProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             translationX: useSharedValue(0),
             translationY: useSharedValue(0),
             cursorHovered: useSharedValue(false),
+            highlightOpacity: useSharedValue(DEFAULT_HIGHIGHT_OPACITY),
+
         }}
     >
         {children}

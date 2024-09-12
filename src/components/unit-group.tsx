@@ -1,5 +1,5 @@
 import React from "react";
-import { SvgMapContext } from "@/src/contexts/svg-map";
+import { DEFAULT_HIGHIGHT_OPACITY, SvgMapContext } from "@/src/contexts/svg-map";
 import {
   ListScreenHeaderBar,
   MapScreenHeaderBar,
@@ -33,6 +33,8 @@ const SvgMapProvider: React.FC<{
       translationX: useSharedValue(0),
       translationY: useSharedValue(0),
       cursorHovered: useSharedValue(false),
+      highlightOpacity: useSharedValue(DEFAULT_HIGHIGHT_OPACITY),
+
     }}
   >
     {children}
