@@ -7,7 +7,7 @@ import { Link } from "expo-router";
 import { useDataContext } from "../contexts/data";
 import { useAppDispatch, useAppSelector } from "../state";
 import { LIST_ICON_DIMS } from "../constants";
-import { getBalancingColor } from "../utils/colors";
+import { BALANCING_COLORS, getBalancingColor } from "../utils/colors";
 import VersionInfo from "./version-info/version-info";
 import { EU } from "@/src/atoms/flags";
 import * as Icons from "@/src/components/icons";
@@ -83,13 +83,15 @@ const IconListItem: React.FC<
   );
 };
 
-const BalancingTotalItem: React.FC<{ name: string; value: number }> = ({
-  name,
-  value,
-}) => (
+const BalancingTotalItem: React.FC<{
+  name: string;
+  value: number;
+  color: string;
+}> = ({ name, value, color }) => (
   <List.Item
     title={name}
     description={formatMW(value)}
+    descriptionStyle={{ color }}
     style={Platform.OS === "web" ? ({ cursor: "not-allowed" } as any) : {}}
   />
 );
@@ -99,8 +101,16 @@ const GbBalancingTotals = () => {
   const { bids, offers } = lists.balancing_totals;
   return (
     <View style={styles.totals}>
-      <BalancingTotalItem name="Bid Acceptances" value={bids} />
-      <BalancingTotalItem name="Offer Acceptances" value={offers} />
+      <BalancingTotalItem
+        name="Bid Acceptances"
+        value={bids}
+        color={BALANCING_COLORS.bid}
+      />
+      <BalancingTotalItem
+        name="Offer Acceptances"
+        value={offers}
+        color={BALANCING_COLORS.offer}
+      />
       <VersionInfo />
     </View>
   );

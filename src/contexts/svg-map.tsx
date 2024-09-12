@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { SharedValue } from "react-native-reanimated";
 
 export const ZOOM_INC = 0.1;
-export const DEFAULT_ZOOM = 0.8;
+export const DEFAULT_ZOOM = 1.5;
 export const MAX_ZOOM = 4;
 export const MIN_ZOOM = 0.5;
 

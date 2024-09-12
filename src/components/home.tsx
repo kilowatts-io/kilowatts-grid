@@ -11,7 +11,6 @@ import { SvgMapContext } from "../contexts/svg-map";
 import LargeScreen from "../atoms/large-screen-layout";
 import { useHome } from "../hooks/data";
 import * as nav from "../utils/nav";
-import { useAppSelector } from "../state";
 
 const title = "Kilowatts Grid";
 
