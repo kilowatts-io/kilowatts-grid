@@ -27,3 +27,12 @@ npx expo run:ios --device "iPhone 14 Pro Max"
 
 # 5.5 inch display - runs on iOS 16.4
 xcrun simctl boot "iPhone 8 Plus"
+
+
+# Batteries to find
+Hawthorn
+Wormald Green (Harrogate)
+
+Ernesettle
+Rusholme Grange 53.73117, -0.937436
+Stairford
