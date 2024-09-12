@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import terms from "./terms";
+import search from "./search";
 import api from "./api";
 import { useDispatch, useSelector } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -9,12 +10,13 @@ import storage from "@react-native-async-storage/async-storage"
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['api', 'terms'],
+  whitelist: ['api', 'terms', 'search'],
 };
 
 const rootReducer = combineReducers({
   api: api.reducer,
   terms: terms.reducer,
+  search: search.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

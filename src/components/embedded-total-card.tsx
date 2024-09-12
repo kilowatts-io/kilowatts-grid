@@ -1,44 +1,16 @@
 // a card that is rendered on the fuel_type screen for wind and solar that describes the total estimated capacity and output of all wind or solar units
-
-import { useLocalSearchParams } from "expo-router";
-import { useDataContext } from "../contexts/data";
-import { Card, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { View } from "react-native";
 import { LEFT_WIDTH } from "../hooks/screen";
-import { formatMW } from "./icon-list-item";
-import { capitalise } from "../utils/misc";
+import { capitalise, formatMW } from "../utils/misc";
+import { useFuelType } from "../utils/nav";
+import { useEmbeddedTotals } from "../hooks/data";
 
 const EMBEDDED_FUEL_TYPES: FuelType[] = ["wind", "solar"];
 
-const useData = (fuel_type: FuelType) => {
-  const data = useDataContext();
-  const total = data.data.lists.fuel_types.find(
-    (x) => x.fuel_type === fuel_type
-  );
-  if (!total) return { output: 0, capacity: 0 };
-
-  let bmOutput = 0;
-  let bmCapacity = 0;
-
-  for (const unit of data.data.lists.unit_groups) {
-    if (unit.fuel_type === fuel_type) {
-      bmOutput += unit.output.level;
-      bmCapacity += unit.capacity;
-    }
-  }
-
-  const embeddedOutput = Math.max(0, total.output.level - bmOutput);
-  const embeddedCapacity = Math.max(0, total.capacity - bmCapacity);
-
-  return {
-    output: embeddedOutput,
-    capacity: embeddedCapacity,
-  };
-};
-
 const EmbeddedResiduaCard: React.FC = () => {
-  const fuel_type = useLocalSearchParams().fuel_type as FuelType;
-  const data = useData(fuel_type);
+  const fuel_type = useFuelType();
+  const data = useEmbeddedTotals(fuel_type);
   if (!EMBEDDED_FUEL_TYPES.includes(fuel_type)) return null;
 
   return (

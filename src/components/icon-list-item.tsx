@@ -1,68 +1,80 @@
-import { FlashList } from "@shopify/flash-list";
-import { Canvas } from "@shopify/react-native-skia";
 import React from "react";
 import { View, StyleSheet, Platform } from "react-native";
+import { FlashList } from "@shopify/flash-list";
+import { Canvas } from "@shopify/react-native-skia";
+import { List, Card } from "react-native-paper";
+import { Link } from "expo-router";
+import { useDataContext } from "../contexts/data";
+import { useAppDispatch, useAppSelector } from "../state";
 import { LIST_ICON_DIMS } from "../constants";
 import { getBalancingColor } from "../utils/colors";
-import { useDataContext } from "../contexts/data";
 import VersionInfo from "./version-info/version-info";
 import { EU } from "@/src/atoms/flags";
-import * as i from "@/src/components/icons";
-import { Card, Icon, List } from "react-native-paper";
-import { Link } from "expo-router";
+import * as Icons from "@/src/components/icons";
 import { ErrorBoundaryBlank } from "./error-boundary";
 import EmbeddedResiduaCard from "./embedded-total-card";
+import UnitGroupSearch from "./unit-group-search";
+import { renderDeltaText, formatMW, capitalise } from "../utils/misc";
+import { DEFAULT_ZOOM, useSvgMapContext } from "../contexts/svg-map";
+import { GB_MAP_CENTER } from "../atoms/svg-map";
+import { withTiming } from "react-native-reanimated";
+import search from "../state/search";
 
-export const formatMW = (mw: number) => {
-  if (mw >= 1000) {
-    return `${(mw / 1000).toFixed(1)}GW`;
-  }
-  return `${Math.round(mw)}MW`;
-};
-
-const renderDeltaText = (delta: number) =>
-  delta === 0 ? "" : delta > 0 ? "↑" : "↓";
+const setFuelType = search.actions.setFuelType;
 
 const IconListItem: React.FC<
-  AppListIconProps & {
-    href: string;
-    hideIcon?: boolean;
-  }
+  AppListIconProps & { href: string; hideIcon?: boolean }
 > = (p) => {
-  const ft = p.fuel_type;
+  const {
+    fuel_type,
+    output,
+    capacity,
+    balancing_volume,
+    name,
+    href,
+    hideIcon,
+  } = p;
+  const description = `${renderDeltaText(output.delta)} ${formatMW(
+    output.level
+  )} / ${formatMW(capacity)}`;
+  const color = getBalancingColor(balancing_volume);
 
-  const ot = ` ${formatMW(p.output.level)} / ${formatMW(p.capacity)}`;
-  const dt = renderDeltaText(p.output.delta);
-
-  const description = `${dt}${ot}`;
-
-  const color = getBalancingColor(p.balancing_volume);
+  const renderIcon = () => {
+    switch (fuel_type) {
+      case "wind":
+        return <Icons.WindListIcon {...p} />;
+      case "battery":
+        return <Icons.BatteryListIcon {...p} />;
+      case "solar":
+        return <Icons.SolarListIcon {...p} />;
+      case "interconnector":
+        return <EU />;
+      case "gas":
+      case "oil":
+      case "biomass":
+      case "coal":
+      case "nuclear":
+      case "hydro":
+        return <Icons.DispatchableListIcon {...p} />;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <Link href={p.href as any}>
+    <Link href={href as any}>
       <List.Item
         style={styles.listItem}
-        title={capitalise(p.name)}
-        left={() => (
-          <ErrorBoundaryBlank>
-            {!p.hideIcon && (
+        title={capitalise(name)}
+        left={() =>
+          !hideIcon && (
+            <ErrorBoundaryBlank>
               <View style={styles.canvasWrapper}>
-                <Canvas style={styles.iconCanvas}>
-                  {ft === "wind" && <i.WindListIcon {...p} />}
-                  {ft === "battery" && <i.BatteryListIcon {...p} />}
-                  {ft === "solar" && <i.SolarListIcon {...p} />}
-                  {ft === "interconnector" && <EU />}
-                  {(ft === "gas" ||
-                    ft === "oil" ||
-                    ft === "biomass" ||
-                    ft === "coal" ||
-                    ft === "nuclear" ||
-                    ft === "hydro") && <i.DispatchableListIcon {...p} />}
-                </Canvas>
+                <Canvas style={styles.iconCanvas}>{renderIcon()}</Canvas>
               </View>
-            )}
-          </ErrorBoundaryBlank>
-        )}
+            </ErrorBoundaryBlank>
+          )
+        }
         description={description}
         descriptionStyle={{ color }}
         right={() => <List.Icon icon="chevron-right" />}
@@ -71,19 +83,18 @@ const IconListItem: React.FC<
   );
 };
 
-const BalancingTotalItem: React.FC<{
-  name: string;
-  value: number;
-}> = (p) => (
+const BalancingTotalItem: React.FC<{ name: string; value: number }> = ({
+  name,
+  value,
+}) => (
   <List.Item
-    title={p.name}
-    description={formatMW(p.value)}
-    style={Platform.OS === "web" ? { cursor: 'not-allowed' } as any : {}}
-    />
-    
+    title={name}
+    description={formatMW(value)}
+    style={Platform.OS === "web" ? ({ cursor: "not-allowed" } as any) : {}}
+  />
 );
 
-export const GbBalancingTotals = () => {
+const GbBalancingTotals = () => {
   const { lists } = useDataContext().data;
   const { bids, offers } = lists.balancing_totals;
   return (
@@ -95,47 +106,73 @@ export const GbBalancingTotals = () => {
   );
 };
 
-const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
-
 const EmptyCard: React.FC = () => (
-  <>
-    <Card.Title title="No generation online" />
-  </>
+  <Card.Title title="No matching online generation found." />
 );
 
-export const UnitGroupsList: React.FC<{
-  data: AppListIconProps[];
-}> = ({ data }) => {
+const UnitGroupsList: React.FC<{ data: AppListIconProps[] }> = ({ data }) => {
+  const ctx = useSvgMapContext();
+  const search = useAppSelector((state) => state.search.unitGroup);
+  const filteredData = React.useMemo(
+    () =>
+      data.filter((x) =>
+        x.name.toLowerCase().includes(search?.toLowerCase() || "")
+      ),
+    [data, search]
+  );
+
   return (
     <FlashList
       estimatedItemSize={40}
-      data={data}
+      onPointerLeave={() => {
+        ctx.zoom.value = withTiming(DEFAULT_ZOOM);
+        ctx.centerLat.value = withTiming(GB_MAP_CENTER.lat);
+        ctx.centerLng.value = withTiming(GB_MAP_CENTER.lng);
+      }}
+      data={filteredData}
+      ListHeaderComponent={UnitGroupSearch}
       ListEmptyComponent={EmptyCard}
       ListFooterComponent={EmbeddedResiduaCard}
       renderItem={({ item }) => (
-        <IconListItem
-          {...item}
-          hideIcon={true}
-          href={`/unit_group/${item.code.toLowerCase()}`}
-        />
+        <View
+          onPointerEnter={() => {
+            ctx.zoom.value = withTiming(3);
+            ctx.centerLat.value = withTiming(item.coords.lat);
+            ctx.centerLng.value = withTiming(item.coords.lng);
+          }}
+        >
+          <IconListItem
+            {...item}
+            hideIcon={true}
+            href={`/unit_group/${item.code.toLowerCase()}`}
+          />
+        </View>
       )}
     />
   );
 };
 
-export const FuelTypesList: React.FC<{
-  data: AppListIconProps[];
-}> = ({ data }) => {
+const FuelTypesList: React.FC<{ data: AppListIconProps[] }> = ({ data }) => {
+  const dispatch = useAppDispatch();
   return (
     <FlashList
       estimatedItemSize={40}
       data={data}
       renderItem={({ item }) => (
-        <IconListItem
-          {...item}
-          name={capitalise(item.fuel_type)}
-          href={`/fuel_type/${item.fuel_type.toLowerCase()}`}
-        />
+        <View
+          onPointerEnter={() => {
+            dispatch(setFuelType(item.fuel_type));
+          }}
+          onPointerLeave={() => {
+            dispatch(setFuelType());
+          }}
+        >
+          <IconListItem
+            {...item}
+            name={capitalise(item.fuel_type)}
+            href={`/fuel_type/${item.fuel_type.toLowerCase()}`}
+          />
+        </View>
       )}
       ListFooterComponent={GbBalancingTotals}
     />
@@ -148,7 +185,6 @@ const styles = StyleSheet.create({
     width: 35,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "grey",
   },
   iconCanvas: {
     ...LIST_ICON_DIMS,
@@ -156,40 +192,10 @@ const styles = StyleSheet.create({
   listItem: {
     width: "100%",
   },
-  balancing: {
-    alignItems: "flex-end",
-    borderRadius: 2,
-    display: "flex",
-    height: "80%",
-    justifyContent: "center",
-    maxWidth: 80,
-    padding: 3,
-  },
-  balancingText: {
-    color: "white",
-    fontSize: 9,
-    textAlign: "right",
-  },
-  output: {
-    alignItems: "flex-end",
-    display: "flex",
-    justifyContent: "center",
-    width: 110,
-  },
-  outputText: {
-    fontSize: 11,
-    textAlign: "right",
-  },
-  delta: {
-    display: "flex",
-    width: 10,
-  },
-  deltaText: {
-    textAlign: "center",
-  },
   totals: {
     paddingTop: 15,
   },
 });
 
+export { IconListItem, UnitGroupsList, FuelTypesList };
 export default IconListItem;

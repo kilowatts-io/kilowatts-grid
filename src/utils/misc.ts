@@ -31,3 +31,7 @@ export const calculateCycleSeconds = (x: WithCapacityFactor) => {
 };
 
 export const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+
+export const formatMW = (mw: number) => (mw >= 1000 ? `${(mw / 1000).toFixed(1)}GW` : `${Math.round(mw)}MW`);
+export const renderDeltaText = (delta: number) => (delta === 0 ? "" : delta > 0 ? "↑" : "↓");

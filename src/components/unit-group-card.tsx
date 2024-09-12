@@ -1,7 +1,8 @@
 import React from "react";
-import { Card, List } from "react-native-paper";
-import { formatMW } from "./icon-list-item";
+import { 
+  List } from "react-native-paper";
 import { ScrollView } from "react-native";
+import { formatMW } from "../utils/misc";
 
 interface UnitGroupAccordionProps {
   title: string;
