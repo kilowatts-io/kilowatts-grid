@@ -185,13 +185,13 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         ctx.translationX.value = 0;
         ctx.translationY.value = 0;
       }),
-    Gesture.Tap().onEnd(runOnJS(onTap)),
     Gesture.Pinch().onChange((e) => {
       ctx.zoom.value = Math.min(
         Math.max(ctx.zoom.value * e.scale, MIN_ZOOM),
         MAX_ZOOM
       );
-    })
+    }),
+    Gesture.Tap().onEnd(runOnJS(onTap))
   );
 
   const svgCenter = mapCanvasCenter(svgMap);
