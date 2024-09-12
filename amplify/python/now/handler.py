@@ -217,7 +217,7 @@ class GbPointInTimeRequest(BaseModel):
                 code=K,
                 output={"level": 0, "delta": 0},
                 capacity=0,
-                balancing_totals={"bids": 0, "offers": 0},
+                balancing_volume=0
             )
             for K in UNITGROUP_FUELTYPE.values()
         }
@@ -231,13 +231,8 @@ class GbPointInTimeRequest(BaseModel):
                 fuel_type_outputs[fuel_type].output.level += output.output.level
                 fuel_type_outputs[fuel_type].output.delta += output.output.delta
                 fuel_type_outputs[fuel_type].capacity += output.capacity
-
-                balancing_volume = output.balancing_volume
-                if balancing_volume > 0:
-                    fuel_type_outputs[fuel_type].balancing_totals.offers += balancing_volume
-                else:
-                    fuel_type_outputs[fuel_type].balancing_totals.bids += balancing_volume
-
+                fuel_type_outputs[fuel_type].balancing_volume += output.balancing_volume
+               
             else:
                 print(f"no output for {unit_group}")
                 pass
@@ -262,8 +257,12 @@ class GbPointInTimeRequest(BaseModel):
         bm_fuel_types["wind"].output.level += embedded.wind.generation.level
         bm_fuel_types["wind"].output.delta += embedded.wind.generation.delta
         bm_fuel_types["wind"].capacity += embedded.wind.capacity
+        
+        # now let's remove any where the output and delta and balancing_volume are all zero
+        values = bm_fuel_types.values()
+        values = [v for v in values if v.output.level != 0 or v.output.delta != 0 or v.balancing_volume != 0]
 
-        return  bm_fuel_types.values()
+        return  values
 
     def _group_by_interconnector(
         self, unit_outputs: t.UnitsPointInTime

@@ -357,7 +357,7 @@ class FuelTypePointInTime(BaseModel):
     code: str
     output: UnitOutput
     capacity: float
-    balancing_totals: BalancingTotals
+    balancing_volume: float
 
 
 CombinedOutput = Dict[str, UnitRecords]
