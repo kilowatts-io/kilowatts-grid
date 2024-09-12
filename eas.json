@@ -8,13 +8,13 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": ""
+        "EXPO_PUBLIC_API_URL": "https://amplify-kilowattsgrid-ben-gbsnapshotbucket6d42655b-hoatv67mn8ld.s3.eu-west-2.amazonaws.com/now.json"
       }
     },
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": ""
+        "EXPO_PUBLIC_API_URL": "https://amplify-d9i6q174rfz6e-pre-gbsnapshotbucket6d42655b-nsibit7kywg8.s3.eu-west-2.amazonaws.com/now.json"
       }
     },
     "production": {
