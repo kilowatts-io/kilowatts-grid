@@ -13,12 +13,14 @@ export const LEFT_RIGHT_PADDING = 5;
 export const useScreen = () => {
   const dims = useWindowDimensions();
   const width = useSharedValue(dims.width);
+  
   React.useEffect(() => {
-    width.value = dims.width;
+    if(dims.width !== width.value) width.value = dims.width;
   }, [dims.width]);
+
   const smallScreen = useDerivedValue(
     () => width.value < NARROW_SCREEEN_WIDTH_BREAKPOINT,
-    [width]
+    [width, dims]
   );
   const mapWidth = useDerivedValue(
     () => (smallScreen.value ? width.value : width.value - LEFT_WIDTH),
