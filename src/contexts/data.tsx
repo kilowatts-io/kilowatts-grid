@@ -4,8 +4,24 @@ import { DATA_REFRESH_INTERVAL_MS } from "../constants";
 import LoadingScreen from "../atoms/loading";
 import { AppErrorScreen } from "@/src/components/error-boundary";
 import NetInfo from "@react-native-community/netinfo";
+import { AppState } from "react-native";
 
 const useInternetConnection = () => NetInfo.useNetInfo().isInternetReachable;
+
+/**
+ * A hook that triggers whenever the internet connection is re-established or the app resumes/is oped
+ */
+const useRefetch = (refetch: () => void) => {
+  React.useEffect(() => {
+    const listener = AppState.addEventListener("change", (state) => {
+      if (state === "active") {
+        console.log(`App is active, refetching data`);
+        refetch();
+      }
+    });
+    return () => listener.remove();
+  }, [refetch]);
+};
 
 const nullData: AppData = {
   dt: new Date().toISOString(),
@@ -38,6 +54,10 @@ export const WithAppData: React.FC<{
 
   const { data, refetch, isLoading, error } = useNowQuery(undefined, {
     pollingInterval: DATA_REFRESH_INTERVAL_MS,
+  });
+
+  useRefetch(() => {
+    if (!isLoading) refetch();
   });
 
   if (!internet) {
