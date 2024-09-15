@@ -32,7 +32,7 @@ module.exports = {
         backgroundColor: "#ffffff"
       },
       package: "com.benjaminwatts.kilowatts",
-      versionCode: 6,
+      versionCode: 23,
       appName: "Grid"
     },
     web: {
