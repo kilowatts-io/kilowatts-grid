@@ -82,10 +82,7 @@ export const UnitGroupSmallScreen: React.FC = () => {
 export const useBackUrl = () => nav.unit_group(nav.useUnitCode());
 
 export const UnitGroupMapScreen: React.FC = () => {
-  console.log('UnitGroupMapScreen')
   const data = useUnitGroupData();
-  console.log(data)
-
   if (!data) return null;
   const { map_icon, list_data } = data;
 

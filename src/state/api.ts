@@ -90,7 +90,6 @@ type CheckTypes = BackendData extends BackendDataFromSchema ? true : false;
 export const validateData = (backendData: BackendData): boolean => {
   const result = BackendDataSchema.safeParse(backendData);
   if (result.success) {
-    console.log("Data is valid");
     return true;
   } else {
     return false;

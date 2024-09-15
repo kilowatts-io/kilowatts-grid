@@ -147,7 +147,6 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
   }, [ctx.translationX, ctx.translationY, ctx.zoom, centerX, centerY]);
 
   const onTap = (point: { x: number; y: number }) => {
-    console.log("Tapped at", point);
 
     if (p.unit_groups.length === 0) return;
 
@@ -172,7 +171,6 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
 
     const DISTANCE_THRESHOLD_KM = 30;
     if (closest.distance > DISTANCE_THRESHOLD_KM) {
-      console.log("Closest point is too far away");
       return;
     }
 

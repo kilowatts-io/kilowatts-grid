@@ -15,7 +15,6 @@ const useRefetch = (refetch: () => void) => {
   React.useEffect(() => {
     const listener = AppState.addEventListener("change", (state) => {
       if (state === "active") {
-        console.log(`App is active, refetching data`);
         refetch();
       }
     });
@@ -70,7 +69,6 @@ export const WithAppData: React.FC<{
   }
 
   if (error) {
-    console.log("Error", error);
     return (
       <AppErrorScreen
         error={Error(`Did not correctly fetch data from API.`)}
