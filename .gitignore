@@ -2,6 +2,8 @@
 *.envrc
 *.apk
 credentials.json
+ios
+android
 
 # dependencies
 node_modules/
