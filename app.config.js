@@ -2,7 +2,7 @@ module.exports = {
   expo: {
     name: "Kilowatts grid",
     slug: "kilowattsgrid",
-    version: "6.0.1",
+    version: "6.0.2",
     orientation: "portrait",
     scheme: "kilowattsgrid",
     icon: "./assets/icon.png",
@@ -18,7 +18,7 @@ module.exports = {
       config: {
         usesNonExemptEncryption: false,
       },
-      buildNumber: "6.0.1",
+      buildNumber: "6.0.2",
       infoPlist: {
         "CFBundleDisplayName": "Grid"
       },
@@ -26,13 +26,14 @@ module.exports = {
         "aps-environment": null 
       }
     },
+
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff"
       },
       package: "com.benjaminwatts.kilowatts",
-      versionCode: 23,
+      versionCode: 28,
       appName: "Grid"
     },
     web: {
@@ -65,5 +66,5 @@ module.exports = {
   updates: {
     "url": "https://u.expo.dev/717a98a5-3e9e-4dc5-830e-4d3fc30335ab"
   },
-  runtimeVersion: "6.0.1"
+  runtimeVersion: "6.0.2"
 };

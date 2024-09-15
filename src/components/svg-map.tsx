@@ -210,7 +210,7 @@ export const SvgMap: React.FC<SvgMapProps> = (p) => {
         MAX_ZOOM
       );
     }),
-    Gesture.Tap().onEnd(runOnJS(onTap))
+    Gesture.LongPress().onEnd(runOnJS(onTap))
   );
 
 

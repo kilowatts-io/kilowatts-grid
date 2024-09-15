@@ -30,7 +30,6 @@ xcrun simctl boot "iPhone 8 Plus"
 
 # Ios
 Install and run .ipa on connected device
-
 `ios-deploy --justlaunch --bundle production.ipa`
 
 # Android
