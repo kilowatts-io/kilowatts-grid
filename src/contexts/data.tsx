@@ -59,6 +59,10 @@ export const WithAppData: React.FC<{
     if (!isLoading) refetch();
   });
 
+  React.useEffect(() => {
+    refetch()
+  }, []);
+
   if (!internet) {
     return (
       <AppErrorScreen
