@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 import requests
 from .. import types as t
 from ..logs import logging
@@ -13,6 +13,13 @@ KEY = "eso_embedded.json"
 
 class EsoEmbedded(BaseModel):
     dt: datetime = Field(description="target output time")
+    
+    # validate the dt is in UTC
+    @field_validator("dt")
+    def validate_dt(cls, v):
+        if v.tzinfo != UTC:
+            raise ValueError("dt must be in UTC")
+        return v
 
     def run(self) -> t.EmbeddedSnapshot:
         """Main execution method."""
@@ -71,7 +78,8 @@ class EsoEmbedded(BaseModel):
             date_gmt = x.DATE_GMT.split("T")[0]
             time_gmt = x.TIME_GMT
             date_str = f"{date_gmt}T{time_gmt}Z"
-            return datetime.strptime(date_str, "%Y-%m-%dT%H:%MZ").replace(tzinfo=UTC)
+            # example 2025-04-25T07:30:00Z
+            return datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=UTC)
         except (ValueError, AttributeError) as e:
             logging.error(f"Error parsing date/time from record: {e}")
             raise
@@ -110,3 +118,7 @@ class EsoEmbedded(BaseModel):
                 capacity=interpolated_solar_capacity,
             )
         )
+
+if __name__ == "__main__":
+    eso = EsoEmbedded(dt=datetime.now().replace(tzinfo=UTC))
+    print(eso.run())
